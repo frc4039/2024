@@ -4,25 +4,22 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.hardware.TalonFX;
-//import com.ctre.phoenix6.co;
+import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import frc.robot.Constants;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import com.ctre.pheonix.sensors.*;
 
 
 public class ShooterSubsystem extends SubsystemBase {
-  /** Creates a new ShooterSubsystem. */
-  private final TalonFX m_leftShooterFalcon;
-  private final TalonFX m_rightShooterFalcon;
+  private final CANSparkFlex m_leftShooterVortex;
+  private final CANSparkFlex m_rightShooterVortex;
 
-  private final DutyCycleOut m_leftRequest = new DutyCycleOut(0.0);
-  private final DutyCycleOut m_rightRequest = new DutyCycleOut(0.0);
-
-
-  public ShooterSubsystem(int leftShooterCANId, int rightShooterCANId) {
-    m_leftShooterFalcon = new TalonFX(leftShooterCANId);
-    m_rightShooterFalcon = new TalonFX(rightShooterCANId);
+ 
+ /**Create motor elements.*/
+  public ShooterSubsystem() {
+    m_leftShooterVortex = new CANSparkFlex(Constants.leftShooterCANId, MotorType.kBrushless);
+    m_rightShooterVortex = new CANSparkFlex(Constants.rightShooterCANId, MotorType.kBrushless);
   }
 
   @Override
@@ -30,8 +27,10 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  /**Setting motor speeds.*/
   public void shooterSpeedControl(double leftSpeed, double rightSpeed, double speedLimit) {
-    m_leftShooterFalcon.setControl(m_leftRequest.withOutput(leftSpeed * speedLimit));
-    m_rightShooterFalcon.setControl(m_rightRequest.withOutput(rightSpeed * speedLimit));
+    m_leftShooterVortex.set(leftSpeed * speedLimit);
+    m_rightShooterVortex.set(rightSpeed * speedLimit);
   } 
+
 }
