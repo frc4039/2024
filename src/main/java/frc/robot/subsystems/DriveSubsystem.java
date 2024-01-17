@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -110,6 +111,17 @@ public class DriveSubsystem extends SubsystemBase {
                 },
                 this // Reference to this subsystem to set requirements
         );
+    var gyroConfig = new MountPoseConfigs();
+    gyroConfig.MountPoseYaw = 0;
+    gyroConfig.MountPosePitch = 0;
+    gyroConfig.MountPoseRoll = 0;
+    m_gyro.getConfigurator().apply(gyroConfig);
+    zeroGyro();
+  
+    }
+
+    public void zeroGyro() {
+      m_gyro.setYaw(0);
     }
 
   @Override
