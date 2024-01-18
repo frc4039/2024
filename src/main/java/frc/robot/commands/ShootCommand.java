@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -26,7 +27,8 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),ShooterValue.getAsDouble(), 1);
+    SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
+    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),-ShooterValue.getAsDouble(), 1);
   }
 
   // Called once the command ends or is interrupted.
