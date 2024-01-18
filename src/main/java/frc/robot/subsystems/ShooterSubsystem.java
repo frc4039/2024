@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants;
+import frc.robot.Constants.ShooterConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -18,8 +18,8 @@ public class ShooterSubsystem extends SubsystemBase {
  
  /**Create motor elements.*/
   public ShooterSubsystem() {
-    m_leftShooterVortex = new CANSparkFlex(Constants.leftShooterCANId, MotorType.kBrushless);
-    m_rightShooterVortex = new CANSparkFlex(Constants.rightShooterCANId, MotorType.kBrushless);
+    m_leftShooterVortex = new CANSparkFlex(ShooterConstants.leftShooterCANId, MotorType.kBrushless);
+    m_rightShooterVortex = new CANSparkFlex(ShooterConstants.rightShooterCANId, MotorType.kBrushless);
   }
 
   @Override

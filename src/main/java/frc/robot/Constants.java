@@ -4,8 +4,9 @@
 
 package frc.robot;
 
-/** Add your docs here. */
-public class Constants {
-    public static final int leftShooterCANId = 30;
-    public static final int rightShooterCANId = 31;
+public final class Constants {
+    public static final class ShooterConstants {
+        public static final int leftShooterCANId = 30;
+        public static final int rightShooterCANId = 31;
+    }
 }

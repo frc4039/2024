@@ -26,7 +26,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverLeftTrigger.whileTrue(new ShootCommand(() -> driver.getRawAxis (XboxController.Axis.kLeftTrigger.value), shooter));
-    driverYButton.onTrue()
+    //driverYButton.onTrue()
   }
 
   public Command getAutonomousCommand() {
