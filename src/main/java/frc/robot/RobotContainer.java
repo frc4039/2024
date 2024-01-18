@@ -12,25 +12,32 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class RobotContainer {
   // Create the "Main" tab first so it will be first in the list.
   public final ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
   // The robot's subsystems and commands are defined here...
-  private DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final ShooterSubsystem shooter = new ShooterSubsystem();
   
   // Create the "About" tab last so it will be last in the list.
   public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
 
   private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
   private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
+
+  private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
 
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
@@ -61,3 +68,12 @@ public class RobotContainer {
     return autoChooser.getSelected();
   }
 }
+
+/*
+
+  private void configureBindings() {
+    driverLeftTrigger.whileTrue(new ShootCommand(() -> driver.getRawAxis (XboxController.Axis.kLeftTrigger.value), shooter));
+    //driverYButton.onTrue()
+  }
+
+ */
