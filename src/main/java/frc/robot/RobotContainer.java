@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AmpShoot;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
@@ -60,6 +61,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverLeftTrigger.whileTrue(new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
+    driverYButton.whileTrue(new AmpShoot(shooter));
   }
 
   public Command getAutonomousCommand() {
