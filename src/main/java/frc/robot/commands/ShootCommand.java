@@ -28,7 +28,7 @@ public class ShootCommand extends Command {
   @Override
   public void execute() {
     SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
-    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),-ShooterValue.getAsDouble(), 1);
+    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),ShooterValue.getAsDouble(), 1);
   }
 
   // Called once the command ends or is interrupted.

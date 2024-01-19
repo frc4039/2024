@@ -20,6 +20,14 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     m_leftShooterVortex = new CANSparkFlex(ShooterConstants.leftShooterCANId, MotorType.kBrushless);
     m_rightShooterVortex = new CANSparkFlex(ShooterConstants.rightShooterCANId, MotorType.kBrushless);
+
+    m_leftShooterVortex.restoreFactoryDefaults();
+    m_rightShooterVortex.restoreFactoryDefaults();
+
+    m_rightShooterVortex.setInverted(true);
+
+    m_leftShooterVortex.burnFlash();
+    m_rightShooterVortex.burnFlash();
   }
 
   @Override
@@ -31,6 +39,6 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shooterSpeedControl(double leftSpeed, double rightSpeed, double speedLimit) {
     m_leftShooterVortex.set(leftSpeed * speedLimit);
     m_rightShooterVortex.set(rightSpeed * speedLimit);
-  } 
+  }
 
 }
