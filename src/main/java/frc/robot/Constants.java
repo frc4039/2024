@@ -159,5 +159,10 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int leftShooterCANId = 30;
     public static final int rightShooterCANId = 31;
+
+    public static final double kShooterP = 0.0;
+    public static final double kShooterI = 0.0;
+    public static final double kShooterD = 0.0;
+    public static final double kShooterFF = 0.0;
   }
 }
