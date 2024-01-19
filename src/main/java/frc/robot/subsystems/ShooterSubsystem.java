@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.ShooterConstants;
 
@@ -24,6 +25,9 @@ public class ShooterSubsystem extends SubsystemBase {
     m_leftShooterVortex = new CANSparkFlex(ShooterConstants.leftShooterCANId, MotorType.kBrushless);
     m_rightShooterVortex = new CANSparkFlex(ShooterConstants.rightShooterCANId, MotorType.kBrushless);
 
+    m_leftShooterVortex.restoreFactoryDefaults();
+    m_rightShooterVortex.restoreFactoryDefaults();
+
     m_leftShooterController = m_leftShooterVortex.getPIDController();
     m_rightShooterController = m_rightShooterVortex.getPIDController();
 
@@ -36,6 +40,11 @@ public class ShooterSubsystem extends SubsystemBase {
     m_rightShooterController.setI(ShooterConstants.kShooterI);
     m_rightShooterController.setD(ShooterConstants.kShooterD);
     m_rightShooterController.setFF(ShooterConstants.kShooterFF);
+
+    m_rightShooterVortex.setInverted(true);
+
+    m_leftShooterVortex.burnFlash();
+    m_rightShooterVortex.burnFlash();
   }
 
   @Override
@@ -47,6 +56,11 @@ public class ShooterSubsystem extends SubsystemBase {
   public void shooterSpeedControl(double leftSpeed, double rightSpeed, double speedLimit) {
     m_leftShooterVortex.set(leftSpeed * speedLimit);
     m_rightShooterVortex.set(rightSpeed * speedLimit);
+  }
+
+  public void shooterPID(double rpm) {
+    m_leftShooterController.setReference(rpm, ControlType.kVelocity);
+    m_rightShooterController.setReference(rpm, ControlType.kVelocity);
   }
 
 }
