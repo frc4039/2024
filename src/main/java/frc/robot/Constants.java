@@ -54,18 +54,18 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // Pigeon CAN ID
-    public static final int kGyroID = 20;
+    public static final int kGyroID = 9;
 
     // SPARK MAX CAN IDs
-    public static final int kFrontLeftDrivingCanId = 11;
-    public static final int kRearLeftDrivingCanId = 13;
-    public static final int kFrontRightDrivingCanId = 15;
-    public static final int kRearRightDrivingCanId = 17;
+    public static final int kFrontLeftDrivingCanId = 10;
+    public static final int kRearLeftDrivingCanId = 12;
+    public static final int kFrontRightDrivingCanId = 14;
+    public static final int kRearRightDrivingCanId = 16;
 
-    public static final int kFrontLeftTurningCanId = 10;
-    public static final int kRearLeftTurningCanId = 12;
-    public static final int kFrontRightTurningCanId = 14;
-    public static final int kRearRightTurningCanId = 16;
+    public static final int kFrontLeftTurningCanId = 11;
+    public static final int kRearLeftTurningCanId = 13;
+    public static final int kFrontRightTurningCanId = 15;
+    public static final int kRearRightTurningCanId = 17;
 
     public static final boolean kGyroReversed = false;
   }
