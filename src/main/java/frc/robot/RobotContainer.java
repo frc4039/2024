@@ -9,10 +9,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.TeleopDrive;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.*;
+import frc.robot.commands.*;
 
 public class RobotContainer {
 
@@ -28,9 +33,19 @@ public class RobotContainer {
         () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband)
     ));
     configureBindings();
+
+
+    CommandScheduler.getInstance().registerSubsystem(s_Intake);
   }
 
-  private void configureBindings() {}
+
+  private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController, XboxController.Button.kRightBumper.value);
+
+  private final Subsystem s_Intake = new IntakeSubsystem();
+
+  private void configureBindings() {
+    operatorRightBumper.onTrue(IntakeSubsystem.IntakeSpin);
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
