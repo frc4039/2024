@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -38,12 +38,8 @@ public class RobotContainer {
 
   private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-
-  private final int translationAxis = XboxController.Axis.kLeftY.value;
-  private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationXAxis = XboxController.Axis.kRightX.value;
-  private final int rotationYAxis = XboxController.Axis.kRightY.value;
-
+  
+  private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
 
   private final SendableChooser<Command> autoChooser;
 
@@ -62,18 +58,12 @@ public class RobotContainer {
 
 
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    driverLeftTrigger.whileTrue(new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
+  }
 
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
 }
 
-/*
-
-  private void configureBindings() {
-    driverLeftTrigger.whileTrue(new ShootCommand(() -> driver.getRawAxis (XboxController.Axis.kLeftTrigger.value), shooter));
-    //driverYButton.onTrue()
-  }
-
- */
