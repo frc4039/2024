@@ -8,10 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeSpin extends Command {
+  IntakeSubsystem intake;
+
   /** Creates a new IntakeSpin. */
-  public IntakeSpin(IntakeSubsystem Intake) {
+  public IntakeSpin(IntakeSubsystem intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(Intake);
+    this.intake = intake;
+    addRequirements(intake);
     
   }
 
@@ -22,12 +25,14 @@ public class IntakeSpin extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    IntakeSubsystem.spinIntakeMotor(0.5);
+    intake.spinIntakeMotor(0.6);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.spinIntakeMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override
