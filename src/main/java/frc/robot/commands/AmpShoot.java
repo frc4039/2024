@@ -14,7 +14,7 @@ public class AmpShoot extends Command {
     public void initialize() {}
 
     public void execute() {
-        shooter.shooterSpeedControl(-0.1, 0.0, 1);
+        shooter.shooterSpeedControl(-0.2, 0.0, 1);
     }
 
   // Called once the command ends or is interrupted.
