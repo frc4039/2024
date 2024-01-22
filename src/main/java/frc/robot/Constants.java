@@ -160,4 +160,8 @@ public final class Constants {
     public static final int leftShooterCANId = 30;
     public static final int rightShooterCANId = 31;
   }
+
+  public static final class IntakeConstants {
+    public static final int kIntakeMotorCANID = 40;
+  }
 }
