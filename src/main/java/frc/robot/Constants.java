@@ -5,7 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -139,6 +139,7 @@ public final class Constants {
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
     public static final double kDriveDeadband = 0.15;
+    public static final double kTriggerThreshold = 0.1;
   }
 
   public static final class AutoConstants {
@@ -158,6 +159,11 @@ public final class Constants {
 
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
+  }
+
+  public static final class ShooterConstants {
+    public static final int leftShooterCANId = 30;
+    public static final int rightShooterCANId = 31;
   }
 
   public static final class IntakeConstants {
