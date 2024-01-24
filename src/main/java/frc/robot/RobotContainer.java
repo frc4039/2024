@@ -23,6 +23,7 @@ import frc.robot.commands.AmpShoot;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeSpin;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -47,6 +48,7 @@ public class RobotContainer {
   
   private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
   private final JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
   private final SendableChooser<Command> autoChooser;
 
@@ -66,6 +68,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverRightBumper.whileTrue(new IntakeSpin(intakeSubsystem));
+    driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
+        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value), OIConstants.kDriveDeadband),
+        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value), OIConstants.kDriveDeadband)
+    ));
   
     driverLeftTrigger.whileTrue(new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
     driverYButton.whileTrue(new AmpShoot(shooter));

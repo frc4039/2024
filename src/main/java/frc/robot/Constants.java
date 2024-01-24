@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -35,6 +36,10 @@ public final class Constants {
     public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
     public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
     public static final double kRotationalSlewRate = 15; // percent per second (1 = 100%) Higher is faster
+    public static final double kAimP = 1.7;
+    public static final double kAimI = 0;
+    public static final double kAimD = 0;
+    public static final Constraints kAimProfile = new Constraints(3*Math.PI, 2*Math.PI);
 
     // Chassis configuration
     public static final double kTrackWidth = Units.inchesToMeters(18.5);
