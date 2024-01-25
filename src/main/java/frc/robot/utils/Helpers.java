@@ -7,4 +7,9 @@ public class Helpers
     {
         return RobotController.getComments() == "blackout";
     }
+
+    public static String GetRobotName()
+    {
+        return RobotController.getComments();
+    }
 }

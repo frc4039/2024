@@ -82,6 +82,7 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.addDouble("X Meters", () -> getPose().getX());
         driveTab.addDouble("Y Meters", () -> getPose().getY());
         driveTab.addBoolean("Is Blakcout", () -> Helpers.IsBlackout());
+        driveTab.addString("Robot Name: ", () -> Helpers.GetRobotName());
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
