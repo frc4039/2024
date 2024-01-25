@@ -31,7 +31,7 @@ public class TurnToGamePiece extends Command {
     this.ySpeedSupplier = ySpeedSupplier;
     rotationController.setTolerance(Math.PI/360);
     rotationController.enableContinuousInput(0.0,2*Math.PI);
-    nt = NetworkTableInstance.getDefault().getTable("photonvision");
+    nt = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("pi camera v1");
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -48,7 +48,7 @@ public class TurnToGamePiece extends Command {
     rotationController.setGoal(Math.toRadians (driveSubsystem.getHeading() -cameraTarget));
     driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(), rotationController.calculate(Math.toRadians (driveSubsystem.getHeading())),
     true, true);
-    SmartDashboard.putNumber("camera-x", nt.getEntry("tx").getDouble(0));
+    SmartDashboard.putNumber("camera-x", cameraTarget);
   }
 
   // Called once the command ends or is interrupted.
