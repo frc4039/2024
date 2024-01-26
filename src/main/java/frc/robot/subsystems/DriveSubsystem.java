@@ -24,7 +24,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.utils.Helpers;
 import frc.robot.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -81,8 +80,6 @@ public class DriveSubsystem extends SubsystemBase {
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
         driveTab.addDouble("X Meters", () -> getPose().getX());
         driveTab.addDouble("Y Meters", () -> getPose().getY());
-        driveTab.addBoolean("Is Blakcout", () -> Helpers.IsBlackout());
-        driveTab.addString("Robot Name: ", () -> Helpers.GetRobotName());
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
