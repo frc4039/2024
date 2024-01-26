@@ -13,6 +13,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
+import frc.robot.utils.Helpers;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -22,6 +24,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static boolean isBlackOut = false;
+
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
@@ -42,9 +46,9 @@ public final class Constants {
     public static final Constraints kAimProfile = new Constraints(3*Math.PI, 2*Math.PI);
 
     // Chassis configuration
-    public static final double kTrackWidth = Units.inchesToMeters(18.5);
+    public static final double kTrackWidth = Units.inchesToMeters(Helpers.IsBlackout() ? 18.5 : 22.5);
     // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(18.5);
+    public static final double kWheelBase = Units.inchesToMeters(Helpers.IsBlackout() ? 18.5 : 22.5);
     // Distance between front and back wheels on robot
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
         new Translation2d(kWheelBase / 2, kTrackWidth / 2),

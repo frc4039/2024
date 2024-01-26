@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-import com.pathplanner.lib.auto.AutoBuilder;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
@@ -26,6 +25,7 @@ import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
@@ -64,6 +64,9 @@ public class RobotContainer {
 
     autoChooser = AutoBuilder.buildAutoChooser();
     mainTab.add("Auto Chooser", autoChooser);
+    
+    aboutTab.addBoolean("Is Blackout", () -> Helpers.IsBlackout());
+    aboutTab.addString("Robot Comments", () -> Helpers.GetRobotName());
   }
 
   private void configureBindings() {
