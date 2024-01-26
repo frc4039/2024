@@ -84,7 +84,7 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband)));
 
         driverLeftTrigger.whileTrue(
-                new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
+                new ShootCommand(shooter));
         driverYButton.whileTrue(new AmpShoot(shooter, feeder));
         driverAButton.whileTrue((new FeederCommand(feeder)));
     }

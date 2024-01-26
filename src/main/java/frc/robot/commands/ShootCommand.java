@@ -4,35 +4,23 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootCommand extends Command {
-    private DoubleSupplier ShooterValue;
     private ShooterSubsystem shooter;
 
     /** Creates a new ShootCommand. */
-    public ShootCommand(DoubleSupplier ShooterValue, ShooterSubsystem shooter) {
-        this.ShooterValue = ShooterValue;
+    public ShootCommand(ShooterSubsystem shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
-        shooter.shooterSpeedControl(ShooterValue.getAsDouble(), ShooterValue.getAsDouble(),
-                ShooterConstants.kShooterSpeedLimit);
+        shooter.shooterPID(ShooterConstants.kShooterRPM);
     }
 
     // Called once the command ends or is interrupted.
