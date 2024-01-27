@@ -5,7 +5,7 @@ public class Helpers
 {
     public static boolean IsBlackout()
     {
-        return RobotController.getComments() == "blackout";
+        return RobotController.getComments().equals("blackout");
     }
 
     public static String GetRobotName()
