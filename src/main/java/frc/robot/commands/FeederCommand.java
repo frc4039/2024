@@ -5,18 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.FeederConstants;
+import frc.robot.subsystems.FeederSubsystem;
 
-public class IntakeSpin extends Command {
-  IntakeSubsystem intake;
-
-  /** Creates a new IntakeSpin. */
-  public IntakeSpin(IntakeSubsystem intake) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    addRequirements(intake);
-    
+public class FeederCommand extends Command {
+  private FeederSubsystem feeder;
+  /** Creates a new FeederCommand. */
+  public FeederCommand(FeederSubsystem feeder) {
+    this.feeder = feeder;
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -26,13 +23,13 @@ public class IntakeSpin extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.spinIntakeMotor(IntakeConstants.kIntakeSpeed);
+    feeder.feederSpeedControl(FeederConstants.kFeederSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.spinIntakeMotor(0);
+    feeder.feederSpeedControl(0);
   }
 
   // Returns true when the command should end.
