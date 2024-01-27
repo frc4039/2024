@@ -8,6 +8,7 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootCommand extends Command {
@@ -28,13 +29,13 @@ public class ShootCommand extends Command {
   @Override
   public void execute() {
     SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
-    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),ShooterValue.getAsDouble(), 0.5);
+    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),ShooterValue.getAsDouble(), 0.5, ShooterConstants.feederSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.shooterSpeedControl(0,0,0);
+    shooter.shooterSpeedControl(0,0,0,0);
   }
 
   // Returns true when the command should end.
