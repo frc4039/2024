@@ -19,11 +19,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
+import frc.robot.commands.FeederCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeSpin;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -35,6 +37,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ShooterSubsystem shooter = new ShooterSubsystem();
+  private final FeederSubsystem feeder = new FeederSubsystem();
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   
   // Create the "About" tab last so it will be last in the list.
@@ -77,7 +80,8 @@ public class RobotContainer {
     ));
   
     driverLeftTrigger.whileTrue(new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
-    driverYButton.whileTrue(new AmpShoot(shooter));
+    driverYButton.whileTrue(new AmpShoot(shooter, feeder));
+    driverAButton.whileTrue((new FeederCommand(feeder)));
   }
 
   public Command getAutonomousCommand() {
