@@ -1,20 +1,22 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.revrobotics.CANSparkFlex;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
     
-    private CANSparkFlex m_intakeSpinningMotor;
+    private final TalonFX m_intakeSpinningMotor;
 
 
     public IntakeSubsystem() {
-        m_intakeSpinningMotor = new CANSparkFlex(IntakeConstants.kIntakeMotorCANID,MotorType.kBrushless);
+        m_intakeSpinningMotor = new TalonFX(IntakeConstants.kIntakeMotorCANID);
 
-        m_intakeSpinningMotor.restoreFactoryDefaults();
-        m_intakeSpinningMotor.burnFlash();
+        TalonFXConfiguration m_intakeConfig = new TalonFXConfiguration();
+        m_intakeSpinningMotor.getConfigurator().apply(m_intakeConfig);
     }
 
     public void spinIntakeMotor(double spinSpeed){

@@ -12,22 +12,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class ShooterSubsystem extends SubsystemBase {
-  private final CANSparkFlex m_leftShooterVortex;
-  private final CANSparkFlex m_rightShooterVortex;
+  private final CANSparkFlex m_lowerShooterVortex;
+  private final CANSparkFlex m_upperShooterVortex;
 
  
  /**Create motor elements.*/
   public ShooterSubsystem() {
-    m_leftShooterVortex = new CANSparkFlex(ShooterConstants.leftShooterCANId, MotorType.kBrushless);
-    m_rightShooterVortex = new CANSparkFlex(ShooterConstants.rightShooterCANId, MotorType.kBrushless);
+    m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.lowerShooterCANId, MotorType.kBrushless);
+    m_upperShooterVortex = new CANSparkFlex(ShooterConstants.upperShooterCANId, MotorType.kBrushless);
 
-    m_leftShooterVortex.restoreFactoryDefaults();
-    m_rightShooterVortex.restoreFactoryDefaults();
+    m_lowerShooterVortex.restoreFactoryDefaults();
+    m_upperShooterVortex.restoreFactoryDefaults();
 
-    m_rightShooterVortex.setInverted(true);
+    m_upperShooterVortex.setInverted(true);
 
-    m_leftShooterVortex.burnFlash();
-    m_rightShooterVortex.burnFlash();
+    m_lowerShooterVortex.burnFlash();
+    m_upperShooterVortex.burnFlash();
   }
 
   @Override
@@ -36,9 +36,9 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   /**Setting motor speeds.*/
-  public void shooterSpeedControl(double leftSpeed, double rightSpeed, double speedLimit) {
-    m_leftShooterVortex.set(leftSpeed * speedLimit);
-    m_rightShooterVortex.set(rightSpeed * speedLimit);
+  public void shooterSpeedControl(double lowerSpeed, double upperSpeed, double speedLimit) {
+    m_lowerShooterVortex.set(lowerSpeed * speedLimit);
+    m_upperShooterVortex.set(upperSpeed * speedLimit);
   }
 
 }
