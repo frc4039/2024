@@ -83,8 +83,7 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband)));
 
-        driverLeftTrigger.whileTrue(
-                new ShootCommand(shooter));
+        driverLeftTrigger.whileTrue(new ShootCommand(shooter));
         driverYButton.whileTrue(new AmpShoot(shooter, feeder));
         driverAButton.whileTrue((new FeederCommand(feeder)));
     }

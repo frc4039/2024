@@ -5,11 +5,14 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.ShooterConstants;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -17,8 +20,12 @@ public class ShooterSubsystem extends SubsystemBase {
     private final CANSparkFlex m_upperShooterVortex;
     private final SparkPIDController m_lowerShooterController;
     private final SparkPIDController m_upperShooterController;
+    private final RelativeEncoder m_lowerShooterEncoder;
+    private final RelativeEncoder m_upperShooterEncoder;
 
     public ShooterSubsystem() {
+        ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
+
         m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.kLowerShooterCANId, MotorType.kBrushless);
         m_upperShooterVortex = new CANSparkFlex(ShooterConstants.kUpperShooterCANId, MotorType.kBrushless);
 
@@ -27,6 +34,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_lowerShooterController = m_lowerShooterVortex.getPIDController();
         m_upperShooterController = m_upperShooterVortex.getPIDController();
+
+        m_lowerShooterEncoder = m_lowerShooterVortex.getEncoder();
+        m_upperShooterEncoder = m_upperShooterVortex.getEncoder();
 
         m_lowerShooterController.setP(ShooterConstants.kShooterP);
         m_lowerShooterController.setI(ShooterConstants.kShooterI);
@@ -42,11 +52,12 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_lowerShooterVortex.burnFlash();
         m_upperShooterVortex.burnFlash();
+
+        shooterTab.addDouble("Speed (RPM)", () -> m_upperShooterEncoder.getVelocity());
     }
 
     @Override
     public void periodic() {
-        // This method will be called once per scheduler run
     }
 
     /** Setting motor speeds. */
