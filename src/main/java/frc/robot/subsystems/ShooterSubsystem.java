@@ -10,35 +10,31 @@ import frc.robot.Constants.ShooterConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class ShooterSubsystem extends SubsystemBase {
-  private final CANSparkFlex m_lowerShooterVortex;
-  private final CANSparkFlex m_upperShooterVortex;
+    private final CANSparkFlex m_lowerShooterVortex;
+    private final CANSparkFlex m_upperShooterVortex;
 
+    public ShooterSubsystem() {
+        m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.lowerShooterCANId, MotorType.kBrushless);
+        m_upperShooterVortex = new CANSparkFlex(ShooterConstants.upperShooterCANId, MotorType.kBrushless);
 
- 
- /**Create motor elements.*/
-  public ShooterSubsystem() {
-    m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.lowerShooterCANId, MotorType.kBrushless);
-    m_upperShooterVortex = new CANSparkFlex(ShooterConstants.upperShooterCANId, MotorType.kBrushless);
+        m_lowerShooterVortex.restoreFactoryDefaults();
+        m_upperShooterVortex.restoreFactoryDefaults();
 
-    m_lowerShooterVortex.restoreFactoryDefaults();
-    m_upperShooterVortex.restoreFactoryDefaults();
+        m_upperShooterVortex.setInverted(true);
 
-    m_upperShooterVortex.setInverted(true);
+        m_lowerShooterVortex.burnFlash();
+        m_upperShooterVortex.burnFlash();
+    }
 
-    m_lowerShooterVortex.burnFlash();
-    m_upperShooterVortex.burnFlash();
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  /**Setting motor speeds.*/
-  public void shooterSpeedControl(double lowerSpeed, double upperSpeed, double speedLimit) {
-    m_lowerShooterVortex.set(lowerSpeed * speedLimit);
-    m_upperShooterVortex.set(upperSpeed * speedLimit);
-  }
+    /** Setting motor speeds. */
+    public void shooterSpeedControl(double lowerSpeed, double upperSpeed, double speedLimit) {
+        m_lowerShooterVortex.set(lowerSpeed * speedLimit);
+        m_upperShooterVortex.set(upperSpeed * speedLimit);
+    }
 }

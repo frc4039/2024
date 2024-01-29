@@ -31,61 +31,65 @@ import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class RobotContainer {
-  // Create the "Main" tab first so it will be first in the list.
-  public final ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
+    // Create the "Main" tab first so it will be first in the list.
+    public final ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
-  // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final ShooterSubsystem shooter = new ShooterSubsystem();
-  private final FeederSubsystem feeder = new FeederSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-  
-  // Create the "About" tab last so it will be last in the list.
-  public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
+    // The robot's subsystems and commands are defined here...
+    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+    private final ShooterSubsystem shooter = new ShooterSubsystem();
+    private final FeederSubsystem feeder = new FeederSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
-  private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
-  private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
+    // Create the "About" tab last so it will be last in the list.
+    public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
 
-  private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  
-  private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
-  private final JoystickButton driverRightBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
-  private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
+    private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
 
-  private final SendableChooser<Command> autoChooser;
+    private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+    private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
 
-  public RobotContainer() {
-    driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
-        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value), OIConstants.kDriveDeadband),
-        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value), OIConstants.kDriveDeadband),
-        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband)
-    ));
+    private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
+            .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
+    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
-  
-    configureBindings();
+    private final SendableChooser<Command> autoChooser;
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    mainTab.add("Auto Chooser", autoChooser);
-    
-    aboutTab.addBoolean("Is Blackout", () -> Helpers.IsBlackout());
-    aboutTab.addString("Robot Comments", () -> Helpers.GetRobotName());
-  }
+    public RobotContainer() {
+        driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+                        OIConstants.kDriveDeadband)));
 
-  private void configureBindings() {
-    driverRightBumper.whileTrue(new IntakeSpin(intakeSubsystem));
-    driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
-        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value), OIConstants.kDriveDeadband),
-        () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value), OIConstants.kDriveDeadband)
-    ));
-  
-    driverLeftTrigger.whileTrue(new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
-    driverYButton.whileTrue(new AmpShoot(shooter, feeder));
-    driverAButton.whileTrue((new FeederCommand(feeder)));
-  }
+        configureBindings();
 
-  public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
-  }
+        autoChooser = AutoBuilder.buildAutoChooser();
+        mainTab.add("Auto Chooser", autoChooser);
+
+        aboutTab.addBoolean("Is Blackout", () -> Helpers.IsBlackout());
+        aboutTab.addString("Robot Comments", () -> Helpers.GetRobotName());
+    }
+
+    private void configureBindings() {
+        driverRightBumper.whileTrue(new IntakeSpin(intakeSubsystem));
+        driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband)));
+
+        driverLeftTrigger.whileTrue(
+                new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
+        driverYButton.whileTrue(new AmpShoot(shooter, feeder));
+        driverAButton.whileTrue((new FeederCommand(feeder)));
+    }
+
+    public Command getAutonomousCommand() {
+        return autoChooser.getSelected();
+    }
 }
-

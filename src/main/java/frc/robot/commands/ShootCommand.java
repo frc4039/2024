@@ -12,35 +12,38 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShootCommand extends Command {
-  private DoubleSupplier ShooterValue;
-  private ShooterSubsystem shooter;
-  /** Creates a new ShootCommand. */
-  public ShootCommand(DoubleSupplier ShooterValue, ShooterSubsystem shooter) {
-    this.ShooterValue = ShooterValue;
-    this.shooter = shooter;
-    addRequirements(shooter);
-  }
+    private DoubleSupplier ShooterValue;
+    private ShooterSubsystem shooter;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    /** Creates a new ShootCommand. */
+    public ShootCommand(DoubleSupplier ShooterValue, ShooterSubsystem shooter) {
+        this.ShooterValue = ShooterValue;
+        this.shooter = shooter;
+        addRequirements(shooter);
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
-    shooter.shooterSpeedControl(ShooterValue.getAsDouble(),ShooterValue.getAsDouble(), ShooterConstants.kShooterSpeedLimit);
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    shooter.shooterSpeedControl(0,0,0);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        SmartDashboard.putNumber("output", ShooterValue.getAsDouble());
+        shooter.shooterSpeedControl(ShooterValue.getAsDouble(), ShooterValue.getAsDouble(),
+                ShooterConstants.kShooterSpeedLimit);
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        shooter.shooterSpeedControl(0, 0, 0);
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -8,9 +8,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
-    
-    private final TalonFX m_intakeSpinningMotor;
 
+    private final TalonFX m_intakeSpinningMotor;
 
     public IntakeSubsystem() {
         m_intakeSpinningMotor = new TalonFX(IntakeConstants.kIntakeMotorCANID);
@@ -19,10 +18,11 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeSpinningMotor.getConfigurator().apply(m_intakeConfig);
     }
 
-    public void spinIntakeMotor(double spinSpeed){
+    public void spinIntakeMotor(double spinSpeed) {
         m_intakeSpinningMotor.set(spinSpeed);
     }
 
     @Override
-    public void periodic() {}
+    public void periodic() {
+    }
 }

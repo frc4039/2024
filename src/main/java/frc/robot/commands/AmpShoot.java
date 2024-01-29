@@ -17,23 +17,24 @@ public class AmpShoot extends Command {
         addRequirements(feeder);
     }
 
-    public void initialize() {}
+    public void initialize() {
+    }
 
     public void execute() {
         shooter.shooterSpeedControl(0, ShooterConstants.kAmpUpperMotorSpeed, ShooterConstants.kShooterAmpSpeedLimit);
         feeder.feederSpeedControl(FeederConstants.kFeederSpeed);
     }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    shooter.shooterSpeedControl(0,0,0);
-    feeder.feederSpeedControl(0);
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        shooter.shooterSpeedControl(0, 0, 0);
+        feeder.feederSpeedControl(0);
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -10,30 +10,27 @@ import frc.robot.Constants.ShooterConstants;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class FeederSubsystem extends SubsystemBase {
-  private final CANSparkFlex m_feederShooterVortex;
+    private final CANSparkFlex m_feederShooterVortex;
 
+    /** Create motor elements. */
+    public FeederSubsystem() {
+        m_feederShooterVortex = new CANSparkFlex(ShooterConstants.feederShooterCANId, MotorType.kBrushless);
 
- 
- /**Create motor elements.*/
-  public FeederSubsystem() {
-    m_feederShooterVortex = new CANSparkFlex(ShooterConstants.feederShooterCANId, MotorType.kBrushless);
+        m_feederShooterVortex.restoreFactoryDefaults();
 
-    m_feederShooterVortex.restoreFactoryDefaults();
+        m_feederShooterVortex.setInverted(true);
 
-    m_feederShooterVortex.setInverted(true);
+        m_feederShooterVortex.burnFlash();
+    }
 
-    m_feederShooterVortex.burnFlash();
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  /**Setting motor speeds.*/
-  public void feederSpeedControl(double feederSpeed) {
-    m_feederShooterVortex.set(feederSpeed);
-  }
+    /** Setting motor speeds. */
+    public void feederSpeedControl(double feederSpeed) {
+        m_feederShooterVortex.set(feederSpeed);
+    }
 }

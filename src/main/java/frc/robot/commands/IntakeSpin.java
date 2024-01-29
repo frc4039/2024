@@ -9,35 +9,36 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeSpin extends Command {
-  IntakeSubsystem intake;
+    IntakeSubsystem intake;
 
-  /** Creates a new IntakeSpin. */
-  public IntakeSpin(IntakeSubsystem intake) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intake = intake;
-    addRequirements(intake);
-    
-  }
+    /** Creates a new IntakeSpin. */
+    public IntakeSpin(IntakeSubsystem intake) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.intake = intake;
+        addRequirements(intake);
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    intake.spinIntakeMotor(IntakeConstants.kIntakeSpeed);
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    intake.spinIntakeMotor(0);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        intake.spinIntakeMotor(IntakeConstants.kIntakeSpeed);
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        intake.spinIntakeMotor(0);
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
