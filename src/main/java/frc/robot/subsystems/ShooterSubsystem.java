@@ -15,8 +15,8 @@ public class ShooterSubsystem extends SubsystemBase {
     private final CANSparkFlex m_upperShooterVortex;
 
     public ShooterSubsystem() {
-        m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.lowerShooterCANId, MotorType.kBrushless);
-        m_upperShooterVortex = new CANSparkFlex(ShooterConstants.upperShooterCANId, MotorType.kBrushless);
+        m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.kLowerShooterCANId, MotorType.kBrushless);
+        m_upperShooterVortex = new CANSparkFlex(ShooterConstants.kUpperShooterCANId, MotorType.kBrushless);
 
         m_lowerShooterVortex.restoreFactoryDefaults();
         m_upperShooterVortex.restoreFactoryDefaults();

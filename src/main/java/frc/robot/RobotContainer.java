@@ -71,8 +71,8 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser();
         mainTab.add("Auto Chooser", autoChooser);
 
-        aboutTab.addBoolean("Is Blackout", () -> Helpers.IsBlackout());
-        aboutTab.addString("Robot Comments", () -> Helpers.GetRobotName());
+        aboutTab.addBoolean("Is Blackout", () -> Helpers.isBlackout());
+        aboutTab.addString("Robot Comments", () -> Helpers.getRobotName());
     }
 
     private void configureBindings() {

@@ -15,7 +15,7 @@ public class FeederSubsystem extends SubsystemBase {
 
     /** Create motor elements. */
     public FeederSubsystem() {
-        m_feederShooterVortex = new CANSparkFlex(ShooterConstants.feederShooterCANId, MotorType.kBrushless);
+        m_feederShooterVortex = new CANSparkFlex(ShooterConstants.kFeederShooterCANId, MotorType.kBrushless);
 
         m_feederShooterVortex.restoreFactoryDefaults();
 

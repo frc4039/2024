@@ -48,9 +48,9 @@ public final class Constants {
         public static final Constraints kAimProfile = new Constraints(3 * Math.PI, 2 * Math.PI);
 
         // Chassis configuration
-        public static final double kTrackWidth = Units.inchesToMeters(Helpers.IsBlackout() ? 18.5 : 22.5);
+        public static final double kTrackWidth = Units.inchesToMeters(Helpers.isBlackout() ? 18.5 : 22.5);
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = Units.inchesToMeters(Helpers.IsBlackout() ? 18.5 : 22.5);
+        public static final double kWheelBase = Units.inchesToMeters(Helpers.isBlackout() ? 18.5 : 22.5);
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -175,9 +175,9 @@ public final class Constants {
     }
 
     public static final class ShooterConstants {
-        public static final int lowerShooterCANId = 30;
-        public static final int upperShooterCANId = 31;
-        public static final int feederShooterCANId = 32;
+        public static final int kLowerShooterCANId = 30;
+        public static final int kUpperShooterCANId = 31;
+        public static final int kFeederShooterCANId = 32;
 
         public static final double kAmpUpperMotorSpeed = -0.2;
 
