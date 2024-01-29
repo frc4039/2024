@@ -25,13 +25,13 @@ public class FeederCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        feeder.feederSpeedControl(FeederConstants.kFeederSpeed);
+        feeder.startFeeder();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        feeder.feederSpeedControl(0);
+        feeder.stopFeeder();
     }
 
     // Returns true when the command should end.

@@ -177,7 +177,6 @@ public final class Constants {
     public static final class ShooterConstants {
         public static final int kLowerShooterCANId = 30;
         public static final int kUpperShooterCANId = 31;
-        public static final int kFeederShooterCANId = 32;
 
         public static final double kAmpUpperMotorSpeed = -0.2;
 
@@ -187,6 +186,8 @@ public final class Constants {
 
     public static final class FeederConstants {
         public static final double kFeederSpeed = 0.3;
+        public static final int kBeamBreakerChannel = 0;
+        public static final int kFeederShooterCANId = 32;
     }
 
     public static final class IntakeConstants {

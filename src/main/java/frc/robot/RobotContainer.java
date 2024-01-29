@@ -21,7 +21,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.ShootCommand;
-import frc.robot.commands.IntakeSpin;
+import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
@@ -36,8 +36,8 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-    private final ShooterSubsystem shooter = new ShooterSubsystem();
-    private final FeederSubsystem feeder = new FeederSubsystem();
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    private final FeederSubsystem feederSubsystem = new FeederSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     // Create the "About" tab last so it will be last in the list.
@@ -76,7 +76,7 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        driverRightBumper.whileTrue(new IntakeSpin(intakeSubsystem));
+        driverRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
         driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
@@ -84,9 +84,10 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband)));
 
         driverLeftTrigger.whileTrue(
-                new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value), shooter));
-        driverYButton.whileTrue(new AmpShoot(shooter, feeder));
-        driverAButton.whileTrue((new FeederCommand(feeder)));
+                new ShootCommand(() -> m_driverController.getRawAxis(XboxController.Axis.kLeftTrigger.value),
+                        shooterSubsystem));
+        driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));
+        driverAButton.whileTrue((new FeederCommand(feederSubsystem)));
     }
 
     public Command getAutonomousCommand() {
