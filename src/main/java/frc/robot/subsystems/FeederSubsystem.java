@@ -5,9 +5,12 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.FeederConstants;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FeederSubsystem extends SubsystemBase {
@@ -16,11 +19,16 @@ public class FeederSubsystem extends SubsystemBase {
 
     /** Create motor elements. */
     public FeederSubsystem() {
+
+        ShuffleboardTab feederTab = Shuffleboard.getTab("Feeder");
+        feederTab.addBoolean("Beam Breaker Activated", () -> beamBreakerActivated());
+
         m_feederShooterVortex = new CANSparkFlex(FeederConstants.kFeederShooterCANId, MotorType.kBrushless);
 
         m_feederShooterVortex.restoreFactoryDefaults();
 
         m_feederShooterVortex.setInverted(true);
+        m_feederShooterVortex.setIdleMode(IdleMode.kBrake);
 
         m_feederShooterVortex.burnFlash();
     }
