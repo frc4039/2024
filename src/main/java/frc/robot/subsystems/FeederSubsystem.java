@@ -39,7 +39,7 @@ public class FeederSubsystem extends SubsystemBase {
     }
 
     public boolean beamBreakerActivated() {
-        return m_BeamBraker.get();
+        return !m_BeamBraker.get();
     }
 
     /** Setting motor speeds. */
