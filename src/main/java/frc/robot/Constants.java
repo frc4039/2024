@@ -182,6 +182,13 @@ public final class Constants {
 
         public static final double kShooterSpeedLimit = 0.7;
         public static final double kShooterAmpSpeedLimit = 0.7;
+
+        public static final double kShooterP = 0.0005;
+        public static final double kShooterI = 0.0;
+        public static final double kShooterD = 0.001;
+        public static final double kShooterFF = 0.000145;
+
+        public static final double kShooterRPM = 2000;
     }
 
     public static final class FeederConstants {
