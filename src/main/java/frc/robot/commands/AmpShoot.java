@@ -22,14 +22,14 @@ public class AmpShoot extends Command {
 
     public void execute() {
         shooter.shooterSpeedControl(0, ShooterConstants.kAmpUpperMotorSpeed, ShooterConstants.kShooterAmpSpeedLimit);
-        feeder.feederSpeedControl(FeederConstants.kFeederSpeed);
+        feeder.startFeeder();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         shooter.shooterSpeedControl(0, 0, 0);
-        feeder.feederSpeedControl(0);
+        feeder.stopFeeder();
     }
 
     // Returns true when the command should end.

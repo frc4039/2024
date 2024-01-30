@@ -5,21 +5,30 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.ShooterConstants;
-
+import frc.robot.Constants.FeederConstants;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FeederSubsystem extends SubsystemBase {
     private final CANSparkFlex m_feederShooterVortex;
+    private final DigitalInput m_BeamBraker = new DigitalInput(FeederConstants.kBeamBreakerChannel);
 
     /** Create motor elements. */
     public FeederSubsystem() {
-        m_feederShooterVortex = new CANSparkFlex(ShooterConstants.kFeederShooterCANId, MotorType.kBrushless);
+
+        ShuffleboardTab feederTab = Shuffleboard.getTab("Feeder");
+        feederTab.addBoolean("Beam Breaker Activated", () -> beamBreakerActivated());
+
+        m_feederShooterVortex = new CANSparkFlex(FeederConstants.kFeederShooterCANId, MotorType.kBrushless);
 
         m_feederShooterVortex.restoreFactoryDefaults();
 
         m_feederShooterVortex.setInverted(true);
+        m_feederShooterVortex.setIdleMode(IdleMode.kBrake);
 
         m_feederShooterVortex.burnFlash();
     }
@@ -29,8 +38,16 @@ public class FeederSubsystem extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 
+    public boolean beamBreakerActivated() {
+        return !m_BeamBraker.get();
+    }
+
     /** Setting motor speeds. */
-    public void feederSpeedControl(double feederSpeed) {
-        m_feederShooterVortex.set(feederSpeed);
+    public void startFeeder() {
+        m_feederShooterVortex.set(FeederConstants.kFeederSpeed);
+    }
+
+    public void stopFeeder() {
+        m_feederShooterVortex.set(0);
     }
 }
