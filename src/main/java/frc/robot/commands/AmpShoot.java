@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.FeederConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -21,7 +20,8 @@ public class AmpShoot extends Command {
     }
 
     public void execute() {
-        shooter.shooterSpeedControl(0, ShooterConstants.kAmpUpperMotorSpeed, ShooterConstants.kShooterAmpSpeedLimit);
+        shooter.shooterSpeedControl(ShooterConstants.kAmpLowerMotorSpeed, ShooterConstants.kAmpUpperMotorSpeed,
+                ShooterConstants.kShooterAmpSpeedLimit);
         feeder.startFeeder();
     }
 

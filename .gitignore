@@ -176,3 +176,6 @@ logs/
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
+
+# Info about git generated when code is built.
+src/main/java/frc/robot/BuildConstants.java
