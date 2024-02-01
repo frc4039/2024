@@ -4,6 +4,11 @@
 
 package frc.robot.subsystems;
 
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
+import org.photonvision.PhotonCamera;
+
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -11,6 +16,8 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -19,11 +26,14 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.PhotonCameraWrapper;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -72,10 +82,27 @@ public class DriveSubsystem extends SubsystemBase {
                     m_rearRight.getPosition()
             });
 
+    // Pose estimator using odometry and april tags
+    private PhotonCameraWrapper m_camFront;
+    private PhotonCameraWrapper m_camBack;
+    private SwerveDrivePoseEstimator m_poseEstimator;
+
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem() {
         // All other subsystem initialization
         // ...
+
+        m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+                Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
+                new SwerveModulePosition[] {
+                        m_frontLeft.getPosition(),
+                        m_frontRight.getPosition(),
+                        m_rearLeft.getPosition(),
+                        m_rearRight.getPosition()
+                }, new Pose2d());
+
+        m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName, VisionConstants.kRobotToCamFront);
+        m_camBack = new PhotonCameraWrapper(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
 
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
         driveTab.addDouble("X Meters", () -> getPose().getX());
@@ -125,7 +152,7 @@ public class DriveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // Update the odometry in the periodic block
-        m_odometry.update(
+        m_poseEstimator.update(
                 Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
                 new SwerveModulePosition[] {
                         m_frontLeft.getPosition(),
@@ -133,6 +160,27 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearLeft.getPosition(),
                         m_rearRight.getPosition()
                 });
+
+        // Insert vision logic here
+        Optional<EstimatedRobotPose> result1 = m_camBack
+                .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+
+        if (result1.isPresent()) {
+            EstimatedRobotPose camPose1 = result1.get();
+            m_poseEstimator.addVisionMeasurement(
+                    camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
+                    VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
+        }
+
+        Optional<EstimatedRobotPose> result2 = m_camFront
+                .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+
+        if (result2.isPresent() && !result1.isPresent()) {
+            EstimatedRobotPose camPose2 = result2.get();
+            m_poseEstimator.addVisionMeasurement(
+                    camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+                    VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
+        }
     }
 
     /**
@@ -141,7 +189,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @return The pose.
      */
     public Pose2d getPose() {
-        return m_odometry.getPoseMeters();
+        return m_poseEstimator.getEstimatedPosition();
     }
 
     /**
