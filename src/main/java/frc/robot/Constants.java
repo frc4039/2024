@@ -201,4 +201,18 @@ public final class Constants {
         public static final int kIntakeMotorCANID = 40;
         public static final double kIntakeSpeed = 0.8;
     }
+
+    public static final class PivotConstants {
+        public static final boolean kPivotEncoderInverted = true;
+
+        public static final double kPivotEncoderPositionFactor = (2 * Math.PI);
+        public static final double kPivotEncoderVelocityFactor = (2 * Math.PI) / 30.0;
+
+        public static final double kPivotP = 0;
+        public static final double kPivotI = 0;
+        public static final double kPivotD = 0;
+        public static final double kPivotFF = 0;
+        public static final double kPivotMinOutput = -1;
+        public static final double kPivotMaxOutput = 1;
+    }
 }
