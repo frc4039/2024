@@ -203,6 +203,8 @@ public final class Constants {
     }
 
     public static final class PivotConstants {
+        public static final int kPivotCANId = 50;
+        public static final int kPivot2CANId = 51;
         public static final boolean kPivotEncoderInverted = true;
 
         public static final double kPivotEncoderPositionFactor = (2 * Math.PI);

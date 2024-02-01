@@ -22,9 +22,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final AbsoluteEncoder m_pivotEncoder;
 
     /** Creates a new PivotAngle. */
-    public PivotAngleSubsystem(int pivotCANId) {
-        m_pivotSparkMax = new CANSparkMax(pivotCANId, MotorType.kBrushed);
-        m_pivot2SparkMax = new CANSparkMax(pivotCANId, MotorType.kBrushed);
+    public PivotAngleSubsystem() {
+        m_pivotSparkMax = new CANSparkMax(PivotConstants.kPivotCANId, MotorType.kBrushed);
+        m_pivot2SparkMax = new CANSparkMax(PivotConstants.kPivot2CANId, MotorType.kBrushed);
 
         m_pivotSparkMax.restoreFactoryDefaults();
         m_pivot2SparkMax.restoreFactoryDefaults();

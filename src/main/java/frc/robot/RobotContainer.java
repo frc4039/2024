@@ -22,6 +22,7 @@ import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
@@ -29,6 +30,7 @@ import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotAngleSubsystem;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -39,6 +41,7 @@ public class RobotContainer {
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     private final FeederSubsystem feederSubsystem = new FeederSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem();
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -54,6 +57,8 @@ public class RobotContainer {
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+
+    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -87,6 +92,7 @@ public class RobotContainer {
                 new ShootCommand(shooterSubsystem));
         driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));
         driverAButton.whileTrue((new FeederCommand(feederSubsystem)));
+        driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
     }
 
     public Command getAutonomousCommand() {
