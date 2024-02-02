@@ -199,7 +199,8 @@ public final class Constants {
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorCANID = 40;
+        public static final int kIntakeUpperMotorCANID = 40;
+        public static final int kIntakeLowerMotorCANID = 41;
         public static final double kIntakeSpeed = 0.8;
     }
 }
