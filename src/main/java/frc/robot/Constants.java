@@ -179,6 +179,7 @@ public final class Constants {
         public static final int kUpperShooterCANId = 31;
 
         public static final double kAmpUpperMotorSpeed = -0.2;
+        public static final double kAmpLowerMotorSpeed = 0.2;
 
         public static final double kShooterSpeedLimit = 0.7;
         public static final double kShooterAmpSpeedLimit = 0.7;

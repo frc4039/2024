@@ -4,12 +4,16 @@
 
 package frc.robot;
 
+import java.util.Map;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -76,8 +80,20 @@ public class RobotContainer {
         autoChooser = AutoBuilder.buildAutoChooser();
         mainTab.add("Auto Chooser", autoChooser);
 
-        aboutTab.addBoolean("Is Blackout", () -> Helpers.isBlackout());
-        aboutTab.addString("Robot Comments", () -> Helpers.getRobotName());
+        ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
+                .withPosition(0, 0)
+                .withSize(3, 2)
+                .withProperties(Map.of("Label position", "TOP"));
+        buildInfo.add("Git Branch", Helpers.getGitBranch());
+        buildInfo.add("Git SHA", BuildConstants.GIT_SHA);
+        buildInfo.add("Build Date", BuildConstants.BUILD_DATE);
+
+        ShuffleboardLayout robotInfo = aboutTab.getLayout("Robot Info", BuiltInLayouts.kList)
+                .withPosition(3, 0)
+                .withSize(3, 2)
+                .withProperties(Map.of("Label position", "TOP"));
+        robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
+        robotInfo.addBoolean("Is Blackout", () -> Helpers.isBlackout());
     }
 
     private void configureBindings() {
