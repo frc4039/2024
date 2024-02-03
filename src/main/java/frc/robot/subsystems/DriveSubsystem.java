@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
 
 import com.ctre.phoenix6.configs.MountPoseConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
@@ -32,6 +31,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.PhotonCameraWrapper;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.SwerveUtils;
@@ -71,6 +72,9 @@ public class DriveSubsystem extends SubsystemBase {
     private SlewRateLimiter m_rotLimiter = new SlewRateLimiter(DriveConstants.kRotationalSlewRate);
     private double m_prevTime = WPIUtilJNI.now() * 1e-6;
 
+    // Driver station position display
+    private Field2d fieldDisplay = new Field2d();
+
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
             DriveConstants.kDriveKinematics,
@@ -101,12 +105,20 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearRight.getPosition()
                 }, new Pose2d());
 
-        // m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName, VisionConstants.kRobotToCamFront);
+        // m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName,
+        // VisionConstants.kRobotToCamFront);
         m_camBack = new PhotonCameraWrapper(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
 
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
-        driveTab.addDouble("X Meters", () -> getPose().getX());
-        driveTab.addDouble("Y Meters", () -> getPose().getY());
+        driveTab.addDouble("X Meters", () -> getPose().getX())
+                .withPosition(0, 0);
+        driveTab.addDouble("Y Meters", () -> getPose().getY())
+                .withPosition(0, 1);
+        driveTab.addDouble("Angle", () -> getPose().getRotation().getDegrees())
+                .withPosition(0, 2);
+        driveTab.add("Field", fieldDisplay)
+                .withPosition(1, 0)
+                .withSize(3, 2);
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
@@ -167,20 +179,24 @@ public class DriveSubsystem extends SubsystemBase {
 
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
+            SmartDashboard.putNumber("Camera X", camPose1.estimatedPose.getX());
+            SmartDashboard.putNumber("Camera Y", camPose1.estimatedPose.getY());
+            SmartDashboard.putNumber("Camera Z", camPose1.estimatedPose.getZ());
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                     VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
         }
 
         // Optional<EstimatedRobotPose> result2 = m_camFront
-        //         .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+        // .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
 
         // if (result2.isPresent() && !result1.isPresent()) {
-        //     EstimatedRobotPose camPose2 = result2.get();
-        //     m_poseEstimator.addVisionMeasurement(
-        //             camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-        //             VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
+        // EstimatedRobotPose camPose2 = result2.get();
+        // m_poseEstimator.addVisionMeasurement(
+        // camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+        // VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
         // }
+        fieldDisplay.setRobotPose(getPose());
     }
 
     /**
@@ -287,7 +303,7 @@ public class DriveSubsystem extends SubsystemBase {
         var swerveModuleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(
                 fieldRelative
                         ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedMetersPerSecond, ySpeedMetersPerSecond,
-                                rotRadiansPerSecond, Rotation2d.fromDegrees(m_gyro.getYaw().getValue()))
+                                rotRadiansPerSecond, getPose().getRotation())
                         : new ChassisSpeeds(xSpeedMetersPerSecond, ySpeedMetersPerSecond, rotRadiansPerSecond));
         SwerveDriveKinematics.desaturateWheelSpeeds(
                 swerveModuleStates, DriveConstants.kMaxSpeedMetersPerSecond);

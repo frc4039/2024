@@ -7,17 +7,11 @@ package frc.robot;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -198,7 +192,7 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
-        public static final double kShooterRPM = 2000;
+        public static final double kShooterRPM = 4500;
     }
 
     public static final class FeederConstants {
@@ -238,11 +232,10 @@ public final class Constants {
         public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
                 new Rotation3d(0, 0, 0));
 
-		// Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5 inches up from centre
-		public static final Transform3d kRobotToCamBack =
-			new Transform3d(
-				new Translation3d(Units.inchesToMeters(-8.75), Units.inchesToMeters(11.25), Units.inchesToMeters(13.5)),
-				new Rotation3d(0, Units.degreesToRadians(-15), Units.degreesToRadians(180))
-			);
+        // Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5
+        // inches up from centre
+        public static final Transform3d kRobotToCamBack = new Transform3d(
+                new Translation3d(Units.inchesToMeters(0), Units.inchesToMeters(0), Units.inchesToMeters(13.5)),
+                new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(0)));
     }
 }
