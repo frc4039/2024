@@ -189,11 +189,12 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
-        public static final double kShooterRPM = 2000;
+        public static final double kShooterRPM = 4500;
     }
 
     public static final class FeederConstants {
-        public static final double kFeederSpeed = 0.3;
+        public static final double kFeederShooterSpeed = 0.5;
+        public static final double kFeederIntakeSpeed = 0.15;
         public static final int kBeamBreakerChannel = 1;
         public static final int kFeederShooterCANId = 32;
     }
