@@ -43,8 +43,8 @@ public class FeederSubsystem extends SubsystemBase {
     }
 
     /** Setting motor speeds. */
-    public void startFeeder() {
-        m_feederShooterVortex.set(FeederConstants.kFeederSpeed);
+    public void startFeeder(double feederSpeed) {
+        m_feederShooterVortex.set(feederSpeed);
     }
 
     public void stopFeeder() {

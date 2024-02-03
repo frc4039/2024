@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.FeederConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.FeederSubsystem;
 
 public class FeederCommand extends Command {
@@ -25,7 +26,7 @@ public class FeederCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        feeder.startFeeder();
+        feeder.startFeeder(FeederConstants.kFeederShooterSpeed);
     }
 
     // Called once the command ends or is interrupted.
