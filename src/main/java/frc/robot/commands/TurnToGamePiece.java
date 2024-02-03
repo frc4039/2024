@@ -32,7 +32,7 @@ public class TurnToGamePiece extends Command {
         this.ySpeedSupplier = ySpeedSupplier;
         rotationController.setTolerance(Math.PI / 360);
         rotationController.enableContinuousInput(0.0, 2 * Math.PI);
-        nt = NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("pi camera v1");
+        nt = NetworkTableInstance.getDefault().getTable("PiVision");
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -45,7 +45,7 @@ public class TurnToGamePiece extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double cameraTarget = nt.getEntry("targetYaw").getDouble(0);
+        double cameraTarget = nt.getEntry("angle").getDouble(0);
         rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - cameraTarget));
         driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
                 rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
