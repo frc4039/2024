@@ -237,16 +237,12 @@ public final class Constants {
         // from center.
         public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
                 new Rotation3d(0, 0, 0));
-        public static final Transform3d kRobotToCamBack = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
-                new Rotation3d(0, 0, 0));
 
-        // The layout of the AprilTags on the field
-        public static final AprilTagFieldLayout kTagLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
-
-        // The standard deviations of our vision estimated poses, which affect
-        // correction rate
-        // (Fake values. Experiment and determine estimation noise on an actual robot.)
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
-        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+		// Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5 inches up from centre
+		public static final Transform3d kRobotToCamBack =
+			new Transform3d(
+				new Translation3d(Units.inchesToMeters(-8.75), Units.inchesToMeters(11.25), Units.inchesToMeters(13.5)),
+				new Rotation3d(0, Units.degreesToRadians(-15), Units.degreesToRadians(180))
+			);
     }
 }

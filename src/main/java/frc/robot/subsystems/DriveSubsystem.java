@@ -83,7 +83,7 @@ public class DriveSubsystem extends SubsystemBase {
             });
 
     // Pose estimator using odometry and april tags
-    private PhotonCameraWrapper m_camFront;
+    // private PhotonCameraWrapper m_camFront;
     private PhotonCameraWrapper m_camBack;
     private SwerveDrivePoseEstimator m_poseEstimator;
 
@@ -101,7 +101,7 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearRight.getPosition()
                 }, new Pose2d());
 
-        m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName, VisionConstants.kRobotToCamFront);
+        // m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName, VisionConstants.kRobotToCamFront);
         m_camBack = new PhotonCameraWrapper(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
 
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
@@ -172,15 +172,15 @@ public class DriveSubsystem extends SubsystemBase {
                     VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
         }
 
-        Optional<EstimatedRobotPose> result2 = m_camFront
-                .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+        // Optional<EstimatedRobotPose> result2 = m_camFront
+        //         .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
 
-        if (result2.isPresent() && !result1.isPresent()) {
-            EstimatedRobotPose camPose2 = result2.get();
-            m_poseEstimator.addVisionMeasurement(
-                    camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                    VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
-        }
+        // if (result2.isPresent() && !result1.isPresent()) {
+        //     EstimatedRobotPose camPose2 = result2.get();
+        //     m_poseEstimator.addVisionMeasurement(
+        //             camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+        //             VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
+        // }
     }
 
     /**
