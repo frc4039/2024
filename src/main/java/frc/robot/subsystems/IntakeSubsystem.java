@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import frc.robot.Constants.IntakeConstants;
@@ -8,26 +9,27 @@ import frc.robot.Constants.IntakeConstants;
 public class IntakeSubsystem extends SubsystemBase {
 
     private CANSparkFlex m_intakeUpperMotor;
-    private CANSparkFlex m_intakeLowerMotor;
+    private CANSparkMax m_intakeLowerMotor;
 
     public IntakeSubsystem() {
-        m_intakeUpperMotor = createIntakeMotor(IntakeConstants.kIntakeUpperMotorCANID, false);
-        m_intakeLowerMotor = createIntakeMotor(IntakeConstants.kIntakeLowerMotorCANID, true);
+        // Upper Motor
+        m_intakeUpperMotor = new CANSparkFlex(IntakeConstants.kIntakeUpperMotorCANID, MotorType.kBrushless);
+        m_intakeUpperMotor.restoreFactoryDefaults();
+        m_intakeUpperMotor.setInverted(false);
+        m_intakeUpperMotor.setSmartCurrentLimit(40, 40);
+        m_intakeUpperMotor.burnFlash();
+
+        // Lower Motor
+        m_intakeLowerMotor = new CANSparkMax(IntakeConstants.kIntakeLowerMotorCANID, MotorType.kBrushless);
+        m_intakeLowerMotor.restoreFactoryDefaults();
+        m_intakeLowerMotor.setSmartCurrentLimit(100);
+        m_intakeLowerMotor.setInverted(false);
+        m_intakeLowerMotor.burnFlash();
     }
 
-    public void spinIntakeMotor(double spinSpeed) {
-        m_intakeUpperMotor.set(spinSpeed);
-        m_intakeLowerMotor.set(spinSpeed);
-    }
-
-    private CANSparkFlex createIntakeMotor(int motorId, boolean isInverted) {
-        CANSparkFlex intakeMotor = new CANSparkFlex(motorId, MotorType.kBrushless);
-
-        intakeMotor.restoreFactoryDefaults();
-        intakeMotor.setInverted(isInverted);
-        intakeMotor.burnFlash();
-
-        return intakeMotor;
+    public void spinIntakeMotor(double spinSpeedUpperMotor, double spinSpeedLowerMotor) {
+        m_intakeUpperMotor.set(spinSpeedUpperMotor);
+        m_intakeLowerMotor.set(spinSpeedLowerMotor);
     }
 
     @Override
