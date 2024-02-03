@@ -7,11 +7,15 @@ package frc.robot;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -235,7 +239,10 @@ public final class Constants {
         // Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5
         // inches up from centre
         public static final Transform3d kRobotToCamBack = new Transform3d(
-                new Translation3d(Units.inchesToMeters(0), Units.inchesToMeters(0), Units.inchesToMeters(13.5)),
-                new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(0)));
+                new Translation3d(Units.inchesToMeters(-8.75), Units.inchesToMeters(11.25), Units.inchesToMeters(13.5)),
+                new Rotation3d(0, Units.degreesToRadians(-15.0), Units.degreesToRadians(180.00)));
+
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 }

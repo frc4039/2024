@@ -28,14 +28,14 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import frc.robot.PhotonCameraWrapper;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.SwerveUtils;
+import frc.robot.utils.Vision;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -88,7 +88,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Pose estimator using odometry and april tags
     // private PhotonCameraWrapper m_camFront;
-    private PhotonCameraWrapper m_camBack;
+    private Vision m_camBack;
     private SwerveDrivePoseEstimator m_poseEstimator;
 
     /** Creates a new DriveSubsystem. */
@@ -107,7 +107,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         // m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName,
         // VisionConstants.kRobotToCamFront);
-        m_camBack = new PhotonCameraWrapper(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
+        m_camBack = new Vision();
 
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
         driveTab.addDouble("X Meters", () -> getPose().getX())
@@ -174,8 +174,7 @@ public class DriveSubsystem extends SubsystemBase {
                 });
 
         // Insert vision logic here
-        Optional<EstimatedRobotPose> result1 = m_camBack
-                .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+        Optional<EstimatedRobotPose> result1 = m_camBack.getEstimatedGlobalPose();
 
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
@@ -289,8 +288,15 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Convert the commanded speeds into the correct units for the drivetrain
         double xSpeedDelivered = xSpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
+        Optional<Alliance> alliance = DriverStation.getAlliance();
         double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
         double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
+
+        // speed needs to always be away from the alliance wall.
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            xSpeedDelivered = -xSpeedDelivered;
+            ySpeedDelivered = -ySpeedDelivered;
+        }
 
         driveRaw(xSpeedDelivered, ySpeedDelivered, rotDelivered, fieldRelative);
     }
