@@ -201,6 +201,7 @@ public final class Constants {
         public static final double kFeederIntakeSpeed = 0.15;
         public static final int kBeamBreakerChannel = 1;
         public static final int kFeederShooterCANId = 32;
+        public static final double kFeederHumanPlayerSpeed = -0.15;
     }
 
     public static final class IntakeConstants {

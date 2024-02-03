@@ -24,6 +24,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
+import frc.robot.commands.HumanPlayerIntakeCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
@@ -98,12 +99,14 @@ public class RobotContainer {
 
     private void configureBindings() {
         driverRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
-        driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband)));
-
+        // driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
+        // () ->
+        // MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+        // OIConstants.kDriveDeadband),
+        // () ->
+        // MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+        // OIConstants.kDriveDeadband)));
+        driverXButton.whileTrue(new HumanPlayerIntakeCommand(shooterSubsystem, feederSubsystem));
         driverLeftTrigger.whileTrue(
                 new ShootCommand(shooterSubsystem));
         driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.FeederConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -33,7 +34,7 @@ public class HumanPlayerIntakeCommand extends Command {
         shooter.shooterSpeedControl(ShooterConstants.kHumanPlayerLowerMotorSpeed,
                 ShooterConstants.kHumanPlayerUpperMotorSpeed,
                 ShooterConstants.kShooterHumanPlayerSpeedLimit);
-        feeder.startFeeder();
+                feeder.startFeeder(FeederConstants.kFeederHumanPlayerSpeed);
     }
 
     // Called once the command ends or is interrupted.
