@@ -45,6 +45,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -59,13 +60,13 @@ public class Vision {
     private PhotonCameraSim cameraSim;
     private VisionSystemSim visionSim;
 
-    public Vision() {
-        camera = new PhotonCamera(kCameraBackName);
+    public Vision(String cameraName, Transform3d camPosition) {
+        camera = new PhotonCamera(cameraName);
         AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
         photonEstimator = new PhotonPoseEstimator(
                 fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-                camera, kRobotToCamBack);
+                camera, camPosition);
         photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         // ----- Simulation

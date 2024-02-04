@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.SwerveUtils;
 import frc.robot.utils.Vision;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -87,7 +88,7 @@ public class DriveSubsystem extends SubsystemBase {
             });
 
     // Pose estimator using odometry and april tags
-    // private PhotonCameraWrapper m_camFront;
+    // private Vision m_camFront;
     private Vision m_camBack;
     private SwerveDrivePoseEstimator m_poseEstimator;
 
@@ -105,9 +106,9 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearRight.getPosition()
                 }, new Pose2d());
 
-        // m_camFront = new PhotonCameraWrapper(VisionConstants.kCameraFrontName,
+        // m_camFront = new Vision(VisionConstants.kCameraFrontName,
         // VisionConstants.kRobotToCamFront);
-        m_camBack = new Vision();
+        m_camBack = new Vision(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
 
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
         driveTab.addDouble("X Meters", () -> getPose().getX())
@@ -288,11 +289,11 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Convert the commanded speeds into the correct units for the drivetrain
         double xSpeedDelivered = xSpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
-        Optional<Alliance> alliance = DriverStation.getAlliance();
         double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
         double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
 
-        // speed needs to always be away from the alliance wall.
+        // Speed needs to always be away from the alliance wall.
+        Optional<Alliance> alliance = DriverStation.getAlliance();
         if (alliance.isPresent() && alliance.get() == Alliance.Red) {
             xSpeedDelivered = -xSpeedDelivered;
             ySpeedDelivered = -ySpeedDelivered;
