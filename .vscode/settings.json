@@ -31,5 +31,10 @@
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
     "editor.formatOnSaveMode": "file",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "java.saveActions.organizeImports": true,
+    "git.branchProtection": [
+        "dev",
+        "main"
+    ]
 }
