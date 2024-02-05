@@ -10,6 +10,7 @@ import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -17,6 +18,9 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -58,13 +62,37 @@ public class RobotContainer {
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
-    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
+    private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
+            .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
+    private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
+    private final Trigger operatorDLeftPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 270);
+    private final Trigger operatorDUpPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 0);
+    private final Trigger operatorDRightPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 90);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
+    private final JoystickButton operatorBButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kB.value);
+
+    private final JoystickButton operatorYButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kY.value);
+
     private final SendableChooser<Command> autoChooser;
+
+    enum ScoringState {
+        AMP,
+        SPEAKER,
+        CLIMB1,
+        CLIMB2,
+        CLIMB3
+    }
+
+    private ScoringState scoringState = ScoringState.SPEAKER;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
@@ -79,6 +107,7 @@ public class RobotContainer {
 
         autoChooser = AutoBuilder.buildAutoChooser();
         mainTab.add("Auto Chooser", autoChooser);
+        mainTab.addString("RobotState", () -> scoringState.toString());
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -97,7 +126,13 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        driverRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
+        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
+        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
+        operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
+
         driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
@@ -105,9 +140,13 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband)));
 
         driverLeftTrigger.whileTrue(
-                new ShootCommand(shooterSubsystem));
-        driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));
-        driverAButton.whileTrue((new FeederCommand(feederSubsystem)));
+                new SelectCommand<ScoringState>(Map.of(
+                        ScoringState.SPEAKER, new ShootCommand(shooterSubsystem),
+                        ScoringState.AMP, new AmpShoot(shooterSubsystem),
+                        ScoringState.CLIMB1, new InstantCommand(),
+                        ScoringState.CLIMB2, new InstantCommand(),
+                        ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
+        driverRightTrigger.whileTrue((new FeederCommand(feederSubsystem)));
         driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
     }
 
