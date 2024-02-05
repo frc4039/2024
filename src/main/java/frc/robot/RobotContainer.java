@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AimAtAmp;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.ShootCommand;
@@ -60,6 +61,8 @@ public class RobotContainer {
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
@@ -103,7 +106,11 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband)));
-
+        driverLeftBumper.whileTrue(new AimAtAmp(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband)));
         driverLeftTrigger.whileTrue(
                 new ShootCommand(shooterSubsystem));
         driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));
