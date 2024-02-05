@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AimAtAmp;
+import frc.robot.commands.AimAtSpeaker;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
 import frc.robot.commands.ShootCommand;
@@ -106,7 +107,7 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband)));
-        driverLeftBumper.whileTrue(new AimAtAmp(driveSubsystem,
+        driverLeftBumper.whileTrue(new AimAtSpeaker(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
