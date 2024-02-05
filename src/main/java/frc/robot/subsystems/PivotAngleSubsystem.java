@@ -22,7 +22,8 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivotSparkMax;
     // private final CANSparkMax m_pivot2SparkMax;
     private final SparkPIDController m_pivotPIDController;
-    private final RelativeEncoder m_pivotEncoder;
+    // private final RelativeEncoder m_pivotEncoder;
+    private final AbsoluteEncoder m_pivotEncoder;
 
     /** Creates a new PivotAngle. */
     public PivotAngleSubsystem() {
@@ -34,7 +35,7 @@ public class PivotAngleSubsystem extends SubsystemBase {
         // m_pivot2SparkMax.restoreFactoryDefaults();
         // _pivot2SparkMax.follow(m_pivotSparkMax, true);
 
-        m_pivotEncoder = m_pivotSparkMax.getEncoder();
+        m_pivotEncoder = m_pivotSparkMax.getAbsoluteEncoder(Type.kDutyCycle);
         m_pivotPIDController = m_pivotSparkMax.getPIDController();
         m_pivotPIDController.setFeedbackDevice(m_pivotEncoder);
 

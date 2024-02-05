@@ -208,8 +208,8 @@ public final class Constants {
         // public static final int kPivot2CANId = 51;
         public static final boolean kPivotEncoderInverted = true;
 
-        public static final double kPivotEncoderPositionFactor = (1 / 60.0);
-        public static final double kPivotEncoderVelocityFactor = (1 / 60.0) / 60.0;
+        public static final double kPivotEncoderPositionFactor = (1);
+        public static final double kPivotEncoderVelocityFactor = (1) / 60.0;
 
         public static final double kPivotP = 3.0;
         public static final double kPivotI = 0;
