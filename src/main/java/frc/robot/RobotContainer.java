@@ -5,10 +5,16 @@
 package frc.robot;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -17,26 +23,25 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AimAtAmp;
 import frc.robot.commands.AimAtSpeaker;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
-import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.Helpers;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -82,7 +87,22 @@ public class RobotContainer {
         configureBindings();
 
         autoChooser = AutoBuilder.buildAutoChooser();
-        mainTab.add("Auto Chooser", autoChooser);
+        mainTab.add("Auto Chooser", autoChooser)
+                .withPosition(0, 0)
+                .withSize(2, 1);
+        mainTab.add("Zero Angle",
+                new InstantCommand(() -> {
+                    Rotation2d resetAngle = Rotation2d.fromDegrees(0);
+                    Optional<Alliance> alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                        resetAngle = Rotation2d.fromDegrees(180);
+                    }
+                    Translation2d currentPosition = driveSubsystem.getPose().getTranslation();
+                    driveSubsystem.resetOdometry(new Pose2d(currentPosition, resetAngle));
+                    System.out.println("Ran!");
+                }).withName("Reset Angle")
+                        .ignoringDisable(true))
+                .withPosition(0, 1);
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -112,6 +132,7 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband)));
+
         driverLeftTrigger.whileTrue(
                 new ShootCommand(shooterSubsystem));
         driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));

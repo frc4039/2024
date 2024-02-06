@@ -4,18 +4,14 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
-import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ModuleConstants;
 import frc.robot.Constants.PivotConstants;
 
 public class PivotAngleSubsystem extends SubsystemBase {
@@ -55,7 +51,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
 
         ShuffleboardTab pivotAngleTab = Shuffleboard.getTab("PivotAngle");
         pivotAngleTab.addDouble("encoder", () -> m_pivotEncoder.getPosition() * 360.0);
-
+        pivotAngleTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
     }
 
     public void setDesiredAngle(double desiredAngle) {
