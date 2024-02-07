@@ -92,9 +92,6 @@ public class DriveSubsystem extends SubsystemBase {
 
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem() {
-        // All other subsystem initialization
-        // ...
-
         m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
                 Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
                 new SwerveModulePosition[] {
@@ -118,6 +115,9 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.add("Field", fieldDisplay)
                 .withPosition(1, 0)
                 .withSize(3, 2);
+        driveTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
@@ -212,7 +212,7 @@ public class DriveSubsystem extends SubsystemBase {
      * @param pose The pose to which to set the odometry.
      */
     public void resetOdometry(Pose2d pose) {
-        m_odometry.resetPosition(
+        m_poseEstimator.resetPosition(
                 Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
                 new SwerveModulePosition[] {
                         m_frontLeft.getPosition(),
