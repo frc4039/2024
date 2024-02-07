@@ -17,9 +17,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-
+import edu.wpi.first.math.util.Units;
 import frc.robot.utils.Helpers;
 
 /**
@@ -215,18 +214,24 @@ public final class Constants {
 
     public static final class PivotConstants {
         public static final int kPivotCANId = 50;
-        // public static final int kPivot2CANId = 51;
-        public static final boolean kPivotEncoderInverted = true;
 
-        public static final double kPivotEncoderPositionFactor = (1 / 60.0);
-        public static final double kPivotEncoderVelocityFactor = (1 / 60.0) / 60.0;
+        public static final double kPivotEncoderPositionFactor = 1;
+        public static final double kPivotEncoderVelocityFactor = 1 / 60.0;
 
-        public static final double kPivotP = 3.0;
+        public static final double kPivotP = 5.0;
         public static final double kPivotI = 0;
         public static final double kPivotD = 0;
         public static final double kPivotFF = 0;
-        public static final double kPivotMinOutput = -1;
-        public static final double kPivotMaxOutput = 1;
+        public static final double kPivotMinOutput = -0.2;
+        public static final double kPivotMaxOutput = 0.2;
+
+        // Offset should put 0 degrees straight down.
+        // To calibrate, straight up should read 180 on the dashboard.
+        public static final double kPivotOffset = 0;
+        // Values on the encoder should move towards the shooter side.
+        // Values >180 should be towards bellypan.
+        // Values <180 should be to the amp / open side of the robot.
+        public static final boolean kPivotEncoderInverted = true;
     }
 
     public static class VisionConstants {
