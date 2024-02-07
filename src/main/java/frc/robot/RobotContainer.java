@@ -31,7 +31,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.FeederCommand;
+import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
@@ -72,6 +74,9 @@ public class RobotContainer {
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
+
+    private final JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController,
+            XboxController.Button.kLeftBumper.value);
 
     private final Trigger operatorDLeftPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 270);
@@ -145,7 +150,8 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        operatorRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, feederSubsystem));
+        operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, feederSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
