@@ -59,11 +59,14 @@ public class RobotContainer {
 
     private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
     private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
+
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
     private final Trigger operatorDLeftPadTrigger = new Trigger(() -> m_operatorController
@@ -72,9 +75,6 @@ public class RobotContainer {
             .getPOV() == 0);
     private final Trigger operatorDRightPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 90);
-    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-
-    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final JoystickButton operatorBButton = new JoystickButton(m_operatorController,
             XboxController.Button.kB.value);
@@ -139,15 +139,20 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband)));
 
+        driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
+
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER, new ShootCommand(shooterSubsystem),
-                        ScoringState.AMP, new AmpShoot(shooterSubsystem),
+                        ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
+                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
+                                () -> feederSubsystem.beamBreakerActivated()),
+                        ScoringState.AMP, new ConditionalCommand(new AmpShoot(shooterSubsystem),
+                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
+                                () -> feederSubsystem.beamBreakerActivated()),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
         driverRightTrigger.whileTrue((new FeederCommand(feederSubsystem)));
-        driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
     }
 
     public Command getAutonomousCommand() {
