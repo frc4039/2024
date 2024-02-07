@@ -25,13 +25,13 @@ public class PivotAngleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(45);
+        pivotAngle.setDesiredAngle(225);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(0);
+        pivotAngle.setDesiredAngle(180);
     }
 
     // Returns true when the command should end.
