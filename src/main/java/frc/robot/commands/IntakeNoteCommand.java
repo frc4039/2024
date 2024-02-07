@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.FeederConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.FeederSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -32,8 +33,8 @@ public class IntakeNoteCommand extends Command {
     @Override
     public void execute() {
         if (!isFinished()) {
-            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeed);
-            m_Feeder.startFeeder();
+            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedUpperMotor, IntakeConstants.kIntakeSpeedLowerMotor);
+            m_Feeder.startFeeder(FeederConstants.kFeederIntakeSpeed);
         } else {
             end(false);
         }
@@ -42,7 +43,7 @@ public class IntakeNoteCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_Intake.spinIntakeMotor(0);
+        m_Intake.spinIntakeMotor(0, 0);
         m_Feeder.stopFeeder();
     }
 

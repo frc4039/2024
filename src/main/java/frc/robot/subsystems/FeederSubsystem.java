@@ -4,14 +4,15 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import frc.robot.Constants.FeederConstants;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.FeederConstants;
 
 public class FeederSubsystem extends SubsystemBase {
     private final CANSparkFlex m_feederShooterVortex;
@@ -22,6 +23,9 @@ public class FeederSubsystem extends SubsystemBase {
 
         ShuffleboardTab feederTab = Shuffleboard.getTab("Feeder");
         feederTab.addBoolean("Beam Breaker Activated", () -> beamBreakerActivated());
+        feederTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
 
         m_feederShooterVortex = new CANSparkFlex(FeederConstants.kFeederShooterCANId, MotorType.kBrushless);
 
@@ -43,8 +47,8 @@ public class FeederSubsystem extends SubsystemBase {
     }
 
     /** Setting motor speeds. */
-    public void startFeeder() {
-        m_feederShooterVortex.set(FeederConstants.kFeederSpeed);
+    public void startFeeder(double feederSpeed) {
+        m_feederShooterVortex.set(feederSpeed);
     }
 
     public void stopFeeder() {

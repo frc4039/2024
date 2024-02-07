@@ -7,8 +7,15 @@ package frc.robot;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -189,18 +196,21 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
-        public static final double kShooterRPM = 2000;
+        public static final double kShooterRPM = 4500;
     }
 
     public static final class FeederConstants {
-        public static final double kFeederSpeed = 0.3;
+        public static final double kFeederShooterSpeed = 0.5;
+        public static final double kFeederIntakeSpeed = 0.15;
         public static final int kBeamBreakerChannel = 1;
         public static final int kFeederShooterCANId = 32;
     }
 
     public static final class IntakeConstants {
-        public static final int kIntakeMotorCANID = 40;
-        public static final double kIntakeSpeed = 0.8;
+        public static final int kIntakeLowerMotorCANID = 40;
+        public static final int kIntakeUpperMotorCANID = 41;
+        public static final double kIntakeSpeedUpperMotor = 0.5;
+        public static final double kIntakeSpeedLowerMotor = 1;
     }
 
     public static final class PivotConstants {
@@ -217,5 +227,23 @@ public final class Constants {
         public static final double kPivotFF = 0;
         public static final double kPivotMinOutput = -1;
         public static final double kPivotMaxOutput = 1;
+    }
+
+    public static class VisionConstants {
+        public static final String kCameraFrontName = "LimelightFront";
+        public static final String kCameraBackName = "LimelightBack";
+        // Cam mounted facing forward, half a meter forward of center, half a meter up
+        // from center.
+        public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
+                new Rotation3d(0, 0, 0));
+
+        // Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5
+        // inches up from centre
+        public static final Transform3d kRobotToCamBack = new Transform3d(
+                new Translation3d(Units.inchesToMeters(-8.75), Units.inchesToMeters(11.25), Units.inchesToMeters(13.5)),
+                new Rotation3d(0, Units.degreesToRadians(-15.0), Units.degreesToRadians(180.00)));
+
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 }

@@ -5,10 +5,16 @@
 package frc.robot;
 
 import java.util.Map;
+import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -17,24 +23,24 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.FeederCommand;
-import frc.robot.commands.ShootCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
-import frc.robot.commands.TurnToGamePiece;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.FeederSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.utils.Helpers;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.Helpers;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -55,16 +61,40 @@ public class RobotContainer {
 
     private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
-    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
+    private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
+            .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
+    private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
-    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
-    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    private final Trigger operatorDLeftPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 270);
+    private final Trigger operatorDUpPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 0);
+    private final Trigger operatorDRightPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 90);
+
+    private final JoystickButton operatorBButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kB.value);
+
+    private final JoystickButton operatorYButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kY.value);
 
     private final SendableChooser<Command> autoChooser;
+
+    enum ScoringState {
+        AMP,
+        SPEAKER,
+        CLIMB1,
+        CLIMB2,
+        CLIMB3
+    }
+
+    private ScoringState scoringState = ScoringState.SPEAKER;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
@@ -78,7 +108,23 @@ public class RobotContainer {
         configureBindings();
 
         autoChooser = AutoBuilder.buildAutoChooser();
-        mainTab.add("Auto Chooser", autoChooser);
+        mainTab.add("Auto Chooser", autoChooser)
+                .withPosition(0, 0)
+                .withSize(2, 1);
+        mainTab.add("Zero Angle",
+                new InstantCommand(() -> {
+                    Rotation2d resetAngle = Rotation2d.fromDegrees(0);
+                    Optional<Alliance> alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                        resetAngle = Rotation2d.fromDegrees(180);
+                    }
+                    Translation2d currentPosition = driveSubsystem.getPose().getTranslation();
+                    driveSubsystem.resetOdometry(new Pose2d(currentPosition, resetAngle));
+                    System.out.println("Ran!");
+                }).withName("Reset Angle")
+                        .ignoringDisable(true))
+                .withPosition(0, 1);
+        mainTab.addString("RobotState", () -> scoringState.toString());
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -97,17 +143,21 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        driverRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
-        driverXButton.whileTrue(new TurnToGamePiece(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband)));
+        operatorRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
+        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
+        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
+        operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
 
         driverLeftTrigger.whileTrue(
-                new ShootCommand(shooterSubsystem));
-        driverYButton.whileTrue(new AmpShoot(shooterSubsystem, feederSubsystem));
-        driverAButton.whileTrue((new FeederCommand(feederSubsystem)));
+                new SelectCommand<ScoringState>(Map.of(
+                        ScoringState.SPEAKER, new ShootCommand(shooterSubsystem),
+                        ScoringState.AMP, new AmpShoot(shooterSubsystem),
+                        ScoringState.CLIMB1, new InstantCommand(),
+                        ScoringState.CLIMB2, new InstantCommand(),
+                        ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
+        driverRightTrigger.whileTrue((new FeederCommand(feederSubsystem)));
         driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
     }
 
