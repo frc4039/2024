@@ -5,22 +5,21 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.FeederConstants;
+import frc.robot.Constants.IndexerConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class HumanPlayerIntakeCommand extends Command {
     private ShooterSubsystem shooter;
-    private FeederSubsystem feeder;
+    private IndexerSubsystem indexer;
 
     /** Creates a new HumanPlayerIntakeCommand. */
-    public HumanPlayerIntakeCommand(ShooterSubsystem shooter, FeederSubsystem feeder) {
+    public HumanPlayerIntakeCommand(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         this.shooter = shooter;
-        this.feeder = feeder;
+        this.indexer = indexer;
         addRequirements(shooter);
-        addRequirements(feeder);
-        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(indexer);
     }
 
     // Called when the command is initially scheduled.
@@ -34,14 +33,14 @@ public class HumanPlayerIntakeCommand extends Command {
         shooter.shooterSpeedControl(ShooterConstants.kHumanPlayerLowerMotorSpeed,
                 ShooterConstants.kHumanPlayerUpperMotorSpeed,
                 ShooterConstants.kShooterHumanPlayerSpeedLimit);
-                feeder.startFeeder(FeederConstants.kFeederHumanPlayerSpeed);
+        indexer.start(IndexerConstants.kIndexerHumanPlayerSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         shooter.shooterSpeedControl(0, 0, 0);
-        feeder.stopFeeder();
+        indexer.stop();
     }
 
     // Returns true when the command should end.
