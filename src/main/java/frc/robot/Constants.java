@@ -202,12 +202,12 @@ public final class Constants {
         public static final double kShooterRPM = 4500;
     }
 
-    public static final class FeederConstants {
-        public static final double kFeederShooterSpeed = 0.5;
-        public static final double kFeederIntakeSpeed = 0.15;
-        public static final int kBeamBreakerChannel = 1;
-        public static final int kFeederShooterCANId = 32;
-        public static final double kFeederHumanPlayerSpeed = -0.15;
+    public static final class IndexerConstants {
+        public static final double kIndexerShooterSpeed = 0.5;
+        public static final double kIndexerIntakeSpeed = 0.15;
+        public static final double kIndexerHumanPlayerSpeed = -0.15;
+        public static final int kBeamBreakDIO = 1;
+        public static final int kIndexerCANID = 32;
     }
 
     public static final class IntakeConstants {
@@ -219,11 +219,12 @@ public final class Constants {
 
     public static final class PivotConstants {
         public static final int kPivotCANId = 50;
+        public static final int kPivotFollowerCANId = 51;
 
-        public static final double kPivotEncoderPositionFactor = 1;
-        public static final double kPivotEncoderVelocityFactor = 1 / 60.0;
+        public static final double kPivotEncoderPositionFactor = 360.0;
+        public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
 
-        public static final double kPivotP = 5.0;
+        public static final double kPivotP = 0.05;
         public static final double kPivotI = 0;
         public static final double kPivotD = 0;
         public static final double kPivotFF = 0;
@@ -232,11 +233,11 @@ public final class Constants {
 
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
-        public static final double kPivotOffset = 0;
+        public static final double kPivotOffset = 56;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
-        public static final boolean kPivotEncoderInverted = true;
+        public static final boolean kPivotEncoderInverted = false;
     }
 
     public static final class ClimberConstants {

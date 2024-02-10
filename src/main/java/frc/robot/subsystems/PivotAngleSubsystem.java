@@ -17,15 +17,21 @@ import frc.robot.Constants.PivotConstants;
 
 public class PivotAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivotSparkMax;
+    private final CANSparkMax m_pivotFollowerSparkMax;
     private final SparkPIDController m_pivotPIDController;
     private final AbsoluteEncoder m_pivotEncoder;
 
     /** Creates a new PivotAngle. */
     public PivotAngleSubsystem() {
         m_pivotSparkMax = new CANSparkMax(PivotConstants.kPivotCANId, MotorType.kBrushless);
+        m_pivotFollowerSparkMax = new CANSparkMax(PivotConstants.kPivotFollowerCANId, MotorType.kBrushless);
 
         m_pivotSparkMax.restoreFactoryDefaults();
+        m_pivotFollowerSparkMax.restoreFactoryDefaults();
         m_pivotSparkMax.setSmartCurrentLimit(50);
+        m_pivotFollowerSparkMax.setSmartCurrentLimit(50);
+
+        m_pivotSparkMax.setInverted(false);
 
         m_pivotEncoder = m_pivotSparkMax.getAbsoluteEncoder(Type.kDutyCycle);
         m_pivotPIDController = m_pivotSparkMax.getPIDController();
@@ -35,7 +41,7 @@ public class PivotAngleSubsystem extends SubsystemBase {
         m_pivotEncoder.setVelocityConversionFactor(PivotConstants.kPivotEncoderVelocityFactor);
 
         m_pivotEncoder.setInverted(PivotConstants.kPivotEncoderInverted);
-        m_pivotEncoder.setZeroOffset(PivotConstants.kPivotOffset * 360.0);
+        m_pivotEncoder.setZeroOffset(PivotConstants.kPivotOffset);
 
         m_pivotPIDController.setP(PivotConstants.kPivotP);
         m_pivotPIDController.setI(PivotConstants.kPivotI);
@@ -44,18 +50,21 @@ public class PivotAngleSubsystem extends SubsystemBase {
         m_pivotPIDController.setOutputRange(PivotConstants.kPivotMinOutput,
                 PivotConstants.kPivotMaxOutput);
 
+        m_pivotFollowerSparkMax.follow(m_pivotSparkMax, true);
+
         m_pivotSparkMax.burnFlash();
+        m_pivotFollowerSparkMax.burnFlash();
 
         ShuffleboardTab pivotAngleTab = Shuffleboard.getTab("PivotAngle");
-        pivotAngleTab.addDouble("encoder", () -> m_pivotEncoder.getPosition() * 360.0);
-        pivotAngleTab.addDouble("built-in encoder", () -> m_pivotSparkMax.getEncoder().getPosition() * 360.0);
+        pivotAngleTab.addDouble("encoder", () -> m_pivotEncoder.getPosition());
+        pivotAngleTab.addDouble("built-in encoder", () -> m_pivotSparkMax.getEncoder().getPosition());
         pivotAngleTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
     }
 
     public void setDesiredAngle(double desiredAngle) {
-        m_pivotPIDController.setReference(desiredAngle / 360.0,
+        m_pivotPIDController.setReference(desiredAngle,
                 CANSparkMax.ControlType.kPosition);
     }
 

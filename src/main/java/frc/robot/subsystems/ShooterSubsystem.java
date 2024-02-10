@@ -49,11 +49,13 @@ public class ShooterSubsystem extends SubsystemBase {
         m_upperShooterController.setFF(ShooterConstants.kShooterFF);
 
         m_upperShooterVortex.setInverted(true);
+        m_lowerShooterVortex.setInverted(false);
 
         m_lowerShooterVortex.burnFlash();
         m_upperShooterVortex.burnFlash();
 
-        shooterTab.addDouble("Speed (RPM)", () -> m_upperShooterEncoder.getVelocity());
+        shooterTab.addDouble("Upper Speed (RPM)", () -> m_upperShooterEncoder.getVelocity());
+        shooterTab.addDouble("Lower Speed (RPM)", () -> m_lowerShooterEncoder.getVelocity());
         shooterTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);

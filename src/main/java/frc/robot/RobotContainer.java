@@ -33,15 +33,14 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.EjectNoteCommand;
-import frc.robot.commands.FeederCommand;
-import frc.robot.commands.HumanPlayerIntakeCommand;
+import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -54,7 +53,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    private final FeederSubsystem feederSubsystem = new FeederSubsystem();
+    private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem();
 
@@ -116,7 +115,8 @@ public class RobotContainer {
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
-        NamedCommands.registerCommand("FeederCommand", new FeederCommand(feederSubsystem));
+        NamedCommands.registerCommand("FeederCommand", new IndexerCommand(indexerSubsystem));
+        NamedCommands.registerCommand("IndexerCommand", new IndexerCommand(indexerSubsystem));
 
         configureBindings();
 
@@ -137,7 +137,8 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
-        mainTab.addString("RobotState", () -> scoringState.toString());
+        mainTab.addString("RobotState", () -> scoringState.toString())
+                .withPosition(1, 1);
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -156,8 +157,8 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, feederSubsystem));
-        operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
+        operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
@@ -167,15 +168,17 @@ public class RobotContainer {
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
                         ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
-                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
-                                () -> feederSubsystem.beamBreakerActivated()),
+                                new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
+                                () -> indexerSubsystem.hasNote()),
                         ScoringState.AMP, new ConditionalCommand(new AmpShoot(shooterSubsystem),
-                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
-                                () -> feederSubsystem.beamBreakerActivated()),
+                                new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
+                                () -> indexerSubsystem.hasNote()),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
-        driverRightTrigger.whileTrue((new FeederCommand(feederSubsystem)));
+
+        driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
+        driverBButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
     }
 
     public Command getAutonomousCommand() {

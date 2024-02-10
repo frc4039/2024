@@ -5,22 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.FeederConstants;
+import frc.robot.Constants.IndexerConstants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class IntakeBeamBreakOverrideCommand extends Command {
     IntakeSubsystem m_Intake;
-    FeederSubsystem m_Feeder;
+    IndexerSubsystem m_Indexer;
 
     /** Creates a new IntakeNote. */
-    public IntakeBeamBreakOverrideCommand(IntakeSubsystem intake, FeederSubsystem feeder) {
+    public IntakeBeamBreakOverrideCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_Intake = intake;
-        m_Feeder = feeder;
+        m_Indexer = indexer;
         addRequirements(m_Intake);
-        addRequirements(m_Feeder);
+        addRequirements(m_Indexer);
 
     }
 
@@ -33,14 +33,14 @@ public class IntakeBeamBreakOverrideCommand extends Command {
     @Override
     public void execute() {
         m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedUpperMotor, IntakeConstants.kIntakeSpeedLowerMotor);
-        m_Feeder.startFeeder(FeederConstants.kFeederIntakeSpeed);
+        m_Indexer.start(IndexerConstants.kIndexerIntakeSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         m_Intake.spinIntakeMotor(0, 0);
-        m_Feeder.stopFeeder();
+        m_Indexer.stop();
     }
 
     // Returns true when the command should end.
