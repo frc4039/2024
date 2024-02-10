@@ -78,4 +78,13 @@ public class ShooterSubsystem extends SubsystemBase {
         m_lowerShooterController.setReference(rpm, ControlType.kVelocity);
         m_upperShooterController.setReference(rpm, ControlType.kVelocity);
     }
+
+    /**
+     * Gets the speed of the upper shooter motor (in RPM).
+     * 
+     * @return The velocity of the upper shooter motor (in RPM).
+     */
+    public double getShooterSpeed() {
+        return m_upperShooterEncoder.getVelocity();
+    }
 }
