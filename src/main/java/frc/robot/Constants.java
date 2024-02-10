@@ -7,12 +7,18 @@ package frc.robot;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
-
+import edu.wpi.first.math.util.Units;
 import frc.robot.utils.Helpers;
 
 /**
@@ -213,17 +219,41 @@ public final class Constants {
 
     public static final class PivotConstants {
         public static final int kPivotCANId = 50;
-        // public static final int kPivot2CANId = 51;
-        public static final boolean kPivotEncoderInverted = true;
 
-        public static final double kPivotEncoderPositionFactor = (1 / 60.0);
-        public static final double kPivotEncoderVelocityFactor = (1 / 60.0) / 60.0;
+        public static final double kPivotEncoderPositionFactor = 1;
+        public static final double kPivotEncoderVelocityFactor = 1 / 60.0;
 
-        public static final double kPivotP = 3.0;
+        public static final double kPivotP = 5.0;
         public static final double kPivotI = 0;
         public static final double kPivotD = 0;
         public static final double kPivotFF = 0;
-        public static final double kPivotMinOutput = -1;
-        public static final double kPivotMaxOutput = 1;
+        public static final double kPivotMinOutput = -0.2;
+        public static final double kPivotMaxOutput = 0.2;
+
+        // Offset should put 0 degrees straight down.
+        // To calibrate, straight up should read 180 on the dashboard.
+        public static final double kPivotOffset = 0;
+        // Values on the encoder should move towards the shooter side.
+        // Values >180 should be towards bellypan.
+        // Values <180 should be to the amp / open side of the robot.
+        public static final boolean kPivotEncoderInverted = true;
+    }
+
+    public static class VisionConstants {
+        public static final String kCameraFrontName = "LimelightFront";
+        public static final String kCameraBackName = "LimelightBack";
+        // Cam mounted facing forward, half a meter forward of center, half a meter up
+        // from center.
+        public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
+                new Rotation3d(0, 0, 0));
+
+        // Back camera mounted 8.75 inches behind centre, 11.25 left of centre, 13.5
+        // inches up from centre
+        public static final Transform3d kRobotToCamBack = new Transform3d(
+                new Translation3d(Units.inchesToMeters(-8.75), Units.inchesToMeters(11.25), Units.inchesToMeters(13.5)),
+                new Rotation3d(0, Units.degreesToRadians(-15.0), Units.degreesToRadians(180.00)));
+
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 }

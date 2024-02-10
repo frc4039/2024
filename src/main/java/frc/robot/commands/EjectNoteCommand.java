@@ -5,16 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.PivotAngleSubsystem;
+import frc.robot.Constants.FeederConstants;
+import frc.robot.Constants.IntakeConstants;
+import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class PivotAngleCommand extends Command {
-    private PivotAngleSubsystem pivotAngle;
+public class EjectNoteCommand extends Command {
+    IntakeSubsystem m_Intake;
+    FeederSubsystem m_Feeder;
 
-    /** Creates a new PivotAngleCommand. */
-    public PivotAngleCommand(PivotAngleSubsystem pivotAngle) {
-        this.pivotAngle = pivotAngle;
-        addRequirements(pivotAngle);
+    /** Creates a new IntakeNote. */
+    public EjectNoteCommand(IntakeSubsystem intake, FeederSubsystem feeder) {
         // Use addRequirements() here to declare subsystem dependencies.
+        m_Intake = intake;
+        m_Feeder = feeder;
+        addRequirements(m_Intake);
+        addRequirements(m_Feeder);
+
     }
 
     // Called when the command is initially scheduled.
@@ -25,13 +32,15 @@ public class PivotAngleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(225);
+        m_Intake.spinIntakeMotor(-IntakeConstants.kIntakeSpeedUpperMotor, -IntakeConstants.kIntakeSpeedLowerMotor);
+        m_Feeder.startFeeder(-FeederConstants.kFeederIntakeSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(180);
+        m_Intake.spinIntakeMotor(0, 0);
+        m_Feeder.stopFeeder();
     }
 
     // Returns true when the command should end.
