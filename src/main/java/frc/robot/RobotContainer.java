@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -31,7 +32,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.FeederCommand;
+import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
@@ -69,8 +72,12 @@ public class RobotContainer {
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
     private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
+
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
+
+    private final JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController,
+            XboxController.Button.kLeftBumper.value);
 
     private final Trigger operatorDLeftPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 270);
@@ -148,7 +155,8 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        operatorRightBumper.whileTrue(new IntakeNoteCommand(intakeSubsystem, feederSubsystem));
+        operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, feederSubsystem));
+        operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, feederSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
@@ -157,13 +165,16 @@ public class RobotContainer {
 
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER, new ShootCommand(shooterSubsystem),
-                        ScoringState.AMP, new AmpShoot(shooterSubsystem),
+                        ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
+                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
+                                () -> feederSubsystem.beamBreakerActivated()),
+                        ScoringState.AMP, new ConditionalCommand(new AmpShoot(shooterSubsystem),
+                                new IntakeNoteCommand(intakeSubsystem, feederSubsystem),
+                                () -> feederSubsystem.beamBreakerActivated()),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
         driverRightTrigger.whileTrue((new FeederCommand(feederSubsystem)));
-        driverBButton.whileTrue((new PivotAngleCommand(pivotAngleSubsystem)));
     }
 
     public Command getAutonomousCommand() {
