@@ -184,8 +184,8 @@ public final class Constants {
         public static final int kLowerShooterCANId = 30;
         public static final int kUpperShooterCANId = 31;
 
-        public static final double kAmpUpperMotorSpeed = -0.2;
-        public static final double kAmpLowerMotorSpeed = 0.2;
+        public static final double kAmpUpperMotorSpeed = -0.5;
+        public static final double kAmpLowerMotorSpeed = 0.5;
 
         public static final double kHumanPlayerUpperMotorSpeed = -0.2;
         public static final double kHumanPlayerLowerMotorSpeed = -0.2;
@@ -224,7 +224,7 @@ public final class Constants {
         public static final double kPivotEncoderPositionFactor = 360.0;
         public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
 
-        public static final double kPivotP = 0.05;
+        public static final double kPivotP = 0.02;
         public static final double kPivotI = 0;
         public static final double kPivotD = 0;
         public static final double kPivotFF = 0;
@@ -233,6 +233,7 @@ public final class Constants {
 
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
+        // This value must be positive. Negative values do not work.
         public static final double kPivotOffset = 56;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
