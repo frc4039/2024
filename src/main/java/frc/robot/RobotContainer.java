@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -111,6 +112,10 @@ public class RobotContainer {
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband)));
+
+        // Register Named Commands
+        NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
+        NamedCommands.registerCommand("FeederCommand", new FeederCommand(feederSubsystem));
 
         configureBindings();
 

@@ -25,9 +25,10 @@ package frc.robot.utils;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import static frc.robot.Constants.VisionConstants.kMultiTagStdDevs;
+import static frc.robot.Constants.VisionConstants.kSingleTagStdDevs;
 
-import static frc.robot.Constants.VisionConstants.*;
-
+import java.io.IOException;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
@@ -60,13 +61,24 @@ public class Vision {
     private PhotonCameraSim cameraSim;
     private VisionSystemSim visionSim;
 
+    @SuppressWarnings("unused")
     public Vision(String cameraName, Transform3d camPosition) {
         camera = new PhotonCamera(cameraName);
-        AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
 
-        photonEstimator = new PhotonPoseEstimator(
-                fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-                camera, camPosition);
+        AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
+        String alternateField = null;
+        // alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json";
+        // alternateField = "/home/lvuser/deploy/fieldlayouts/senior_football.json";
+
+        if (alternateField != null) {
+            try {
+                fieldLayout = new AprilTagFieldLayout(alternateField);
+            } catch (IOException e) {
+            }
+        }
+
+        photonEstimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera,
+                camPosition);
         photonEstimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
 
         // ----- Simulation
@@ -90,7 +102,7 @@ public class Vision {
             // targets.
             cameraSim = new PhotonCameraSim(camera, cameraProp);
             // Add the simulated camera to view the targets on this simulated field.
-            visionSim.addCamera(cameraSim, kRobotToCamBack);
+            visionSim.addCamera(cameraSim, camPosition);
 
             cameraSim.enableDrawWireframe(true);
         }
