@@ -34,6 +34,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.FeederCommand;
+import frc.robot.commands.HumanPlayerIntakeCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
