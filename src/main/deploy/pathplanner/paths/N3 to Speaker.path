@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.2944038576218544,
+        "y": 4.10324841886856
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.798841209569534,
+        "y": 5.0754028710166885
+      },
+      "isLocked": false,
+      "linkedName": "Note 3 Pickup Position"
+    },
+    {
+      "anchor": {
+        "x": 1.3905812803073723,
+        "y": 5.550410701733604
+      },
+      "prevControl": {
+        "x": 1.6457115040797925,
+        "y": 5.328985958000423
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Blue Speaker"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 1.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

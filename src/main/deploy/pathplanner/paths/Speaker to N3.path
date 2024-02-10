@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3740784878947179,
-        "y": 5.542269815297898
+        "x": 1.3905812803073723,
+        "y": 5.550410701733604
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3740784878947183,
-        "y": 5.542269815297898
+        "x": 1.6679608045647107,
+        "y": 5.109734573089443
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Blue Speaker"
     },
     {
       "anchor": {
-        "x": 2.361372778617849,
-        "y": 5.542269815297898
+        "x": 2.2944038576218544,
+        "y": 4.10324841886856
       },
       "prevControl": {
-        "x": 1.361372778617849,
-        "y": 5.542269815297898
+        "x": 2.0047945854158526,
+        "y": 4.678599121308847
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "Note 3 Pickup Position"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 179.47321476959908,
+    "rotation": -179.05774894931142,
     "velocity": 0
   },
   "useDefaultConstraints": true
