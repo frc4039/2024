@@ -184,8 +184,8 @@ public final class Constants {
         public static final int kLowerShooterCANId = 30;
         public static final int kUpperShooterCANId = 31;
 
-        public static final double kAmpUpperMotorSpeed = -0.2;
-        public static final double kAmpLowerMotorSpeed = 0.2;
+        public static final double kAmpUpperMotorSpeed = -0.5;
+        public static final double kAmpLowerMotorSpeed = 0.5;
 
         public static final double kHumanPlayerUpperMotorSpeed = -0.2;
         public static final double kHumanPlayerLowerMotorSpeed = -0.2;
