@@ -161,7 +161,7 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-        // _______________DRIVER BUTTONS_______________\\
+        // _______________OPERATOR BUTTONS_______________\\
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
