@@ -95,6 +95,9 @@ public class RobotContainer {
     private final JoystickButton operatorYButton = new JoystickButton(m_operatorController,
             XboxController.Button.kY.value);
 
+    private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kX.value);
+
     private final SendableChooser<Command> autoChooser;
 
     enum ScoringState {
@@ -182,7 +185,7 @@ public class RobotContainer {
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
         driverBButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
-        driverXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
+        operatorXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
     }
 
     public Command getAutonomousCommand() {
