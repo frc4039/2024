@@ -8,27 +8,43 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.626854084238385,
-        "y": 5.002466422407189
+        "x": 2.35364650909482,
+        "y": 5.546821904454621
       },
       "isLocked": false,
       "linkedName": "Note 2 Pickup Position"
     },
     {
       "anchor": {
-        "x": 2.7465361658203364,
-        "y": 4.580908484080366
+        "x": 2.361372778617849,
+        "y": 4.38198930451915
       },
       "prevControl": {
-        "x": 2.492879405656189,
-        "y": 5.354550551603953
+        "x": 2.342883372269667,
+        "y": 4.38198930451915
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -14.78672226711939,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.65,
+      "rotationDegrees": -23.13497608362234,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -39,7 +55,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 139.84973706411697,
+    "rotation": -32.85364306214765,
     "rotateFast": true
   },
   "reversed": false,
