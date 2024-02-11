@@ -184,11 +184,15 @@ public final class Constants {
         public static final int kLowerShooterCANId = 30;
         public static final int kUpperShooterCANId = 31;
 
-        public static final double kAmpUpperMotorSpeed = -0.2;
-        public static final double kAmpLowerMotorSpeed = 0.2;
+        public static final double kAmpUpperMotorSpeed = -0.5;
+        public static final double kAmpLowerMotorSpeed = 0.5;
+
+        public static final double kHumanPlayerUpperMotorSpeed = -0.2;
+        public static final double kHumanPlayerLowerMotorSpeed = -0.2;
 
         public static final double kShooterSpeedLimit = 0.7;
         public static final double kShooterAmpSpeedLimit = 0.7;
+        public static final double kShooterHumanPlayerSpeedLimit = 0.7;
 
         public static final double kShooterP = 0.0005;
         public static final double kShooterI = 0.0;
@@ -198,11 +202,12 @@ public final class Constants {
         public static final double kShooterRPM = 4500;
     }
 
-    public static final class FeederConstants {
-        public static final double kFeederShooterSpeed = 0.5;
-        public static final double kFeederIntakeSpeed = 0.15;
-        public static final int kBeamBreakerChannel = 1;
-        public static final int kFeederShooterCANId = 32;
+    public static final class IndexerConstants {
+        public static final double kIndexerShooterSpeed = 0.5;
+        public static final double kIndexerIntakeSpeed = 0.35;
+        public static final double kIndexerHumanPlayerSpeed = -0.15;
+        public static final int kBeamBreakDIO = 1;
+        public static final int kIndexerCANID = 32;
     }
 
     public static final class IntakeConstants {
@@ -214,11 +219,12 @@ public final class Constants {
 
     public static final class PivotConstants {
         public static final int kPivotCANId = 50;
+        public static final int kPivotFollowerCANId = 51;
 
-        public static final double kPivotEncoderPositionFactor = 1;
-        public static final double kPivotEncoderVelocityFactor = 1 / 60.0;
+        public static final double kPivotEncoderPositionFactor = 360.0;
+        public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
 
-        public static final double kPivotP = 5.0;
+        public static final double kPivotP = 0.02;
         public static final double kPivotI = 0;
         public static final double kPivotD = 0;
         public static final double kPivotFF = 0;
@@ -227,11 +233,12 @@ public final class Constants {
 
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
-        public static final double kPivotOffset = 0;
+        // This value must be positive. Negative values do not work.
+        public static final double kPivotOffset = 56;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
-        public static final boolean kPivotEncoderInverted = true;
+        public static final boolean kPivotEncoderInverted = false;
     }
 
     public static class VisionConstants {

@@ -10,12 +10,12 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeNoteCommand extends Command {
+public class EjectNoteCommand extends Command {
     IntakeSubsystem m_Intake;
     IndexerSubsystem m_Indexer;
 
     /** Creates a new IntakeNote. */
-    public IntakeNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
+    public EjectNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
         // Use addRequirements() here to declare subsystem dependencies.
         m_Intake = intake;
         m_Indexer = indexer;
@@ -32,12 +32,8 @@ public class IntakeNoteCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (!isFinished()) {
-            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedUpperMotor, IntakeConstants.kIntakeSpeedLowerMotor);
-            m_Indexer.start(IndexerConstants.kIndexerIntakeSpeed);
-        } else {
-            end(false);
-        }
+        m_Intake.spinIntakeMotor(-IntakeConstants.kIntakeSpeedUpperMotor, -IntakeConstants.kIntakeSpeedLowerMotor);
+        m_Indexer.start(-IndexerConstants.kIndexerIntakeSpeed);
     }
 
     // Called once the command ends or is interrupted.
@@ -50,6 +46,6 @@ public class IntakeNoteCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return m_Indexer.hasNote();
+        return false;
     }
 }

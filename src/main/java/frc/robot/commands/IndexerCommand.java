@@ -5,17 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.FeederConstants;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.FeederSubsystem;
+import frc.robot.Constants.IndexerConstants;
+import frc.robot.subsystems.IndexerSubsystem;
 
-public class FeederCommand extends Command {
-    private FeederSubsystem feeder;
+public class IndexerCommand extends Command {
+    private IndexerSubsystem indexer;
 
-    /** Creates a new FeederCommand. */
-    public FeederCommand(FeederSubsystem feeder) {
-        this.feeder = feeder;
-        addRequirements(feeder);
+    /** Creates a new IndexerCommand. */
+    public IndexerCommand(IndexerSubsystem indexer) {
+        this.indexer = indexer;
+        addRequirements(indexer);
     }
 
     // Called when the command is initially scheduled.
@@ -26,13 +25,13 @@ public class FeederCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        feeder.startFeeder(FeederConstants.kFeederShooterSpeed);
+        indexer.start(IndexerConstants.kIndexerShooterSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        feeder.stopFeeder();
+        indexer.stop();
     }
 
     // Returns true when the command should end.
