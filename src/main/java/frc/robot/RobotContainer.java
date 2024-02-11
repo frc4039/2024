@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
+import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
@@ -39,6 +40,7 @@ import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -56,6 +58,7 @@ public class RobotContainer {
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem();
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -94,6 +97,9 @@ public class RobotContainer {
 
     private final JoystickButton operatorAButton = new JoystickButton(m_operatorController,
             XboxController.Button.kA.value);
+
+  private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kX.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -217,7 +223,7 @@ public class RobotContainer {
                 Math.PI / 2));
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
-
+        operatorXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
     }
 
     public Command getAutonomousCommand() {

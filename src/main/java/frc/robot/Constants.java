@@ -241,6 +241,13 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
     }
 
+    public static final class ClimberConstants {
+        public static final int kClimberLeaderMotorCANId = 55;
+        public static final int kClimberFollowerMotorCANId = 56;
+        public static final int kClimberSmartCurrentLimit = 50;
+        public static final double kClimberMotorSpeed = 0.1; // setting to .1 to test direction of motors. 0.4;
+    }
+
     public static class VisionConstants {
         public static final String kCameraFrontName = "LimelightFront";
         public static final String kCameraBackName = "LimelightBack";
