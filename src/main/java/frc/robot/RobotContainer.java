@@ -63,10 +63,14 @@ public class RobotContainer {
     private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
     private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
 
-    private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-    private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+    // private final JoystickButton driverYButton = new
+    // JoystickButton(m_driverController, XboxController.Button.kY.value);
+    // private final JoystickButton driverAButton = new
+    // JoystickButton(m_driverController, XboxController.Button.kA.value);
+    // private final JoystickButton driverXButton = new
+    // JoystickButton(m_driverController, XboxController.Button.kX.value);
+    // private final JoystickButton driverBButton = new
+    // JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
@@ -91,6 +95,9 @@ public class RobotContainer {
 
     private final JoystickButton operatorYButton = new JoystickButton(m_operatorController,
             XboxController.Button.kY.value);
+
+    private final JoystickButton operatorAButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kA.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -178,7 +185,7 @@ public class RobotContainer {
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
-        driverBButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
     }
 
     public Command getAutonomousCommand() {
