@@ -63,14 +63,10 @@ public class RobotContainer {
     private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
     private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
 
-    // private final JoystickButton driverYButton = new
-    // JoystickButton(m_driverController, XboxController.Button.kY.value);
-    // private final JoystickButton driverAButton = new
-    // JoystickButton(m_driverController, XboxController.Button.kA.value);
-    // private final JoystickButton driverXButton = new
-    // JoystickButton(m_driverController, XboxController.Button.kX.value);
-    // private final JoystickButton driverBButton = new
-    // JoystickButton(m_driverController, XboxController.Button.kB.value);
+    private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+    private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+    private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+    private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
@@ -118,7 +114,8 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband)));
+                        OIConstants.kDriveDeadband),
+                -1.0));
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
@@ -164,6 +161,7 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
+        // _______________DRIVER BUTTONS_______________\\
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
@@ -171,7 +169,9 @@ public class RobotContainer {
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
 
+        // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
                         ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
@@ -183,9 +183,41 @@ public class RobotContainer {
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
+        driverYButton.whileTrue(new TeleopDrive(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+                        OIConstants.kDriveDeadband),
+                0.0));
+        driverBButton.whileTrue(new TeleopDrive(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+                        OIConstants.kDriveDeadband),
+                1.5 * Math.PI));
+        driverAButton.whileTrue(new TeleopDrive(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+                        OIConstants.kDriveDeadband),
+                Math.PI));
+        driverXButton.whileTrue(new TeleopDrive(driveSubsystem,
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                        OIConstants.kDriveDeadband),
+                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+                        OIConstants.kDriveDeadband),
+                Math.PI / 2));
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
-        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
+
     }
 
     public Command getAutonomousCommand() {
