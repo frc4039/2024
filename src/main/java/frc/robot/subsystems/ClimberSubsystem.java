@@ -16,9 +16,9 @@ public class ClimberSubsystem extends SubsystemBase {
     private CANSparkMax m_climberFollowerMotor;
 
     public ClimberSubsystem() {
-        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId, false);
-        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId, true);
-        m_climberFollowerMotor.follow(m_climberLeaderMotor);
+        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
+        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
+        m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
     }
 
     public void ClimbOnStage(double motorSpeed) {
@@ -29,11 +29,10 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberLeaderMotor.set(0);
     }
 
-    private CANSparkMax CreateClimberMotor(int motorCANId, boolean isInverted) {
+    private CANSparkMax CreateClimberMotor(int motorCANId) {
         CANSparkMax motor = new CANSparkMax(motorCANId, MotorType.kBrushless);
         motor.restoreFactoryDefaults();
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
-        motor.setInverted(isInverted);
         motor.burnFlash();
         return motor;
     }
