@@ -98,7 +98,7 @@ public class RobotContainer {
     private final JoystickButton operatorAButton = new JoystickButton(m_operatorController,
             XboxController.Button.kA.value);
 
-  private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
+    private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
             XboxController.Button.kX.value);
 
     private final SendableChooser<Command> autoChooser;
@@ -176,6 +176,7 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
+        operatorXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -223,7 +224,6 @@ public class RobotContainer {
                 Math.PI / 2));
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
-        operatorXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
     }
 
     public Command getAutonomousCommand() {
