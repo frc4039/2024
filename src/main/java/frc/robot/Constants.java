@@ -199,12 +199,12 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
-        public static final double kShooterRPM = 4500;
+        public static final double kShooterRPM = 4000;
     }
 
     public static final class IndexerConstants {
         public static final double kIndexerShooterSpeed = 0.5;
-        public static final double kIndexerIntakeSpeed = 0.35;
+        public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final int kBeamBreakDIO = 1;
         public static final int kIndexerCANID = 32;
@@ -213,7 +213,7 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeLowerMotorCANID = 40;
         public static final int kIntakeUpperMotorCANID = 41;
-        public static final double kIntakeSpeedUpperMotor = 0.5;
+        public static final double kIntakeSpeedUpperMotor = 0.75; // Neo 1.1
         public static final double kIntakeSpeedLowerMotor = 1;
     }
 
@@ -239,6 +239,13 @@ public final class Constants {
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
+    }
+
+    public static final class ClimberConstants {
+        public static final int kClimberLeaderMotorCANId = 55;
+        public static final int kClimberFollowerMotorCANId = 56;
+        public static final int kClimberSmartCurrentLimit = 50;
+        public static final double kClimberMotorSpeed = 0.1; // setting to .1 to test direction of motors. 0.4;
     }
 
     public static class VisionConstants {

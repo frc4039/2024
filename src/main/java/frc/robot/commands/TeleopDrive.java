@@ -6,7 +6,9 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -18,30 +20,45 @@ public class TeleopDrive extends Command {
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
     private DoubleSupplier rotSpeedSupplier;
+    private Double rotationAngle;
+    private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
+            DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
     /** Creates a new TeleopDrive. */
     public TeleopDrive(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier,
-            DoubleSupplier rotSpeedSupplier) {
+            DoubleSupplier rotSpeedSupplier,
+            Double rotationAngle) {
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
         this.xSpeedSupplier = xSpeedSupplier;
         this.ySpeedSupplier = ySpeedSupplier;
         this.rotSpeedSupplier = rotSpeedSupplier;
+        this.rotationAngle = rotationAngle;
+        rotationController.setTolerance(Math.PI / 360);
+        rotationController.enableContinuousInput(0.0, 2 * Math.PI);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        rotationController.reset(Math.toRadians(driveSubsystem.getHeading()), 0);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
-                -rotSpeedSupplier.getAsDouble(),
-                true, true);
+        if (rotationAngle != -1.0) {
+            rotationController.setGoal(rotationAngle);
+            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+                    rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
+                    true, true);
+        } else {
+            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+                    -rotSpeedSupplier.getAsDouble(),
+                    true, true);
+        }
     }
 
     // Called once the command ends or is interrupted.

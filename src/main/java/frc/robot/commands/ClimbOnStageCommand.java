@@ -5,16 +5,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.PivotAngleSubsystem;
+import frc.robot.Constants.ClimberConstants;
+import frc.robot.subsystems.ClimberSubsystem;
 
-public class PivotAngleCommand extends Command {
-    private PivotAngleSubsystem pivotAngle;
+public class ClimbOnStageCommand extends Command {
 
-    /** Creates a new PivotAngleCommand. */
-    public PivotAngleCommand(PivotAngleSubsystem pivotAngle) {
-        this.pivotAngle = pivotAngle;
-        addRequirements(pivotAngle);
-        // Use addRequirements() here to declare subsystem dependencies.
+    private ClimberSubsystem m_Climber;
+
+    public ClimbOnStageCommand(ClimberSubsystem climber) {
+        m_Climber = climber;
     }
 
     // Called when the command is initially scheduled.
@@ -25,13 +24,13 @@ public class PivotAngleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(169);
+        m_Climber.ClimbOnStage(ClimberConstants.kClimberMotorSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(230.9);
+        m_Climber.StopClimbing();
     }
 
     // Returns true when the command should end.
