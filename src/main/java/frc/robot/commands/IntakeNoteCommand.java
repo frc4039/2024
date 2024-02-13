@@ -37,6 +37,7 @@ public class IntakeNoteCommand extends Command {
             m_Indexer.start(IndexerConstants.kIndexerIntakeSpeed);
         } else {
             end(false);
+            // run a 2 second rumble.
         }
     }
 

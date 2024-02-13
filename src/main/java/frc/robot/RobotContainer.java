@@ -41,6 +41,7 @@ import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.IntakeNoteCommandRumble;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -185,10 +186,12 @@ public class RobotContainer {
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
                         ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
-                                new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
+                                new IntakeNoteCommandRumble(intakeSubsystem, indexerSubsystem, m_driverController,
+                                        m_operatorController),
                                 () -> indexerSubsystem.hasNote()),
                         ScoringState.AMP, new ConditionalCommand(new AmpShoot(shooterSubsystem),
-                                new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
+                                new IntakeNoteCommandRumble(intakeSubsystem, indexerSubsystem, m_driverController,
+                                        m_operatorController),
                                 () -> indexerSubsystem.hasNote()),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
