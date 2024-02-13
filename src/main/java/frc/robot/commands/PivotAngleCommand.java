@@ -31,7 +31,7 @@ public class PivotAngleCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(225);
+        pivotAngle.setDesiredAngle(230.9);
     }
 
     // Returns true when the command should end.
