@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.361372778617849,
-        "y": 5.542269815297898
+        "x": 2.82949216696609,
+        "y": 5.519210109828429
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.35364650909482,
-        "y": 5.546821904454621
+        "x": 2.821765897443061,
+        "y": 5.523762198985152
       },
       "isLocked": false,
       "linkedName": "Note 2 Pickup Position"
     },
     {
       "anchor": {
-        "x": 2.361372778617849,
-        "y": 4.38198930451915
+        "x": 2.5088664858059477,
+        "y": 4.354805493390919
       },
       "prevControl": {
-        "x": 2.342883372269667,
-        "y": 4.38198930451915
+        "x": 2.4903770794577658,
+        "y": 4.354805493390919
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Note 3 Pickup Position"
     }
   ],
   "rotationTargets": [

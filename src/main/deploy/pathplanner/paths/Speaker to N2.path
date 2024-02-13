@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4271231777925357,
-        "y": 5.502375788103914
+        "x": 1.3912811755213021,
+        "y": 5.519210109828429
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.427123177792536,
-        "y": 5.502375788103914
+        "x": 2.391281175521302,
+        "y": 5.519210109828429
       },
       "isLocked": false,
       "linkedName": "Blue Speaker"
     },
     {
       "anchor": {
-        "x": 2.361372778617849,
-        "y": 5.542269815297898
+        "x": 2.82949216696609,
+        "y": 5.519210109828429
       },
       "prevControl": {
-        "x": 1.361372778617849,
-        "y": 5.542269815297898
+        "x": 1.8984841860789767,
+        "y": 5.539580744212799
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoteCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.0,
@@ -39,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 179.47321476959908,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
+import frc.robot.commands.AutoShoot;
 import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -127,6 +128,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
         NamedCommands.registerCommand("FeederCommand", new IndexerCommand(indexerSubsystem));
         NamedCommands.registerCommand("IndexerCommand", new IndexerCommand(indexerSubsystem));
+        NamedCommands.registerCommand("AutoShoot", new AutoShoot(shooterSubsystem, indexerSubsystem));
+        NamedCommands.registerCommand("IntakeNoteCommand", new IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
 
         configureBindings();
 

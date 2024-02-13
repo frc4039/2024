@@ -36,7 +36,7 @@ public class AutoShoot extends Command {
     public void execute() {
         shooter.shooterPID(ShooterConstants.kShooterRPM);
 
-        if (shooter.getShooterSpeed() >= ShooterConstants.kShooterRPM * 0.9) {
+        if (shooter.getShooterSpeed() >= ShooterConstants.kShooterRPM - 200) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
 
