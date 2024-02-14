@@ -49,7 +49,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class Vision {
@@ -74,7 +76,7 @@ public class Vision {
             try {
                 fieldLayout = new AprilTagFieldLayout(alternateField);
             } catch (IOException e) {
-                System.err.println(e);
+                DriverStation.reportError(e.toString(), e.getStackTrace());
             }
         }
 
