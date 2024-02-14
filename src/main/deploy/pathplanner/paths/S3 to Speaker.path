@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3740784878947179,
-        "y": 5.542269815297898
+        "x": 0.9360177571552407,
+        "y": 3.887680692978262
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3740784878947183,
-        "y": 5.542269815297898
+        "x": 1.233289040124261,
+        "y": 4.6318903249266015
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "S3"
     },
     {
       "anchor": {
-        "x": 2.361372778617849,
-        "y": 5.542269815297898
+        "x": 1.3912811755213021,
+        "y": 5.519210109828429
       },
       "prevControl": {
-        "x": 1.361372778617849,
-        "y": 5.542269815297898
+        "x": 2.0787256219609365,
+        "y": 4.805832703883195
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "Blue Speaker"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 180.0,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 179.47321476959908,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

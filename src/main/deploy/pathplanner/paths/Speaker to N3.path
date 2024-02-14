@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.82949216696609,
+        "x": 1.3912811755213021,
         "y": 5.519210109828429
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.821765897443061,
-        "y": 5.523762198985152
+        "x": 1.6686606997786406,
+        "y": 5.078533981184268
       },
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "Blue Speaker"
     },
     {
       "anchor": {
@@ -20,33 +20,35 @@
         "y": 4.354805493390919
       },
       "prevControl": {
-        "x": 2.4903770794577658,
-        "y": 4.354805493390919
+        "x": 2.219257213599946,
+        "y": 4.930156195831206
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "Note 3 Pickup Position"
     }
   ],
-  "rotationTargets": [
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -14.78672226711939,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": -23.13497608362234,
-      "rotateFast": false
+      "name": "Score Preload",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "deadline",
+              "data": {
+                "commands": []
+              }
+            }
+          ]
+        }
+      }
     }
   ],
-  "constraintZones": [],
-  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 1.0,
@@ -55,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -32.85364306214765,
+    "rotation": 0,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -179.05774894931142,
     "velocity": 0
   },
   "useDefaultConstraints": true

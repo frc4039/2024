@@ -8,43 +8,27 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.821765897443061,
-        "y": 5.523762198985152
+        "x": 2.421637440196203,
+        "y": 5.53807044401432
       },
       "isLocked": false,
       "linkedName": "Note 2 Pickup Position"
     },
     {
       "anchor": {
-        "x": 2.5088664858059477,
-        "y": 4.354805493390919
+        "x": 1.3912811755213021,
+        "y": 5.519210109828429
       },
       "prevControl": {
-        "x": 2.4903770794577658,
-        "y": 4.354805493390919
+        "x": 1.8747982585759928,
+        "y": 5.521125612519184
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note 3 Pickup Position"
+      "linkedName": "Blue Speaker"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -14.78672226711939,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": -23.13497608362234,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -55,8 +39,8 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -32.85364306214765,
-    "rotateFast": true
+    "rotation": 180.0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,

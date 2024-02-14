@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.84,
-      "y": 7.0
+      "x": 0.94,
+      "y": 3.89
     },
     "rotation": 0
   },
@@ -14,43 +14,55 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue 1 - Drive to Amp"
+            "pathName": "S3 to Speaker"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Amp to N1"
+            "pathName": "Speaker to N3"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.5
+            "waitTime": 0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "N1 to Blue Amp"
+            "pathName": "N3 to Speaker"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Amp to N2"
+            "pathName": "Speaker to N2"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N2 to Speaker"
           }
         }
       ]
