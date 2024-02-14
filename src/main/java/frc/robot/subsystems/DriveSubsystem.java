@@ -19,6 +19,7 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -107,6 +108,7 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
+        driveTab.addDouble("Pivot Distance to Goal", () -> getTranslationToGoal().getNorm());
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
@@ -378,5 +380,14 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearLeft.getState(),
                         m_rearRight.getState()
                 });
+    }
+
+    public Translation2d getTranslationToGoal() {
+        var goalposition = new Translation2d(0, 5.55);
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            goalposition = new Translation2d(16.46, 5.55);
+        }
+        return getPose().getTranslation().minus(goalposition);
     }
 }

@@ -4,17 +4,24 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 
-public class PivotAngleCommand extends Command {
-    private PivotAngleSubsystem pivotAngle;
+public class PivotToShoot extends Command {
+    private PivotAngleSubsystem pivot;
+    private DriveSubsystem drive;
+    private InterpolatingDoubleTreeMap angleEstimator = new InterpolatingDoubleTreeMap();
 
-    /** Creates a new PivotAngleCommand. */
-    public PivotAngleCommand(PivotAngleSubsystem pivotAngle) {
-        this.pivotAngle = pivotAngle;
-        addRequirements(pivotAngle);
-        // Use addRequirements() here to declare subsystem dependencies.
+    /** Creates a new PivotToShoot. */
+    public PivotToShoot(PivotAngleSubsystem pivot, DriveSubsystem drive) {
+        this.pivot = pivot;
+        this.drive = drive;
+        addRequirements(pivot);
+        angleEstimator.put(4.12, 233.0);
+        angleEstimator.put(1.37, 211.0);
+        angleEstimator.put(3.0, 226.0);
     }
 
     // Called when the command is initially scheduled.
@@ -25,13 +32,12 @@ public class PivotAngleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(169);
+        pivot.setDesiredAngle(angleEstimator.get(drive.getTranslationToGoal().getNorm()));
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(226); // 4.12 metres = 233 at 4000 RPM | 211 is 54 in (1.37m) | 226 is 3m
     }
 
     // Returns true when the command should end.

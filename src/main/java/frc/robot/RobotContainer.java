@@ -38,10 +38,11 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.IntakeNoteCommandRumble;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.PivotToShoot;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TeleopDrive;
-import frc.robot.commands.IntakeNoteCommandRumble;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -124,6 +125,7 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 -1.0));
+        pivotAngleSubsystem.setDefaultCommand(new PivotToShoot(pivotAngleSubsystem, driveSubsystem));
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
