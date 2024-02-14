@@ -212,8 +212,6 @@ public final class Constants {
 
     public static final class IntakeConstants {
         public static final int kIntakeLowerMotorCANID = 40;
-        public static final int kIntakeUpperMotorCANID = 41;
-        public static final double kIntakeSpeedUpperMotor = 0.75; // Neo 1.1
         public static final double kIntakeSpeedLowerMotor = 1;
     }
 

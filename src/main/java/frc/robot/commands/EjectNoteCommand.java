@@ -32,14 +32,14 @@ public class EjectNoteCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_Intake.spinIntakeMotor(-IntakeConstants.kIntakeSpeedUpperMotor, -IntakeConstants.kIntakeSpeedLowerMotor);
+        m_Intake.spinIntakeMotor(-IntakeConstants.kIntakeSpeedLowerMotor);
         m_Indexer.start(-IndexerConstants.kIndexerIntakeSpeed);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_Intake.spinIntakeMotor(0, 0);
+        m_Intake.spinIntakeMotor(0);
         m_Indexer.stop();
     }
 
