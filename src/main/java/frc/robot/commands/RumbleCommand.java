@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 
-public class Rumble extends Command {
+public class RumbleCommand extends Command {
     private Joystick driverControler;
     private Joystick operatorControler;
 
     /** Creates a new rumble. */
-    public Rumble(Joystick driverControler, Joystick operatorControler) {
+    public RumbleCommand(Joystick driverControler, Joystick operatorControler) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.driverControler = driverControler;
         this.operatorControler = operatorControler;

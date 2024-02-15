@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AimAtAmp extends Command {
+public class AimAtAmpCommand extends Command {
     /** Creates a new AimAtAmp. */
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
@@ -19,7 +19,7 @@ public class AimAtAmp extends Command {
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
-    public AimAtAmp(DriveSubsystem driveSubsystem,
+    public AimAtAmpCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier) {
         this.driveSubsystem = driveSubsystem;

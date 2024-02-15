@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 
-public class PivotToShoot extends Command {
+public class PivotToShootCommand extends Command {
     private PivotAngleSubsystem pivot;
     private DriveSubsystem drive;
     private InterpolatingDoubleTreeMap angleEstimator = new InterpolatingDoubleTreeMap();
 
     /** Creates a new PivotToShoot. */
-    public PivotToShoot(PivotAngleSubsystem pivot, DriveSubsystem drive) {
+    public PivotToShootCommand(PivotAngleSubsystem pivot, DriveSubsystem drive) {
         this.pivot = pivot;
         this.drive = drive;
         addRequirements(pivot);
