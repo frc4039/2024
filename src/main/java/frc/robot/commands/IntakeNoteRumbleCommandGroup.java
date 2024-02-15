@@ -12,16 +12,16 @@ import frc.robot.subsystems.IntakeSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeNoteCommandRumble extends SequentialCommandGroup {
+public class IntakeNoteRumbleCommandGroup extends SequentialCommandGroup {
     /** Creates a new IntakeNoteCommandRumble. */
     // public IntakeNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
 
-    public IntakeNoteCommandRumble(IntakeSubsystem intake, IndexerSubsystem indexer, Joystick driverControler,
+    public IntakeNoteRumbleCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, Joystick driverControler,
             Joystick operatorControler) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new IntakeNoteCommand(intake, indexer),
-                new Rumble(driverControler, operatorControler).withTimeout(0.5));
+                new RumbleCommand(driverControler, operatorControler).withTimeout(0.5));
     }
 }

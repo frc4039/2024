@@ -31,17 +31,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AmpShoot;
-import frc.robot.commands.AutoShoot;
+import frc.robot.commands.AmpShootCommand;
+import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
-import frc.robot.commands.IntakeNoteCommandRumble;
+import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
-import frc.robot.commands.PivotToShoot;
+import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.ShootCommand;
-import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -123,7 +124,7 @@ public class RobotContainer {
     private IntakeState intakeState = IntakeState.FLOOR;
 
     public RobotContainer() {
-        driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
+        driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
@@ -131,13 +132,13 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 -1.0));
-        pivotAngleSubsystem.setDefaultCommand(new PivotToShoot(pivotAngleSubsystem, driveSubsystem));
+        pivotAngleSubsystem.setDefaultCommand(new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
         NamedCommands.registerCommand("FeederCommand", new IndexerCommand(indexerSubsystem));
         NamedCommands.registerCommand("IndexerCommand", new IndexerCommand(indexerSubsystem));
-        NamedCommands.registerCommand("AutoShoot", new AutoShoot(shooterSubsystem, indexerSubsystem));
+        NamedCommands.registerCommand("AutoShoot", new AutoShootCommand(shooterSubsystem, indexerSubsystem));
         NamedCommands.registerCommand("IntakeNoteCommand", new IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
 
         configureBindings();
@@ -197,17 +198,17 @@ public class RobotContainer {
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
                         ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
-                                new IntakeNoteCommandRumble(intakeSubsystem, indexerSubsystem, m_driverController,
+                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
                                         m_operatorController),
                                 () -> indexerSubsystem.hasNote()),
-                        ScoringState.AMP, new ConditionalCommand(new AmpShoot(shooterSubsystem),
-                                new IntakeNoteCommandRumble(intakeSubsystem, indexerSubsystem, m_driverController,
+                        ScoringState.AMP, new ConditionalCommand(new AmpShootCommand(shooterSubsystem),
+                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
                                         m_operatorController),
                                 () -> indexerSubsystem.hasNote()),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
-        driverYButton.whileTrue(new TeleopDrive(driveSubsystem,
+        driverYButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
@@ -215,7 +216,7 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 0.0));
-        driverBButton.whileTrue(new TeleopDrive(driveSubsystem,
+        driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
@@ -223,7 +224,7 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 1.5 * Math.PI));
-        driverAButton.whileTrue(new TeleopDrive(driveSubsystem,
+        driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
@@ -231,7 +232,7 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 Math.PI));
-        driverXButton.whileTrue(new TeleopDrive(driveSubsystem,
+        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
