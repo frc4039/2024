@@ -33,7 +33,6 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AmpShoot;
 import frc.robot.commands.AutoShoot;
-import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
@@ -114,7 +113,14 @@ public class RobotContainer {
         CLIMB3
     }
 
+    enum IntakeState {
+        FLOOR,
+        HUMAN_PLAYER
+    }
+
     private ScoringState scoringState = ScoringState.SPEAKER;
+
+    private IntakeState intakeState = IntakeState.FLOOR;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDrive(driveSubsystem,
@@ -182,7 +188,10 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
-        operatorXButton.whileTrue(new ClimbOnStageCommand(climberSubsystem));
+        operatorXButton.whileTrue(new SelectCommand<IntakeState>(Map.of(
+                IntakeState.FLOOR, new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
+                IntakeState.HUMAN_PLAYER, new IntakeNoteCommand(intakeSubsystem, indexerSubsystem)),
+                () -> intakeState)); // formerly ClimbOnStageCommand
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
