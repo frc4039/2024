@@ -7,23 +7,19 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnToGamePiece extends Command {
+public class AimAtNote extends Command {
     /** Creates a new TurnToGamePiece. */
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
-    private final NetworkTable nt;
 
-    public TurnToGamePiece(DriveSubsystem driveSubsystem,
+    public AimAtNote(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier) {
         this.driveSubsystem = driveSubsystem;
@@ -32,7 +28,6 @@ public class TurnToGamePiece extends Command {
         this.ySpeedSupplier = ySpeedSupplier;
         rotationController.setTolerance(Math.PI / 360);
         rotationController.enableContinuousInput(0.0, 2 * Math.PI);
-        nt = NetworkTableInstance.getDefault().getTable("PiVision");
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -45,12 +40,10 @@ public class TurnToGamePiece extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double cameraTarget = nt.getEntry("angle").getDouble(0);
-        rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - cameraTarget));
+        rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - driveSubsystem.getNoteAngle()));
         driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
                 rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
                 true, true);
-        SmartDashboard.putNumber("camera-x", cameraTarget);
     }
 
     // Called once the command ends or is interrupted.
