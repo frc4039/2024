@@ -24,6 +24,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -80,6 +82,8 @@ public class DriveSubsystem extends SubsystemBase {
     private Vision m_camBack;
     private SwerveDrivePoseEstimator m_poseEstimator;
 
+    private NetworkTable m_piVision;
+
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem() {
         m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
@@ -95,6 +99,8 @@ public class DriveSubsystem extends SubsystemBase {
         // VisionConstants.kRobotToCamFront);
         m_camBack = new Vision(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
 
+        m_piVision = NetworkTableInstance.getDefault().getTable("PiVision");
+
         ShuffleboardTab driveTab = Shuffleboard.getTab("Drive");
         driveTab.addDouble("X Meters", () -> getPose().getX())
                 .withPosition(0, 0);
@@ -108,7 +114,12 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
-        driveTab.addDouble("Pivot Distance to Goal", () -> getTranslationToGoal().getNorm());
+        driveTab.addDouble("Speaker Distance", () -> getTranslationToGoal().getNorm())
+                .withPosition(4, 0)
+                .withSize(1, 1);
+        driveTab.addDouble("Note Angle", () -> getNoteAngle())
+                .withPosition(4, 0)
+                .withSize(1, 1);
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(
@@ -389,5 +400,10 @@ public class DriveSubsystem extends SubsystemBase {
             goalposition = new Translation2d(16.46, 5.55);
         }
         return getPose().getTranslation().minus(goalposition);
+    }
+
+    /** Get the angle from the robot to the note */
+    public double getNoteAngle() {
+        return this.m_piVision.getEntry("Angle").getDouble(0);
     }
 }
