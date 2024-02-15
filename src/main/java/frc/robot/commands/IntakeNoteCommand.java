@@ -33,7 +33,7 @@ public class IntakeNoteCommand extends Command {
     @Override
     public void execute() {
         if (!isFinished()) {
-            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedUpperMotor, IntakeConstants.kIntakeSpeedLowerMotor);
+            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedLowerMotor);
             m_Indexer.start(IndexerConstants.kIndexerIntakeSpeed);
         } else {
             end(false);
@@ -44,7 +44,7 @@ public class IntakeNoteCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_Intake.spinIntakeMotor(0, 0);
+        m_Intake.spinIntakeMotor(0);
         m_Indexer.stop();
     }
 

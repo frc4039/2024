@@ -49,7 +49,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class Vision {
@@ -67,13 +69,14 @@ public class Vision {
 
         AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
         String alternateField = null;
-        // alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json";
+        alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json";
         // alternateField = "/home/lvuser/deploy/fieldlayouts/senior_football.json";
 
         if (alternateField != null) {
             try {
                 fieldLayout = new AprilTagFieldLayout(alternateField);
             } catch (IOException e) {
+                DriverStation.reportError(e.toString(), e.getStackTrace());
             }
         }
 
