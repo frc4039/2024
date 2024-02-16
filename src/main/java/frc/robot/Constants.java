@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.util.Set;
+
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkBase.IdleMode;
 
@@ -31,7 +33,8 @@ import frc.robot.utils.Helpers;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static boolean isBlackOut = false;
+    /** Ports that are empty on the PDH that should not show as faults. */
+    public static Set<Integer> kUpluggedPDH = Set.of(4, 6, 9);
 
     public static class OperatorConstants {
         public static final int kDriverControllerPort = 0;

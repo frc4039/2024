@@ -17,6 +17,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -51,19 +53,23 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
     public final ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
+    // Monitor for hardware faults that will display on the dashboard.
+    private HardwareMonitor hardwareMonitor = new HardwareMonitor();
+
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
+    private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
+    private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -159,7 +165,6 @@ public class RobotContainer {
                     }
                     Translation2d currentPosition = driveSubsystem.getPose().getTranslation();
                     driveSubsystem.resetOdometry(new Pose2d(currentPosition, resetAngle));
-                    System.out.println("Ran!");
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
@@ -167,6 +172,17 @@ public class RobotContainer {
                 .withPosition(1, 1);
         mainTab.addString("Intake State", () -> intakeState.toString())
                 .withPosition(1, 2);
+
+        hardwareMonitor.registerDevice(null, new PowerDistribution(5, ModuleType.kRev));
+
+        ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
+                .withPosition(6, 0)
+                .withSize(3, 3)
+                .withProperties(Map.of("Label position", "HIDDEN"));
+        for (int i = 0; i < 10; i++) {
+            final Integer index = i;
+            hardwareLayout.addString(index.toString(), () -> hardwareMonitor.getErrorLine(9 - index));
+        }
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
