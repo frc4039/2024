@@ -42,6 +42,7 @@ import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -187,7 +188,15 @@ public class RobotContainer {
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
+                        ScoringState.SPEAKER,
+                        new ConditionalCommand(new SpeakerShootParallelCommandGroup(
+                                driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
+                                () -> MathUtil.applyDeadband(
+                                        m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                                        OIConstants.kDriveDeadband),
+                                () -> MathUtil.applyDeadband(
+                                        m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                                        OIConstants.kDriveDeadband)),
                                 new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
                                         m_operatorController),
                                 () -> indexerSubsystem.hasNote()),
