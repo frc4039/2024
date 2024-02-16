@@ -11,13 +11,13 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class AutoShoot extends Command {
+public class AutoShootCommand extends Command {
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
     private Timer timer;
 
     /** Creates a new AutoShoot. */
-    public AutoShoot(ShooterSubsystem shooter, IndexerSubsystem indexer) {
+    public AutoShootCommand(ShooterSubsystem shooter, IndexerSubsystem indexer) {
         this.shooter = shooter;
         this.indexer = indexer;
         this.timer = new Timer();

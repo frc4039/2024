@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AimAtSpeaker extends Command {
-    /** Creates a new AimAtSpeaker. */
+public class AimAtNoteCommand extends Command {
+    /** Creates a new TurnToGamePiece. */
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
-    public AimAtSpeaker(DriveSubsystem driveSubsystem,
+    public AimAtNoteCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier) {
         this.driveSubsystem = driveSubsystem;
@@ -34,16 +34,15 @@ public class AimAtSpeaker extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        rotationController.reset(driveSubsystem.getPose().getRotation().getRadians(), 0);
+        rotationController.reset(Math.toRadians(driveSubsystem.getHeading()), 0);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double targetangle = driveSubsystem.getTranslationToGoal().getAngle().getRadians();
-        rotationController.setGoal(targetangle);
+        rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - driveSubsystem.getNoteAngle()));
         driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
-                rotationController.calculate(driveSubsystem.getPose().getRotation().getRadians()),
+                rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
                 true, true);
     }
 

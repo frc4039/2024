@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
@@ -11,16 +10,14 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
 
-    private CANSparkMax m_intakeLowerMotor;
+    private CANSparkMax m_intakeMotor;
 
     public IntakeSubsystem() {
-
-        // Lower Motor
-        m_intakeLowerMotor = new CANSparkMax(IntakeConstants.kIntakeLowerMotorCANID, MotorType.kBrushless);
-        m_intakeLowerMotor.restoreFactoryDefaults();
-        m_intakeLowerMotor.setSmartCurrentLimit(100);
-        m_intakeLowerMotor.setInverted(false);
-        m_intakeLowerMotor.burnFlash();
+        m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorCANID, MotorType.kBrushless);
+        m_intakeMotor.restoreFactoryDefaults();
+        m_intakeMotor.setSmartCurrentLimit(100);
+        m_intakeMotor.setInverted(false);
+        m_intakeMotor.burnFlash();
 
         ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
         intakeTab.add("Subsystem", this)
@@ -28,8 +25,8 @@ public class IntakeSubsystem extends SubsystemBase {
                 .withSize(2, 1);
     }
 
-    public void spinIntakeMotor(double spinSpeedLowerMotor) {
-        m_intakeLowerMotor.set(spinSpeedLowerMotor);
+    public void spinIntakeMotor(double spinSpeedMotor) {
+        m_intakeMotor.set(spinSpeedMotor);
     }
 
     @Override

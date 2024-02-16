@@ -11,54 +11,40 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-/**
- * This command takes operator control from the driver and controls the swerve
- * motors with that control signal.
- */
-public class TeleopDrive extends Command {
+public class AimAtSpeakerCommand extends Command {
+    /** Creates a new AimAtSpeaker. */
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
-    private DoubleSupplier rotSpeedSupplier;
-    private Double rotationAngle;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
-    /** Creates a new TeleopDrive. */
-    public TeleopDrive(DriveSubsystem driveSubsystem,
+    public AimAtSpeakerCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
-            DoubleSupplier ySpeedSupplier,
-            DoubleSupplier rotSpeedSupplier,
-            Double rotationAngle) {
+            DoubleSupplier ySpeedSupplier) {
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
         this.xSpeedSupplier = xSpeedSupplier;
         this.ySpeedSupplier = ySpeedSupplier;
-        this.rotSpeedSupplier = rotSpeedSupplier;
-        this.rotationAngle = rotationAngle;
         rotationController.setTolerance(Math.PI / 360);
         rotationController.enableContinuousInput(0.0, 2 * Math.PI);
+        // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        rotationController.reset(Math.toRadians(driveSubsystem.getHeading()), 0);
+        rotationController.reset(driveSubsystem.getPose().getRotation().getRadians(), 0);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (rotationAngle != -1.0) {
-            rotationController.setGoal(rotationAngle);
-            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
-                    rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
-                    true, true);
-        } else {
-            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
-                    -rotSpeedSupplier.getAsDouble(),
-                    true, true);
-        }
+        double targetangle = driveSubsystem.getTranslationToGoal().getAngle().getRadians();
+        rotationController.setGoal(targetangle);
+        driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+                rotationController.calculate(driveSubsystem.getPose().getRotation().getRadians()),
+                true, true);
     }
 
     // Called once the command ends or is interrupted.

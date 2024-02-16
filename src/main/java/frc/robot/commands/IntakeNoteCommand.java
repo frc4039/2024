@@ -33,7 +33,7 @@ public class IntakeNoteCommand extends Command {
     @Override
     public void execute() {
         if (!isFinished()) {
-            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedLowerMotor);
+            m_Intake.spinIntakeMotor(IntakeConstants.kIntakeSpeedMotor);
             m_Indexer.start(IndexerConstants.kIndexerIntakeSpeed);
         } else {
             end(false);

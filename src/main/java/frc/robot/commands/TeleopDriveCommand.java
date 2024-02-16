@@ -7,33 +7,37 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class TurnToGamePiece extends Command {
-    /** Creates a new TurnToGamePiece. */
+/**
+ * This command takes operator control from the driver and controls the swerve
+ * motors with that control signal.
+ */
+public class TeleopDriveCommand extends Command {
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
+    private DoubleSupplier rotSpeedSupplier;
+    private Double rotationAngle;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
-    private final NetworkTable nt;
 
-    public TurnToGamePiece(DriveSubsystem driveSubsystem,
+    /** Creates a new TeleopDrive. */
+    public TeleopDriveCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
-            DoubleSupplier ySpeedSupplier) {
+            DoubleSupplier ySpeedSupplier,
+            DoubleSupplier rotSpeedSupplier,
+            Double rotationAngle) {
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
         this.xSpeedSupplier = xSpeedSupplier;
         this.ySpeedSupplier = ySpeedSupplier;
+        this.rotSpeedSupplier = rotSpeedSupplier;
+        this.rotationAngle = rotationAngle;
         rotationController.setTolerance(Math.PI / 360);
         rotationController.enableContinuousInput(0.0, 2 * Math.PI);
-        nt = NetworkTableInstance.getDefault().getTable("PiVision");
-        // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
@@ -45,12 +49,16 @@ public class TurnToGamePiece extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double cameraTarget = nt.getEntry("angle").getDouble(0);
-        rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - cameraTarget));
-        driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
-                rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
-                true, true);
-        SmartDashboard.putNumber("camera-x", cameraTarget);
+        if (rotationAngle != -1.0) {
+            rotationController.setGoal(rotationAngle);
+            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+                    rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
+                    true, true);
+        } else {
+            driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+                    -rotSpeedSupplier.getAsDouble(),
+                    true, true);
+        }
     }
 
     // Called once the command ends or is interrupted.
