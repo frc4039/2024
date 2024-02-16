@@ -38,6 +38,7 @@ public class PivotToShootCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        pivot.setDesiredAngle(angleEstimator.get(4.12));
     }
 
     // Returns true when the command should end.

@@ -126,7 +126,8 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 -1.0));
-        pivotAngleSubsystem.setDefaultCommand(new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
+        // pivotAngleSubsystem.setDefaultCommand(new
+        // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
@@ -189,7 +190,7 @@ public class RobotContainer {
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
                         ScoringState.SPEAKER,
-                        new ConditionalCommand(new SpeakerShootParallelCommandGroup(
+                        new SpeakerShootParallelCommandGroup(
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
                                 () -> MathUtil.applyDeadband(
                                         m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
@@ -197,13 +198,7 @@ public class RobotContainer {
                                 () -> MathUtil.applyDeadband(
                                         m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                                         OIConstants.kDriveDeadband)),
-                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
-                                        m_operatorController),
-                                () -> indexerSubsystem.hasNote()),
-                        ScoringState.AMP, new ConditionalCommand(new AmpShootCommand(shooterSubsystem),
-                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
-                                        m_operatorController),
-                                () -> indexerSubsystem.hasNote()),
+                        ScoringState.AMP, new AmpShootCommand(shooterSubsystem),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
