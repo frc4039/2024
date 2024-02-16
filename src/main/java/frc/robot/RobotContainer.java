@@ -42,6 +42,7 @@ import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -125,7 +126,8 @@ public class RobotContainer {
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
                         OIConstants.kDriveDeadband),
                 -1.0));
-        pivotAngleSubsystem.setDefaultCommand(new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
+        // pivotAngleSubsystem.setDefaultCommand(new
+        // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
@@ -187,14 +189,16 @@ public class RobotContainer {
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER, new ConditionalCommand(new ShootCommand(shooterSubsystem),
-                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
-                                        m_operatorController),
-                                () -> indexerSubsystem.hasNote()),
-                        ScoringState.AMP, new ConditionalCommand(new AmpShootCommand(shooterSubsystem),
-                                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, m_driverController,
-                                        m_operatorController),
-                                () -> indexerSubsystem.hasNote()),
+                        ScoringState.SPEAKER,
+                        new SpeakerShootParallelCommandGroup(
+                                driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
+                                () -> MathUtil.applyDeadband(
+                                        m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+                                        OIConstants.kDriveDeadband),
+                                () -> MathUtil.applyDeadband(
+                                        m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+                                        OIConstants.kDriveDeadband)),
+                        ScoringState.AMP, new AmpShootCommand(shooterSubsystem),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
