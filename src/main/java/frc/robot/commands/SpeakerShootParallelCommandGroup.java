@@ -11,6 +11,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.ShootCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,7 +25,7 @@ public class SpeakerShootParallelCommandGroup extends ParallelCommandGroup {
 
         addCommands(
                 new AimAtSpeakerCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier),
-                new AutoShootCommand(shooterSubsystem, indexerSubsystem),
+                new ShootCommand(shooterSubsystem),
                 new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
         // check process vs tolerances
