@@ -145,9 +145,9 @@ public class RobotContainer {
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
         NamedCommands.registerCommand("FeederCommand",
-                new IndexerCommand(indexerSubsystem, ShooterConstants.kShooterRPM - 200));
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
         NamedCommands.registerCommand("IndexerCommand",
-                new IndexerCommand(indexerSubsystem, ShooterConstants.kShooterRPM - 200));
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
         NamedCommands.registerCommand("AutoShoot", new AutoShootCommand(shooterSubsystem, indexerSubsystem));
         NamedCommands.registerCommand("IntakeNoteCommand", new IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
 
@@ -243,8 +243,9 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
-                ScoringState.SPEAKER, new IndexerCommand(indexerSubsystem, ShooterConstants.kShooterRPM - 200),
-                ScoringState.AMP, new IndexerCommand(indexerSubsystem, 500)), () -> scoringState));
+                ScoringState.SPEAKER,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
+                ScoringState.AMP, new IndexerCommand(indexerSubsystem, shooterSubsystem, 500)), () -> scoringState));
     }
 
     public Command getAutonomousCommand() {

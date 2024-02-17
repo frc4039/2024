@@ -15,8 +15,9 @@ public class IndexerCommand extends Command {
     private double targetSpeed;
 
     /** Creates a new IndexerCommand. */
-    public IndexerCommand(IndexerSubsystem indexer, double targetSpeed) {
+    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed) {
         this.indexer = indexer;
+        this.shooter = shooter;
         this.targetSpeed = targetSpeed;
         addRequirements(indexer);
     }
@@ -29,7 +30,7 @@ public class IndexerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (shooter.getShooterSpeed() >= targetSpeed) {
+        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
     }
