@@ -230,10 +230,10 @@ public final class Constants {
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
-        public static final double kPivotD = 0;
+        public static final double kPivotD = 0.20;
         public static final double kPivotFF = 0;
-        public static final double kPivotMinOutput = -0.2;
-        public static final double kPivotMaxOutput = 0.2;
+        public static final double kPivotMinOutput = -0.5;
+        public static final double kPivotMaxOutput = 0.5;
 
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.

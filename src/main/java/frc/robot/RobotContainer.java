@@ -35,6 +35,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AimAtNoteCommand;
+import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
@@ -213,7 +214,8 @@ public class RobotContainer {
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
-        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem)
+                .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                 m_driverController, m_operatorController));

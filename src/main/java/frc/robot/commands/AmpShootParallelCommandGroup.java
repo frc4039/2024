@@ -21,8 +21,6 @@ public class AmpShootParallelCommandGroup extends ParallelCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new AimAtAmpCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier),
-                new PivotAngleCommand(pivotAngleSubsystem),
-                new AmpShootCommand(shooterSubsystem));
+                new AimAtAmpCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier));
     }
 }
