@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeNoteRumbleCommandGroup extends SequentialCommandGroup {
+public class IntakeNoteRumbleCommandGroup extends ParallelCommandGroup {
     /** Creates a new IntakeNoteCommandRumble. */
     // public IntakeNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
 
@@ -22,6 +22,6 @@ public class IntakeNoteRumbleCommandGroup extends SequentialCommandGroup {
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new IntakeNoteCommand(intake, indexer),
-                new RumbleCommand(driverControler, operatorControler).withTimeout(0.5));
+                new RumbleCommand(driverControler, operatorControler, indexer));
     }
 }
