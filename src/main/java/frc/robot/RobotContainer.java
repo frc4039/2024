@@ -31,9 +31,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AutoShootCommand;
-import frc.robot.commands.ClimbOnStageCommand;
+import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
@@ -114,7 +115,7 @@ public class RobotContainer {
         CLIMB3
     }
 
-    enum IntakeState {
+    public enum IntakeState {
         FLOOR,
         HUMAN_PLAYER
     }
@@ -162,6 +163,8 @@ public class RobotContainer {
                 .withPosition(0, 1);
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
+        mainTab.addString("Intake State", () -> intakeState.toString())
+                .withPosition(1, 2);
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -189,10 +192,10 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
-        operatorXButton.whileTrue(new SelectCommand<IntakeState>(Map.of(
-                IntakeState.FLOOR, new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
-                IntakeState.HUMAN_PLAYER, new IntakeNoteCommand(intakeSubsystem, indexerSubsystem)),
-                () -> intakeState)); // formerly ClimbOnStageCommand
+        operatorXButton.onTrue(new SelectCommand<IntakeState>(Map.of(
+                IntakeState.FLOOR, new InstantCommand(() -> this.intakeState = IntakeState.HUMAN_PLAYER),
+                IntakeState.HUMAN_PLAYER,
+                new InstantCommand(() -> this.intakeState = IntakeState.FLOOR)), () -> this.intakeState));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -208,14 +211,15 @@ public class RobotContainer {
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
-        driverYButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
+
+        driverLeftTrigger.whileTrue(
+                new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
+
+        driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband),
-                0.0));
+                        OIConstants.kDriveDeadband)));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                         OIConstants.kDriveDeadband),
