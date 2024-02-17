@@ -171,6 +171,11 @@ public class RobotContainer {
                 .withPosition(1, 1);
         mainTab.addString("Intake State", () -> intakeState.toString())
                 .withPosition(1, 2);
+        mainTab.addCamera("Note Cam", "NoteFeed",
+                "mjpg:http://wpilibpi.local:1182/?action=stream")
+                .withProperties(Map.of("showControls", false))
+                .withPosition(2, 0)
+                .withSize(3, 3);
 
         hardwareMonitor.registerDevice(null, new PowerDistribution(5, ModuleType.kRev));
 
