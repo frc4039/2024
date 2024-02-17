@@ -38,6 +38,7 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
@@ -76,6 +77,10 @@ public class RobotContainer {
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
     private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
+            .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
+    private final Trigger operatorLeftTrigger = new Trigger(() -> m_operatorController
+            .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
+    private final Trigger operatorRightTrigger = new Trigger(() -> m_operatorController
             .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
@@ -187,14 +192,7 @@ public class RobotContainer {
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
-        operatorDLeftPadTrigger.whileTrue(new IntakeNoteCommand(intakeSubsystem, indexerSubsystem)); // new
-                                                                                                     // InstantCommand(()
-                                                                                                     // ->
-                                                                                                     // this.scoringState
-                                                                                                     // =
-                                                                                                     // ScoringState.CLIMB1)
-                                                                                                     // | Also was
-                                                                                                     // onTrue
+        operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
@@ -202,6 +200,8 @@ public class RobotContainer {
                 IntakeState.FLOOR, new InstantCommand(() -> this.intakeState = IntakeState.HUMAN_PLAYER),
                 IntakeState.HUMAN_PLAYER,
                 new InstantCommand(() -> this.intakeState = IntakeState.FLOOR)), () -> this.intakeState));
+        operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
+                m_driverController, m_operatorController));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
