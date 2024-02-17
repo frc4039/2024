@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 
@@ -38,7 +39,7 @@ public class PivotToShootCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivot.setDesiredAngle(angleEstimator.get(4.12));
+        pivot.setDesiredAngle(PivotConstants.kPivotTravelPosition);
     }
 
     // Returns true when the command should end.

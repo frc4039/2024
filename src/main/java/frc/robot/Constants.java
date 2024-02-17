@@ -243,6 +243,8 @@ public final class Constants {
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
+
+        public static final double kPivotTravelPosition = 237;
     }
 
     public static final class ClimberConstants {
