@@ -85,6 +85,9 @@ public final class Constants {
         public static final int kRearRightTurningCanId = 16;
 
         public static final boolean kGyroReversed = false;
+
+        public static final double kDriveToNoteXSpeed = 0.3;
+        public static final double kDriveToNoteYSpeed = 0.0;
     }
 
     public static final class ModuleConstants {
