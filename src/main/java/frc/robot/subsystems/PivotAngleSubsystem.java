@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.utils.HardwareMonitor;
 
 public class PivotAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivotSparkMax;
@@ -22,7 +23,7 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final AbsoluteEncoder m_pivotEncoder;
 
     /** Creates a new PivotAngle. */
-    public PivotAngleSubsystem() {
+    public PivotAngleSubsystem(HardwareMonitor hw) {
         m_pivotSparkMax = new CANSparkMax(PivotConstants.kPivotCANId, MotorType.kBrushless);
         m_pivotFollowerSparkMax = new CANSparkMax(PivotConstants.kPivotFollowerCANId, MotorType.kBrushless);
 
@@ -54,6 +55,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
 
         m_pivotSparkMax.burnFlash();
         m_pivotFollowerSparkMax.burnFlash();
+
+        hw.registerDevice(this, m_pivotSparkMax);
+        hw.registerDevice(this, m_pivotFollowerSparkMax);
 
         ShuffleboardTab pivotAngleTab = Shuffleboard.getTab("PivotAngle");
         pivotAngleTab.addDouble("encoder", () -> m_pivotEncoder.getPosition());

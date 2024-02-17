@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
+import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.SwerveUtils;
 import frc.robot.utils.Vision;
 
@@ -85,7 +86,7 @@ public class DriveSubsystem extends SubsystemBase {
     private NetworkTable m_piVision;
 
     /** Creates a new DriveSubsystem. */
-    public DriveSubsystem() {
+    public DriveSubsystem(HardwareMonitor hw) {
         m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
                 Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
                 new SwerveModulePosition[] {
@@ -120,6 +121,12 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.addDouble("Note Angle", () -> getNoteAngle())
                 .withPosition(4, 0)
                 .withSize(1, 1);
+
+        m_frontLeft.registerWithHardwareTracker(this, hw);
+        m_frontRight.registerWithHardwareTracker(this, hw);
+        m_rearLeft.registerWithHardwareTracker(this, hw);
+        m_rearRight.registerWithHardwareTracker(this, hw);
+        hw.registerDevice(this, m_gyro);
 
         // Configure AutoBuilder last
         AutoBuilder.configureHolonomic(

@@ -9,16 +9,20 @@ import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.utils.HardwareMonitor;
 
 public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
 
-    public ClimberSubsystem() {
+    public ClimberSubsystem(HardwareMonitor hw) {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
+
+        hw.registerDevice(this, m_climberLeaderMotor);
+        hw.registerDevice(this, m_climberFollowerMotor);
     }
 
     public void ClimbOnStage(double motorSpeed) {

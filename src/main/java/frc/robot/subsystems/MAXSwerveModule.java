@@ -8,15 +8,17 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
+import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.ModuleConstants;
+import frc.robot.utils.HardwareMonitor;
 
 public class MAXSwerveModule {
     private final TalonFX m_drivingTalonFx;
@@ -156,5 +158,11 @@ public class MAXSwerveModule {
     /** Zeroes all the SwerveModule encoders. */
     public void resetEncoders() {
         m_drivingTalonFx.setPosition(0);
+    }
+
+    /** Register this module so its motors will be monitored. */
+    public void registerWithHardwareTracker(Subsystem parent, HardwareMonitor hw) {
+        hw.registerDevice(parent, m_drivingTalonFx);
+        hw.registerDevice(parent, m_turningSparkMax);
     }
 }
