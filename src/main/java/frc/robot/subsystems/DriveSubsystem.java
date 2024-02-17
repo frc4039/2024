@@ -299,11 +299,13 @@ public class DriveSubsystem extends SubsystemBase {
         double ySpeedDelivered = ySpeedCommanded * DriveConstants.kMaxSpeedMetersPerSecond;
         double rotDelivered = m_currentRotation * DriveConstants.kMaxAngularSpeed;
 
-        // Speed needs to always be away from the alliance wall.
-        Optional<Alliance> alliance = DriverStation.getAlliance();
-        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
-            xSpeedDelivered = -xSpeedDelivered;
-            ySpeedDelivered = -ySpeedDelivered;
+        if (fieldRelative == true) {
+            // Speed needs to always be away from the alliance wall.
+            Optional<Alliance> alliance = DriverStation.getAlliance();
+            if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+                xSpeedDelivered = -xSpeedDelivered;
+                ySpeedDelivered = -ySpeedDelivered;
+            }
         }
 
         driveRaw(xSpeedDelivered, ySpeedDelivered, rotDelivered, fieldRelative);

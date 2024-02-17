@@ -41,6 +41,7 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
@@ -126,19 +127,13 @@ public class RobotContainer {
     enum ScoringState {
         AMP,
         SPEAKER,
+        INTAKE,
         CLIMB1,
         CLIMB2,
         CLIMB3
     }
 
-    public enum IntakeState {
-        FLOOR,
-        HUMAN_PLAYER
-    }
-
     private ScoringState scoringState = ScoringState.SPEAKER;
-
-    private IntakeState intakeState = IntakeState.FLOOR;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -173,8 +168,6 @@ public class RobotContainer {
                 .withPosition(0, 1);
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
-        mainTab.addString("Intake State", () -> intakeState.toString())
-                .withPosition(1, 2);
         mainTab.addCamera("Note Cam", "NoteFeed",
                 "mjpg:http://wpilibpi.local:1182/?action=stream")
                 .withProperties(Map.of("showControls", false))
@@ -218,10 +211,7 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
-        operatorXButton.onTrue(new SelectCommand<IntakeState>(Map.of(
-                IntakeState.FLOOR, new InstantCommand(() -> this.intakeState = IntakeState.HUMAN_PLAYER),
-                IntakeState.HUMAN_PLAYER,
-                new InstantCommand(() -> this.intakeState = IntakeState.FLOOR)), () -> this.intakeState));
+        operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                 m_driverController, m_operatorController));
 
@@ -238,12 +228,10 @@ public class RobotContainer {
                                         m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
                                         OIConstants.kDriveDeadband)),
                         ScoringState.AMP, new AmpShootCommand(shooterSubsystem),
+                        ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
-
-        driverLeftTrigger.whileTrue(
-                new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
 
         driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX));
