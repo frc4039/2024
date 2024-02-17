@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.utils.HardwareMonitor;
 
 public class ShooterSubsystem extends SubsystemBase {
     private final CANSparkFlex m_lowerShooterVortex;
@@ -23,7 +24,7 @@ public class ShooterSubsystem extends SubsystemBase {
     private final RelativeEncoder m_lowerShooterEncoder;
     private final RelativeEncoder m_upperShooterEncoder;
 
-    public ShooterSubsystem() {
+    public ShooterSubsystem(HardwareMonitor hw) {
         ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
 
         m_lowerShooterVortex = new CANSparkFlex(ShooterConstants.kLowerShooterCANId, MotorType.kBrushless);
@@ -53,6 +54,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
         m_lowerShooterVortex.burnFlash();
         m_upperShooterVortex.burnFlash();
+
+        hw.registerDevice(this, m_lowerShooterVortex);
+        hw.registerDevice(this, m_upperShooterVortex);
 
         shooterTab.addDouble("Upper Speed (RPM)", () -> m_upperShooterEncoder.getVelocity());
         shooterTab.addDouble("Lower Speed (RPM)", () -> m_lowerShooterEncoder.getVelocity());

@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -17,6 +18,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -24,7 +27,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,9 +41,7 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
-import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
-import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.TeleopDriveCommand;
@@ -51,19 +51,23 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
     public final ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
 
+    // Monitor for hardware faults that will display on the dashboard.
+    private HardwareMonitor hardwareMonitor = new HardwareMonitor();
+
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-    private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
+    private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
+    private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -81,6 +85,16 @@ public class RobotContainer {
     private final Trigger driverRightTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kRightTrigger.value) > OIConstants.kTriggerThreshold);
 
+    private final DoubleSupplier driverLeftStickY = () -> MathUtil.applyDeadband(
+            m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
+            OIConstants.kDriveDeadband);
+    private final DoubleSupplier driverLeftStickX = () -> MathUtil.applyDeadband(
+            m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
+            OIConstants.kDriveDeadband);
+    private final DoubleSupplier driverRightStickX = () -> MathUtil.applyDeadband(
+            m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
+            OIConstants.kDriveDeadband);
+
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
 
@@ -96,13 +110,10 @@ public class RobotContainer {
 
     private final JoystickButton operatorBButton = new JoystickButton(m_operatorController,
             XboxController.Button.kB.value);
-
     private final JoystickButton operatorYButton = new JoystickButton(m_operatorController,
             XboxController.Button.kY.value);
-
     private final JoystickButton operatorAButton = new JoystickButton(m_operatorController,
             XboxController.Button.kA.value);
-
     private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
             XboxController.Button.kX.value);
 
@@ -127,13 +138,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband),
-                -1.0));
+                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
@@ -159,7 +164,6 @@ public class RobotContainer {
                     }
                     Translation2d currentPosition = driveSubsystem.getPose().getTranslation();
                     driveSubsystem.resetOdometry(new Pose2d(currentPosition, resetAngle));
-                    System.out.println("Ran!");
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
@@ -167,6 +171,22 @@ public class RobotContainer {
                 .withPosition(1, 1);
         mainTab.addString("Intake State", () -> intakeState.toString())
                 .withPosition(1, 2);
+        mainTab.addCamera("Note Cam", "NoteFeed",
+                "mjpg:http://wpilibpi.local:1182/?action=stream")
+                .withProperties(Map.of("showControls", false))
+                .withPosition(2, 0)
+                .withSize(3, 3);
+
+        hardwareMonitor.registerDevice(null, new PowerDistribution(5, ModuleType.kRev));
+
+        ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
+                .withPosition(6, 0)
+                .withSize(3, 3)
+                .withProperties(Map.of("Label position", "HIDDEN"));
+        for (int i = 0; i < 10; i++) {
+            final Integer index = i;
+            hardwareLayout.addString(index.toString(), () -> hardwareMonitor.getErrorLine(9 - index));
+        }
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
@@ -220,34 +240,13 @@ public class RobotContainer {
                 new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
 
         driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband)));
+                driverLeftStickY, driverLeftStickX));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband),
-                1.5 * Math.PI));
+                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
         driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband),
-                Math.PI));
+                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                        OIConstants.kDriveDeadband),
-                () -> MathUtil.applyDeadband(m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
-                        OIConstants.kDriveDeadband),
-                Math.PI / 2));
+                driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI));
 
         driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
     }

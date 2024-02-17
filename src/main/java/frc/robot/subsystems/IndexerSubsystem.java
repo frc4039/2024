@@ -13,20 +13,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexerConstants;
+import frc.robot.utils.HardwareMonitor;
 
 public class IndexerSubsystem extends SubsystemBase {
     private final CANSparkMax m_indexerNeo550;
     private final DigitalInput m_beamBreak = new DigitalInput(IndexerConstants.kBeamBreakDIO);
 
     /** Create motor elements. */
-    public IndexerSubsystem() {
-
-        ShuffleboardTab indexerTab = Shuffleboard.getTab("Indexer");
-        indexerTab.addBoolean("Beam Breaker Activated", () -> hasNote());
-        indexerTab.add("Subsystem", this)
-                .withPosition(7, 0)
-                .withSize(2, 1);
-
+    public IndexerSubsystem(HardwareMonitor hw) {
         m_indexerNeo550 = new CANSparkMax(IndexerConstants.kIndexerCANID, MotorType.kBrushless);
 
         m_indexerNeo550.restoreFactoryDefaults();
@@ -35,6 +29,15 @@ public class IndexerSubsystem extends SubsystemBase {
         m_indexerNeo550.setIdleMode(IdleMode.kBrake);
 
         m_indexerNeo550.burnFlash();
+
+        hw.registerDevice(this, m_indexerNeo550);
+
+        ShuffleboardTab indexerTab = Shuffleboard.getTab("Indexer");
+        indexerTab.addBoolean("Beam Breaker Activated", () -> hasNote());
+        indexerTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
+
     }
 
     @Override
