@@ -7,13 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class IndexerCommand extends Command {
     private IndexerSubsystem indexer;
+    private ShooterSubsystem shooter;
+    private double targetSpeed;
 
     /** Creates a new IndexerCommand. */
-    public IndexerCommand(IndexerSubsystem indexer) {
+    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed) {
         this.indexer = indexer;
+        this.shooter = shooter;
+        this.targetSpeed = targetSpeed;
         addRequirements(indexer);
     }
 
@@ -25,7 +30,9 @@ public class IndexerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        indexer.start(IndexerConstants.kIndexerShooterSpeed);
+        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed) {
+            indexer.start(IndexerConstants.kIndexerShooterSpeed);
+        }
     }
 
     // Called once the command ends or is interrupted.

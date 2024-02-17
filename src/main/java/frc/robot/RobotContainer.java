@@ -33,8 +33,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AimAtNoteCommand;
-import frc.robot.commands.AmpShootCommand;
+import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -143,8 +144,10 @@ public class RobotContainer {
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
-        NamedCommands.registerCommand("FeederCommand", new IndexerCommand(indexerSubsystem));
-        NamedCommands.registerCommand("IndexerCommand", new IndexerCommand(indexerSubsystem));
+        NamedCommands.registerCommand("FeederCommand",
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
+        NamedCommands.registerCommand("IndexerCommand",
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
         NamedCommands.registerCommand("AutoShoot", new AutoShootCommand(shooterSubsystem, indexerSubsystem));
         NamedCommands.registerCommand("IntakeNoteCommand", new IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
 
@@ -221,13 +224,10 @@ public class RobotContainer {
                         ScoringState.SPEAKER,
                         new SpeakerShootParallelCommandGroup(
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
-                                () -> MathUtil.applyDeadband(
-                                        m_driverController.getRawAxis(XboxController.Axis.kLeftX.value),
-                                        OIConstants.kDriveDeadband),
-                                () -> MathUtil.applyDeadband(
-                                        m_driverController.getRawAxis(XboxController.Axis.kLeftY.value),
-                                        OIConstants.kDriveDeadband)),
-                        ScoringState.AMP, new AmpShootCommand(shooterSubsystem),
+                                driverLeftStickY, driverLeftStickX),
+                        ScoringState.AMP,
+                        new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
+                                driverLeftStickY, driverLeftStickX),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
                         ScoringState.CLIMB1, new InstantCommand(),
                         ScoringState.CLIMB2, new InstantCommand(),
@@ -242,7 +242,10 @@ public class RobotContainer {
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI));
 
-        driverRightTrigger.whileTrue((new IndexerCommand(indexerSubsystem)));
+        driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
+                ScoringState.SPEAKER,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
+                ScoringState.AMP, new IndexerCommand(indexerSubsystem, shooterSubsystem, 500)), () -> scoringState));
     }
 
     public Command getAutonomousCommand() {

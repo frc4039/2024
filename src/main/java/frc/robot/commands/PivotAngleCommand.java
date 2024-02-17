@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.PivotAngleSubsystem;
 
 public class PivotAngleCommand extends Command {
@@ -31,7 +32,7 @@ public class PivotAngleCommand extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        pivotAngle.setDesiredAngle(226); // 4.12 metres = 233 at 4000 RPM | 211 is 54 in (1.37m) | 226 is 3m
+        pivotAngle.setDesiredAngle(PivotConstants.kPivotTravelPosition);
     }
 
     // Returns true when the command should end.
