@@ -3,47 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.5088664858059477,
-        "y": 4.354805493390919
+        "x": 7.950102859855669,
+        "y": 4.240291468159375
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0133038377536274,
-        "y": 5.3269599455390475
+        "x": 5.445055945375606,
+        "y": 3.970603483024111
       },
       "isLocked": false,
-      "linkedName": "Note 3 Pickup Position"
+      "linkedName": "CenterNote3"
     },
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": {
-        "x": 1.6464113992937224,
-        "y": 5.2977853660952485
+        "x": 4.4536531301412285,
+        "y": 4.349705377438737
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": "FarSpeakerShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Auto2 Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

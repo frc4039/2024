@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 0.7616363982727968,
+        "y": 4.2785943313495425
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.391281175521302,
-        "y": 5.519210109828429
+        "x": 1.3851547378297304,
+        "y": 3.236468088025876
       },
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.82949216696609,
-        "y": 5.519210109828429
+        "x": 8.095152313925952,
+        "y": 2.201227703491967
       },
       "prevControl": {
-        "x": 1.8984841860789767,
-        "y": 5.539580744212799
+        "x": 5.159945569425198,
+        "y": 0.2700722915743217
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "CenterNote4"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.5,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "parallel",
         "data": {
@@ -50,20 +50,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 47.589033710018235,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Auto2 Paths",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -61.59474307254925,
     "velocity": 0
   },
   "useDefaultConstraints": true

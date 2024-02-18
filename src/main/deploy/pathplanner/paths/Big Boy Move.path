@@ -3,47 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9289819684257384,
-        "y": 7.000961950897676
+        "x": 0.0,
+        "y": 7.15
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5007963582061716,
-        "y": 7.39530184861396
+        "x": 1.1180339887498951,
+        "y": 7.15
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.812618094306884,
-        "y": 7.807793786197607
+        "x": 7.32,
+        "y": 7.15
       },
       "prevControl": {
-        "x": 1.1385821667025313,
-        "y": 7.455893839951876
+        "x": 5.7993093674254474,
+        "y": 7.15
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Amp"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 92.23938833646838,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Odometry Test",
   "previewStartingState": null,
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

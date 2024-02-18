@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.37,
-      "y": 5.54
+      "x": 0.7008362111719008,
+      "y": 4.441919969398212
     },
-    "rotation": 0.0
+    "rotation": -59.61149974170877
   },
   "command": {
     "type": "sequential",
@@ -14,19 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Speaker to N2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteCommand"
+            "name": "StartPivot"
           }
         },
         {
@@ -38,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Drive to N3"
+            "pathName": "StageRightSubwoofer-C5"
           }
         },
         {
@@ -48,9 +36,9 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AutoShoot"
+            "pathName": "C5-C1Dirsrupt"
           }
         }
       ]

@@ -3,47 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.812618094306884,
-        "y": 7.807793786197607
+        "x": 8.041956082821393,
+        "y": 7.477437776485861
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.005568153810196,
-        "y": 6.792651033278121
+        "x": 6.004825100144992,
+        "y": 7.481227242113049
       },
       "isLocked": false,
-      "linkedName": "Blue Amp"
+      "linkedName": "CenterNote1"
     },
     {
       "anchor": {
-        "x": 2.304828612650384,
-        "y": 5.5770067198629265
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": {
-        "x": 2.054828612650384,
-        "y": 7.077006719862925
+        "x": 4.997047152225091,
+        "y": 7.066158740064876
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "FarSpeakerShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": true
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
-  "previewStartingState": null,
-  "useDefaultConstraints": false
+  "folder": "Auto3 Paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
 }

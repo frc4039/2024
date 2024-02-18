@@ -1,0 +1,85 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7616363982727968,
+      "y": 4.2785943313495425
+    },
+    "rotation": -58.72379627540794
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1 SubwooferStageRight-C4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 C4-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "3 FarSpeakerShot-C3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "4 C3-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "5 FarSpeakerShot-C5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

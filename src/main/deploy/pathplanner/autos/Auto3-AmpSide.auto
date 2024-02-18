@@ -2,67 +2,67 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.94,
-      "y": 3.89
+      "x": 0.7826793454199492,
+      "y": 6.70466190611125
     },
-    "rotation": 0
+    "rotation": 59.70893516720105
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "S3 to Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0
+            "name": "AutoShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker to N3"
+            "pathName": "StageLeftSubWoofer-C1"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "N3 to Speaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0
+            "name": "IntakeNoteCommand"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Speaker to N2"
+            "pathName": "C1-FarSpeakerShot"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 0
+            "name": "AutoShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "N2 to Speaker"
+            "pathName": "FarSpeakerShot-C2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C2-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
           }
         }
       ]

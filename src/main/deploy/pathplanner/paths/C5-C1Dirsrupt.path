@@ -3,49 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.82949216696609,
-        "y": 5.519210109828429
+        "x": 8.200363787974315,
+        "y": 0.9275081775805287
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.421637440196203,
-        "y": 5.53807044401432
+        "x": 8.564015373061554,
+        "y": 1.2174256016357399
       },
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "CentreNote5"
     },
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 8.473724996790466,
+        "y": 7.142744689644726
       },
       "prevControl": {
-        "x": 1.8747982585759928,
-        "y": 5.521125612519184
+        "x": 8.413987113526566,
+        "y": 4.617746284105777
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
-    "rotateFast": false
+    "rotation": -45.18904950699042,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Disrupt Centre Auto ",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -53.65344322272919,
     "velocity": 0
   },
   "useDefaultConstraints": true

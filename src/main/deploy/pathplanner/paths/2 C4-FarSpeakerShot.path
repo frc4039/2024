@@ -3,47 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9360177571552407,
-        "y": 3.887680692978262
+        "x": 8.095152313925952,
+        "y": 2.201227703491967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.233289040124261,
-        "y": 4.6318903249266015
+        "x": 7.653113943572148,
+        "y": 4.088177231578116
       },
       "isLocked": false,
-      "linkedName": "S3"
+      "linkedName": "CenterNote4"
     },
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": {
-        "x": 2.0787256219609365,
-        "y": 4.805832703883195
+        "x": 4.452187624120959,
+        "y": 3.924465062822845
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": "FarSpeakerShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 5.0,
+    "maxAcceleration": 5.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": 0.15404201626807193,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Auto2 Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
