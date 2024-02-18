@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9265152267645393,
-        "y": 5.559302880686202
+        "x": 0.7616363982727968,
+        "y": 4.2785943313495425
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.979814411573013,
-        "y": 3.110918050816392
+        "x": 1.3851547378297304,
+        "y": 3.236468088025876
       },
       "isLocked": false,
-      "linkedName": "FarSpeakerShot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.987578441009108,
-        "y": 1.0442557300045157
+        "x": 8.095152313925952,
+        "y": 2.201227703491967
       },
       "prevControl": {
-        "x": 7.320689692505304,
-        "y": 5.224049193247491
+        "x": 5.159945569425198,
+        "y": 0.2700722915743217
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CenterNote4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
+      "waypointRelativePos": 0.85,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -43.03067300447314,
+    "rotation": 47.589033710018235,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": null,
-  "previewStartingState": null,
+  "folder": "Auto2 Paths",
+  "previewStartingState": {
+    "rotation": -61.59474307254925,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

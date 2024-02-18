@@ -20,13 +20,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SubwooferStageRight-C4"
+            "pathName": "1 SubwooferStageRight-C4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C4-FarSpeakerShot"
+            "pathName": "2 C4-FarSpeakerShot"
           }
         },
         {
@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FarSpeakerShot-C3"
+            "pathName": "3 FarSpeakerShot-C3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "C3-FarSpeakerShot"
+            "pathName": "4 C3-FarSpeakerShot"
           }
         },
         {
@@ -56,7 +56,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FarSpeakerShot-C5"
+            "pathName": "5 FarSpeakerShot-C5"
           }
         }
       ]
