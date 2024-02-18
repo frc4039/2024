@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.041956082821393,
+        "y": 7.477437776485861
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.004825100144992,
+        "y": 7.481227242113049
+      },
+      "isLocked": false,
+      "linkedName": "CenterNote1"
+    },
+    {
+      "anchor": {
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
+      },
+      "prevControl": {
+        "x": 4.997047152225091,
+        "y": 7.066158740064876
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "FarSpeakerShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 6.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Auto3 Paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
