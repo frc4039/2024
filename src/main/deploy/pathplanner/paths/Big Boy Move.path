@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.095152313925952,
-        "y": 2.201227703491967
+        "x": 0.0,
+        "y": 7.15
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.653113943572148,
-        "y": 4.088177231578116
+        "x": 1.1180339887498951,
+        "y": 7.15
       },
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.9265152267645393,
-        "y": 5.559302880686202
+        "x": 7.32,
+        "y": 7.15
       },
       "prevControl": {
-        "x": 4.452187624120959,
-        "y": 3.924465062822845
+        "x": 5.7993093674254474,
+        "y": 7.15
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "FarSpeakerShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,14 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.15404201626807193,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "folder": "Odometry Test",
+  "previewStartingState": null,
   "useDefaultConstraints": true
 }

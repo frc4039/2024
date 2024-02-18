@@ -14,6 +14,12 @@
         {
           "type": "named",
           "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoShoot"
           }
         },
@@ -21,6 +27,12 @@
           "type": "path",
           "data": {
             "pathName": "MiddleSubwoofer-N3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
           }
         },
         {
@@ -38,6 +50,12 @@
         {
           "type": "named",
           "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoShoot"
           }
         },
@@ -50,7 +68,19 @@
         {
           "type": "named",
           "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TravelPivot"
           }
         },
         {
@@ -60,9 +90,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "4 C3-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
           }
         },
         {

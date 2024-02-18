@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7616363982727968,
-        "y": 4.2785943313495425
+        "x": 0.7008362111719008,
+        "y": 4.441919969398212
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3851547378297304,
-        "y": 3.236468088025876
+        "x": 3.8793478525754153,
+        "y": 0.5910191213650007
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.095152313925952,
-        "y": 2.201227703491967
+        "x": 8.200363787974315,
+        "y": 0.9275081775805287
       },
       "prevControl": {
-        "x": 5.159945569425198,
-        "y": 0.2700722915743217
+        "x": 7.48975053867213,
+        "y": 2.4816636351630956
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": "CentreNote5"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 47.589033710018235,
+    "rotation": -59.24194374131941,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
+  "folder": "Disrupt Centre Auto ",
   "previewStartingState": {
-    "rotation": -61.59474307254925,
+    "rotation": -60.92190373006388,
     "velocity": 0
   },
   "useDefaultConstraints": true

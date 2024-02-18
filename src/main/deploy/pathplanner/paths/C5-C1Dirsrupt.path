@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.095152313925952,
-        "y": 2.201227703491967
+        "x": 8.200363787974315,
+        "y": 0.9275081775805287
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.653113943572148,
-        "y": 4.088177231578116
+        "x": 8.564015373061554,
+        "y": 1.2174256016357399
       },
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": "CentreNote5"
     },
     {
       "anchor": {
-        "x": 3.9265152267645393,
-        "y": 5.559302880686202
+        "x": 8.473724996790466,
+        "y": 7.142744689644726
       },
       "prevControl": {
-        "x": 4.452187624120959,
-        "y": 3.924465062822845
+        "x": 8.413987113526566,
+        "y": 4.617746284105777
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "FarSpeakerShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.15404201626807193,
+    "rotation": -45.18904950699042,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
+  "folder": "Disrupt Centre Auto ",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -53.65344322272919,
     "velocity": 0
   },
   "useDefaultConstraints": true
