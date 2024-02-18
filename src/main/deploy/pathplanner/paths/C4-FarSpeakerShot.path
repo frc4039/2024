@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.82949216696609,
-        "y": 5.519210109828429
+        "x": 8.095152313925952,
+        "y": 2.201227703491967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.421637440196203,
-        "y": 5.53807044401432
+        "x": 7.653113943572148,
+        "y": 4.088177231578116
       },
       "isLocked": false,
-      "linkedName": "Note 2 Pickup Position"
+      "linkedName": "CenterNote4"
     },
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": {
-        "x": 1.8747982585759928,
-        "y": 5.521125612519184
+        "x": 4.452187624120959,
+        "y": 3.924465062822845
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": "FarSpeakerShot"
     }
   ],
   "rotationTargets": [],
@@ -39,8 +39,8 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
-    "rotateFast": false
+    "rotation": 0.15404201626807193,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": null,

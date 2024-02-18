@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3912811755213021,
-        "y": 5.519210109828429
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6686606997786406,
-        "y": 5.078533981184268
+        "x": 4.979814411573013,
+        "y": 3.110918050816392
       },
       "isLocked": false,
-      "linkedName": "Blue Speaker"
+      "linkedName": "FarSpeakerShot"
     },
     {
       "anchor": {
-        "x": 2.5088664858059477,
-        "y": 4.354805493390919
+        "x": 7.987578441009108,
+        "y": 1.0442557300045157
       },
       "prevControl": {
-        "x": 2.219257213599946,
-        "y": 4.930156195831206
+        "x": 7.320689692505304,
+        "y": 5.224049193247491
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note 3 Pickup Position"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Score Preload",
-      "waypointRelativePos": 0,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
-              "type": "deadline",
+              "type": "named",
               "data": {
-                "commands": []
+                "name": "IntakeNoteCommand"
               }
             }
           ]
@@ -57,14 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -43.03067300447314,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
-  "previewStartingState": {
-    "rotation": -179.05774894931142,
-    "velocity": 0
-  },
+  "previewStartingState": null,
   "useDefaultConstraints": true
 }
