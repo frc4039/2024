@@ -35,9 +35,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
+import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -242,7 +242,10 @@ public class RobotContainer {
                         ScoringState.CLIMB2, new InstantCommand(),
                         ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
 
-        driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
+        // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
+        // driverLeftStickY, driverLeftStickX));
+        driverYButton.whileTrue(new AutoDriveToNoteParallelRaceGroup(shooterSubsystem, intakeSubsystem,
+                indexerSubsystem, driveSubsystem,
                 driverLeftStickY, driverLeftStickX));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));

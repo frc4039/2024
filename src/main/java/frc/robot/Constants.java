@@ -91,6 +91,10 @@ public final class Constants {
 
         public static final double kDriveToNoteXSpeed = 0.3;
         public static final double kDriveToNoteYSpeed = 0.0;
+
+        public static final double kAutoDriveToNoteXSpeed = 0.3;
+        public static final double kAutoDriveToNoteDistance = 1.0;
+        public static final double kAutoDriveToNoteTime = 0.2;
     }
 
     public static final class ModuleConstants {
