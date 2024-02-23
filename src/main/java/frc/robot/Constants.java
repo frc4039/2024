@@ -255,16 +255,17 @@ public final class Constants {
     }
 
     public static class VisionConstants {
-        public static final String kCameraFrontName = "LimelightFront";
-        public static final String kCameraBackName = "LimelightBack";
+        public static final String kCameraRightBackName = "LimelightFront";
+        public static final String kCameraLeftBackName = "LimelightBack";
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
-        public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
-                new Rotation3d(0, 0, 0));
+        public static final Transform3d kRobotToCamRightBack = new Transform3d(
+                new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5), Units.inchesToMeters(8.625)),
+                new Rotation3d(0, Units.degreesToRadians(-24.0), Units.degreesToRadians(180.00)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
-        public static final Transform3d kRobotToCamBack = new Transform3d(
+        public static final Transform3d kRobotToCamLeftBack = new Transform3d(
                 new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5), Units.inchesToMeters(8.625)),
                 new Rotation3d(0, Units.degreesToRadians(-24.0), Units.degreesToRadians(180.00)));
 
