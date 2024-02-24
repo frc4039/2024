@@ -150,7 +150,7 @@ public class RobotContainer {
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
-        if (!Helpers.isBabycakes()) {
+        if (Helpers.isBabycakes()) { // re-add !
             blinkinSubsystem
                     .setDefaultCommand(new BlinkinCommand(blinkinSubsystem, BlinkinConstants.kColourValueRainbow));
         }
@@ -233,8 +233,9 @@ public class RobotContainer {
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem)
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
-        operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                m_driverController, m_operatorController));
+        operatorLeftTrigger
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                        m_driverController, m_operatorController));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(

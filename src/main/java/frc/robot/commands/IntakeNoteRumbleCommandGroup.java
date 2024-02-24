@@ -6,6 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.BlinkinConstants;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -16,12 +19,15 @@ public class IntakeNoteRumbleCommandGroup extends ParallelCommandGroup {
     /** Creates a new IntakeNoteCommandRumble. */
     // public IntakeNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
 
-    public IntakeNoteRumbleCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, Joystick driverControler,
+    public IntakeNoteRumbleCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer, BlinkinSubsystem blinkin,
+            Joystick driverControler,
             Joystick operatorControler) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
-        addCommands(
-                new IntakeNoteCommand(intake, indexer),
-                new RumbleCommand(driverControler, operatorControler, indexer));
+        new SequentialCommandGroup(new BlinkinCommand(blinkin, BlinkinConstants.kColourValueGreenFlashing),
+                new ParallelCommandGroup(
+                        new IntakeNoteCommand(intake, indexer),
+                        new RumbleCommand(driverControler, operatorControler, indexer)),
+                new BlinkinCommand(blinkin, BlinkinConstants.kColourValueGreen));
     }
 }
