@@ -44,7 +44,6 @@ import frc.robot.commands.BlinkinCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
-import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
@@ -149,7 +148,11 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
-        blinkinSubsystem.setDefaultCommand(new BlinkinCommand(blinkinSubsystem, BlinkinConstants.kColourValueRainbow));
+
+        if (!Helpers.isBabycakes()) {
+            blinkinSubsystem
+                    .setDefaultCommand(new BlinkinCommand(blinkinSubsystem, BlinkinConstants.kColourValueRainbow));
+        }
 
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
