@@ -39,6 +39,7 @@ import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -226,6 +227,7 @@ public class RobotContainer {
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                 m_driverController, m_operatorController));
+        operatorRightTrigger.whileTrue(new ClimbOnStageCommand(climberSubsystem));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(

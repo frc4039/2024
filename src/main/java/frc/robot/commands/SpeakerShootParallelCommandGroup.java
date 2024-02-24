@@ -23,9 +23,13 @@ public class SpeakerShootParallelCommandGroup extends ParallelCommandGroup {
             DoubleSupplier xSpeedSupplier, DoubleSupplier ySpeedSupplier) {
 
         addCommands(
-                new AimAtSpeakerCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier),
+                // new AimAtSpeakerCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier),
                 new ShootCommand(shooterSubsystem),
-                new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
+                new PivotAngleCommand(pivotAngleSubsystem)/*
+                                                           * ,
+                                                           * new PivotToShootCommand(pivotAngleSubsystem,
+                                                           * driveSubsystem)
+                                                           */);
 
         // check process vs tolerances
         // flash leds
