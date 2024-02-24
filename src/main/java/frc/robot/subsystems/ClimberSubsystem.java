@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
@@ -36,6 +37,8 @@ public class ClimberSubsystem extends SubsystemBase {
     private CANSparkMax CreateClimberMotor(int motorCANId) {
         CANSparkMax motor = new CANSparkMax(motorCANId, MotorType.kBrushless);
         motor.restoreFactoryDefaults();
+        motor.setInverted(false);
+        motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
         motor.burnFlash();
         return motor;
