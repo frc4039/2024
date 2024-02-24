@@ -255,8 +255,8 @@ public final class Constants {
     }
 
     public static class VisionConstants {
-        public static final String kCameraRightBackName = "LimelightFront";
-        public static final String kCameraLeftBackName = "LimelightBack";
+        public static final String kCameraRightBackName = "LimelightRightBack";
+        public static final String kCameraLeftBackName = "LimelightLeftBack";
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
