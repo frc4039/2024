@@ -127,6 +127,10 @@ public class RobotContainer {
             XboxController.Button.kA.value);
     private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
             XboxController.Button.kX.value);
+    private final JoystickButton operatorStart = new JoystickButton(m_operatorController,
+            XboxController.Button.kStart.value);
+    private final JoystickButton operatorMenu = new JoystickButton(m_operatorController,
+            XboxController.Button.kBack.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -219,15 +223,18 @@ public class RobotContainer {
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
-        operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
+        // operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState =
+        // ScoringState.CLIMB1));
+        operatorStart.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
-        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem)
-                .alongWith(new AmpShootCommand(shooterSubsystem)));
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
-        operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                m_driverController, m_operatorController));
-        operatorRightTrigger.whileTrue(new ClimbOnStageCommand(climberSubsystem));
+        // operatorLeftTrigger.whileTrue(new
+        // IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
+        // m_driverController, m_operatorController));
+        operatorRightTrigger.whileTrue(new ClimbOnStageCommand(climberSubsystem, true));
+        operatorLeftTrigger.whileTrue(new ClimbOnStageCommand(climberSubsystem, false));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(

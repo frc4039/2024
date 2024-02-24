@@ -11,9 +11,11 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class ClimbOnStageCommand extends Command {
 
     private ClimberSubsystem m_Climber;
+    private boolean m_ClimbUP;
 
-    public ClimbOnStageCommand(ClimberSubsystem climber) {
+    public ClimbOnStageCommand(ClimberSubsystem climber, boolean ClimbUP) {
         m_Climber = climber;
+        m_ClimbUP = ClimbUP;
     }
 
     // Called when the command is initially scheduled.
@@ -24,7 +26,11 @@ public class ClimbOnStageCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_Climber.ClimbOnStage(ClimberConstants.kClimberMotorSpeed);
+        if (m_ClimbUP) {
+            m_Climber.ClimbOnStage(ClimberConstants.kClimberMotorSpeed);
+        } else {
+            m_Climber.ClimbOnStage(-1 * ClimberConstants.kClimberMotorSpeed);
+        }
     }
 
     // Called once the command ends or is interrupted.

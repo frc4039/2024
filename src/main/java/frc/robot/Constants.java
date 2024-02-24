@@ -205,7 +205,7 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
-        public static final double kShooterRPM = 400;
+        public static final double kShooterRPM = 600;
     }
 
     public static final class IndexerConstants {
@@ -244,14 +244,15 @@ public final class Constants {
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
 
-        public static final double kPivotTravelPosition = 237;
+        public static final double kPivotTravelPosition = 237; // roughly 1.18 deg / tick
     }
 
     public static final class ClimberConstants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 50;
-        public static final double kClimberMotorSpeed = 0.1; // setting to .1 to test direction of motors. 0.4;
+        public static final double kClimberMotorSpeed = 0.2; // setting to .1 to test direction of motors. 0.4;
+        public static final int kClimberPivotAngle = 162;
     }
 
     public static class VisionConstants {

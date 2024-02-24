@@ -37,7 +37,7 @@ public class ClimberSubsystem extends SubsystemBase {
     private CANSparkMax CreateClimberMotor(int motorCANId) {
         CANSparkMax motor = new CANSparkMax(motorCANId, MotorType.kBrushless);
         motor.restoreFactoryDefaults();
-        motor.setInverted(false);
+        motor.setInverted(true);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
         motor.burnFlash();
