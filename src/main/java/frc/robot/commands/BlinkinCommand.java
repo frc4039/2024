@@ -16,6 +16,7 @@ public class BlinkinCommand extends Command {
         m_BlinkinSubsystem = blinkinSubsystem;
         m_ColourCode = colourCode;
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(m_BlinkinSubsystem);
     }
 
     // Called when the command is initially scheduled.

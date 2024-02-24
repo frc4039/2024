@@ -150,11 +150,6 @@ public class RobotContainer {
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
-        if (Helpers.isBabycakes()) { // re-add !
-            blinkinSubsystem
-                    .setDefaultCommand(new BlinkinCommand(blinkinSubsystem, BlinkinConstants.kColourValueRainbow));
-        }
-
         // Register Named Commands
         NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
         NamedCommands.registerCommand("FeederCommand",
