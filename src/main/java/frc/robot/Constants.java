@@ -57,9 +57,9 @@ public final class Constants {
         public static final Constraints kAimProfile = new Constraints(3 * Math.PI, 2 * Math.PI);
 
         // Chassis configuration
-        public static final double kTrackWidth = Units.inchesToMeters(Helpers.isBlackout() ? 18.5 : 22.5);
+        public static final double kTrackWidth = Units.inchesToMeters(Helpers.isBabycakes() ? 18.5 : 22.5);
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = Units.inchesToMeters(Helpers.isBlackout() ? 18.5 : 22.5);
+        public static final double kWheelBase = Units.inchesToMeters(Helpers.isBabycakes() ? 18.5 : 22.5);
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
