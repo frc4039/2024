@@ -214,7 +214,7 @@ public class RobotContainer {
                 .withSize(3, 2)
                 .withProperties(Map.of("Label position", "TOP"));
         robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
-        robotInfo.addBoolean("Is Blackout", () -> Helpers.isBlackout());
+        robotInfo.addBoolean("Is Babycakes", () -> Helpers.isBabycakes());
     }
 
     private void configureBindings() {
