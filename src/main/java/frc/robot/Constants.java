@@ -261,13 +261,15 @@ public final class Constants {
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
                 new Translation3d(-0.236250, -0.274603, 0.201512),
-                new Rotation3d(180, Units.degreesToRadians(-27.5), Units.degreesToRadians(190.00)));
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                        Units.degreesToRadians(190.00)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
         public static final Transform3d kRobotToCamLeftBack = new Transform3d(
-                new Translation3d(0.236250, 0.274603, 0.201512),
-                new Rotation3d(180, Units.degreesToRadians(-27.5), Units.degreesToRadians(170.00)));
+                new Translation3d(-0.236250, 0.274603, 0.201512),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                        Units.degreesToRadians(170.00)));
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
