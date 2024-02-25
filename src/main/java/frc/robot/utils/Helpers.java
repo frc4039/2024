@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.RobotController;
 import frc.robot.BuildConstants;
 
 public class Helpers {
-    public static boolean isBlackout() {
-        return RobotController.getComments().equals("blackout");
+    public static boolean isBabycakes() {
+        return RobotController.getComments().equals("babycakes");
     }
 
     public static String getRobotName() {
