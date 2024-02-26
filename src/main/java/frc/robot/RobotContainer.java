@@ -229,7 +229,7 @@ public class RobotContainer {
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
 
         // _______________DRIVER BUTTONS_______________\\
