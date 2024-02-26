@@ -251,7 +251,9 @@ public class RobotContainer {
                         ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
-                                .alongWith(new ShootCommand(shooterSubsystem))),
+                                .alongWith(new ShootCommand(shooterSubsystem)
+                                        .alongWith(new TeleopDriveCommand(driveSubsystem,
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
                         () -> scoringState));
 
         driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
