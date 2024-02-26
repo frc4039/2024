@@ -143,7 +143,8 @@ public class RobotContainer {
         AMP,
         SPEAKER,
         INTAKE,
-        CLIMB
+        CLIMB,
+        ManualShoot
     }
 
     private ScoringState scoringState = ScoringState.SPEAKER;
@@ -227,10 +228,7 @@ public class RobotContainer {
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
-
-        operatorDUpPadTrigger
-                .whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
-                        .alongWith(new AutoShootCommand(shooterSubsystem, indexerSubsystem)));
+        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
 
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition)
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
@@ -250,7 +248,11 @@ public class RobotContainer {
                         new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
-                        ScoringState.CLIMB, new InstantCommand()), () -> scoringState));
+                        ScoringState.CLIMB, new InstantCommand(),
+                        ScoringState.ManualShoot,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
+                                .alongWith(new ShootCommand(shooterSubsystem))),
+                        () -> scoringState));
 
         driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX));
@@ -264,7 +266,10 @@ public class RobotContainer {
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.SPEAKER,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
-                ScoringState.AMP, new IndexerCommand(indexerSubsystem, shooterSubsystem, 500)), () -> scoringState));
+                ScoringState.AMP, new IndexerCommand(indexerSubsystem, shooterSubsystem, 500),
+                ScoringState.ManualShoot,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
+                () -> scoringState));
     }
 
     public Command getAutonomousCommand() {

@@ -247,7 +247,7 @@ public final class Constants {
 
         public static final double kPivotTravelPosition = 237;
         public static final double kPivotAmpPosition = 169;
-        public static final double kPivotSubwooferPosition = 203;
+        public static final double kPivotSubwooferPosition = 217;
     }
 
     public static final class ClimberConstants {
