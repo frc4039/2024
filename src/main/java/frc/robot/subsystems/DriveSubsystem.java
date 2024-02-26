@@ -210,7 +210,7 @@ public class DriveSubsystem extends SubsystemBase {
                         m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
             }
         }
-        // fieldDisplay.setRobotPose(getPose());
+        fieldDisplay.setRobotPose(getPose());
     }
 
     /**
