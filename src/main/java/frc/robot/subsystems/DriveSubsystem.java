@@ -37,6 +37,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.HardwareMonitor;
+import frc.robot.utils.Helpers;
 import frc.robot.utils.SwerveUtils;
 import frc.robot.utils.Vision;
 
@@ -79,8 +80,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     // Odometry class for tracking robot pose
     // Pose estimator using odometry and april tags
-    // private Vision m_camFront;
-    private Vision m_camBack;
+    private Vision m_camRightBack;
+    private Vision m_camLeftBack;
     private SwerveDrivePoseEstimator m_poseEstimator;
 
     private NetworkTable m_piVision;
@@ -96,9 +97,10 @@ public class DriveSubsystem extends SubsystemBase {
                         m_rearRight.getPosition()
                 }, new Pose2d());
 
-        // m_camFront = new Vision(VisionConstants.kCameraFrontName,
-        // VisionConstants.kRobotToCamFront);
-        m_camBack = new Vision(VisionConstants.kCameraBackName, VisionConstants.kRobotToCamBack);
+        if (!Helpers.isBabycakes()) {
+            m_camRightBack = new Vision(VisionConstants.kCameraRightBackName, VisionConstants.kRobotToCamRightBack);
+        }
+        m_camLeftBack = new Vision(VisionConstants.kCameraLeftBackName, VisionConstants.kRobotToCamLeftBack);
 
         m_piVision = NetworkTableInstance.getDefault().getTable("PiVision");
 
@@ -182,28 +184,33 @@ public class DriveSubsystem extends SubsystemBase {
                 });
 
         // Insert vision logic here
-        Optional<EstimatedRobotPose> result1 = m_camBack.getEstimatedGlobalPose();
+        Optional<EstimatedRobotPose> result1 = m_camLeftBack.getEstimatedGlobalPose();
 
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
-            SmartDashboard.putNumber("Camera X", camPose1.estimatedPose.getX());
-            SmartDashboard.putNumber("Camera Y", camPose1.estimatedPose.getY());
-            SmartDashboard.putNumber("Camera Z", camPose1.estimatedPose.getZ());
+            SmartDashboard.putNumber("Camera Left X", camPose1.estimatedPose.getX());
+            SmartDashboard.putNumber("Camera Left Y", camPose1.estimatedPose.getY());
+            SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                    m_camBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                    m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
         }
 
-        // Optional<EstimatedRobotPose> result2 = m_camFront
-        // .getEstimatedGlobalPose(m_poseEstimator.getEstimatedPosition());
+        if (!Helpers.isBabycakes()) {
+            Optional<EstimatedRobotPose> result2 = m_camRightBack
+                    .getEstimatedGlobalPose();
 
-        // if (result2.isPresent() && !result1.isPresent()) {
-        // EstimatedRobotPose camPose2 = result2.get();
-        // m_poseEstimator.addVisionMeasurement(
-        // camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-        // VecBuilder.fill(2, 2, Units.degreesToRadians(30)));
-        // }
-        fieldDisplay.setRobotPose(getPose());
+            if (result2.isPresent() && !result1.isPresent()) {
+                EstimatedRobotPose camPose2 = result2.get();
+                SmartDashboard.putNumber("Camera Right X", camPose2.estimatedPose.getX());
+                SmartDashboard.putNumber("Camera Right Y", camPose2.estimatedPose.getY());
+                SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
+                m_poseEstimator.addVisionMeasurement(
+                        camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+                        m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+            }
+        }
+        // fieldDisplay.setRobotPose(getPose());
     }
 
     /**
