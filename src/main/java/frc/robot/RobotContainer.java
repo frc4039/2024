@@ -61,6 +61,7 @@ import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
+import frc.robot.utils.MultiButtonTrigger;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -88,6 +89,12 @@ public class RobotContainer {
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+
+    private final JoystickButton operatorBackButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kBack.value);
+    private final JoystickButton operatorStartButton = new JoystickButton(m_operatorController,
+            XboxController.Button.kStart.value);
+    private final MultiButtonTrigger climberTrigger = new MultiButtonTrigger(operatorBackButton, operatorStartButton);
 
     private final Trigger driverLeftTrigger = new Trigger(() -> m_driverController
             .getRawAxis(XboxController.Axis.kLeftTrigger.value) > OIConstants.kTriggerThreshold);
@@ -136,9 +143,7 @@ public class RobotContainer {
         AMP,
         SPEAKER,
         INTAKE,
-        CLIMB1,
-        CLIMB2,
-        CLIMB3
+        CLIMB
     }
 
     private ScoringState scoringState = ScoringState.SPEAKER;
@@ -221,18 +226,17 @@ public class RobotContainer {
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
+
         operatorDUpPadTrigger
                 .whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                         .alongWith(new AutoShootCommand(shooterSubsystem, indexerSubsystem)));
-        operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
-        // operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState =
-        // ScoringState.CLIMB2));
-        operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
+
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition)
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
 
         // _______________DRIVER BUTTONS_______________\\
@@ -246,9 +250,7 @@ public class RobotContainer {
                         new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
-                        ScoringState.CLIMB1, new InstantCommand(),
-                        ScoringState.CLIMB2, new InstantCommand(),
-                        ScoringState.CLIMB3, new InstantCommand()), () -> scoringState));
+                        ScoringState.CLIMB, new InstantCommand()), () -> scoringState));
 
         driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX));
