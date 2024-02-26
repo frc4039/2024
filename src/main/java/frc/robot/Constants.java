@@ -267,10 +267,26 @@ public final class Constants {
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
-        public static final Transform3d kRobotToCamLeftBack = new Transform3d(
-                new Translation3d(0.236250, 0.274603, 0.201512),
-                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                        Units.degreesToRadians(190.00)));// was 170
+
+        // this camera is on both robots. So we need to change the position based on
+        // which robot.
+
+        public static final Transform3d kRobotToCamLeftBack = Helpers.isBabycakes()
+                ? new Transform3d( // babycakes camera mounting transform
+                        new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5),
+                                Units.inchesToMeters(8.625)),
+                        new Rotation3d(0, Units.degreesToRadians(-24),
+                                Units.degreesToRadians(180.00)))
+                : new Transform3d( // compBot camera mounting
+                        new Translation3d(0.236250, 0.274603, 0.201512),
+                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                                Units.degreesToRadians(190.00)));
+        /*
+         * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
+         * new Translation3d(0.236250, 0.274603, 0.201512),
+         * new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+         * Units.degreesToRadians(190.00)));// was 170
+         */
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
