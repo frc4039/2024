@@ -57,9 +57,9 @@ public final class Constants {
         public static final Constraints kAimProfile = new Constraints(3 * Math.PI, 2 * Math.PI);
 
         // Chassis configuration
-        public static final double kTrackWidth = Units.inchesToMeters(Helpers.isBabycakes() ? 18.5 : 22.5);
+        public static final double kTrackWidth = Units.inchesToMeters(22.5);
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = Units.inchesToMeters(Helpers.isBabycakes() ? 18.5 : 22.5);
+        public static final double kWheelBase = Units.inchesToMeters(22.5);
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -242,7 +242,7 @@ public final class Constants {
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
         // This value must be positive. Negative values do not work.
-        public static final double kPivotOffset = 56;
+        public static final double kPivotOffset = Helpers.isBabycakes() ? 56 : 351.4;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
@@ -259,20 +259,32 @@ public final class Constants {
     }
 
     public static class VisionConstants {
-        public static final String kCameraFrontName = "LimelightFront";
-        public static final String kCameraBackName = "LimelightBack";
+        public static final String kCameraRightBackName = "LimelightRightBack";
+        public static final String kCameraLeftBackName = "LimelightLeftBack";
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
-        public static final Transform3d kRobotToCamFront = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
-                new Rotation3d(0, 0, 0));
+        public static final Transform3d kRobotToCamRightBack = new Transform3d(
+                new Translation3d(-0.236250, -0.274603, 0.201512),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                        Units.degreesToRadians(190.00)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
-        public static final Transform3d kRobotToCamBack = new Transform3d(
-                new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5), Units.inchesToMeters(8.625)),
-                new Rotation3d(0, Units.degreesToRadians(-24.0), Units.degreesToRadians(180.00)));
+        public static final Transform3d kRobotToCamLeftBack = new Transform3d(
+                new Translation3d(0.236250, 0.274603, 0.201512),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                        Units.degreesToRadians(190.00)));// was 170
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+    }
+
+    public static final class BlinkinConstants {
+        public static final int kBlinkinPWMPort = 0;
+
+        // Colours
+        public static final double kColourValueGreen = 0.77;
+        public static final double kColourValueGreenFlashing = -0.47;
+        public static final double kColourValueRainbow = -0.89;
     }
 }
