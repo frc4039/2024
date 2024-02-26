@@ -10,10 +10,12 @@ import frc.robot.subsystems.PivotAngleSubsystem;
 
 public class PivotAngleCommand extends Command {
     private PivotAngleSubsystem pivotAngle;
+    private double m_angle;
 
     /** Creates a new PivotAngleCommand. */
-    public PivotAngleCommand(PivotAngleSubsystem pivotAngle) {
+    public PivotAngleCommand(PivotAngleSubsystem pivotAngle, double angle) {
         this.pivotAngle = pivotAngle;
+        m_angle = angle;
         addRequirements(pivotAngle);
         // Use addRequirements() here to declare subsystem dependencies.
     }
@@ -26,7 +28,7 @@ public class PivotAngleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(169);
+        pivotAngle.setDesiredAngle(m_angle);
     }
 
     // Called once the command ends or is interrupted.

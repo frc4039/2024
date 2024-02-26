@@ -32,15 +32,14 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.BlinkinConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
-import frc.robot.commands.BlinkinCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -222,10 +221,14 @@ public class RobotContainer {
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        operatorDUpPadTrigger
+                .whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
+                        .alongWith(new AutoShootCommand(shooterSubsystem, indexerSubsystem)));
         operatorDLeftPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB1));
-        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB2));
+        // operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState =
+        // ScoringState.CLIMB2));
         operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB3));
-        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem)
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition)
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
         operatorLeftTrigger
