@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.BlinkinConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.ShooterConstants;
@@ -39,6 +40,7 @@ import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.BlinkinCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -51,6 +53,7 @@ import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -74,6 +77,7 @@ public class RobotContainer {
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -224,8 +228,9 @@ public class RobotContainer {
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem)
                 .alongWith(new AmpShootCommand(shooterSubsystem)));
         operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
-        operatorLeftTrigger.whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                m_driverController, m_operatorController));
+        operatorLeftTrigger
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                        m_driverController, m_operatorController));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(

@@ -271,4 +271,13 @@ public final class Constants {
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
+
+    public static final class BlinkinConstants {
+        public static final int kBlinkinPWMPort = 0;
+
+        // Colours
+        public static final double kColourValueGreen = 0.77;
+        public static final double kColourValueGreenFlashing = -0.47;
+        public static final double kColourValueRainbow = -0.89;
+    }
 }
