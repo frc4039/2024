@@ -194,6 +194,7 @@ public class DriveSubsystem extends SubsystemBase {
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                     m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+            fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
         }
 
         if (!Helpers.isBabycakes()) {
@@ -208,6 +209,7 @@ public class DriveSubsystem extends SubsystemBase {
                 m_poseEstimator.addVisionMeasurement(
                         camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                         m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
             }
         }
         fieldDisplay.setRobotPose(getPose());
