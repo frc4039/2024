@@ -42,6 +42,7 @@ import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
@@ -136,6 +137,9 @@ public class RobotContainer {
             XboxController.Button.kA.value);
     private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
             XboxController.Button.kX.value);
+
+    private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kRightBumper.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -272,6 +276,9 @@ public class RobotContainer {
                 ScoringState.ManualShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
+
+        driverRightBumper.whileTrue(
+                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
     }
 
     public Command getAutonomousCommand() {
