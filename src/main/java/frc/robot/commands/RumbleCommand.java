@@ -6,37 +6,40 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants.IndexerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 
 public class RumbleCommand extends Command {
     private Joystick driverControler;
     private Joystick operatorControler;
+    private DigitalInput m_beamBreakLower = IndexerConstants.kBeamBreakLowerDIO;
 
     IndexerSubsystem m_Indexer;
     double StartTime;
-    boolean TimerStarted = false;
+    boolean TimerStarted;
 
     /** Creates a new rumble. */
-    public RumbleCommand(Joystick driverControler, Joystick operatorControler, IndexerSubsystem Indexer) {
+    public RumbleCommand(Joystick driverControler, Joystick operatorControler) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.driverControler = driverControler;
         this.operatorControler = operatorControler;
-        m_Indexer = Indexer;
+        // m_Indexer = Indexer;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         // controler ruble intialize
-
+        TimerStarted = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (m_Indexer.hasNote() && !TimerStarted) {
+        if (!m_beamBreakLower.get() && !TimerStarted) {
             driverControler.setRumble(RumbleType.kBothRumble, 1.0);
             operatorControler.setRumble(RumbleType.kBothRumble, 1.0);
             TimerStarted = true;
@@ -55,6 +58,6 @@ public class RumbleCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (TimerStarted && (Timer.getFPGATimestamp() - StartTime > 0.5)) ? true : false;
+        return (TimerStarted && ((Timer.getFPGATimestamp() - StartTime) > 0.5)) ? true : false;
     }
 }

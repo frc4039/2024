@@ -25,6 +25,6 @@ public class IntakeNoteRumbleCommandGroup extends ParallelCommandGroup {
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new IntakeNoteCommand(intake, indexer),
-                new RumbleCommand(driverControler, operatorControler, indexer));
+                new RumbleCommand(driverControler, operatorControler));// , indexer));
     }
 }
