@@ -21,7 +21,6 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.utils.Helpers;
 
 /**
@@ -218,11 +217,13 @@ public final class Constants {
         public static final double kIndexerShooterSpeed = 0.5;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
-        public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
-        public static final DigitalInput kBeamBreakLowerDIO = Helpers.isBabycakes() ? kBeamBreakDIO
-                : kBeamBreakDIO;// new DigitalInput(3); // Set this to channel 3 once this beam breaker is added
-                                // to rumble
         public static final int kIndexerCANID = 32;
+    }
+
+    public static final class SensorConstants {
+        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakLowerDIO = 3;
+
     }
 
     public static final class IntakeConstants {
@@ -293,5 +294,6 @@ public final class Constants {
         public static final double kColourValueGreen = 0.77;
         public static final double kColourValueGreenFlashing = -0.47;
         public static final double kColourValueRainbow = -0.89;
+        public static final double BlinkTime = 2.0; // Time in seconds
     }
 }

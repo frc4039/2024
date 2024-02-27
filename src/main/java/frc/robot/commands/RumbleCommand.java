@@ -6,18 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants.IndexerConstants;
-import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.utils.Sensors;
 
 public class RumbleCommand extends Command {
     private Joystick driverControler;
     private Joystick operatorControler;
-    private DigitalInput m_beamBreakLower = IndexerConstants.kBeamBreakLowerDIO;
 
-    IndexerSubsystem m_Indexer;
     double StartTime;
     boolean TimerStarted;
 
@@ -39,7 +35,7 @@ public class RumbleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (!m_beamBreakLower.get() && !TimerStarted) {
+        if (Sensors.LowerBeamBreakerIsBroken() && !TimerStarted) {
             driverControler.setRumble(RumbleType.kBothRumble, 1.0);
             operatorControler.setRumble(RumbleType.kBothRumble, 1.0);
             TimerStarted = true;
