@@ -17,7 +17,7 @@ import frc.robot.utils.HardwareMonitor;
 
 public class IndexerSubsystem extends SubsystemBase {
     private final CANSparkMax m_indexerNeo550;
-    private final DigitalInput m_beamBreak = new DigitalInput(IndexerConstants.kBeamBreakDIO);
+    private DigitalInput m_beamBreak = IndexerConstants.kBeamBreakDIO;
 
     /** Create motor elements. */
     public IndexerSubsystem(HardwareMonitor hw) {
