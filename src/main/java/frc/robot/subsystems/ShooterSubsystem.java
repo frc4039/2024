@@ -86,6 +86,16 @@ public class ShooterSubsystem extends SubsystemBase {
     }
 
     /**
+     * Set the shooter to run at a set RPM in amp mode.
+     * 
+     * @param rpm The speed to run the shooter at in rotations per minute.
+     */
+    public void ampPID(double rpm) {
+        m_lowerShooterController.setReference(rpm, ControlType.kVelocity);
+        m_upperShooterController.setReference(-rpm, ControlType.kVelocity);
+    }
+
+    /**
      * Gets the speed of the upper shooter motor (in RPM).
      * 
      * @return The velocity of the upper shooter motor (in RPM).

@@ -16,8 +16,7 @@ public class AmpShootCommand extends Command {
     }
 
     public void execute() {
-        shooter.shooterSpeedControl(ShooterConstants.kAmpLowerMotorSpeed, ShooterConstants.kAmpUpperMotorSpeed,
-                ShooterConstants.kShooterAmpSpeedLimit);
+        shooter.ampPID(350);
     }
 
     // Called once the command ends or is interrupted.
