@@ -18,6 +18,7 @@ public class BlinkinSubsystem extends SubsystemBase {
     private boolean HasNotePrevious;
 
     private double StartTime;
+    private double CurrentTime;
     private double newColour;
     private double prevColour;
 
@@ -32,13 +33,22 @@ public class BlinkinSubsystem extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
         HasNoteCurrent = Sensors.BeamBreakerIsBroken();
+        CurrentTime = Timer.getFPGATimestamp();
         if (HasNoteCurrent && !HasNotePrevious) { // Just recieved the note so start blinking with timer
-            newColour = BlinkinConstants.kColourValueGreenFlashing;
+            newColour = BlinkinConstants.kColourValueGreenFlashing; // Option 1 is LED produces a blinking green
+            // newColour = BlinkinConstants.kColourValueGreen; // option 2 handle the
+            // blinking ourselves
             StartTime = Timer.getFPGATimestamp();
         } else if (HasNoteCurrent && HasNotePrevious) { // Check if timmer has elapsed and change to solid green
-            if ((Timer.getFPGATimestamp() - StartTime) > BlinkinConstants.BlinkTime) {
+            if ((CurrentTime - StartTime) > BlinkinConstants.BlinkTime) {
                 newColour = BlinkinConstants.kColourValueGreen;
             }
+            // The folowwoing is needed to handle the blinking ourselves.
+            // else {
+            // newColour = (CurrentTime % BlinkinConstants.BlinkPeriod < 0.5) ?
+            // BlinkinConstants.kColourValueGreen
+            // : BlinkinConstants.kColourValueBlack;
+            // }
         } else { // No note so change to rainbow
             newColour = BlinkinConstants.kColourValueRainbow;
         }

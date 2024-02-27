@@ -294,6 +294,8 @@ public final class Constants {
         public static final double kColourValueGreen = 0.77;
         public static final double kColourValueGreenFlashing = -0.47;
         public static final double kColourValueRainbow = -0.89;
+        public static final double kColourValueBlack = 0.99;
         public static final double BlinkTime = 2.0; // Time in seconds
+        public static final double BlinkPeriod = 0.4; // In seconds, 1/2 on 1/2 off
     }
 }
