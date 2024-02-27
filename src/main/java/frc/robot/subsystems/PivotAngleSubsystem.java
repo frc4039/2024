@@ -72,6 +72,10 @@ public class PivotAngleSubsystem extends SubsystemBase {
                 CANSparkMax.ControlType.kPosition);
     }
 
+    public double getPitch() {
+        return m_pivotEncoder.getPosition();
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

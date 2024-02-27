@@ -21,6 +21,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.utils.Helpers;
 
 /**
@@ -45,7 +46,7 @@ public final class Constants {
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
-        public static final double kMaxSpeedMetersPerSecond = 2; // was 5.45// dont let ben know that i can make this
+        public static final double kMaxSpeedMetersPerSecond = 3; // was 5.45// dont let ben know that i can make this
                                                                  // higher
         public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
 
@@ -92,6 +93,10 @@ public final class Constants {
 
         public static final double kDriveToNoteXSpeed = 0.3;
         public static final double kDriveToNoteYSpeed = 0.0;
+
+        public static final double kAutoDriveToNoteXSpeed = 0.3;
+        public static final double kAutoDriveToNoteDistance = 1.0;
+        public static final double kAutoDriveToNoteTime = 2.0;
     }
 
     public static final class ModuleConstants {
@@ -213,7 +218,10 @@ public final class Constants {
         public static final double kIndexerShooterSpeed = 0.5;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
-        public static final int kBeamBreakDIO = 2;
+        public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
+        public static final DigitalInput kBeamBreakLowerDIO = Helpers.isBabycakes() ? kBeamBreakDIO
+                : kBeamBreakDIO;// new DigitalInput(3); // Set this to channel 3 once this beam breaker is added
+                                // to rumble
         public static final int kIndexerCANID = 32;
     }
 
@@ -245,7 +253,9 @@ public final class Constants {
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
 
-        public static final double kPivotTravelPosition = 237;
+        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 249;
+        public static final double kPivotAmpPosition = 169;
+        public static final double kPivotSubwooferPosition = 217;
     }
 
     public static final class ClimberConstants {
