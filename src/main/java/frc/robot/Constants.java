@@ -21,6 +21,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.utils.Helpers;
 
 /**
@@ -213,7 +214,10 @@ public final class Constants {
         public static final double kIndexerShooterSpeed = 0.5;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
-        public static final int kBeamBreakDIO = 2;
+        public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
+        public static final DigitalInput kBeamBreakLowerDIO = Helpers.isBabycakes() ? kBeamBreakDIO
+                : kBeamBreakDIO;// new DigitalInput(3); // Set this to channel 3 once this beam breaker is added
+                                // to rumble
         public static final int kIndexerCANID = 32;
     }
 

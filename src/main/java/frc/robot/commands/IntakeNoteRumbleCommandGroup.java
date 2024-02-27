@@ -28,7 +28,7 @@ public class IntakeNoteRumbleCommandGroup extends SequentialCommandGroup {
                 new SequentialCommandGroup(new BlinkinCommand(blinkin, BlinkinConstants.kColourValueGreenFlashing),
                         new ParallelCommandGroup(
                                 new IntakeNoteCommand(intake, indexer),
-                                new RumbleCommand(driverControler, operatorControler, indexer)),
+                                new RumbleCommand(driverControler, operatorControler)),
                         new BlinkinCommand(blinkin, BlinkinConstants.kColourValueGreen)));
     }
 }
