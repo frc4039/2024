@@ -36,9 +36,9 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.AimAtNoteCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
+import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -256,7 +256,10 @@ public class RobotContainer {
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
                         () -> scoringState));
 
-        driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
+        // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
+        // driverLeftStickY, driverLeftStickX));
+        driverYButton.onTrue(new AutoDriveToNoteParallelRaceGroup(shooterSubsystem, intakeSubsystem,
+                indexerSubsystem, driveSubsystem,
                 driverLeftStickY, driverLeftStickX));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
