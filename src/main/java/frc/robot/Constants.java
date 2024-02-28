@@ -288,7 +288,7 @@ public final class Constants {
                         new Rotation3d(0, Units.degreesToRadians(-24),
                                 Units.degreesToRadians(180.00)))
                 : new Transform3d( // compBot camera mounting
-                        new Translation3d(-0.32, 0.274603, 0.201512),
+                        new Translation3d(-0.32, -0.3, 0.201512),
                         new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
                                 Units.degreesToRadians(183.00)));
         /*
