@@ -290,7 +290,7 @@ public final class Constants {
                 : new Transform3d( // compBot camera mounting
                         new Translation3d(-0.32, -0.3, 0.201512),
                         new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                                Units.degreesToRadians(183.00)));
+                                Units.degreesToRadians(182.50)));
         /*
          * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
          * new Translation3d(0.236250, 0.274603, 0.201512),
