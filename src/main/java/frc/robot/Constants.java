@@ -273,7 +273,7 @@ public final class Constants {
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
                 new Translation3d(-0.236250, -0.274603, 0.201512),
                 new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                        Units.degreesToRadians(170.00)));
+                        Units.degreesToRadians(164.50)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
