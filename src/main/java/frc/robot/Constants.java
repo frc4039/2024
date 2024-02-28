@@ -45,8 +45,8 @@ public final class Constants {
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
-        public static final double kMaxSpeedMetersPerSecond = 3; // was 5.45// dont let ben know that i can make this
-                                                                 // higher
+        public static final double kMaxSpeedMetersPerSecond = 3.5; // was 5.45// dont let ben know that i can make this
+                                                                   // higher
         public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
@@ -274,7 +274,7 @@ public final class Constants {
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
                 new Translation3d(-0.236250, -0.274603, 0.201512),
                 new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                        Units.degreesToRadians(190.00)));
+                        Units.degreesToRadians(170.00)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
