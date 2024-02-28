@@ -17,10 +17,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class AmpShootParallelCommandGroup extends ParallelCommandGroup {
     /** Creates a new AmpShootParallelCommandGroup. */
     public AmpShootParallelCommandGroup(DriveSubsystem driveSubsystem, ShooterSubsystem shooterSubsystem,
-            PivotAngleSubsystem pivotAngleSubsystem, DoubleSupplier xSpeedSupplier, DoubleSupplier ySpeedSupplier) {
+            PivotAngleSubsystem pivotAngleSubsystem, DoubleSupplier xSpeedSupplier, DoubleSupplier ySpeedSupplier,
+            DoubleSupplier rotSupplier) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new AimAtAmpCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier));
+                // new AimAtAmpCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier));
+                new TeleopDriveCommand(driveSubsystem,
+                        ySpeedSupplier, xSpeedSupplier, rotSupplier, 1.5 * Math.PI));
     }
 }

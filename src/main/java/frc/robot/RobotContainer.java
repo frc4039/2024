@@ -250,7 +250,7 @@ public class RobotContainer {
                                 driverLeftStickY, driverLeftStickX),
                         ScoringState.AMP,
                         new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
-                                driverLeftStickY, driverLeftStickX),
+                                driverLeftStickY, driverLeftStickX, driverRightStickX),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
                         ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
@@ -275,7 +275,8 @@ public class RobotContainer {
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.SPEAKER,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
-                ScoringState.AMP, new IndexerCommand(indexerSubsystem, shooterSubsystem, 500),
+                ScoringState.AMP,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, 500),
                 ScoringState.ManualShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
