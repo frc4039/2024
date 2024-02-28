@@ -24,6 +24,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -191,6 +192,8 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Camera Left X", camPose1.estimatedPose.getX());
             SmartDashboard.putNumber("Camera Left Y", camPose1.estimatedPose.getY());
             SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
+            SmartDashboard.putNumber("Camera Left Pose Rotation",
+                    Units.radiansToDegrees(camPose1.estimatedPose.getRotation().getAngle()));
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                     m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
@@ -206,6 +209,8 @@ public class DriveSubsystem extends SubsystemBase {
                 SmartDashboard.putNumber("Camera Right X", camPose2.estimatedPose.getX());
                 SmartDashboard.putNumber("Camera Right Y", camPose2.estimatedPose.getY());
                 SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
+                SmartDashboard.putNumber("Camera Right Pose Rotation",
+                        Units.radiansToDegrees(camPose2.estimatedPose.getRotation().getAngle()));
                 m_poseEstimator.addVisionMeasurement(
                         camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                         m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
