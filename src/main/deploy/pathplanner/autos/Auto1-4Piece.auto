@@ -24,57 +24,60 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "MiddleSubwoofer-N3"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MiddleSubwoofer-N3"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "IntakeNoteCommand"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N3-N2"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "N3-N2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "N2-N1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N2-N1"
+                }
+              }
+            ]
           }
         },
         {
