@@ -271,7 +271,7 @@ public final class Constants {
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
-                new Translation3d(0.45, -0.274603, 0.201512),
+                new Translation3d(0.45, 0.5, 0.201512),
                 new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
                         Units.degreesToRadians(165.25)));
 
