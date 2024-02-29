@@ -253,9 +253,16 @@ public final class Constants {
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
 
-        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 249;
+        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 252;
         public static final double kPivotAmpPosition = 169;
         public static final double kPivotSubwooferPosition = 217;
+
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
+        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
+        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 2.6;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 244.0;
+        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 4.0;
     }
 
     public static final class ClimberConstants {
@@ -271,16 +278,32 @@ public final class Constants {
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
-                new Translation3d(-0.236250, -0.274603, 0.201512),
-                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                        Units.degreesToRadians(170.00)));
+                new Translation3d(0.45, 0.5, 0.201512),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
+                        Units.degreesToRadians(165.25)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
-        public static final Transform3d kRobotToCamLeftBack = new Transform3d(
-                new Translation3d(0.236250, 0.274603, 0.201512),
-                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
-                        Units.degreesToRadians(190.00)));// was 170
+
+        // this camera is on both robots. So we need to change the position based on
+        // which robot.
+
+        public static final Transform3d kRobotToCamLeftBack = Helpers.isBabycakes()
+                ? new Transform3d( // babycakes camera mounting transform
+                        new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5),
+                                Units.inchesToMeters(8.625)),
+                        new Rotation3d(0, Units.degreesToRadians(-24),
+                                Units.degreesToRadians(180.00)))
+                : new Transform3d( // compBot camera mounting
+                        new Translation3d(-0.45, -0.2, 0.201512),
+                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
+                                Units.degreesToRadians(182.50)));
+        /*
+         * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
+         * new Translation3d(0.236250, 0.274603, 0.201512),
+         * new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+         * Units.degreesToRadians(190.00)));// was 170
+         */
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
