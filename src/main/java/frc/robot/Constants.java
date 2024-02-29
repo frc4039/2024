@@ -272,7 +272,7 @@ public final class Constants {
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
                 new Translation3d(0.45, 0.5, 0.201512),
-                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
                         Units.degreesToRadians(165.25)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
@@ -289,7 +289,7 @@ public final class Constants {
                                 Units.degreesToRadians(180.00)))
                 : new Transform3d( // compBot camera mounting
                         new Translation3d(-0.45, -0.2, 0.201512),
-                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-27.5),
+                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
                                 Units.degreesToRadians(182.50)));
         /*
          * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
