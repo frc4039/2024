@@ -37,7 +37,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AmpShootCommand;
-import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
@@ -249,8 +248,8 @@ public class RobotContainer {
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
                         ScoringState.AMP,
-                        new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
-                                driverLeftStickY, driverLeftStickX, driverRightStickX),
+                        new TeleopDriveCommand(driveSubsystem,
+                                driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
                         ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
@@ -269,8 +268,9 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
         driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
-        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI));
+        // driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
+        // driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI)); NOW
+        // LEFT TRIGGER IN AMP MODE
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.SPEAKER,
