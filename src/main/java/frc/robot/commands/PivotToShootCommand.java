@@ -20,9 +20,9 @@ public class PivotToShootCommand extends Command {
         this.pivot = pivot;
         this.drive = drive;
         addRequirements(pivot);
-        angleEstimator.put(4.12, 233.0);
-        angleEstimator.put(1.37, 211.0);
-        angleEstimator.put(3.0, 226.0);
+        angleEstimator.put(4.3, 242.0);
+        angleEstimator.put(1.0, 217.0);
+        // angleEstimator.put(2.6, 226.0);
     }
 
     // Called when the command is initially scheduled.
