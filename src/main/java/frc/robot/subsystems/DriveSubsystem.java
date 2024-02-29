@@ -90,7 +90,7 @@ public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem(HardwareMonitor hw) {
         m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
-                Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
+                Rotation2d.fromDegrees(0.0),
                 new SwerveModulePosition[] {
                         m_frontLeft.getPosition(),
                         m_frontRight.getPosition(),
@@ -164,11 +164,6 @@ public class DriveSubsystem extends SubsystemBase {
         gyroConfig.MountPosePitch = 0;
         gyroConfig.MountPoseRoll = 0;
         m_gyro.getConfigurator().apply(gyroConfig);
-        zeroGyro();
-
-    }
-
-    public void zeroGyro() {
         m_gyro.setYaw(0);
     }
 
@@ -375,18 +370,13 @@ public class DriveSubsystem extends SubsystemBase {
         m_rearRight.resetEncoders();
     }
 
-    /** Zeroes the heading of the robot. */
-    public void zeroHeading() {
-        m_gyro.reset();
-    }
-
     /**
      * Returns the heading of the robot.
      *
      * @return the robot's heading in degrees, from -180 to 180
      */
     public double getHeading() {
-        return Rotation2d.fromDegrees(m_gyro.getYaw().getValue()).getDegrees();
+        return getPose().getRotation().getDegrees();
     }
 
     /**
