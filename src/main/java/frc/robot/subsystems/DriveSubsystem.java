@@ -204,7 +204,7 @@ public class DriveSubsystem extends SubsystemBase {
             Optional<EstimatedRobotPose> result2 = m_camRightBack
                     .getEstimatedGlobalPose();
 
-            if (result2.isPresent() && !result1.isPresent()) {
+            if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
                 SmartDashboard.putNumber("Camera Right X", camPose2.estimatedPose.getX());
                 SmartDashboard.putNumber("Camera Right Y", camPose2.estimatedPose.getY());
