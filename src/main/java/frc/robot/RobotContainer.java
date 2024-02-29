@@ -27,32 +27,37 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AmpShootCommand;
 import frc.robot.commands.AmpShootParallelCommandGroup;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
-import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.PivotIncrementCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.TrapScoreCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -138,6 +143,8 @@ public class RobotContainer {
     private final JoystickButton operatorXButton = new JoystickButton(m_operatorController,
             XboxController.Button.kX.value);
 
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
 
@@ -227,8 +234,16 @@ public class RobotContainer {
 
     private void configureBindings() {
         // _______________OPERATOR BUTTONS_______________\\
-        operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
-        operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
+        operatorRightBumper.whileTrue(
+            new ConditionalCommand(
+                new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
+                new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
+                () -> this.scoringState == ScoringState.CLIMB));
+        operatorLeftBumper.whileTrue(
+            new ConditionalCommand(
+                new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
+                new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
+                () -> this.scoringState == ScoringState.CLIMB));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
@@ -252,12 +267,13 @@ public class RobotContainer {
                         new AmpShootParallelCommandGroup(driveSubsystem, shooterSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
                         ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
-                        ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new ShootCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.CLIMB,
+                        new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem)),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
@@ -280,8 +296,12 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
 
+        driverLeftBumper.whileTrue(new ConditionalCommand(new PivotIncrementCommand(pivotAngleSubsystem, -1), new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
         driverRightBumper.whileTrue(
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+            new ConditionalCommand(
+                new PivotIncrementCommand(pivotAngleSubsystem, 1),
+                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
+                () -> this.scoringState == ScoringState.CLIMB));
     }
 
     public Command getAutonomousCommand() {

@@ -25,11 +25,11 @@ public class ClimberSubsystem extends SubsystemBase {
         hw.registerDevice(this, m_climberFollowerMotor);
     }
 
-    public void ClimbOnStage(double motorSpeed) {
+    public void setClimbSpeed(double motorSpeed) {
         m_climberLeaderMotor.set(motorSpeed);
     }
 
-    public void StopClimbing() {
+    public void stop() {
         m_climberLeaderMotor.set(0);
     }
 

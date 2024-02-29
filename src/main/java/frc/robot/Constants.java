@@ -256,6 +256,7 @@ public final class Constants {
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 252;
         public static final double kPivotAmpPosition = 169;
         public static final double kPivotSubwooferPosition = 217;
+        public static final double kPivotTrapPosition = 162;
     }
 
     public static final class ClimberConstants {
