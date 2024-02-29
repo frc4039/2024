@@ -6,8 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.Constants.IndexerConstants;
-import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -18,15 +16,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class IntakeIndexShootCommandGroup extends ParallelDeadlineGroup {
     /** Creates a new IntakeIndexShootCommandGroup. */
     public IntakeIndexShootCommandGroup(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
-            IntakeSubsystem intakeSubsystem, BlinkinSubsystem blinkinSubsystem, Joystick driverController,
+            IntakeSubsystem intakeSubsystem, Joystick driverController,
             Joystick operatorController) {
         // Add the deadline command in the super() call. Add other commands using
         // addCommands().
-        super(new AutoShootCommand(shooterSubsystem, indexerSubsystem));
+        super(new AutoIndexerShootCommand(shooterSubsystem, indexerSubsystem));
 
         addCommands(
-                new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem, driverController,
-                        operatorController),
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, IndexerConstants.kIndexerShooterSpeed));
+                new IntakeCommand(intakeSubsystem));
     }
 }
