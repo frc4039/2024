@@ -257,6 +257,13 @@ public final class Constants {
         public static final double kPivotAmpPosition = 169;
         public static final double kPivotSubwooferPosition = 217;
         public static final double kPivotTrapPosition = 162;
+
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
+        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
+        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 2.6;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 244.0;
+        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 4.0;
     }
 
     public static final class ClimberConstants {
