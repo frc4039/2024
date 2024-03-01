@@ -15,7 +15,6 @@ public class AutoIndexerShootCommand extends Command {
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
     private Timer timer;
-    private Timer hasNoteTimer;
     private Boolean hadNote;
 
     /** Creates a new AutoShoot. */
@@ -23,8 +22,6 @@ public class AutoIndexerShootCommand extends Command {
         this.shooter = shooter;
         this.indexer = indexer;
         this.timer = new Timer();
-        this.hasNoteTimer = new Timer();
-        this.hadNote = hadNote;
         addRequirements(shooter, indexer);
     }
 
@@ -33,15 +30,12 @@ public class AutoIndexerShootCommand extends Command {
     public void initialize() {
         timer.stop();
         timer.reset();
-        hasNoteTimer.stop();
-        hasNoteTimer.reset();
         hadNote = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        hasNoteTimer.start();
         shooter.shooterPID(ShooterConstants.kShooterRPM);
 
         if (shooter.getShooterSpeed() >= ShooterConstants.kShooterRPM - 200) {
