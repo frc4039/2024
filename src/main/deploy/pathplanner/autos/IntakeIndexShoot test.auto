@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.9992293459501399,
+      "y": 4.416101579495063
+    },
+    "rotation": 125.72103553107517
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIndexShootCommand"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

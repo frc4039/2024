@@ -42,6 +42,7 @@ import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
+import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
@@ -168,6 +169,8 @@ public class RobotContainer {
                 new ScheduleCommand(new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem)));
         NamedCommands.registerCommand("TravelPivot",
                 new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
+        NamedCommands.registerCommand("IntakeIndexShootCommand", new IntakeIndexShootCommandGroup(shooterSubsystem,
+                indexerSubsystem, intakeSubsystem, m_driverController, m_operatorController));
 
         configureBindings();
 

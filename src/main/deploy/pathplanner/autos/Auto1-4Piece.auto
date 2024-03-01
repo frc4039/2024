@@ -12,69 +12,79 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "StartPivot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoShoot"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "AutoShoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MiddleSubwoofer-N3"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "MiddleSubwoofer-N3"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N3-N2"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "N3-N2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "N2-N1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N2-N1"
+                }
+              }
+            ]
           }
         },
         {
@@ -102,21 +112,34 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "StartPivot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoShoot"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "FarSpeakerShot-C4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
           }
         }
       ]

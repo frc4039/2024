@@ -253,7 +253,7 @@ public final class Constants {
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
 
-        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 252;
+        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
         public static final double kPivotAmpPosition = 169;
         public static final double kPivotSubwooferPosition = 217;
 
