@@ -37,8 +37,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AmpScoreCommand;
-import frc.robot.commands.AmpShootCommand;
-import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -235,10 +233,12 @@ public class RobotContainer {
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
-
-        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition)
-                .alongWith(new AmpShootCommand(shooterSubsystem)));
-        operatorXButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.INTAKE));
+        // removed while testing new button flow
+        // operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
+        // PivotConstants.kPivotAmpPosition)
+        // .alongWith(new AmpShootCommand(shooterSubsystem)));
+        // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
+        // ScoringState.INTAKE));
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
@@ -253,7 +253,8 @@ public class RobotContainer {
                         ScoringState.AMP,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
-                        ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        // ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem,
+                        // indexerSubsystem),
                         ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
@@ -264,28 +265,20 @@ public class RobotContainer {
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
-        driverYButton.onTrue(new AutoDriveToNoteParallelRaceGroup(shooterSubsystem, intakeSubsystem,
-                indexerSubsystem, driveSubsystem,
-                driverLeftStickY, driverLeftStickX));
+        driverYButton.whileTrue(new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
         driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
-        // driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-        // driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI)); NOW
-        // LEFT TRIGGER IN AMP MODE
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.SPEAKER,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
                 ScoringState.AMP,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, 500),
+                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.ManualShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
-
-        driverRightBumper.whileTrue(
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
     }
 
     public Command getAutonomousCommand() {
