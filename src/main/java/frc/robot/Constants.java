@@ -46,8 +46,8 @@ public final class Constants {
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
-        public static final double kMaxSpeedMetersPerSecond = 3.5; // was 5.45// dont let ben know that i can make this
-                                                                   // higher
+        public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
+                                                                    // higher
         public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
@@ -254,7 +254,7 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
-        public static final double kPivotAmpPosition = 169;
+        public static final double kPivotAmpPosition = 159; // was 169
         public static final double kPivotSubwooferPosition = 217;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
