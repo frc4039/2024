@@ -16,7 +16,7 @@ public class AmpShootCommand extends Command {
     }
 
     public void execute() {
-        shooter.ampPID(2500);
+        shooter.ampPID(3000);
     }
 
     // Called once the command ends or is interrupted.

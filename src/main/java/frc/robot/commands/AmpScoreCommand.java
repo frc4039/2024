@@ -23,7 +23,7 @@ public class AmpScoreCommand extends SequentialCommandGroup {
                 new ParallelCommandGroup(new Command[] {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition),
                         new AmpShootCommand(shooterSubsystem),
-                        new IndexerCommand(indexerSubsystem, shooterSubsystem, 2400)
+                        new IndexerCommand(indexerSubsystem, shooterSubsystem, 2800)
                 }));
     }
 }

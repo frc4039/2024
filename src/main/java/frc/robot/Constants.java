@@ -215,7 +215,7 @@ public final class Constants {
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.5;
+        public static final double kIndexerShooterSpeed = 0.8;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
