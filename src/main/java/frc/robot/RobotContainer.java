@@ -38,10 +38,10 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.RobotContainer.ScoringState;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.ClimbOnStageCommand;
+import frc.robot.commands.DeployFlapTrapCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -130,6 +130,8 @@ public class RobotContainer {
             .getPOV() == 270);
     private final Trigger operatorDUpPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 0);
+    private final Trigger operatorDDownPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 180);
     private final Trigger operatorDRightPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 90);
 
@@ -235,16 +237,16 @@ public class RobotContainer {
 
     private void configureBindings() {
         // _______________OPERATOR BUTTONS_______________\\
-        operatorRightBumper.whileTrue(
-            new ConditionalCommand(
-                new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
-                new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
-                () -> this.scoringState == ScoringState.CLIMB));
-        operatorLeftBumper.whileTrue(
-            new ConditionalCommand(
-                new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
-                new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
-                () -> this.scoringState == ScoringState.CLIMB));
+        operatorDRightPadTrigger.whileTrue(
+                new ConditionalCommand(
+                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
+                        new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
+        operatorDLeftPadTrigger.whileTrue(
+                new ConditionalCommand(
+                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
+                        new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
@@ -258,6 +260,7 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
+        operatorXButton.onTrue(new DeployFlapTrapCommand(climberSubsystem));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -296,12 +299,13 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
 
-        driverLeftBumper.whileTrue(new ConditionalCommand(new PivotIncrementCommand(pivotAngleSubsystem, -1), new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
+        driverLeftBumper.whileTrue(new ConditionalCommand(new PivotIncrementCommand(pivotAngleSubsystem, -1),
+                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
         driverRightBumper.whileTrue(
-            new ConditionalCommand(
-                new PivotIncrementCommand(pivotAngleSubsystem, 1),
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
-                () -> this.scoringState == ScoringState.CLIMB));
+                new ConditionalCommand(
+                        new PivotIncrementCommand(pivotAngleSubsystem, 1),
+                        new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
     }
 
     public Command getAutonomousCommand() {
