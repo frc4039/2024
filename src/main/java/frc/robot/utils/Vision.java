@@ -68,8 +68,9 @@ public class Vision {
 
         AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
         String alternateField = null;
-        alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json"; // comment this out prior to
-                                                                                 // competitions.
+        // alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json"; //
+        // comment this out prior to
+        // competitions.
         // alternateField = "/home/lvuser/deploy/fieldlayouts/senior_football.json";
 
         if (alternateField != null) {
