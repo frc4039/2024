@@ -274,11 +274,12 @@ public class RobotContainer {
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.SPEAKER,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
-                ScoringState.AMP,
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
+                // ScoringState.AMP,
+                // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.ManualShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
+        driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
     }
 
     public Command getAutonomousCommand() {
