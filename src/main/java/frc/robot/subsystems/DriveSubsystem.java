@@ -24,6 +24,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -89,7 +90,7 @@ public class DriveSubsystem extends SubsystemBase {
     /** Creates a new DriveSubsystem. */
     public DriveSubsystem(HardwareMonitor hw) {
         m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
-                Rotation2d.fromDegrees(m_gyro.getYaw().getValue()),
+                Rotation2d.fromDegrees(0.0),
                 new SwerveModulePosition[] {
                         m_frontLeft.getPosition(),
                         m_frontRight.getPosition(),
@@ -163,11 +164,6 @@ public class DriveSubsystem extends SubsystemBase {
         gyroConfig.MountPosePitch = 0;
         gyroConfig.MountPoseRoll = 0;
         m_gyro.getConfigurator().apply(gyroConfig);
-        zeroGyro();
-
-    }
-
-    public void zeroGyro() {
         m_gyro.setYaw(0);
     }
 
@@ -191,23 +187,29 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Camera Left X", camPose1.estimatedPose.getX());
             SmartDashboard.putNumber("Camera Left Y", camPose1.estimatedPose.getY());
             SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
+            SmartDashboard.putNumber("Camera Left Pose Rotation",
+                    Units.radiansToDegrees(camPose1.estimatedPose.getRotation().getAngle()));
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                     m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+            fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
         }
 
         if (!Helpers.isBabycakes()) {
             Optional<EstimatedRobotPose> result2 = m_camRightBack
                     .getEstimatedGlobalPose();
 
-            if (result2.isPresent() && !result1.isPresent()) {
+            if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
                 SmartDashboard.putNumber("Camera Right X", camPose2.estimatedPose.getX());
                 SmartDashboard.putNumber("Camera Right Y", camPose2.estimatedPose.getY());
                 SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
+                SmartDashboard.putNumber("Camera Right Pose Rotation",
+                        Units.radiansToDegrees(camPose2.estimatedPose.getRotation().getAngle()));
                 m_poseEstimator.addVisionMeasurement(
                         camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                         m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
             }
         }
         fieldDisplay.setRobotPose(getPose());
@@ -368,18 +370,13 @@ public class DriveSubsystem extends SubsystemBase {
         m_rearRight.resetEncoders();
     }
 
-    /** Zeroes the heading of the robot. */
-    public void zeroHeading() {
-        m_gyro.reset();
-    }
-
     /**
      * Returns the heading of the robot.
      *
      * @return the robot's heading in degrees, from -180 to 180
      */
     public double getHeading() {
-        return Rotation2d.fromDegrees(m_gyro.getYaw().getValue()).getDegrees();
+        return getPose().getRotation().getDegrees();
     }
 
     /**
