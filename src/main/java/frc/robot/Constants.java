@@ -290,9 +290,9 @@ public final class Constants {
 
         public static final Transform3d kRobotToCamLeftBack = Helpers.isBabycakes()
                 ? new Transform3d( // babycakes camera mounting transform
-                        new Translation3d(9.59, -2.15, 0),
+                        new Translation3d(8.45, -6.47, 0),
                         new Rotation3d(0, Units.degreesToRadians(-24),
-                                Units.degreesToRadians(180.00)))
+                                Units.degreesToRadians(151.50)))
                 : new Transform3d( // compBot camera mounting
                         new Translation3d(-0.45, -0.1, 0.201512),
                         new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
