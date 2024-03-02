@@ -267,7 +267,7 @@ public class RobotContainer {
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
         driverYButton.whileTrue(new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
-        driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
+        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
