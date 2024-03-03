@@ -180,6 +180,22 @@ public class Vision {
         return estStdDevs;
     }
 
+    public Double getAmbiguity(Pose2d estimatedPose) {
+        var targets = getLatestResult().getTargets();
+        double tagPoseAmbiguity = 0.0;
+        int numTags = 0;
+
+        for (var tgt : targets) {
+            tagPoseAmbiguity = tgt.getPoseAmbiguity();
+            numTags++;
+        }
+        if (numTags == 1) {
+            return tagPoseAmbiguity;
+        } else {
+            return 0.0;
+        }
+    }
+
     // ----- Simulation
 
     public void simulationPeriodic(Pose2d robotSimPose) {

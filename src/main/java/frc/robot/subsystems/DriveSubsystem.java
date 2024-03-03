@@ -189,6 +189,10 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
             SmartDashboard.putNumber("Camera Left Pose Rotation",
                     Units.radiansToDegrees(camPose1.estimatedPose.getRotation().getAngle()));
+
+            Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
+            SmartDashboard.putNumber("Camera Left Pose Ambiguity",
+                    ambiguity);
             m_poseEstimator.addVisionMeasurement(
                     camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                     m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
@@ -206,6 +210,11 @@ public class DriveSubsystem extends SubsystemBase {
                 SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
                 SmartDashboard.putNumber("Camera Right Pose Rotation",
                         Units.radiansToDegrees(camPose2.estimatedPose.getRotation().getAngle()));
+
+                Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
+                SmartDashboard.putNumber("Camera Right Pose Ambiguity",
+                        ambiguity);
+
                 m_poseEstimator.addVisionMeasurement(
                         camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                         m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
