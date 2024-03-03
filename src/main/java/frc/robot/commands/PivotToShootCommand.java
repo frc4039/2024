@@ -35,7 +35,7 @@ public class PivotToShootCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivot.setDesiredAngle(angleEstimator.get(drive.getTranslationToGoal().getNorm()));
+        pivot.setDesiredAngle(PivotConstants.kPivotSubwooferPosition);
     }
 
     // Called once the command ends or is interrupted.

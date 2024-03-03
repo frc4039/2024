@@ -12,8 +12,10 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.utils.HardwareMonitor;
 
 public class PivotAngleSubsystem extends SubsystemBase {
@@ -65,6 +67,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
         pivotAngleTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
+
+        SmartDashboard.putNumber("Angle Setpoint", PivotConstants.kPivotSubwooferPosition);
+
     }
 
     public void setDesiredAngle(double desiredAngle) {
@@ -79,5 +84,10 @@ public class PivotAngleSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+
+        double manAngle = SmartDashboard.getNumber("Angle Setpoint", 500);
+        if ((manAngle != PivotConstants.kPivotSubwooferPosition)) {
+            PivotConstants.kPivotSubwooferPosition = manAngle;
+        }
     }
 }
