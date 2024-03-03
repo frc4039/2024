@@ -299,12 +299,10 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
 
-        /*
-         * driverLeftBumper.whileTrue(new ConditionalCommand(new
-         * PivotToClimbCommand(pivotAngleSubsystem, 180),
-         * new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
-         */
-        driverRightBumper.whileTrue(
+        driverLeftBumper.onTrue(new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
+                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
+
+        driverRightBumper.onTrue(
                 new ConditionalCommand(
                         new PivotToClimbCommand(pivotAngleSubsystem, 180),
                         new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
