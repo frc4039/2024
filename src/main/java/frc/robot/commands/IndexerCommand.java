@@ -7,18 +7,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class IndexerCommand extends Command {
     private IndexerSubsystem indexer;
     private ShooterSubsystem shooter;
+    private PivotAngleSubsystem pivotAngleSubsystem;
     private double targetSpeed;
+    private double desiredAngle;
 
     /** Creates a new IndexerCommand. */
-    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed) {
+    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed, double desiredAngle) {
         this.indexer = indexer;
         this.shooter = shooter;
         this.targetSpeed = targetSpeed;
+        this.desiredAngle = desiredAngle;
+
         addRequirements(indexer);
     }
 
@@ -30,7 +35,8 @@ public class IndexerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed) {
+        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed
+                && Math.abs(pivotAngleSubsystem.getPitch()) >= desiredAngle + 3) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
     }
