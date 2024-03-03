@@ -50,7 +50,7 @@ import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
-import frc.robot.commands.PivotIncrementCommand;
+import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
@@ -299,11 +299,14 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
                 () -> scoringState));
 
-        driverLeftBumper.whileTrue(new ConditionalCommand(new PivotIncrementCommand(pivotAngleSubsystem, -1),
-                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
+        /*
+         * driverLeftBumper.whileTrue(new ConditionalCommand(new
+         * PivotToClimbCommand(pivotAngleSubsystem, 180),
+         * new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
+         */
         driverRightBumper.whileTrue(
                 new ConditionalCommand(
-                        new PivotIncrementCommand(pivotAngleSubsystem, 1),
+                        new PivotToClimbCommand(pivotAngleSubsystem, 180),
                         new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
     }
