@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.utils.HardwareMonitor;
 
@@ -66,22 +65,14 @@ public class ShooterSubsystem extends SubsystemBase {
                 .withPosition(7, 0)
                 .withSize(2, 1);
         SmartDashboard.putNumber("Speed Setpoint", ShooterConstants.kShooterRPM);
-        SmartDashboard.putNumber("Angle Setpoint", PivotConstants.kPivotSubwooferPosition);
     }
 
     @Override
     public void periodic() {
 
-        double manSpeed = SmartDashboard.getNumber("Speed Setpoint", 0);
-
-        double manAngle = SmartDashboard.getNumber("Angle Setpoint", 0);
-
+        double manSpeed = SmartDashboard.getNumber("Manual Speed", 0);
         if ((manSpeed != ShooterConstants.kShooterRPM)) {
             ShooterConstants.kShooterRPM = manSpeed;
-        }
-
-        if ((manAngle != PivotConstants.kPivotSubwooferPosition)) {
-            PivotConstants.kPivotSubwooferPosition = manAngle;
         }
 
     }
