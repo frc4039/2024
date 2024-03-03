@@ -193,10 +193,13 @@ public class DriveSubsystem extends SubsystemBase {
             Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
             SmartDashboard.putNumber("Camera Left Pose Ambiguity",
                     ambiguity);
-            m_poseEstimator.addVisionMeasurement(
-                    camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                    m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
-            fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+            if (ambiguity < 0.4) {
+                m_poseEstimator.addVisionMeasurement(
+                        camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
+                        m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+            }
+
         }
 
         if (!Helpers.isBabycakes()) {
@@ -214,11 +217,13 @@ public class DriveSubsystem extends SubsystemBase {
                 Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
                 SmartDashboard.putNumber("Camera Right Pose Ambiguity",
                         ambiguity);
+                if (ambiguity < 0.4) {
+                    m_poseEstimator.addVisionMeasurement(
+                            camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+                            m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                }
 
-                m_poseEstimator.addVisionMeasurement(
-                        camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                        m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
-                fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
             }
         }
         fieldDisplay.setRobotPose(getPose());
