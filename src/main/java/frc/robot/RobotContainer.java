@@ -50,6 +50,7 @@ import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
+import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -259,7 +260,7 @@ public class RobotContainer {
                         ScoringState.CLIMB, new InstantCommand(),
                         ScoringState.ManualShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
-                                .alongWith(new ShootCommand(shooterSubsystem)
+                                .alongWith(new SubwooferShootCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
                         () -> scoringState));
@@ -280,7 +281,7 @@ public class RobotContainer {
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.ManualShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200)),
                 () -> scoringState));
         driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
     }
