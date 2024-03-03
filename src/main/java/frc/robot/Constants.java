@@ -255,7 +255,7 @@ public final class Constants {
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
         public static final double kPivotAmpPosition = 159; // was 169
-        public static final double kPivotSubwooferPosition = 217;
+        public static double kPivotSubwooferPosition = 217;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
