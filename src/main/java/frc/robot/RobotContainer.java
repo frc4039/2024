@@ -234,11 +234,12 @@ public class RobotContainer {
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
         // removed while testing new button flow
-        // operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
-        // PivotConstants.kPivotAmpPosition)
+        operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
+                PivotConstants.kPivotAmpPosition)
         // .alongWith(new AmpShootCommand(shooterSubsystem)));
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
-        // ScoringState.INTAKE));
+        // ScoringState.INTAKE)
+        );
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
@@ -266,6 +267,8 @@ public class RobotContainer {
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
         driverYButton.whileTrue(new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
+        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
+                driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
         driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
