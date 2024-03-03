@@ -212,6 +212,7 @@ public final class Constants {
         public static final double kShooterFF = 0.000145;
 
         public static final double kShooterRPM = 4000;
+        public static final double kSubwooferShooterRPM = 2750;
     }
 
     public static final class IndexerConstants {
