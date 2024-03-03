@@ -12,6 +12,7 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.utils.HardwareMonitor;
@@ -67,6 +68,11 @@ public class ShooterSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        double manSpeed = SmartDashboard.getNumber("Manual Speed", 0);
+        if ((manSpeed != ShooterConstants.kShooterRPM)) {
+            ShooterConstants.kShooterRPM = manSpeed;
+        }
+
     }
 
     /** Setting motor speeds. */

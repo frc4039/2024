@@ -280,7 +280,7 @@ public class RobotContainer {
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.ManualShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM)),
                 () -> scoringState));
         driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
     }
