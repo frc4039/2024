@@ -262,9 +262,21 @@ public final class Constants {
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
         public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
-        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 2.6;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 244.0;
-        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 4.0;
+        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
+        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
+        public static final double kPivotAngle4 = 232.0;
+        public static final double kPivotDistance4 = 2.53;
+        public static final double kPivotAngle5 = 236.0;
+        public static final double kPivotDistance5 = 3.04;
+        public static final double kPivotAngle6 = 240.5;
+        public static final double kPivotDistance6 = 3.51;
+        public static final double kPivotAngle7 = 242.0;
+        public static final double kPivotDistance7 = 4.11;
+        public static final double kPivotAngle8 = 244.0;
+        public static final double kPivotDistance8 = 4.49;
+        public static final double kPivotAngle9 = 246.0;
+        public static final double kPivotDistance9 = 5.06;
     }
 
     public static final class ClimberConstants {
