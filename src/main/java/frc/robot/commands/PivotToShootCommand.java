@@ -23,6 +23,12 @@ public class PivotToShootCommand extends Command {
         angleEstimator.put(PivotConstants.kPivotDistanceFar, PivotConstants.kPivotAngleFar);
         angleEstimator.put(PivotConstants.kPivotDistanceClose, PivotConstants.kPivotAngleClose);
         angleEstimator.put(PivotConstants.kPivotDistanceMedium, PivotConstants.kPivotAngleMedium);
+        angleEstimator.put(PivotConstants.kPivotDistance4, PivotConstants.kPivotAngle4);
+        angleEstimator.put(PivotConstants.kPivotDistance5, PivotConstants.kPivotAngle5);
+        angleEstimator.put(PivotConstants.kPivotDistance6, PivotConstants.kPivotAngle6);
+        angleEstimator.put(PivotConstants.kPivotDistance7, PivotConstants.kPivotAngle7);
+        angleEstimator.put(PivotConstants.kPivotDistance8, PivotConstants.kPivotAngle8);
+        angleEstimator.put(PivotConstants.kPivotDistance9, PivotConstants.kPivotAngle9);
     }
 
     // Helpers.isBabycakes() ? 3.0 : 242.0
