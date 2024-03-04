@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -14,12 +15,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TrapScoreCommand extends ParallelCommandGroup {
-	/** Creates a new TrapScoreCommand. */
-	public TrapScoreCommand(PivotAngleSubsystem pivotAngleSubsystem, ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem) {
-		addCommands(
-				new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
-				new TrapShootCommand(shooterSubsystem),
-				new IndexerCommand(indexerSubsystem, shooterSubsystem, 2000)
-		);
-	}
+    /** Creates a new TrapScoreCommand. */
+    public TrapScoreCommand(PivotAngleSubsystem pivotAngleSubsystem, ShooterSubsystem shooterSubsystem,
+            IndexerSubsystem indexerSubsystem) {
+        addCommands(
+                // new PivotAngleCommand(pivotAngleSubsystem,
+                // PivotConstants.kPivotTrapPosition),
+                new TrapShootCommand(shooterSubsystem),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kTrapShooterRPM - 100));
+    }
 }
