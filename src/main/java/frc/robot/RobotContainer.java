@@ -49,6 +49,7 @@ import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShuttleShootParallelCommandGroup;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
@@ -147,7 +148,8 @@ public class RobotContainer {
         SPEAKER,
         INTAKE,
         CLIMB,
-        ManualShoot
+        ManualShoot,
+        SHUTTLE
     }
 
     private ScoringState scoringState = ScoringState.SPEAKER;
@@ -234,6 +236,7 @@ public class RobotContainer {
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
+        operatorDRightPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
         // removed while testing new button flow
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
                 PivotConstants.kPivotAmpPosition)
@@ -262,7 +265,10 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.SHUTTLE,
+                        new ShuttleShootParallelCommandGroup(driveSubsystem, shooterSubsystem, indexerSubsystem,
+                                pivotAngleSubsystem, driverLeftStickY, driverLeftStickX)),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
