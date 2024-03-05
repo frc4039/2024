@@ -306,7 +306,7 @@ public class RobotContainer {
         driverLeftBumper.onTrue(new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
                 new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
 
-        driverRightBumper.onTrue(
+        driverRightBumper.whileTrue(
                 new ConditionalCommand(
                         new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
                         new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
