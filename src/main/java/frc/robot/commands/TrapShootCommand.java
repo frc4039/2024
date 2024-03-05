@@ -16,7 +16,7 @@ public class TrapShootCommand extends Command {
     }
 
     public void execute() {
-        shooter.ampPID(ShooterConstants.kTrapShooterRPM);
+        shooter.shooterPID(ShooterConstants.kTrapShooterRPM);
     }
 
     // Called once the command ends or is interrupted.
