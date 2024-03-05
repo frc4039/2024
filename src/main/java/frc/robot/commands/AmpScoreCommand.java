@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.*;
+import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -23,7 +23,7 @@ public class AmpScoreCommand extends SequentialCommandGroup {
                 new ParallelCommandGroup(new Command[] {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotAmpPosition),
                         new AmpShootCommand(shooterSubsystem),
-                        new IndexerCommand(indexerSubsystem, shooterSubsystem, 2000)
+                        new IndexerCommand(indexerSubsystem, shooterSubsystem, 2800)
                 }));
     }
 }

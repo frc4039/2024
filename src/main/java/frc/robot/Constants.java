@@ -46,8 +46,8 @@ public final class Constants {
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
-        public static final double kMaxSpeedMetersPerSecond = 3.5; // was 5.45// dont let ben know that i can make this
-                                                                   // higher
+        public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
+                                                                    // higher
         public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
@@ -213,10 +213,11 @@ public final class Constants {
 
         public static final double kShooterRPM = 4000;
         public static final double kTrapShooterRPM = 600;
+        public static final double kSubwooferShooterRPM = 2750;
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.5;
+        public static final double kIndexerShooterSpeed = 0.8;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
@@ -255,16 +256,28 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
-        public static final double kPivotAmpPosition = 169;
+        public static final double kPivotAmpPosition = 159; // was 169
         public static final double kPivotSubwooferPosition = 217;
         public static final double kPivotTrapPosition = 170; // 162;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
         public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
-        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 2.6;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 244.0;
-        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 4.0;
+        public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
+        public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
+        public static final double kPivotAngle4 = 232.0;
+        public static final double kPivotDistance4 = 2.53;
+        public static final double kPivotAngle5 = 236.0;
+        public static final double kPivotDistance5 = 3.04;
+        public static final double kPivotAngle6 = 240.5;
+        public static final double kPivotDistance6 = 3.51;
+        public static final double kPivotAngle7 = 242.0;
+        public static final double kPivotDistance7 = 4.11;
+        public static final double kPivotAngle8 = 244.0;
+        public static final double kPivotDistance8 = 4.49;
+        public static final double kPivotAngle9 = 246.0;
+        public static final double kPivotDistance9 = 5.06;
     }
 
     public static final class ClimberConstants {
@@ -280,9 +293,9 @@ public final class Constants {
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
-                new Translation3d(0.45, 0.5, 0.201512),
+                new Translation3d(0.23, 0.5, 0.201512),
                 new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
-                        Units.degreesToRadians(165.25)));
+                        Units.degreesToRadians(166)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
@@ -297,9 +310,9 @@ public final class Constants {
                         new Rotation3d(0, Units.degreesToRadians(-24),
                                 Units.degreesToRadians(180.00)))
                 : new Transform3d( // compBot camera mounting
-                        new Translation3d(-0.45, -0.2, 0.201512),
+                        new Translation3d(-0.45, -0.1, 0.201512),
                         new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
-                                Units.degreesToRadians(182.50)));
+                                Units.degreesToRadians(183.5)));
         /*
          * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
          * new Translation3d(0.236250, 0.274603, 0.201512),
@@ -307,7 +320,7 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
     }
 
