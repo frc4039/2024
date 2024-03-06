@@ -146,14 +146,14 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     enum ScoringState {
-        AMP,
-        SPEAKER,
+        LOW,
+        HIGH,
         INTAKE,
         CLIMB,
         ManualShoot
     }
 
-    private ScoringState scoringState = ScoringState.AMP;
+    private ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -233,8 +233,8 @@ public class RobotContainer {
         // _______________OPERATOR BUTTONS_______________\\
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
-        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
-        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
+        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
@@ -250,11 +250,11 @@ public class RobotContainer {
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER,
+                        ScoringState.HIGH,
                         new SpeakerShootParallelCommandGroup(
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
-                        ScoringState.AMP,
+                        ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         // ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem,
@@ -278,7 +278,7 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
-                ScoringState.SPEAKER,
+                ScoringState.HIGH,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
