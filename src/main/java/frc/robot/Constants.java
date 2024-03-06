@@ -261,7 +261,7 @@ public final class Constants {
         public static final double kPivotTrapPosition = 170; // 162;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
-        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
+        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
         public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
         public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
