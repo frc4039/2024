@@ -49,6 +49,7 @@ import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
@@ -139,18 +140,20 @@ public class RobotContainer {
 
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
 
     private final SendableChooser<Command> autoChooser;
 
     enum ScoringState {
-        AMP,
-        SPEAKER,
+        LOW,
+        HIGH,
         INTAKE,
         CLIMB,
         ManualShoot
     }
 
-    private ScoringState scoringState = ScoringState.SPEAKER;
+    private ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -230,11 +233,10 @@ public class RobotContainer {
         // _______________OPERATOR BUTTONS_______________\\
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
-        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.AMP));
-        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SPEAKER));
+        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
+        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
-        // removed while testing new button flow
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
                 PivotConstants.kPivotAmpPosition)
         // .alongWith(new AmpShootCommand(shooterSubsystem)));
@@ -248,11 +250,11 @@ public class RobotContainer {
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
                 new SelectCommand<ScoringState>(Map.of(
-                        ScoringState.SPEAKER,
+                        ScoringState.HIGH,
                         new SpeakerShootParallelCommandGroup(
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
                                 driverLeftStickY, driverLeftStickX),
-                        ScoringState.AMP,
+                        ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         // ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem,
@@ -276,7 +278,7 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
-                ScoringState.SPEAKER,
+                ScoringState.HIGH,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
@@ -284,6 +286,7 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200)),
                 () -> scoringState));
         driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
     }
 
     public Command getAutonomousCommand() {
