@@ -286,7 +286,7 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200)),
                 () -> scoringState));
         driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
-        driverLeftBumper.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
+        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
     }
 
     public Command getAutonomousCommand() {
