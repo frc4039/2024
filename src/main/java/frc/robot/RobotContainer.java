@@ -153,7 +153,7 @@ public class RobotContainer {
         ManualShoot
     }
 
-    private ScoringState scoringState = ScoringState.SPEAKER;
+    private ScoringState scoringState = ScoringState.AMP;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
