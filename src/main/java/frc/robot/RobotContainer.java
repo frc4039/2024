@@ -27,17 +27,21 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.ClimbOnStageCommand;
+import frc.robot.commands.DeployFlapTrapCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -46,6 +50,7 @@ import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.ShootCommand;
@@ -53,6 +58,7 @@ import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.TrapScoreCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -126,6 +132,8 @@ public class RobotContainer {
             .getPOV() == 270);
     private final Trigger operatorDUpPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 0);
+    private final Trigger operatorDDownPadTrigger = new Trigger(() -> m_operatorController
+            .getPOV() == 180);
     private final Trigger operatorDRightPadTrigger = new Trigger(() -> m_operatorController
             .getPOV() == 90);
 
@@ -140,8 +148,6 @@ public class RobotContainer {
 
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
-    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
-            XboxController.Button.kLeftBumper.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -231,6 +237,18 @@ public class RobotContainer {
 
     private void configureBindings() {
         // _______________OPERATOR BUTTONS_______________\\
+        operatorDRightPadTrigger.whileTrue(
+                new ConditionalCommand(
+                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
+                        new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
+        operatorDLeftPadTrigger.whileTrue(
+                new ConditionalCommand(
+                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
+                        new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
+        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
+        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
@@ -246,6 +264,7 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
+        operatorXButton.onTrue(new DeployFlapTrapCommand(climberSubsystem));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -257,25 +276,32 @@ public class RobotContainer {
                         ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
-                        // ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem,
-                        // indexerSubsystem),
-                        ScoringState.CLIMB, new InstantCommand(),
+                        ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
                         ScoringState.ManualShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
+                        // ScoringState.CLIMB,
+                        // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
+                        // indexerSubsystem)),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
-        driverYButton.whileTrue(new DriveToNoteCommand(driveSubsystem, indexerSubsystem));
+        driverYButton.whileTrue(
+                new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
-        driverAButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI));
+        driverAButton.whileTrue(
+                new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
+                        new TeleopDriveCommand(driveSubsystem,
+                                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI),
+                        () -> this.scoringState == ScoringState.CLIMB));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
@@ -285,7 +311,12 @@ public class RobotContainer {
                 ScoringState.ManualShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200)),
                 () -> scoringState));
-        driverRightBumper.whileTrue(new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+
+        driverRightBumper.whileTrue(
+                new ConditionalCommand(
+                        new InstantCommand(),
+                        new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
+                        () -> this.scoringState == ScoringState.CLIMB));
         operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
     }
 
