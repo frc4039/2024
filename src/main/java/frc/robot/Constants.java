@@ -214,6 +214,7 @@ public final class Constants {
         public static final double kShooterRPM = 4000;
         public static final double kTrapShooterRPM = 600;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kShuttleShootRPM = 1000;
     }
 
     public static final class IndexerConstants {
@@ -262,7 +263,7 @@ public final class Constants {
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
-        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 223.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
         public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
         public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;

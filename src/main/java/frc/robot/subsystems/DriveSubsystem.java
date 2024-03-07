@@ -429,6 +429,15 @@ public class DriveSubsystem extends SubsystemBase {
         return getPose().getTranslation().minus(goalposition);
     }
 
+    public Translation2d getTranslationToCorner() {
+        var cornerposition = new Translation2d(0, 8);
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            cornerposition = new Translation2d(16.46, 8);
+        }
+        return getPose().getTranslation().minus(cornerposition);
+    }
+
     /** Get the angle from the robot to the note */
     public double getNoteAngle() {
         return this.m_piVision.getEntry("Angle").getDouble(0);
