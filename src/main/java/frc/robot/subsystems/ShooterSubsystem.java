@@ -64,15 +64,15 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
-        SmartDashboard.putNumber("Speed Setpoint", ShooterConstants.kShooterRPM);
+        SmartDashboard.putNumber("Speed Setpoint", ShooterConstants.kSubwooferShooterRPM);
     }
 
     @Override
     public void periodic() {
 
         double manSpeed = SmartDashboard.getNumber("Speed Setpoint", 500);
-        if ((manSpeed != ShooterConstants.kShooterRPM)) {
-            ShooterConstants.kShooterRPM = manSpeed;
+        if ((manSpeed != ShooterConstants.kSubwooferShooterRPM)) {
+            ShooterConstants.kSubwooferShooterRPM = manSpeed;
         }
 
     }
