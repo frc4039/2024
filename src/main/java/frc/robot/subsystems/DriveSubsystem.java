@@ -189,10 +189,17 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
             SmartDashboard.putNumber("Camera Left Pose Rotation",
                     Units.radiansToDegrees(camPose1.estimatedPose.getRotation().getAngle()));
-            m_poseEstimator.addVisionMeasurement(
-                    camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                    m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
-            fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+
+            Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
+            SmartDashboard.putNumber("Camera Left Pose Ambiguity",
+                    ambiguity);
+            if (ambiguity < 0.4) {
+                m_poseEstimator.addVisionMeasurement(
+                        camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
+                        m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+            }
+
         }
 
         if (!Helpers.isBabycakes()) {
@@ -206,10 +213,17 @@ public class DriveSubsystem extends SubsystemBase {
                 SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
                 SmartDashboard.putNumber("Camera Right Pose Rotation",
                         Units.radiansToDegrees(camPose2.estimatedPose.getRotation().getAngle()));
-                m_poseEstimator.addVisionMeasurement(
-                        camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                        m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
-                fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+
+                Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
+                SmartDashboard.putNumber("Camera Right Pose Ambiguity",
+                        ambiguity);
+                if (ambiguity < 0.4) {
+                    m_poseEstimator.addVisionMeasurement(
+                            camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+                            m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                }
+
             }
         }
         fieldDisplay.setRobotPose(getPose());
@@ -413,6 +427,15 @@ public class DriveSubsystem extends SubsystemBase {
             goalposition = new Translation2d(16.46, 5.55);
         }
         return getPose().getTranslation().minus(goalposition);
+    }
+
+    public Translation2d getTranslationToCorner() {
+        var cornerposition = new Translation2d(0, 8);
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            cornerposition = new Translation2d(16.46, 8);
+        }
+        return getPose().getTranslation().minus(cornerposition);
     }
 
     /** Get the angle from the robot to the note */

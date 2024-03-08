@@ -5,33 +5,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.Constants.ShooterConstants;
+import frc.robot.subsystems.ShooterSubsystem;
 
-public class ClimbOnStageCommand extends Command {
+public class SubwooferShootCommand extends Command {
+    private ShooterSubsystem shooter;
 
-    private ClimberSubsystem m_Climber;
-	private double climbSpeed;
-
-    public ClimbOnStageCommand(ClimberSubsystem climber, double climbSpeed) {
-        m_Climber = climber;
-		this.climbSpeed = climbSpeed;
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
+    /** Creates a new SubwooferShootCommand. */
+    public SubwooferShootCommand(ShooterSubsystem shooter) {
+        this.shooter = shooter;
+        addRequirements(shooter);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_Climber.setClimbSpeed(climbSpeed);
+        shooter.shooterPID(ShooterConstants.kSubwooferShooterRPM);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_Climber.stop();
+        shooter.shooterSpeedControl(0, 0, 0);
     }
 
     // Returns true when the command should end.
