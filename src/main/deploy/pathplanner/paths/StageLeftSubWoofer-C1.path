@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7826793454199492,
+        "y": 6.70466190611125
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 0.7863110712887251,
+        "y": 7.656091966270271
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.041956082821393,
+        "y": 7.477437776485861
+      },
+      "prevControl": {
+        "x": 2.0701999324330562,
+        "y": 7.918690613791061
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CenterNote1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoteCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "Auto3 Paths",
+  "previewStartingState": {
+    "rotation": 59.67610272402719,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

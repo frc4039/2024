@@ -1,0 +1,18 @@
+{
+  "robotWidth": 0.812,
+  "robotLength": 0.812,
+  "holonomicMode": true,
+  "pathFolders": [
+    "Auto1 Paths",
+    "Auto2 Paths",
+    "Auto3 Paths",
+    "Disrupt Centre Auto ",
+    "Odometry Test"
+  ],
+  "autoFolders": [],
+  "defaultMaxVel": 2.5,
+  "defaultMaxAccel": 2.5,
+  "defaultMaxAngVel": 540.0,
+  "defaultMaxAngAccel": 720.0,
+  "maxModuleSpeed": 4.5
+}

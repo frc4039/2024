@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.108596318398223,
+        "y": 4.215795540798192
+      },
+      "isLocked": false,
+      "linkedName": "FarSpeakerShot"
+    },
+    {
+      "anchor": {
+        "x": 7.971811249684744,
+        "y": 2.597270200440465
+      },
+      "prevControl": {
+        "x": 5.210813163855971,
+        "y": 4.332983663685775
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoteCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -29.498383479137864,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "Auto1 Paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,113 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.376460831712964,
+      "y": 5.544127783085598
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MiddleSubwoofer-N3"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N3-N2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N2-N1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TravelPivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N1-C3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
