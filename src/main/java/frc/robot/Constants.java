@@ -213,7 +213,9 @@ public final class Constants {
 
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
+        public static final double kTrapShooterRPM = 600;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kShuttleShootRPM = 1000;
     }
 
     public static final class IndexerConstants {
@@ -257,25 +259,26 @@ public final class Constants {
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
         public static final double kPivotAmpPosition = 159; // was 169
-        public static final double kPivotSubwooferPosition = 217;
+        public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotTrapPosition = 170; // 162;
 
-        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
-        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.0;
-        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 232.0;
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
+        public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 224.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 227.0;
         public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
-        public static final double kPivotAngle4 = 232.0;
+        public static final double kPivotAngle4 = 233.0;
         public static final double kPivotDistance4 = 2.53;
-        public static final double kPivotAngle5 = 236.0;
+        public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240.5;
+        public static final double kPivotAngle6 = 240;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 242.0;
+        public static final double kPivotAngle7 = 243.0;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 244.0;
+        public static final double kPivotAngle8 = 245.0;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 246.0;
+        public static final double kPivotAngle9 = 247.0;
         public static final double kPivotDistance9 = 5.06;
     }
 
@@ -283,7 +286,7 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 50;
-        public static final double kClimberMotorSpeed = 0.1; // setting to .1 to test direction of motors. 0.4;
+        public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
     }
 
     public static class VisionConstants {
