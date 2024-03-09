@@ -258,7 +258,8 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
-        public static final double kPivotAmpPosition = 159; // was 169
+        public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
+                                                            // to vertical
         public static final double kPivotSubwooferPosition = 212;
         public static final double kPivotTrapPosition = 170; // 162;
 

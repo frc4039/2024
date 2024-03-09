@@ -39,7 +39,7 @@ public class AmpIndexerCommand extends Command {
     @Override
     public void execute() {
         if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed
-                && Math.abs(pivotAngleSubsystem.getPitch()) < desiredAngle + 3) {
+                && Math.abs(pivotAngleSubsystem.getPitch()) < (desiredAngle + 4)) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
     }
