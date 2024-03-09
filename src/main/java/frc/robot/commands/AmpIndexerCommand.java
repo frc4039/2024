@@ -18,8 +18,10 @@ public class AmpIndexerCommand extends Command {
     private double desiredAngle;
 
     /** Creates a new IndexerCommand. */
-    public AmpIndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed,
+    public AmpIndexerCommand(PivotAngleSubsystem pivot, IndexerSubsystem indexer,
+            ShooterSubsystem shooter, double targetSpeed,
             double desiredAngle) {
+        this.pivotAngleSubsystem = pivot;
         this.indexer = indexer;
         this.shooter = shooter;
         this.targetSpeed = targetSpeed;
@@ -37,7 +39,7 @@ public class AmpIndexerCommand extends Command {
     @Override
     public void execute() {
         if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed
-                && Math.abs(pivotAngleSubsystem.getPitch()) >= desiredAngle + 3) {
+                && Math.abs(pivotAngleSubsystem.getPitch()) < desiredAngle + 3) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
     }
