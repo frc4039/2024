@@ -208,7 +208,8 @@ public class RobotContainer {
                 .withPosition(2, 0)
                 .withSize(3, 3);
 
-        hardwareMonitor.registerDevice(null, new PowerDistribution(5, ModuleType.kRev));
+        // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
+        // ModuleType.kRev));
 
         ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
                 .withPosition(6, 0)
