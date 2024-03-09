@@ -261,23 +261,23 @@ public final class Constants {
         public static final double kPivotSubwooferPosition = 212;
         public static final double kPivotTrapPosition = 170; // 162;
 
-        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 219.0;
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
-        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 225.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 224.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 228.0;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 227.0;
         public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
-        public static final double kPivotAngle4 = 234.0;
+        public static final double kPivotAngle4 = 233.0;
         public static final double kPivotDistance4 = 2.53;
-        public static final double kPivotAngle5 = 238.0;
+        public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 242.5;
+        public static final double kPivotAngle6 = 241.5;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 244.0;
+        public static final double kPivotAngle7 = 243.0;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 246.0;
+        public static final double kPivotAngle8 = 245.0;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 248.0;
+        public static final double kPivotAngle9 = 247.0;
         public static final double kPivotDistance9 = 5.06;
     }
 
