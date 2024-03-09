@@ -271,7 +271,7 @@ public final class Constants {
         public static final double kPivotDistance4 = 2.53;
         public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 241.5;
+        public static final double kPivotAngle6 = 240;
         public static final double kPivotDistance6 = 3.51;
         public static final double kPivotAngle7 = 243.0;
         public static final double kPivotDistance7 = 4.11;
