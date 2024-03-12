@@ -2,15 +2,21 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7826793454199492,
-      "y": 6.70466190611125
+      "x": 1.3005404928188775,
+      "y": 7.145128364330803
     },
-    "rotation": 59.70893516720105
+    "rotation": 47.20259816176587
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
         {
           "type": "named",
           "data": {

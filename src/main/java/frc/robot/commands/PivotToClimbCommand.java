@@ -5,24 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.IndexerConstants;
-import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
-public class IndexerCommand extends Command {
-    private IndexerSubsystem indexer;
-    private ShooterSubsystem shooter;
-    private PivotAngleSubsystem pivotAngleSubsystem;
-    private double targetSpeed;
+public class PivotToClimbCommand extends Command {
+    private PivotAngleSubsystem pivotAngle;
+    private double m_angle;
 
-    /** Creates a new IndexerCommand. */
-    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed) {
-        this.indexer = indexer;
-        this.shooter = shooter;
-        this.targetSpeed = targetSpeed;
-
-        addRequirements(indexer);
+    /** Creates a new PivotToClimbCommand. */
+    public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, double angle) {
+        this.pivotAngle = pivotAngle;
+        m_angle = angle;
+        addRequirements(pivotAngle);
+        // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
@@ -33,15 +27,13 @@ public class IndexerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed) {
-            indexer.start(IndexerConstants.kIndexerShooterSpeed);
-        }
+        pivotAngle.setDesiredAngle(m_angle);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        indexer.stop();
+
     }
 
     // Returns true when the command should end.

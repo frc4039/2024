@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.260506782296225,
-        "y": 2.417940037780313
+        "x": 8.109978104215468,
+        "y": 3.873583594389411
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.678652178772204,
-        "y": 1.3625014870883965
+        "x": 6.818203867598875,
+        "y": 0.8963596054857976
       },
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": "CentreNote3 - SourceSide"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 3.108297114742378
       },
       "prevControl": {
-        "x": 5.160771738210143,
-        "y": 1.2992114224969191
+        "x": 5.245335092522037,
+        "y": 0.6914123133801827
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.94235871354402,
-    "rotateFast": true
+    "rotation": -37.69661707409515,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "Auto2 Paths",
   "previewStartingState": {
-    "rotation": 28.713210205603815,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
