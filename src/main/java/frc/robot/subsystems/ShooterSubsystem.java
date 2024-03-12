@@ -91,7 +91,8 @@ public class ShooterSubsystem extends SubsystemBase {
      * @param rpm The speed to run the shooter at in rotations per minute.
      */
     public void ampPID(double rpm) {
-        m_lowerShooterController.setReference(rpm, ControlType.kVelocity);
+        // m_lowerShooterController.setReference(rpm, ControlType.kVelocity);
+        m_lowerShooterVortex.set(0);
         m_upperShooterController.setReference(-rpm, ControlType.kVelocity);
     }
 

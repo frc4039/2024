@@ -58,7 +58,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 52.647004396196984,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "Auto2 Paths",

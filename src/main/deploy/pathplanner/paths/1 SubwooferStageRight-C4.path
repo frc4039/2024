@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7306377529421727,
-        "y": 4.280604121393428
+        "x": 1.335622956146197,
+        "y": 4.198201444835939
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0935092286851242,
-        "y": 3.0552668651633605
+        "x": 2.5284267092750707,
+        "y": 2.3388308884879883
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.059501382891655,
-        "y": 2.2938997544661763
+        "x": 8.260506782296225,
+        "y": 2.417940037780313
       },
       "prevControl": {
-        "x": 6.5400926866668545,
-        "y": 0.35393089304697234
+        "x": 6.741098086071425,
+        "y": 0.47797117636110886
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,7 +63,7 @@
   "reversed": false,
   "folder": "Auto2 Paths",
   "previewStartingState": {
-    "rotation": -58.909947038388154,
+    "rotation": -42.7093899573615,
     "velocity": 0
   },
   "useDefaultConstraints": true

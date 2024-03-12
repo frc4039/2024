@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.260506782296225,
-        "y": 2.417940037780313
+        "x": 8.241007265862514,
+        "y": 0.7702308991316326
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.678652178772204,
-        "y": 1.3625014870883965
+        "x": 6.681045951165537,
+        "y": 0.8774782395170491
       },
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": "CenterNote5"
     },
     {
       "anchor": {
@@ -43,9 +43,9 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
+  "folder": "Auto4 Paths",
   "previewStartingState": {
-    "rotation": 28.713210205603815,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
