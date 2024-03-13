@@ -288,6 +288,7 @@ public final class Constants {
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 50;
         public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
+        public static final int TrapActuatorPort = 0;
     }
 
     public static class VisionConstants {
