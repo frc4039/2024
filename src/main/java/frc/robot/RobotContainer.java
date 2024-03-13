@@ -318,7 +318,9 @@ public class RobotContainer {
                         new InstantCommand(),
                         new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
-        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
+        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+                () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
+                        : ShooterConstants.kShuttleShootRPM));
     }
 
     public Command getAutonomousCommand() {
