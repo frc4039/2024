@@ -42,7 +42,6 @@ import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.ClimbOnStageCommand;
-import frc.robot.commands.DeployFlapTrapCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -269,7 +268,7 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
-        operatorXButton.onTrue(new DeployFlapTrapCommand(climberSubsystem));
+        operatorXButton.onTrue(new ActivateTrapCommand(TrapSubsystem, true));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -319,7 +318,7 @@ public class RobotContainer {
 
         driverRightBumper.whileTrue(
                 new ConditionalCommand(
-                        new ActivateTrapCommand(TrapSubsystem, true),
+                        new ActivateTrapCommand(TrapSubsystem, false),
                         new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,

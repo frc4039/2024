@@ -16,6 +16,8 @@ public class ActivateTrapCommand extends Command {
         // Use addRequirements() here to declare subsystem dependencies.
         this.ActivateTrap = ActivateTrap;
         this.TrapSubsystem = TrapSubsystem;
+        addRequirements(TrapSubsystem);
+        
     }
 
     // Called when the command is initially scheduled.
