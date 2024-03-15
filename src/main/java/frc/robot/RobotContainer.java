@@ -268,7 +268,7 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
-        operatorXButton.onTrue(new ActivateTrapCommand(TrapSubsystem, true));
+        operatorXButton.whileTrue(new ActivateTrapCommand(TrapSubsystem, true));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
