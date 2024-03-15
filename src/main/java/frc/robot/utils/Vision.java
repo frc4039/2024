@@ -196,9 +196,9 @@ public class Vision {
         }
     }
 
-    public int getNumberOfTags(Pose2d estimatedPose) {
+    public double getNumberOfTags(Pose2d estimatedPose) {
         var targets = getLatestResult().getTargets();
-        int numTags = 0;
+        double numTags = 0;
         for (var tgt : targets) {
             var tagPose = photonEstimator.getFieldTags().getTagPose(tgt.getFiducialId());
             if (tagPose.isEmpty())

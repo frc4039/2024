@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.VisionConstants;
@@ -182,9 +183,9 @@ public class DriveSubsystem extends SubsystemBase {
 
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
-            int numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
-
-            if (numberOfTags1 < 2) {
+            double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
+            SmartDashboard.putNumber("number of tags", numberOfTags1);
+            if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
                 if (ambiguity < 0.4) {
                     fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
@@ -212,9 +213,9 @@ public class DriveSubsystem extends SubsystemBase {
 
             if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
-                int numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
+                double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
 
-                if (numberOfTags2 < 2) {
+                if (numberOfTags2 < 2.0) {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
                     if (ambiguity < 0.4) {
