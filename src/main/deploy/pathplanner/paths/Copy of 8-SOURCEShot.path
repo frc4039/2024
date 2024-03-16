@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.258189980851688,
+        "y": 0.7947572424162708
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.645453419255054,
+        "y": 0.7708644928078545
+      },
+      "isLocked": false,
+      "linkedName": "8"
+    },
+    {
+      "anchor": {
+        "x": 2.758002102685753,
+        "y": 3.246336033222662
+      },
+      "prevControl": {
+        "x": 5.597393390657318,
+        "y": 0.8186980659675602
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "SOURCEShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -39.639999999999986,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SOURCE 876 Red Paths ",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
