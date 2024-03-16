@@ -215,7 +215,7 @@ public final class Constants {
 
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
-        public static final double kTrapShooterRPM = 600;
+        public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 1000;
@@ -292,6 +292,7 @@ public final class Constants {
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
         public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
+        public static final int TrapActuatorPort = 1;
     }
 
     public static class VisionConstants {
