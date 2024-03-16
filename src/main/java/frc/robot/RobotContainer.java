@@ -270,8 +270,8 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
-        operatorXButton.onTrue(
-                new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem, true), new InstantCommand(),
+        operatorXButton.whileTrue(
+                new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
 
         // _______________DRIVER BUTTONS_______________\\
@@ -329,10 +329,7 @@ public class RobotContainer {
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
-                new ConditionalCommand(
-                        new ActivateTrapCommand(TrapSubsystem, false),
-                        new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
-                        () -> this.scoringState == ScoringState.CLIMB));
+                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
         operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
                         : ShooterConstants.kShuttleShootRPM));

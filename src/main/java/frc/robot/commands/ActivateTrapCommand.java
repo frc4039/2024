@@ -10,13 +10,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ActivateTrapCommand extends Command {
     /** Creates a new ActivateTrapCommand. */
-    private boolean ActivateTrap;
     private ActivateTrapSubsystem TrapSubsystem;
-    private Timer ResetTime;
 
-    public ActivateTrapCommand(ActivateTrapSubsystem TrapSubsystem, boolean ActivateTrap) {
+    public ActivateTrapCommand(ActivateTrapSubsystem TrapSubsystem) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.ActivateTrap = ActivateTrap;
         this.TrapSubsystem = TrapSubsystem;
         addRequirements(TrapSubsystem);
 
@@ -25,21 +22,19 @@ public class ActivateTrapCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        if (ActivateTrap) {
-            TrapSubsystem.Release();
-        } else {
-            TrapSubsystem.Reset();
-        }
+        TrapSubsystem.Reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        TrapSubsystem.Release();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        TrapSubsystem.Reset();
     }
 
     // Returns true when the command should end.
