@@ -18,8 +18,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -40,6 +38,7 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DeployFlapTrapCommand;
 import frc.robot.commands.DriveToNoteCommand;
@@ -58,7 +57,6 @@ import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
-import frc.robot.commands.TrapScoreCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -181,6 +179,8 @@ public class RobotContainer {
                 new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
         NamedCommands.registerCommand("IntakeIndexShootCommand", new IntakeIndexShootCommandGroup(shooterSubsystem,
                 indexerSubsystem, intakeSubsystem, m_driverController, m_operatorController));
+        NamedCommands.registerCommand("SubwooferShot", new AutoSubwooferShotSequentialCommandGroup(driveSubsystem,
+                shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
 
         configureBindings();
 
