@@ -12,7 +12,7 @@ public class ActivateTrapSubsystem extends SubsystemBase {
 
     public ActivateTrapSubsystem(HardwareMonitor hw) {
         TrapActuator = new Servo(ClimberConstants.TrapActuatorPort);
-        TrapActuator.setBoundsMicroseconds(2000, 1900, 1500, 1100, 1000);
+        TrapActuator.setBoundsMicroseconds(2000, 1990, 1500, 1010, 1000);
         TrapActuator.setPosition(0.0);
     }
 

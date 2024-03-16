@@ -6,18 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ActivateTrapSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ActivateTrapCommand extends Command {
     /** Creates a new ActivateTrapCommand. */
     private boolean ActivateTrap;
     private ActivateTrapSubsystem TrapSubsystem;
+    private Timer ResetTime;
 
     public ActivateTrapCommand(ActivateTrapSubsystem TrapSubsystem, boolean ActivateTrap) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.ActivateTrap = ActivateTrap;
         this.TrapSubsystem = TrapSubsystem;
         addRequirements(TrapSubsystem);
-        
+
     }
 
     // Called when the command is initially scheduled.

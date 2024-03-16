@@ -210,6 +210,7 @@ public class RobotContainer {
                 .withProperties(Map.of("showControls", false))
                 .withPosition(2, 0)
                 .withSize(3, 3);
+        mainTab.add("Reset Trap Servo", new InstantCommand(() -> TrapSubsystem.Reset()));
 
         // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
         // ModuleType.kRev));
@@ -268,7 +269,9 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
-        operatorXButton.whileTrue(new ActivateTrapCommand(TrapSubsystem, true));
+        operatorXButton.onTrue(
+                new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem, true), new InstantCommand(),
+                        () -> this.scoringState == ScoringState.CLIMB));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(

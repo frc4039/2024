@@ -19,6 +19,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
+    private boolean debugging = false;
+
     // private Servo m_trapActuator;
 
     public ClimberSubsystem(HardwareMonitor hw) {
