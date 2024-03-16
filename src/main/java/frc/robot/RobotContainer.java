@@ -18,8 +18,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -53,6 +51,7 @@ import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
+import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
@@ -159,7 +158,8 @@ public class RobotContainer {
         HIGH,
         INTAKE,
         CLIMB,
-        ManualShoot
+        SubwooferShoot,
+        PodiumShoot
     }
 
     private ScoringState scoringState = ScoringState.LOW;
@@ -259,7 +259,8 @@ public class RobotContainer {
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
-        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
+        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SubwooferShoot));
+        operatorDDownPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.PodiumShoot));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
                 PivotConstants.kPivotAmpPosition)
         // .alongWith(new AmpShootCommand(shooterSubsystem)));
@@ -283,10 +284,16 @@ public class RobotContainer {
                         ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
-                        ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
-                        ScoringState.ManualShoot,
+                        ScoringState.INTAKE,
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        ScoringState.SubwooferShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
+                                        .alongWith(new TeleopDriveCommand(driveSubsystem,
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.PodiumShoot,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
+                                .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
                         // ScoringState.CLIMB,
@@ -315,8 +322,10 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
-                ScoringState.ManualShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200)),
+                ScoringState.SubwooferShoot,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200),
+                ScoringState.PodiumShoot,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200)),
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
