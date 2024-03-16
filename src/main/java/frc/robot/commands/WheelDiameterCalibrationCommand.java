@@ -23,7 +23,7 @@ public class WheelDiameterCalibrationCommand extends Command {
 
     private double[] startWheelPositions;
 
-    private double currentEffectiveWheelRadius = 0.0;
+    private double currentEffectiveWheelDiameter = 0.0;
 
     public WheelDiameterCalibrationCommand(DriveSubsystem drive) {
         this.drive = drive;
@@ -57,8 +57,8 @@ public class WheelDiameterCalibrationCommand extends Command {
         }
         averageWheelPosition /= 4.0;
 
-        currentEffectiveWheelRadius = (accumGyroYawRads * driveRadius) / averageWheelPosition;
-        SmartDashboard.putNumber("wheel diameter", currentEffectiveWheelRadius);
+        currentEffectiveWheelDiameter = 2 * ((accumGyroYawRads * driveRadius) / averageWheelPosition);
+        SmartDashboard.putNumber("wheel diameter", currentEffectiveWheelDiameter);
     }
 
     @Override
@@ -67,8 +67,8 @@ public class WheelDiameterCalibrationCommand extends Command {
             System.out.println("Not enough data for characterization");
         } else {
             System.out.println(
-                    "Effective Wheel Radius: "
-                            + Units.metersToInches(currentEffectiveWheelRadius)
+                    "Effective Wheel Diameter: "
+                            + Units.metersToInches(currentEffectiveWheelDiameter)
                             + " inches");
         }
     }
