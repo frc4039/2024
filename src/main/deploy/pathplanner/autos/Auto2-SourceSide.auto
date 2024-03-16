@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7616363982727968,
-      "y": 4.2785943313495425
+      "x": 1.335622956146197,
+      "y": 4.198201444835939
     },
-    "rotation": -58.72379627540794
+    "rotation": -48.57633437499739
   },
   "command": {
     "type": "sequential",
@@ -68,7 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "3 FarSpeakerShot-C3"
+            "pathName": "3 SOURCESideShot-C3"
           }
         },
         {
@@ -80,7 +80,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "4 C3-FarSpeakerShot"
+            "pathName": "4 C3-SOURCESideShot"
           }
         },
         {

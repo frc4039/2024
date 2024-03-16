@@ -68,8 +68,9 @@ public class Vision {
 
         AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
         String alternateField = null;
-        alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json"; // comment this out prior to
-                                                                                 // competitions.
+        // alternateField = "/home/lvuser/deploy/fieldlayouts/practice_field.json"; //
+        // comment this out prior to
+        // competitions.
         // alternateField = "/home/lvuser/deploy/fieldlayouts/senior_football.json";
 
         if (alternateField != null) {
@@ -177,6 +178,22 @@ public class Vision {
             estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
 
         return estStdDevs;
+    }
+
+    public Double getAmbiguity(Pose2d estimatedPose) {
+        var targets = getLatestResult().getTargets();
+        double tagPoseAmbiguity = 0.0;
+        int numTags = 0;
+
+        for (var tgt : targets) {
+            tagPoseAmbiguity = tgt.getPoseAmbiguity();
+            numTags++;
+        }
+        if (numTags == 1) {
+            return tagPoseAmbiguity;
+        } else {
+            return 0.0;
+        }
     }
 
     // ----- Simulation

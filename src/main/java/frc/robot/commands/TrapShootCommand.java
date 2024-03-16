@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class AmpShootCommand extends Command {
+public class TrapShootCommand extends Command {
     private ShooterSubsystem shooter;
 
-    public AmpShootCommand(ShooterSubsystem shooter) {
+    public TrapShootCommand(ShooterSubsystem shooter) {
         this.shooter = shooter;
         addRequirements(shooter);
     }
@@ -16,7 +16,7 @@ public class AmpShootCommand extends Command {
     }
 
     public void execute() {
-        shooter.ampPID(ShooterConstants.kAmpRPM);
+        shooter.shooterPID(ShooterConstants.kTrapShooterRPM);
     }
 
     // Called once the command ends or is interrupted.

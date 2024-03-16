@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.376460831712964,
-      "y": 5.544127783085598
+      "x": 1.2504306243766896,
+      "y": 4.046149659995282
     },
-    "rotation": 0
+    "rotation": -49.30446896050799
   },
   "command": {
     "type": "sequential",
@@ -31,78 +31,77 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeIndexShootCommand"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "MiddleSubwoofer-N3"
-                }
-              }
-            ]
+            "pathName": "Preload-C5"
           }
         },
         {
-          "type": "deadline",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "wait",
                 "data": {
-                  "name": "IntakeIndexShootCommand"
+                  "waitTime": 1.0
                 }
               },
               {
-                "type": "path",
-                "data": {
-                  "pathName": "N3-N2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
-                  "name": "IntakeIndexShootCommand"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N2-N1"
+                  "name": "IntakeNoteCommand"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TravelPivot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "N1-C3"
+            "pathName": "C5-FarSpeakerShot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeNoteCommand"
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source SpeakerShot-C4"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "2 C4-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
           }
         }
       ]

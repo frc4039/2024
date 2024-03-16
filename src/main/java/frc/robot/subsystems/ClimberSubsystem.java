@@ -4,9 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.utils.HardwareMonitor;
@@ -15,27 +19,46 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
+    private Servo m_trapActuator;
+    private boolean debugging = false;
 
     public ClimberSubsystem(HardwareMonitor hw) {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
+        m_trapActuator = new Servo(1);
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
+
+        if (debugging) {
+            ShuffleboardTab climberTab = Shuffleboard.getTab("Climber");
+            climberTab.addDouble("Leader Motor Current", () -> m_climberLeaderMotor.getOutputCurrent());
+            climberTab.addDouble("Follower Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
+        }
     }
 
-    public void ClimbOnStage(double motorSpeed) {
+    public void deployFlapTrap() {
+        m_trapActuator.set(0.0);
+    }
+
+    public void unDeployFlapTrap() {
+        m_trapActuator.set(1.0);
+    }
+
+    public void setClimbSpeed(double motorSpeed) {
         m_climberLeaderMotor.set(motorSpeed);
     }
 
-    public void StopClimbing() {
+    public void stop() {
         m_climberLeaderMotor.set(0);
     }
 
     private CANSparkMax CreateClimberMotor(int motorCANId) {
         CANSparkMax motor = new CANSparkMax(motorCANId, MotorType.kBrushless);
         motor.restoreFactoryDefaults();
+        motor.setInverted(true);
+        motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
         motor.burnFlash();
         return motor;

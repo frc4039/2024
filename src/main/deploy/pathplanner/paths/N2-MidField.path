@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.260506782296225,
-        "y": 2.417940037780313
+        "x": 2.859140730157946,
+        "y": 5.557362183607978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.678652178772204,
-        "y": 1.3625014870883965
+        "x": 3.859140730157946,
+        "y": 5.557362183607978
       },
       "isLocked": false,
-      "linkedName": "CenterNote4"
+      "linkedName": "N2-2056"
     },
     {
       "anchor": {
-        "x": 2.790384904843884,
-        "y": 3.108297114742378
+        "x": 6.651796676514969,
+        "y": 3.7146578806221746
       },
       "prevControl": {
-        "x": 5.160771738210143,
-        "y": 1.2992114224969191
+        "x": 5.651796676514969,
+        "y": 3.7146578806221746
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SOURCESideShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.94235871354402,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
+  "folder": "Source32 Paths",
   "previewStartingState": {
-    "rotation": 28.713210205603815,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
