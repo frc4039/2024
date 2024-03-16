@@ -184,7 +184,7 @@ public class DriveSubsystem extends SubsystemBase {
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
             double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
-            SmartDashboard.putNumber("number of tags", numberOfTags1);
+            SmartDashboard.putNumber("Left number of tags", numberOfTags1);
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
                 if (ambiguity < 0.2) {
@@ -214,11 +214,11 @@ public class DriveSubsystem extends SubsystemBase {
             if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
                 double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
-
+                SmartDashboard.putNumber("Right number of tags", numberOfTags2);
                 if (numberOfTags2 < 2.0) {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
-                    if (ambiguity < 0.4) {
+                    if (ambiguity < 0.2) {
                         fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
