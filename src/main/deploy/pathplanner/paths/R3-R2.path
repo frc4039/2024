@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.460709296418593,
-        "y": 5.517402562582903
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.9178506162398825,
-        "y": 4.853482257030296
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 2.502489440164066,
         "y": 4.295747137790572
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9549060903677364,
+        "y": 5.04980996999031
+      },
+      "isLocked": false,
+      "linkedName": "R3"
+    },
+    {
+      "anchor": {
+        "x": 2.62197994481459,
+        "y": 5.678334227038825
+      },
       "prevControl": {
-        "x": 2.0865240157809404,
-        "y": 4.5138372086825695
+        "x": 1.7236724583848024,
+        "y": 5.757137296682
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note3"
+      "linkedName": "R2"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -27.48300114154582,
+    "rotation": 0,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "SPEAKER 3216 Red Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -5,32 +5,36 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ActivateTrapSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
-public class DeployFlapTrapCommand extends Command {
-    private ClimberSubsystem m_Climber;
+public class ActivateTrapCommand extends Command {
+    /** Creates a new ActivateTrapCommand. */
+    private ActivateTrapSubsystem TrapSubsystem;
 
-    /** Creates a new DeployFlapTrapCommand. */
-    public DeployFlapTrapCommand(ClimberSubsystem climber) {
-        m_Climber = climber;
-        addRequirements(climber);
+    public ActivateTrapCommand(ActivateTrapSubsystem TrapSubsystem) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.TrapSubsystem = TrapSubsystem;
+        addRequirements(TrapSubsystem);
+
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        TrapSubsystem.Reset();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_Climber.deployFlapTrap();
+        TrapSubsystem.Release();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        m_Climber.unDeployFlapTrap();
+        TrapSubsystem.Reset();
     }
 
     // Returns true when the command should end.
