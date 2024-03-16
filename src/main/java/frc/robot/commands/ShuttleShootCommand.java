@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IndexerConstants;
@@ -15,12 +17,14 @@ public class ShuttleShootCommand extends Command {
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
     private Timer timer;
+    private DoubleSupplier ShooterSpeed;
 
     /** Creates a new ShuttleShoot. */
-    public ShuttleShootCommand(ShooterSubsystem shooter, IndexerSubsystem indexer) {
+    public ShuttleShootCommand(ShooterSubsystem shooter, IndexerSubsystem indexer, DoubleSupplier ShooterSpeed) {
         this.shooter = shooter;
         this.indexer = indexer;
         this.timer = new Timer();
+        this.ShooterSpeed = ShooterSpeed;
         addRequirements(shooter, indexer);
     }
 
@@ -34,9 +38,9 @@ public class ShuttleShootCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooter.shooterPID(ShooterConstants.kShuttleShootRPM);
+        shooter.shooterPID(ShooterSpeed.getAsDouble());
 
-        if (shooter.getShooterSpeed() >= ShooterConstants.kShuttleShootRPM - 50) {
+        if (shooter.getShooterSpeed() >= ShooterSpeed.getAsDouble() - 50) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
 

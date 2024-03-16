@@ -3,50 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.460709296418593,
-        "y": 5.517402562582903
+        "x": 8.258189980851688,
+        "y": 0.7947572424162708
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9178506162398825,
-        "y": 4.853482257030296
+        "x": 6.645453419255054,
+        "y": 0.7708644928078545
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R8"
     },
     {
       "anchor": {
-        "x": 2.502489440164066,
-        "y": 4.295747137790572
+        "x": 2.758002102685753,
+        "y": 3.246336033222662
       },
       "prevControl": {
-        "x": 2.0865240157809404,
-        "y": 4.5138372086825695
+        "x": 5.597393390657318,
+        "y": 0.8186980659675602
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note3"
+      "linkedName": "RSOURCEShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -27.48300114154582,
+    "rotation": -39.639999999999986,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
-  "useDefaultConstraints": true
+  "folder": "SOURCE 876 Red Paths ",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

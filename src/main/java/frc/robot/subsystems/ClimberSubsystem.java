@@ -19,14 +19,14 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
-    private Servo m_trapActuator;
     private boolean debugging = false;
+
+    // private Servo m_trapActuator;
 
     public ClimberSubsystem(HardwareMonitor hw) {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
-        m_trapActuator = new Servo(1);
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
@@ -36,14 +36,6 @@ public class ClimberSubsystem extends SubsystemBase {
             climberTab.addDouble("Leader Motor Current", () -> m_climberLeaderMotor.getOutputCurrent());
             climberTab.addDouble("Follower Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
         }
-    }
-
-    public void deployFlapTrap() {
-        m_trapActuator.set(0.0);
-    }
-
-    public void unDeployFlapTrap() {
-        m_trapActuator.set(1.0);
     }
 
     public void setClimbSpeed(double motorSpeed) {
