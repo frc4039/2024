@@ -210,7 +210,6 @@ public class RobotContainer {
                 .withProperties(Map.of("showControls", false))
                 .withPosition(2, 0)
                 .withSize(3, 3);
-        mainTab.add("Reset Trap Servo", new InstantCommand(() -> TrapSubsystem.Reset()));
 
         // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
         // ModuleType.kRev));
