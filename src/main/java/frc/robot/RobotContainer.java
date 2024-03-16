@@ -80,13 +80,15 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
+    private ScoringState scoringState = ScoringState.LOW;
+
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
-    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(scoringState);
     private final ActivateTrapSubsystem TrapSubsystem = new ActivateTrapSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
@@ -153,8 +155,6 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
 
     private final SendableChooser<Command> autoChooser;
-
-    private ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
