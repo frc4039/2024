@@ -3,13 +3,16 @@
   "robotLength": 0.812,
   "holonomicMode": true,
   "pathFolders": [
+    "AMP 1456 Blue - incomplete",
     "Auto1 Paths",
     "Auto2 Paths",
     "Auto3 Paths",
     "Auto4 Paths",
     "Disrupt Centre Auto ",
-    "Source32 Paths",
-    "Odometry Test"
+    "SOURCE 876 Red Paths ",
+    "Odometry Test",
+    "SOURCE 876 Blue Paths ",
+    "Source32 Paths"
   ],
   "autoFolders": [],
   "defaultMaxVel": 2.5,
