@@ -42,6 +42,15 @@ public final class Constants {
         public static final boolean kPointToTurn = false;
     }
 
+    public enum ScoringState {
+        LOW,
+        HIGH,
+        INTAKE,
+        CLIMB,
+        SubwooferShoot,
+        PodiumShoot
+    }
+
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds

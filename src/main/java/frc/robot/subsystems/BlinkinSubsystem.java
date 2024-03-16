@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.BlinkinConstants;
 import frc.robot.utils.Sensors;
+import frc.robot.Constants.ScoringState;
 
 /** Add your docs here. */
 public class BlinkinSubsystem extends SubsystemBase {
@@ -22,12 +23,20 @@ public class BlinkinSubsystem extends SubsystemBase {
     private double newColour;
     private double prevColour;
 
-    public BlinkinSubsystem() {
+    public BlinkinSubsystem(ScoringState State) {
 
         m_BlinkinStrip = new Spark(BlinkinConstants.kBlinkinPWMPort);
         HasNotePrevious = false;
         prevColour = BlinkinConstants.kColourValueRainbow;
     }
+
+    // Colours for states
+    // High Auto Green
+    // High podium flashing green
+    // High sub Flasing yellow
+    // Low orange
+    // CLIMB rainbow
+    // flash white when pickingup note
 
     @Override
     public void periodic() {

@@ -17,6 +17,7 @@ public class Sensors {
         return !m_kBeamBreakDIO.get();
     }
 
+    // Lower beam breaker is not installed on the robot.
     public static boolean LowerBeamBreakerIsBroken() {
         return !m_kBeamBreakLowerDIO.get();
     }

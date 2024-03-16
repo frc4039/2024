@@ -35,7 +35,7 @@ public class RumbleCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Sensors.LowerBeamBreakerIsBroken() && !TimerStarted) {
+        if (Sensors.BeamBreakerIsBroken() && !TimerStarted) {
             driverControler.setRumble(RumbleType.kBothRumble, 1.0);
             operatorControler.setRumble(RumbleType.kBothRumble, 1.0);
             TimerStarted = true;
