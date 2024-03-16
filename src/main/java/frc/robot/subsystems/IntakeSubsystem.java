@@ -30,7 +30,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
-        Sensors.BeamBreakerIsBroken();
+        m_intakeMotor.set(spinSpeedMotor);
     }
 
     @Override
