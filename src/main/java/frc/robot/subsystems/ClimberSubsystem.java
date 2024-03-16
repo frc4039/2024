@@ -27,7 +27,6 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
-        // m_trapActuator = new Servo(1);
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
@@ -38,14 +37,6 @@ public class ClimberSubsystem extends SubsystemBase {
             climberTab.addDouble("Follower Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
         }
     }
-
-    // public void deployFlapTrap() {
-    // m_trapActuator.set(0.0);
-    // }
-
-    // public void unDeployFlapTrap() {
-    // m_trapActuator.set(1.0);
-    // }
 
     public void setClimbSpeed(double motorSpeed) {
         m_climberLeaderMotor.set(motorSpeed);
