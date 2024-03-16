@@ -4,14 +4,15 @@
   "holonomicMode": true,
   "pathFolders": [
     "AMP 1456 Blue - incomplete",
-    "Auto1 Paths",
     "Auto2 Paths",
     "Auto3 Paths",
     "Auto4 Paths",
     "Disrupt Centre Auto ",
-    "SOURCE 876 Red Paths ",
+    "SPEAKER 3216 Red Paths",
     "Odometry Test",
     "SOURCE 876 Blue Paths ",
+    "SOURCE 876 Red Paths ",
+    "SPEAKER 3216 Blue Paths",
     "Source32 Paths"
   ],
   "autoFolders": [],
