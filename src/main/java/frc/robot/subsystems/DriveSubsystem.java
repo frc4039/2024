@@ -187,7 +187,7 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("number of tags", numberOfTags1);
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
-                if (ambiguity < 0.4) {
+                if (ambiguity < 0.2) {
                     fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                     // check rotation compared to current heading. Accept if within threshold
                     Rotation2d currentRotation = getPose().getRotation();
