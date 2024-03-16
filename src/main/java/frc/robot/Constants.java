@@ -215,6 +215,7 @@ public final class Constants {
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 600;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 1000;
     }
 
@@ -261,6 +262,7 @@ public final class Constants {
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
         public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
