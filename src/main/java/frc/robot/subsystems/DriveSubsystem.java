@@ -362,6 +362,22 @@ public class DriveSubsystem extends SubsystemBase {
         m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
     }
 
+    public void setWheelRadiusCailbration() {
+        m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+        m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+        m_rearLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
+        m_rearRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+    }
+
+    public double[] getSwerveModulePositions() {
+        return new double[] {
+                m_frontLeft.getWheelRadians(),
+                m_frontRight.getWheelRadians(),
+                m_rearLeft.getWheelRadians(),
+                m_rearRight.getWheelRadians()
+        };
+    }
+
     /**
      * Sets the swerve ModuleStates.
      *
