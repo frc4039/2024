@@ -13,13 +13,15 @@ import frc.robot.subsystems.IndexerSubsystem;
 public class DriveToNoteCommand extends Command {
     private DriveSubsystem driveSubsystem;
     private IndexerSubsystem indexerSubsystem;
+    private double xSpeed;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
     /** Creates a new DriveToNoteCommand. */
-    public DriveToNoteCommand(DriveSubsystem driveSubsystem, IndexerSubsystem indexerSubsystem) {
+    public DriveToNoteCommand(DriveSubsystem driveSubsystem, IndexerSubsystem indexerSubsystem, double xSpeed) {
         this.driveSubsystem = driveSubsystem;
         this.indexerSubsystem = indexerSubsystem;
+        this.xSpeed = xSpeed;
         addRequirements(driveSubsystem);
         rotationController.setTolerance(Math.PI / 360);
         rotationController.enableContinuousInput(0.0, 2 * Math.PI);
@@ -35,7 +37,7 @@ public class DriveToNoteCommand extends Command {
     @Override
     public void execute() {
         rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - driveSubsystem.getNoteAngle()));
-        driveSubsystem.drive(DriveConstants.kDriveToNoteXSpeed, DriveConstants.kDriveToNoteYSpeed,
+        driveSubsystem.drive(xSpeed, DriveConstants.kDriveToNoteYSpeed,
                 rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
                 false, true);
     }

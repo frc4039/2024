@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.400979465835423,
-        "y": 0.7950635036887063
+        "x": 6.373101020096476,
+        "y": 0.7260718658384518
       },
       "isLocked": false,
       "linkedName": "8"
@@ -20,8 +20,8 @@
         "y": 2.930482014808462
       },
       "prevControl": {
-        "x": 6.047906166541354,
-        "y": 0.5028440475533604
+        "x": 6.150595125726627,
+        "y": 0.8548910678420494
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths ",
+  "folder": "SOURCE 867 Blue Paths w Vision",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
