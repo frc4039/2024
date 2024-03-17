@@ -96,9 +96,9 @@ public final class Constants {
         public static final double kDriveToNoteXSpeed = 0.3;
         public static final double kDriveToNoteYSpeed = 0.0;
 
-        public static final double kAutoDriveToNoteXSpeed = 0.3;
+        public static final double kAutoDriveToNoteXSpeed = 0.4;
         public static final double kAutoDriveToNoteDistance = 1.0;
-        public static final double kAutoDriveToNoteTime = 2.0;
+        public static final double kAutoDriveToNoteTime = 1.0;
     }
 
     public static final class ModuleConstants {
@@ -114,7 +114,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 2.91;
+        public static final double kWheelDiameterInches = 2.998;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -330,6 +330,8 @@ public final class Constants {
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final double kSeeNoteTime = 0.4;
+
     }
 
     public static final class BlinkinConstants {
