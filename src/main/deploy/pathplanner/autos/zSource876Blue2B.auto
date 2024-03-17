@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "VB-8-7"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Source 876 Blue Conditional with Vision",
+  "choreoAuto": false
+}

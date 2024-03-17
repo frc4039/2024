@@ -1,0 +1,38 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "TravelPivot"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "VB-6-SOURCEShot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Source 876 Blue Conditional with Vision",
+  "choreoAuto": false
+}

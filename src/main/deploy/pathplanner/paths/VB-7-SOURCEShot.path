@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.223336372267983,
+        "y": 2.4107628321283427
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.043629642690833,
+        "y": 0.7257230604490964
+      },
+      "isLocked": false,
+      "linkedName": "7"
+    },
+    {
+      "anchor": {
+        "x": 3.2085148785697895,
+        "y": 2.930482014808462
+      },
+      "prevControl": {
+        "x": 4.778706000722867,
+        "y": 1.435286243538943
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "SOURCEShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -39.639999999999986,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SOURCE 867 Blue Paths w Vision",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
