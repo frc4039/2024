@@ -80,9 +80,9 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
-    public static ScoringState scoringState = ScoringState.LOW;
+    private ScoringState scoringState = ScoringState.LOW;
 
-    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);

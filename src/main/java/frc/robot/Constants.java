@@ -348,14 +348,15 @@ public final class Constants {
         public static final double kColourValueGreenFlashing = -0.47;
         public static final double kColourValueRainbow = -0.89;
         public static final double kColourValueBlack = 0.99;
-        public static final double BlinkTime = 2.0; // Time in seconds
-        public static final double BlinkPeriod = 0.4; // In seconds, 1/2 on 1/2 off
+        public static final double BlinkTime = 0.5; // Time in seconds
         public static final double kColourGreen = 0.77;
         public static final double kColourOneSolid = 0.17; // set colour one to green
         public static final double kColourOneFlash = 0.35; // set colour one to green
         public static final double kColourYellowFlash = -0.07; // Strobe gold
         public static final double kColourOrange = 0.63;
         public static final double kColourWhiteFlash = 0.15;
+        public static final double kColourHotPink = 0.57; // podium
+        public static final double kColourAqua = 0.81; // Subwolfer
 
     }
 }
