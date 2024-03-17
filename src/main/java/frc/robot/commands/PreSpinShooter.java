@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.RobotContainer.ScoringState;
@@ -16,11 +18,10 @@ public class PreSpinShooter extends Command {
     private ScoringState scoringState;
 
     /** Creates a new PreSpinShooter. */
-    public PreSpinShooter(ShooterSubsystem shooter, IndexerSubsystem indexer, ScoringState scoringState) {
+    public PreSpinShooter(ShooterSubsystem shooter, IndexerSubsystem indexer, Supplier<ScoringState> scoringState) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.shooter = shooter;
         this.indexer = indexer;
-        this.scoringState = scoringState;
         addRequirements(shooter);
     }
 
@@ -32,7 +33,7 @@ public class PreSpinShooter extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (indexer.hasNote() && scoringState == ScoringState.HIGH) {
+        if (indexer.hasNote() && scoringState.get() == ScoringState.HIGH) {
             shooter.shooterPID(ShooterConstants.kShooterRPM * 0.7);
         } else {
 
