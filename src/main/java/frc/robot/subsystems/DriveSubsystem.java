@@ -458,4 +458,9 @@ public class DriveSubsystem extends SubsystemBase {
     public double getNoteAngle() {
         return this.m_piVision.getEntry("Angle").getDouble(0);
     }
+
+    /** Return if Camera detects a note */
+    public Boolean getNoteDetected() {
+        return this.m_piVision.getEntry("DetectedNote").getBoolean(false);
+    }
 }

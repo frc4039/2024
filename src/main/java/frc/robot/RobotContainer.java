@@ -32,12 +32,14 @@ import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
+import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
@@ -188,6 +190,39 @@ public class RobotContainer {
                 shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
         NamedCommands.registerCommand("CalibrateWheelDiameter", new WheelDiameterCalibrationCommand(driveSubsystem));
 
+        NamedCommands.registerCommand("AutoDriveToNotePRG",
+                new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
+                        driveSubsystem));
+        /*
+         * // Register Source876Blue Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSource876BlueStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
+         * AutoBuilder.buildAuto("zSource876Blue2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876BlueStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
+         * AutoBuilder.buildAuto("zSource876Blue3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876BlueStep4",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
+         * AutoBuilder.buildAuto("zSource876Blue4B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSource876RedStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+         * AutoBuilder.buildAuto("zSource876Red2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+         * AutoBuilder.buildAuto("zSource876Red3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep4",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+         * AutoBuilder.buildAuto("zSource876Red4B"),
+         * () -> indexerSubsystem.hasNote()));
+         */
+
         configureBindings();
 
         autoChooser = AutoBuilder.buildAutoChooser();
@@ -287,7 +322,7 @@ public class RobotContainer {
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         ScoringState.INTAKE,
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed),
                         ScoringState.SubwooferShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
@@ -307,7 +342,7 @@ public class RobotContainer {
         // driverLeftStickY, driverLeftStickX));
         driverYButton.whileTrue(
                 new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
