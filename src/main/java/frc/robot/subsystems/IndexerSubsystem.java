@@ -8,16 +8,15 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.utils.HardwareMonitor;
+import frc.robot.utils.Sensors;
 
 public class IndexerSubsystem extends SubsystemBase {
     private final CANSparkMax m_indexerNeo550;
-    private DigitalInput m_beamBreak = IndexerConstants.kBeamBreakDIO;
 
     /** Create motor elements. */
     public IndexerSubsystem(HardwareMonitor hw) {
@@ -46,7 +45,7 @@ public class IndexerSubsystem extends SubsystemBase {
     }
 
     public boolean hasNote() {
-        return !m_beamBreak.get();
+        return Sensors.BeamBreakerIsBroken();
     }
 
     /** Setting motor speeds. */
