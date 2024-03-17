@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -152,6 +153,8 @@ public class RobotContainer {
 
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -373,6 +376,11 @@ public class RobotContainer {
         operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
                         : ShooterConstants.kShuttleShootRPM));
+
+        driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                AutoConstants.pathFindingAmpPath,
+                AutoConstants.pathFindingConstraints,
+                0.0));
     }
 
     public Command getAutonomousCommand() {
