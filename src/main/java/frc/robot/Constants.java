@@ -13,8 +13,6 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -199,7 +197,6 @@ public final class Constants {
         public static final PathConstraints pathFindingConstraints = new PathConstraints(
                 3.0, 4.0,
                 Units.degreesToRadians(540), Units.degreesToRadians(720));
-        public static final Pose2d targetPathPose = new Pose2d(1.84, 7.79, Rotation2d.fromDegrees(90));
     }
 
     public static final class NeoMotorConstants {
