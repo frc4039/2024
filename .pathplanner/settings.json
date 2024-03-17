@@ -16,7 +16,9 @@
     "SPEAKER 3216 Red Paths",
     "Source32 Paths"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Source867 Blue Conditional w Vision"
+  ],
   "defaultMaxVel": 2.5,
   "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
