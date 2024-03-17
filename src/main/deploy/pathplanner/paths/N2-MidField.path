@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.460709296418593,
-        "y": 5.517402562582903
+        "x": 2.859140730157946,
+        "y": 5.557362183607978
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9178506162398825,
-        "y": 4.853482257030296
+        "x": 3.859140730157946,
+        "y": 5.557362183607978
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "N2-2056"
     },
     {
       "anchor": {
-        "x": 2.502489440164066,
-        "y": 4.295747137790572
+        "x": 6.651796676514969,
+        "y": 3.7146578806221746
       },
       "prevControl": {
-        "x": 2.0865240157809404,
-        "y": 4.5138372086825695
+        "x": 5.651796676514969,
+        "y": 3.7146578806221746
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -27.48300114154582,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "Source32 Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

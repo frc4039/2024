@@ -18,8 +18,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -38,10 +36,10 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.ClimbOnStageCommand;
-import frc.robot.commands.DeployFlapTrapCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.IndexerCommand;
@@ -53,12 +51,15 @@ import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
+import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.TrapScoreCommand;
+import frc.robot.commands.ActivateTrapCommand;
+import frc.robot.commands.WheelDiameterCalibrationCommand;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -66,6 +67,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
@@ -85,6 +87,7 @@ public class RobotContainer {
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
+    private final ActivateTrapSubsystem TrapSubsystem = new ActivateTrapSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
     public final ShuffleboardTab aboutTab = Shuffleboard.getTab("About");
@@ -156,7 +159,8 @@ public class RobotContainer {
         HIGH,
         INTAKE,
         CLIMB,
-        ManualShoot
+        SubwooferShoot,
+        PodiumShoot
     }
 
     private ScoringState scoringState = ScoringState.LOW;
@@ -181,6 +185,7 @@ public class RobotContainer {
                 new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
         NamedCommands.registerCommand("IntakeIndexShootCommand", new IntakeIndexShootCommandGroup(shooterSubsystem,
                 indexerSubsystem, intakeSubsystem, m_driverController, m_operatorController));
+        NamedCommands.registerCommand("CalibrateWheelDiameter", new WheelDiameterCalibrationCommand(driveSubsystem));
 
         configureBindings();
 
@@ -208,7 +213,8 @@ public class RobotContainer {
                 .withPosition(2, 0)
                 .withSize(3, 3);
 
-        hardwareMonitor.registerDevice(null, new PowerDistribution(5, ModuleType.kRev));
+        // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
+        // ModuleType.kRev));
 
         ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
                 .withPosition(6, 0)
@@ -254,7 +260,8 @@ public class RobotContainer {
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
         operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
         climberTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.CLIMB));
-        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.ManualShoot));
+        operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SubwooferShoot));
+        operatorDDownPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.PodiumShoot));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
                 PivotConstants.kPivotAmpPosition)
         // .alongWith(new AmpShootCommand(shooterSubsystem)));
@@ -264,7 +271,9 @@ public class RobotContainer {
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
                         m_driverController, m_operatorController));
-        operatorXButton.onTrue(new DeployFlapTrapCommand(climberSubsystem));
+        operatorXButton.whileTrue(
+                new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
+                        () -> this.scoringState == ScoringState.CLIMB));
 
         // _______________DRIVER BUTTONS_______________\\
         driverLeftTrigger.whileTrue(
@@ -276,10 +285,16 @@ public class RobotContainer {
                         ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
-                        ScoringState.INTAKE, new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
-                        ScoringState.ManualShoot,
+                        ScoringState.INTAKE,
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        ScoringState.SubwooferShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
+                                        .alongWith(new TeleopDriveCommand(driveSubsystem,
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.PodiumShoot,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
+                                .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
                         // ScoringState.CLIMB,
@@ -308,16 +323,17 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
                 // ScoringState.AMP,
                 // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
-                ScoringState.ManualShoot,
+                ScoringState.SubwooferShoot,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, 0),
+                ScoringState.PodiumShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, 0)),
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
-                new ConditionalCommand(
-                        new InstantCommand(),
-                        new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
-                        () -> this.scoringState == ScoringState.CLIMB));
-        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem));
+                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+                () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
+                        : ShooterConstants.kShuttleShootRPM));
     }
 
     public Command getAutonomousCommand() {

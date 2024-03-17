@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3005404928188775,
-        "y": 7.145128364330803
+        "x": 2.615396774736544,
+        "y": 4.094898451079563
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3041722186876534,
-        "y": 8.096558424489821
+        "x": 1.172432558641841,
+        "y": 4.085148692862707
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.041956082821393,
-        "y": 7.477437776485861
+        "x": 2.859140730157946,
+        "y": 5.557362183607978
       },
       "prevControl": {
-        "x": 2.0701999324330562,
-        "y": 7.918690613791061
+        "x": 1.4551755469306673,
+        "y": 5.596361216475402
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote1"
+      "linkedName": "N2-2056"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNoteCommand"
+                "name": "IntakeIndexShootCommand"
               }
             }
           ]
@@ -58,12 +58,12 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": true
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Auto3 Paths",
+  "folder": "Source32 Paths",
   "previewStartingState": {
-    "rotation": 51.581944655178106,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

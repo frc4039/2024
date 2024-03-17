@@ -20,7 +20,7 @@ public class IntakeIndexShootCommandGroup extends ParallelDeadlineGroup {
             Joystick operatorController) {
         // Add the deadline command in the super() call. Add other commands using
         // addCommands().
-        super(new AutoIndexerShootCommand(shooterSubsystem, indexerSubsystem));
+        super(new AutoIndexerShootCommand(shooterSubsystem, indexerSubsystem).withTimeout(5));
 
         addCommands(
                 new IntakeCommand(intakeSubsystem));

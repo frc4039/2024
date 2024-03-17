@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3005404928188775,
-        "y": 7.145128364330803
+        "x": 2.758002102685753,
+        "y": 3.246336033222662
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3041722186876534,
-        "y": 8.096558424489821
+        "x": 5.4947555226211655,
+        "y": 0.9052311631408969
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RSOURCEShot"
     },
     {
       "anchor": {
-        "x": 8.041956082821393,
-        "y": 7.477437776485861
+        "x": 8.18569447499758,
+        "y": 4.1476263142258425
       },
       "prevControl": {
-        "x": 2.0701999324330562,
-        "y": 7.918690613791061
+        "x": 6.582764997747257,
+        "y": 0.7843732707554701
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote1"
+      "linkedName": "RSOURCE6"
     }
   ],
   "rotationTargets": [],
@@ -50,21 +50,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.0,
+    "rotation": 46.53861430431677,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto3 Paths",
-  "previewStartingState": {
-    "rotation": 51.581944655178106,
-    "velocity": 0
-  },
-  "useDefaultConstraints": true
+  "folder": "SOURCE 876 Red Paths ",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

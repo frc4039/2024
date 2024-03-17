@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3005404928188775,
-        "y": 7.145128364330803
+        "x": 2.62197994481459,
+        "y": 7.178858691050715
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3041722186876534,
-        "y": 8.096558424489821
+        "x": 3.9618102818826717,
+        "y": 4.6929692424199665
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R1"
     },
     {
       "anchor": {
-        "x": 8.041956082821393,
-        "y": 7.477437776485861
+        "x": 7.94731015416991,
+        "y": 4.107189934020689
       },
       "prevControl": {
-        "x": 2.0701999324330562,
-        "y": 7.918690613791061
+        "x": 5.636321837458491,
+        "y": 3.8617067187838083
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote1"
+      "linkedName": "RCENTRE4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -61,9 +61,9 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto3 Paths",
+  "folder": "SPEAKER 3216 Red Paths",
   "previewStartingState": {
-    "rotation": 51.581944655178106,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

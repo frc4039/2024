@@ -62,6 +62,8 @@ public final class Constants {
         public static final double kTrackWidth = Units.inchesToMeters(22.5);
         // Distance between centers of right and left wheels on robot
         public static final double kWheelBase = Units.inchesToMeters(22.5);
+        public static final double kDriveBaseRadius = 15.9;// Math
+        // .sqrt(Math.pow(kTrackWidth / 2, 2) + Math.pow(kWheelBase / 2, 2));
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -112,7 +114,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 2.91;
+        public static final double kWheelDiameterInches = 2.998;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -212,8 +214,10 @@ public final class Constants {
         public static final double kShooterFF = 0.000145;
 
         public static double kShooterRPM = 4000;
-        public static double kTrapShooterRPM = 600;
+        public static final double kAmpRPM = 3000;
+        public static double kTrapShooterRPM = 800;
         public static double kSubwooferShooterRPM = 2750;
+        public static final double kPodiumShooterRPM = 4000;
         public static double kShuttleShootRPM = 1000;
 
     }
@@ -258,35 +262,38 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
-        public static final double kPivotAmpPosition = 159; // was 169
-        public static double kPivotSubwooferPosition = 217;
+        public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
+                                                            // to vertical
+        public static double kPivotSubwooferPosition = 212;
+        public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
 
-        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
-        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 223.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 224.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 227.0;
         public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
-        public static final double kPivotAngle4 = 232.0;
+        public static final double kPivotAngle4 = 233.0;
         public static final double kPivotDistance4 = 2.53;
-        public static final double kPivotAngle5 = 236.0;
+        public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240.5;
+        public static final double kPivotAngle6 = 240;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 242.0;
+        public static final double kPivotAngle7 = 243.0;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 244.0;
+        public static final double kPivotAngle8 = 245.0;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 246.0;
+        public static final double kPivotAngle9 = 247.0;
         public static final double kPivotDistance9 = 5.06;
     }
 
     public static final class ClimberConstants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
-        public static final int kClimberSmartCurrentLimit = 50;
+        public static final int kClimberSmartCurrentLimit = 20;
         public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
+        public static final int TrapActuatorPort = 1;
     }
 
     public static class VisionConstants {

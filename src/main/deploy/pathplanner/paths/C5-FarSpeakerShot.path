@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.460709296418593,
-        "y": 5.517402562582903
+        "x": 8.241007265862514,
+        "y": 0.7702308991316326
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9178506162398825,
-        "y": 4.853482257030296
+        "x": 6.681045951165537,
+        "y": 0.8774782395170491
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "CenterNote5"
     },
     {
       "anchor": {
-        "x": 2.502489440164066,
-        "y": 4.295747137790572
+        "x": 2.790384904843884,
+        "y": 3.108297114742378
       },
       "prevControl": {
-        "x": 2.0865240157809404,
-        "y": 4.5138372086825695
+        "x": 5.160771738210143,
+        "y": 1.2992114224969191
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note3"
+      "linkedName": "SOURCESideShot"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -27.48300114154582,
+    "rotation": -37.94235871354402,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "Auto4 Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

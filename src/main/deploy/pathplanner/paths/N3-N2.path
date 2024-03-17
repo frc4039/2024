@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.6245837213896652,
-        "y": 5.562475305506168
+        "x": 2.62197994481459,
+        "y": 5.68335905902581
       },
       "prevControl": {
-        "x": 1.7262762349598775,
-        "y": 5.641278375149343
+        "x": 1.7236724583848024,
+        "y": 5.762162128668986
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto1 Paths",
+  "folder": "SPEAKER 3216 Blue Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
