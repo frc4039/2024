@@ -167,7 +167,7 @@ public class RobotContainer {
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
-        shooterSubsystem.setDefaultCommand(new PreSpinShooter(shooterSubsystem, indexerSubsystem, scoringState));
+        shooterSubsystem.setDefaultCommand(new PreSpinShooter(shooterSubsystem, indexerSubsystem, () -> scoringState));
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 

@@ -15,13 +15,14 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class PreSpinShooter extends Command {
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
-    private ScoringState scoringState;
+    private Supplier<ScoringState> scoringState;
 
     /** Creates a new PreSpinShooter. */
     public PreSpinShooter(ShooterSubsystem shooter, IndexerSubsystem indexer, Supplier<ScoringState> scoringState) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.shooter = shooter;
         this.indexer = indexer;
+        this.scoringState = scoringState;
         addRequirements(shooter);
     }
 
