@@ -3,49 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.223336372267983,
-        "y": 2.4107628321283427
+        "x": 1.343425149813263,
+        "y": 4.19586261394745
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.043629642690833,
-        "y": 0.7257230604490964
+        "x": 3.5273677394715697,
+        "y": 2.435854001522554
       },
       "isLocked": false,
-      "linkedName": "7"
+      "linkedName": "SOURCE"
     },
     {
       "anchor": {
-        "x": 3.2085148785697895,
-        "y": 2.930482014808462
+        "x": 7.134305395572274,
+        "y": 1.0071319429372099
       },
       "prevControl": {
-        "x": 4.778706000722867,
-        "y": 1.435286243538943
+        "x": 2.055581774583366,
+        "y": 1.9595248252155368
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SOURCEShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -39.639999999999986,
-    "rotateFast": true
+    "velocity": 1.0,
+    "rotation": -16.69924423399361,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths ",
+  "folder": "SOURCE 867 Blue Paths w Vision",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -48.51485463231109,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -17,16 +17,15 @@ import frc.robot.subsystems.ShooterSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoDriveToNoteParallelRaceGroup extends ParallelRaceGroup {
-    /** Creates a new AmpShootParallelCommandGroup. */
-    public AutoDriveToNoteParallelRaceGroup(ShooterSubsystem shooterSubsystem,
-            IntakeSubsystem intakeSubsystem, IndexerSubsystem indexerSubsystem,
-            DriveSubsystem driveSubsystem, DoubleSupplier xSpeedSupplier,
-            DoubleSupplier ySpeedSupplier) {
+    /** Drive to Note with Vision in Auto. */
+    public AutoDriveToNoteParallelRaceGroup(IntakeSubsystem intakeSubsystem, IndexerSubsystem indexerSubsystem,
+            DriveSubsystem driveSubsystem) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
+                new SeeNoteCommand(driveSubsystem),
                 new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
-                new DriveToNoteCommand(driveSubsystem, indexerSubsystem)
+                new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kAutoDriveToNoteXSpeed)
                         .withTimeout(DriveConstants.kAutoDriveToNoteTime));
 
     }
