@@ -34,13 +34,14 @@ public class PreSpinShooter extends Command {
         if (indexer.hasNote() && scoringState == ScoringState.HIGH) {
             shooter.shooterPID(ShooterConstants.kShooterRPM * 0.7);
         } else {
-            shooter.shooterSpeedControl(0, 0, 0);
+
         }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        shooter.shooterSpeedControl(0, 0, 0);
     }
 
     // Returns true when the command should end.
