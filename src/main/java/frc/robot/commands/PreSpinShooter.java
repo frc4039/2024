@@ -37,7 +37,7 @@ public class PreSpinShooter extends Command {
         if (indexer.hasNote() && scoringState.get() == ScoringState.HIGH) {
             shooter.shooterPID(ShooterConstants.kShooterRPM * 0.7);
         } else {
-
+            shooter.shooterSpeedControl(0, 0, 0);
         }
     }
 
