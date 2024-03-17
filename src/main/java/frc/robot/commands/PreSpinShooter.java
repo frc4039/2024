@@ -16,10 +16,11 @@ public class PreSpinShooter extends Command {
     private ScoringState scoringState;
 
     /** Creates a new PreSpinShooter. */
-    public PreSpinShooter(ShooterSubsystem shooter, IndexerSubsystem indexer) {
+    public PreSpinShooter(ShooterSubsystem shooter, IndexerSubsystem indexer, ScoringState scoringState) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.shooter = shooter;
         this.indexer = indexer;
+        this.scoringState = scoringState;
         addRequirements(shooter);
     }
 

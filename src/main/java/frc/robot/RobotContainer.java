@@ -162,12 +162,12 @@ public class RobotContainer {
         PodiumShoot
     }
 
-    public ScoringState scoringState = ScoringState.LOW;
+    public ScoringState scoringState = ScoringState.HIGH;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
-        shooterSubsystem.setDefaultCommand(new PreSpinShooter(shooterSubsystem, indexerSubsystem));
+        shooterSubsystem.setDefaultCommand(new PreSpinShooter(shooterSubsystem, indexerSubsystem, scoringState));
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
