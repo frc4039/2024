@@ -129,6 +129,8 @@ public class RobotContainer {
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
 
     private final JoystickButton operatorLeftBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kLeftBumper.value);

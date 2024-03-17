@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -20,20 +22,26 @@ public class BlinkinSubsystem extends SubsystemBase {
     private boolean HasNotePrevious;
 
     private Timer BlinkTimer;
+    // private Double CurrColour = -.99;
 
     public BlinkinSubsystem() {
 
         m_BlinkinStrip = new Spark(BlinkinConstants.kBlinkinPWMPort);
         HasNotePrevious = false;
+        // ShuffleboardTab driveTab = Shuffleboard.getTab("LED Strip");
+
+        // driveTab.addDouble("Colour", () -> GetCurrColour())
+        // .withPosition(0, 0);
+
     }
 
     // Colours for states
-    // High Auto Green
-    // High podium flashing green
-    // High sub Flasing yellow
-    // Low orange
+    // High Auto Green .17 colour 2 .76
+    // High podium flashing green .35 colour 2
+    // High sub Flasing yellow -.07 strobe gold solid .66 .68
+    // Low orange .63
     // CLIMB rainbow
-    // flash white when pickingup note
+    // flash white when pickingup note .15 colour 1 -.05 -.11 flashing red
 
     @Override
     public void periodic() {
@@ -46,22 +54,23 @@ public class BlinkinSubsystem extends SubsystemBase {
         }
         if (HasNoteCurrent == true && BlinkTimer.get() < BlinkinConstants.BlinkPeriod) {
             // blink white
+            SetColour(BlinkinConstants.kColourWhiteFlash);
         } else {
             switch (RobotContainer.scoringState) {
-                case HIGH:
-                    // Colour Green
+                case HIGH: // Colour Green
+                    SetColour(BlinkinConstants.kColourGreen);
                     break;
-                case LOW:
-                    // Colour Orange
+                case LOW: // Colour Orange
+                    SetColour(BlinkinConstants.kColourOrange);
                     break;
-                case PodiumShoot:
-                    // colour flashing green
+                case PodiumShoot: // Flashing green
+                    SetColour(BlinkinConstants.kColourValueGreenFlashing);
                     break;
-                case SubwooferShoot:
-                    // colour flashing yellow
+                case SubwooferShoot: // colour flashing yellow
+                    SetColour(BlinkinConstants.kColourYellowFlash);
                     break;
-                case CLIMB:
-                    // colour rainbow
+                case CLIMB: // Colour Rainbow
+                    SetColour(BlinkinConstants.kColourValueRainbow);
                     break;
                 default:
                     // colour rainbow
@@ -70,9 +79,15 @@ public class BlinkinSubsystem extends SubsystemBase {
         }
     }
 
+    // public double GetCurrColour() {
+    // return CurrColour;
+    // }
+
     public void SetColour(double colourValue) {
         if ((colourValue >= -1.0) && (colourValue <= 1.0)) {
             m_BlinkinStrip.set(colourValue);
+            // CurrColour = colourValue;
+
         }
     }
 
