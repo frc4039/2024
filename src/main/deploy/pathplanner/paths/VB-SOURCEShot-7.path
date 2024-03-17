@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 6.958642847385552,
-        "y": 1.9908422127828567
+        "x": 7.204570414846962,
+        "y": 2.096239741694889
       },
       "prevControl": {
-        "x": 5.424523259888173,
-        "y": 1.2179270007612777
+        "x": 5.670450827349582,
+        "y": 1.3233245296733098
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,7 +38,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 1.0,
     "rotation": 22.23615247708038,
     "rotateFast": true
   },

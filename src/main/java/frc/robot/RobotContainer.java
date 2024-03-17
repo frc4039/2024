@@ -340,10 +340,13 @@ public class RobotContainer {
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
+
         driverYButton.whileTrue(
                 new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem,
+                                DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
+
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
