@@ -36,7 +36,7 @@ public class AutoSubwooferShootCommand extends Command {
     public void execute() {
         shooter.shooterPID(ShooterConstants.kSubwooferShooterRPM);
 
-        if (shooter.getShooterSpeed() >= ShooterConstants.kSubwooferShooterRPM - 50) {
+        if (shooter.getShooterSpeed() >= ShooterConstants.kSubwooferShooterRPM - 300) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
 

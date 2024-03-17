@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -14,14 +14,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoSubwooferShotSequentialCommandGroup extends SequentialCommandGroup {
+public class AutoSubwooferShotSequentialCommandGroup extends ParallelDeadlineGroup {
     /** Creates a new AutoSubwooferShotSequentialCommandGroup. */
     public AutoSubwooferShotSequentialCommandGroup(DriveSubsystem driveSubsystem,
             ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
             PivotAngleSubsystem pivotAngleSubsystem) {
-
+        super(new AutoSubwooferShootCommand(shooterSubsystem, indexerSubsystem));
         addCommands(
-                new GoToAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition),
-                new AutoSubwooferShootCommand(shooterSubsystem, indexerSubsystem));
+                new GoToAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition));
     }
 }

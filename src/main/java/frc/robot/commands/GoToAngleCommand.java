@@ -39,6 +39,6 @@ public class GoToAngleCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return pivotAngle.getPitch() <= m_angle;
+        return pivotAngle.getPitch() <= m_angle + 2;
     }
 }
