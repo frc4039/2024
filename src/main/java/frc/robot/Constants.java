@@ -23,7 +23,6 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.utils.Helpers;
 
 /**
@@ -43,6 +42,15 @@ public final class Constants {
         public static final int kDriverControllerPort = 0;
         public static final int kOperatorControllerPort = 1;
         public static final boolean kPointToTurn = false;
+    }
+
+    public enum ScoringState {
+        LOW,
+        HIGH,
+        INTAKE,
+        CLIMB,
+        SubwooferShoot,
+        PodiumShoot
     }
 
     public static final class DriveConstants {
@@ -234,11 +242,13 @@ public final class Constants {
         public static final double kIndexerShooterSpeed = 0.8;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
-        public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
-        public static final DigitalInput kBeamBreakLowerDIO = Helpers.isBabycakes() ? kBeamBreakDIO
-                : kBeamBreakDIO;// new DigitalInput(3); // Set this to channel 3 once this beam breaker is added
-                                // to rumble
         public static final int kIndexerCANID = 32;
+    }
+
+    public static final class SensorConstants {
+        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakLowerDIO = 3;
+
     }
 
     public static final class IntakeConstants {
@@ -350,5 +360,16 @@ public final class Constants {
         public static final double kColourValueGreen = 0.77;
         public static final double kColourValueGreenFlashing = -0.47;
         public static final double kColourValueRainbow = -0.89;
+        public static final double kColourValueBlack = 0.99;
+        public static final double BlinkTime = 0.5; // Time in seconds
+        public static final double kColourGreen = 0.77;
+        public static final double kColourOneSolid = 0.17; // set colour one to green
+        public static final double kColourOneFlash = 0.35; // set colour one to green
+        public static final double kColourYellowFlash = -0.07; // Strobe gold
+        public static final double kColourOrange = 0.63;
+        public static final double kColourWhiteFlash = 0.15;
+        public static final double kColourHotPink = 0.57; // podium
+        public static final double kColourAqua = 0.81; // Subwolfer
+
     }
 }
