@@ -58,6 +58,7 @@ import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.commands.WheelDiameterCalibrationCommand;
 import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -185,6 +186,7 @@ public class RobotContainer {
                 indexerSubsystem, intakeSubsystem, m_driverController, m_operatorController));
         NamedCommands.registerCommand("SubwooferShot", new AutoSubwooferShotSequentialCommandGroup(driveSubsystem,
                 shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
+        NamedCommands.registerCommand("CalibrateWheelDiameter", new WheelDiameterCalibrationCommand(driveSubsystem));
 
         configureBindings();
 
