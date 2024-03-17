@@ -33,7 +33,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SOURCE-8"
+            "pathName": "RSOURCE-R8"
           }
         },
         {
@@ -65,7 +65,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "8-SOURCEShot"
+            "pathName": "R8-RSOURCEShot"
           }
         },
         {
@@ -77,7 +77,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SOURCEShot-7"
+            "pathName": "RSOURCEShot-R7"
           }
         },
         {
@@ -102,7 +102,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "7-SOURCEShot"
+            "pathName": "R7-RSOURCEShot"
           }
         },
         {
@@ -114,7 +114,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SOURCEShot-6"
+            "pathName": "RSOURCEShot-R6"
           }
         },
         {
@@ -139,7 +139,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "6-SOURCEShot"
+            "pathName": "R6-RSOURCEShot"
           }
         },
         {

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.460709296418593,
-        "y": 5.517402562582903
+        "x": 7.273695316621404,
+        "y": 0.9965612238916797
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9178506162398825,
-        "y": 4.853482257030296
+        "x": 7.056622574783613,
+        "y": 1.4800414216213047
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.502489440164066,
-        "y": 4.295747137790572
+        "x": 7.07635646040523,
+        "y": 2.1312596471346796
       },
       "prevControl": {
-        "x": 2.0865240157809404,
-        "y": 4.5138372086825695
+        "x": 6.740880404837734,
+        "y": 1.381371993513219
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -38,14 +38,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -27.48300114154582,
+    "velocity": 1.0,
+    "rotation": 18.0342855671298,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "SOURCE 867 Blue Paths w Vision",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 1.7899106082458025,
     "velocity": 0
   },
   "useDefaultConstraints": true
