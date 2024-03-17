@@ -57,9 +57,8 @@ import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
-import frc.robot.commands.TrapScoreCommand;
-import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.WheelDiameterCalibrationCommand;
+import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -67,7 +66,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
@@ -154,7 +152,7 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autoChooser;
 
-    enum ScoringState {
+    public enum ScoringState {
         LOW,
         HIGH,
         INTAKE,
@@ -163,7 +161,7 @@ public class RobotContainer {
         PodiumShoot
     }
 
-    private ScoringState scoringState = ScoringState.LOW;
+    public ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,

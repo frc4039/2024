@@ -63,6 +63,8 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
+
+        setDefaultCommand(PreSpinShooter());
     }
 
     @Override
