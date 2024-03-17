@@ -21,6 +21,6 @@ public class AutoSubwooferShotSequentialCommandGroup extends ParallelDeadlineGro
             PivotAngleSubsystem pivotAngleSubsystem) {
         super(new AutoSubwooferShootCommand(shooterSubsystem, indexerSubsystem));
         addCommands(
-                new GoToAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition));
+                new GoToAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition).asProxy());
     }
 }
