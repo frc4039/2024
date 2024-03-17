@@ -69,16 +69,17 @@ public class BlinkinSubsystem extends SubsystemBase {
                 case LOW: // Colour Orange
                     SetColour(BlinkinConstants.kColourOrange);
                     break;
-                case PodiumShoot: // Flashing green
-                    SetColour(BlinkinConstants.kColourOneFlash);
+                case PodiumShoot: // Hot pink
+                    SetColour(BlinkinConstants.kColourHotPink);
                     break;
-                case SubwooferShoot: // colour flashing yellow
-                    SetColour(BlinkinConstants.kColourYellowFlash);
+                case SubwooferShoot: // colour Aqua
+                    SetColour(BlinkinConstants.kColourAqua);
                     break;
                 case CLIMB: // Colour Rainbow
                 default:
                     SetColour(BlinkinConstants.kColourValueRainbow);
                     break;
+
             }
         }
         HasNotePrevious = HasNoteCurrent;
