@@ -37,6 +37,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
@@ -82,13 +83,15 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
+    private ScoringState scoringState = ScoringState.LOW;
+
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
-    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
     private final ActivateTrapSubsystem TrapSubsystem = new ActivateTrapSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
@@ -157,17 +160,6 @@ public class RobotContainer {
             XboxController.Button.kLeftBumper.value);
 
     private final SendableChooser<Command> autoChooser;
-
-    enum ScoringState {
-        LOW,
-        HIGH,
-        INTAKE,
-        CLIMB,
-        SubwooferShoot,
-        PodiumShoot
-    }
-
-    private ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -308,7 +300,7 @@ public class RobotContainer {
         // ScoringState.INTAKE)
         );
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
         operatorXButton.whileTrue(
                 new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
