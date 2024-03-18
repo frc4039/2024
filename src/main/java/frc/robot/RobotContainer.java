@@ -190,21 +190,21 @@ public class RobotContainer {
                 new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
                         driveSubsystem));
         NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
+
+        // Register Source876Blue Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSource876BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
+                        AutoBuilder.buildAuto("zSource876Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876BlueStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
+                        AutoBuilder.buildAuto("zSource876Blue3B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876BlueStep4",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
+                        AutoBuilder.buildAuto("zSource876Blue4B"),
+                        () -> indexerSubsystem.hasNote()));
         /*
-         * // Register Source876Blue Auto Conditional Commands for pathplanner Autos
-         * NamedCommands.registerCommand("zSource876BlueStep2",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
-         * AutoBuilder.buildAuto("zSource876Blue2B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876BlueStep3",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
-         * AutoBuilder.buildAuto("zSource876Blue3B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876BlueStep4",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
-         * AutoBuilder.buildAuto("zSource876Blue4B"),
-         * () -> indexerSubsystem.hasNote()));
-         * 
          * // Register Source876Red Auto Conditional Commands for pathplanner Autos
          * NamedCommands.registerCommand("zSource876RedStep2",
          * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),

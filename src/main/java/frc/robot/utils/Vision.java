@@ -196,6 +196,18 @@ public class Vision {
         }
     }
 
+    public double getNumberOfTags(Pose2d estimatedPose) {
+        var targets = getLatestResult().getTargets();
+        double numTags = 0;
+        for (var tgt : targets) {
+            var tagPose = photonEstimator.getFieldTags().getTagPose(tgt.getFiducialId());
+            if (tagPose.isEmpty())
+                continue;
+            numTags++;
+        }
+        return numTags;
+    }
+
     // ----- Simulation
 
     public void simulationPeriodic(Pose2d robotSimPose) {
