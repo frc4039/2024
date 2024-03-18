@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SPEAKER-R3"
+                  "pathName": "MiddleSubwoofer-N3"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R3-R2"
+                  "pathName": "N3-N2"
                 }
               }
             ]
@@ -74,7 +74,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R2-R1"
+                  "pathName": "N2-N1"
                 }
               }
             ]
@@ -89,13 +89,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R1-R6"
+            "pathName": "VB-N1-C3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeNoteCommand"
+            "name": "AutoDriveToNotePRG"
           }
         }
       ]

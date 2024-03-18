@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.18569447499758,
-        "y": 4.1476263142258425
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 7.105957288837655,
-        "y": -0.4933471405404345
-      },
-      "isLocked": false,
-      "linkedName": "RSOURCE6"
-    },
-    {
-      "anchor": {
         "x": 2.758002102685753,
         "y": 3.246336033222662
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.4947555226211655,
+        "y": 0.9052311631408969
+      },
+      "isLocked": false,
+      "linkedName": "RSOURCEShot"
+    },
+    {
+      "anchor": {
+        "x": 7.323030030675447,
+        "y": 3.6705027256208367
+      },
       "prevControl": {
-        "x": 5.6160489244055425,
-        "y": -0.4933471405404345
+        "x": 5.720100553425124,
+        "y": 0.30724968215046433
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RSOURCEShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -38,15 +38,12 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -39.639999999999986,
+    "velocity": 1.0,
+    "rotation": 27.18111108547733,
     "rotateFast": true
   },
   "reversed": false,
   "folder": "SOURCE 876 Red Paths ",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }
