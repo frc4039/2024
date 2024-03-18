@@ -31,14 +31,19 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
+import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoShootCommand;
+import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -57,9 +62,8 @@ import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
-import frc.robot.commands.TrapScoreCommand;
-import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.WheelDiameterCalibrationCommand;
+import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
@@ -67,7 +71,6 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
@@ -80,13 +83,15 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
+    private ScoringState scoringState = ScoringState.LOW;
+
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(hardwareMonitor);
     private final PivotAngleSubsystem pivotAngleSubsystem = new PivotAngleSubsystem(hardwareMonitor);
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(hardwareMonitor);
-    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
     private final ActivateTrapSubsystem TrapSubsystem = new ActivateTrapSubsystem(hardwareMonitor);
 
     // Create the "About" tab last so it will be last in the list.
@@ -151,19 +156,10 @@ public class RobotContainer {
 
     private final JoystickButton driverRightBumper = new JoystickButton(m_driverController,
             XboxController.Button.kRightBumper.value);
+    private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
+            XboxController.Button.kLeftBumper.value);
 
     private final SendableChooser<Command> autoChooser;
-
-    enum ScoringState {
-        LOW,
-        HIGH,
-        INTAKE,
-        CLIMB,
-        SubwooferShoot,
-        PodiumShoot
-    }
-
-    private ScoringState scoringState = ScoringState.LOW;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -185,7 +181,42 @@ public class RobotContainer {
                 new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
         NamedCommands.registerCommand("IntakeIndexShootCommand", new IntakeIndexShootCommandGroup(shooterSubsystem,
                 indexerSubsystem, intakeSubsystem, m_driverController, m_operatorController));
+        NamedCommands.registerCommand("SubwooferShot", new AutoSubwooferShotSequentialCommandGroup(driveSubsystem,
+                shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
         NamedCommands.registerCommand("CalibrateWheelDiameter", new WheelDiameterCalibrationCommand(driveSubsystem));
+
+        NamedCommands.registerCommand("AutoDriveToNotePRG",
+                new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
+                        driveSubsystem));
+
+        // Register Source876Blue Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSource876BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
+                        AutoBuilder.buildAuto("zSource876Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876BlueStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
+                        AutoBuilder.buildAuto("zSource876Blue3B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876BlueStep4",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
+                        AutoBuilder.buildAuto("zSource876Blue4B"),
+                        () -> indexerSubsystem.hasNote()));
+        /*
+         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSource876RedStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+         * AutoBuilder.buildAuto("zSource876Red2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+         * AutoBuilder.buildAuto("zSource876Red3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep4",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+         * AutoBuilder.buildAuto("zSource876Red4B"),
+         * () -> indexerSubsystem.hasNote()));
+         */
 
         configureBindings();
 
@@ -269,7 +300,7 @@ public class RobotContainer {
         // ScoringState.INTAKE)
         );
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem, blinkinSubsystem,
+                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
         operatorXButton.whileTrue(
                 new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
@@ -286,7 +317,7 @@ public class RobotContainer {
                         new TeleopDriveCommand(driveSubsystem,
                                 driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         ScoringState.INTAKE,
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed),
                         ScoringState.SubwooferShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
@@ -304,10 +335,13 @@ public class RobotContainer {
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
         // driverLeftStickY, driverLeftStickX));
+
         driverYButton.whileTrue(
                 new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem,
+                                DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
+
         driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
@@ -334,6 +368,11 @@ public class RobotContainer {
         operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
                         : ShooterConstants.kShuttleShootRPM));
+
+        driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                AutoConstants.pathFindingAmpPath,
+                AutoConstants.pathFindingConstraints,
+                0.0));
     }
 
     public Command getAutonomousCommand() {

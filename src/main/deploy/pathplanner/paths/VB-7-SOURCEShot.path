@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.18569447499758,
-        "y": 4.1476263142258425
+        "x": 8.223336372267983,
+        "y": 2.4107628321283427
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.105957288837655,
-        "y": -0.4933471405404345
+        "x": 5.043629642690833,
+        "y": 0.7257230604490964
       },
       "isLocked": false,
-      "linkedName": "RSOURCE6"
+      "linkedName": "7"
     },
     {
       "anchor": {
-        "x": 2.758002102685753,
-        "y": 3.246336033222662
+        "x": 3.2085148785697895,
+        "y": 2.930482014808462
       },
       "prevControl": {
-        "x": 5.6160489244055425,
-        "y": -0.4933471405404345
+        "x": 4.778706000722867,
+        "y": 1.435286243538943
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RSOURCEShot"
+      "linkedName": "SOURCEShot"
     }
   ],
   "rotationTargets": [],
@@ -43,7 +43,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Red Paths ",
+  "folder": "SOURCE 876 Blue Paths w Vision",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -89,13 +89,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "R1-R6"
+            "pathName": "VR R1-R6"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeNoteCommand"
+            "name": "AutoDriveToNotePRG"
           }
         }
       ]

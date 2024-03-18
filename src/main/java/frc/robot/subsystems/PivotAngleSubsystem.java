@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
@@ -79,6 +80,10 @@ public class PivotAngleSubsystem extends SubsystemBase {
 
     public double getPitch() {
         return m_pivotEncoder.getPosition();
+    }
+
+    public void stop() {
+        m_pivotPIDController.setReference(0.0, CANSparkBase.ControlType.kVelocity);
     }
 
     @Override
