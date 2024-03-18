@@ -124,7 +124,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 2.998;
+        public static final double kWheelDiameterInches = 3.076;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -347,7 +347,7 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
         public static final double kSeeNoteTime = 0.4;
 
