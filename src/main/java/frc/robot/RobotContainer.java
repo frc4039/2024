@@ -42,6 +42,7 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
+import frc.robot.commands.AutoPreSpinShooter;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
@@ -190,6 +191,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutoDriveToNotePRG",
                 new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
                         driveSubsystem));
+        NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
 
         // Register Source876Blue Auto Conditional Commands for pathplanner Autos
         NamedCommands.registerCommand("zSource876BlueStep2",
