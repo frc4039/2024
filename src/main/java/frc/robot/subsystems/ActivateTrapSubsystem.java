@@ -8,19 +8,25 @@ import edu.wpi.first.wpilibj.Servo;
 
 public class ActivateTrapSubsystem extends SubsystemBase {
 
-    private Servo TrapActuator;
+    private Servo TrapActuatorRight;
+    private Servo TrapActuatorLeft;
 
     public ActivateTrapSubsystem(HardwareMonitor hw) {
-        TrapActuator = new Servo(ClimberConstants.TrapActuatorPort);
-        TrapActuator.setBoundsMicroseconds(2000, 1990, 1500, 1010, 1000);
-        TrapActuator.setPosition(0.0);
+        TrapActuatorRight = new Servo(ClimberConstants.TrapActuatorRightPort);
+        TrapActuatorLeft = new Servo(ClimberConstants.TrapActuatorLeftPort);
+        TrapActuatorRight.setBoundsMicroseconds(2000, 1990, 1500, 1010, 1000);
+        TrapActuatorLeft.setBoundsMicroseconds(2000, 1990, 1500, 1010, 1000);
+        TrapActuatorRight.setPosition(0.0);
+        TrapActuatorLeft.setPosition(1.0);
     }
 
     public void Release() {
-        TrapActuator.setPosition(1.0);
+        TrapActuatorRight.setPosition(1.0);
+        TrapActuatorLeft.setPosition(0.0);
     }
 
     public void Reset() {
-        TrapActuator.setPosition(0.0);
+        TrapActuatorRight.setPosition(0.0);
+        TrapActuatorLeft.setPosition(1.0);
     }
 }
