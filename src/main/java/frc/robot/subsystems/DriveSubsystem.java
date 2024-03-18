@@ -24,7 +24,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -184,20 +183,26 @@ public class DriveSubsystem extends SubsystemBase {
 
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
-            SmartDashboard.putNumber("Camera Left X", camPose1.estimatedPose.getX());
-            SmartDashboard.putNumber("Camera Left Y", camPose1.estimatedPose.getY());
-            SmartDashboard.putNumber("Camera Left Z", camPose1.estimatedPose.getZ());
-            SmartDashboard.putNumber("Camera Left Pose Rotation",
-                    Units.radiansToDegrees(camPose1.estimatedPose.getRotation().getAngle()));
-
-            Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
-            SmartDashboard.putNumber("Camera Left Pose Ambiguity",
-                    ambiguity);
-            if (ambiguity < 0.4) {
+            double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
+            SmartDashboard.putNumber("Left number of tags", numberOfTags1);
+            if (numberOfTags1 < 2.0) {
+                Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
+                if (ambiguity < 0.2) {
+                    fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+                    // check rotation compared to current heading. Accept if within threshold
+                    Rotation2d currentRotation = getPose().getRotation();
+                    if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
+                            .getDegrees()) < 1) {
+                        m_poseEstimator.addVisionMeasurement(
+                                camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
+                                m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                    }
+                }
+            } else {
+                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                 m_poseEstimator.addVisionMeasurement(
                         camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                        m_camLeftBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
-                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+                        m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
             }
 
         }
@@ -208,20 +213,28 @@ public class DriveSubsystem extends SubsystemBase {
 
             if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
-                SmartDashboard.putNumber("Camera Right X", camPose2.estimatedPose.getX());
-                SmartDashboard.putNumber("Camera Right Y", camPose2.estimatedPose.getY());
-                SmartDashboard.putNumber("Camera Right Z", camPose2.estimatedPose.getZ());
-                SmartDashboard.putNumber("Camera Right Pose Rotation",
-                        Units.radiansToDegrees(camPose2.estimatedPose.getRotation().getAngle()));
+                double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
+                SmartDashboard.putNumber("Right number of tags", numberOfTags2);
+                if (numberOfTags2 < 2.0) {
+                    Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
-                Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
-                SmartDashboard.putNumber("Camera Right Pose Ambiguity",
-                        ambiguity);
-                if (ambiguity < 0.4) {
+                    if (ambiguity < 0.2) {
+                        fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                        // check rotation compared to current heading. Accept if within threshold
+                        Rotation2d currentRotation = getPose().getRotation();
+                        if (Math.abs(currentRotation.minus(camPose2.estimatedPose.getRotation().toRotation2d())
+                                .getDegrees()) < 1) {
+                            m_poseEstimator.addVisionMeasurement(
+                                    camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
+                                    m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                        }
+                    }
+                } else {
+                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+
                     m_poseEstimator.addVisionMeasurement(
                             camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                             m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
-                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
                 }
 
             }
