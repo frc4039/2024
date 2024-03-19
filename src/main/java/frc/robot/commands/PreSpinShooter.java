@@ -34,7 +34,9 @@ public class PreSpinShooter extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (indexer.hasNote() && scoringState.get() == ScoringState.HIGH) {
+        if (indexer.hasNote()
+                && (scoringState.get() == ScoringState.HIGH || scoringState.get() == ScoringState.PodiumShoot
+                        || scoringState.get() == ScoringState.SubwooferShoot)) {
             shooter.shooterPID(ShooterConstants.kShooterRPM * 0.7);
         } else {
             shooter.shooterSpeedControl(0, 0, 0);
