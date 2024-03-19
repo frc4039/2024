@@ -64,6 +64,7 @@ import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.WheelDiameterCalibrationCommand;
+import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -159,6 +160,8 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
+
+    private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -375,6 +378,9 @@ public class RobotContainer {
                 AutoConstants.pathFindingAmpPath,
                 AutoConstants.pathFindingConstraints,
                 0.0));
+
+        driverDDownPadTrigger.whileTrue(
+                new RobotCentricDriveCommand(driveSubsystem));
     }
 
     public Command getAutonomousCommand() {
