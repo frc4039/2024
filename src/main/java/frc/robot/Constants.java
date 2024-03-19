@@ -235,7 +235,7 @@ public final class Constants {
         public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
         public static final double kPodiumShooterRPM = 4000;
-        public static final double kShuttleShootRPM = 1000;
+        public static final double kShuttleShootRPM = 2000;
     }
 
     public static final class IndexerConstants {
