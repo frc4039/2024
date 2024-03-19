@@ -240,6 +240,8 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
+        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
+        // Add Pi counter to dashbord
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
         mainTab.addCamera("Note Cam", "NoteFeed",
