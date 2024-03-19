@@ -3,49 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.223336372267983,
-        "y": 2.4107628321283427
+        "x": 1.3005404928188775,
+        "y": 7.145128364330803
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.043629642690833,
-        "y": 0.7257230604490964
+        "x": 1.3041722186876534,
+        "y": 8.096558424489821
       },
       "isLocked": false,
-      "linkedName": "7"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.2085148785697895,
-        "y": 2.930482014808462
+        "x": 7.286546270667433,
+        "y": 7.424670370025476
       },
       "prevControl": {
-        "x": 4.778706000722867,
-        "y": 1.435286243538943
+        "x": 1.30810335909492,
+        "y": 7.770071406121662
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SOURCEShot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -39.639999999999986,
+    "rotation": 0,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths ",
+  "folder": "Auto3 Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 51.581944655178106,
     "velocity": 0
   },
   "useDefaultConstraints": false
