@@ -27,6 +27,7 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
         m_climberFollowerMotor.burnFlash();
+        m_climberLeaderMotor.burnFlash();
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
@@ -52,7 +53,6 @@ public class ClimberSubsystem extends SubsystemBase {
         motor.setInverted(true);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
-        motor.burnFlash();
         return motor;
     }
 
