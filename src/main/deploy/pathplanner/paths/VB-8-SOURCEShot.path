@@ -30,9 +30,27 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinShooter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
+    "maxVelocity": 4.5,
     "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -43,7 +61,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths w Vision",
+  "folder": "SOURCE 876 Blue Paths ",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

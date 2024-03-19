@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
+    "maxVelocity": 3.5,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -43,10 +43,10 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths w Vision",
+  "folder": "SOURCE 876 Blue Paths ",
   "previewStartingState": {
     "rotation": 26.565051177077798,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
