@@ -163,6 +163,7 @@ public class RobotContainer {
             XboxController.Button.kLeftBumper.value);
 
     private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
+    private final Trigger driverDPadRightTrigger = new Trigger(() -> m_driverController.getPOV() == 90);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -370,10 +371,7 @@ public class RobotContainer {
                 ScoringState.PodiumShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200),
                 ScoringState.SHUTTLE,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200),
-                ScoringState.CLIMB,
-                new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
-                        () -> ShooterConstants.kTrapShooterRPM)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
@@ -386,6 +384,8 @@ public class RobotContainer {
 
         driverDDownPadTrigger.whileTrue(
                 new RobotCentricDriveCommand(driveSubsystem));
+        driverDPadRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+                () -> ShooterConstants.kTrapShooterRPM));
     }
 
     public Command getAutonomousCommand() {
