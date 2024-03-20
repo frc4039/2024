@@ -50,7 +50,8 @@ public final class Constants {
         INTAKE,
         CLIMB,
         SubwooferShoot,
-        PodiumShoot
+        PodiumShoot,
+        SHUTTLE
     }
 
     public static final class DriveConstants {
