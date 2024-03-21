@@ -111,9 +111,6 @@ public class DriveSubsystem extends SubsystemBase {
                 .withPosition(0, 1);
         driveTab.addDouble("Angle", () -> getPose().getRotation().getDegrees())
                 .withPosition(0, 2);
-        driveTab.add("Field", fieldDisplay)
-                .withPosition(1, 0)
-                .withSize(3, 2);
         driveTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
