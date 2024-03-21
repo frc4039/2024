@@ -59,6 +59,7 @@ import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.PreSpinShooter;
+import frc.robot.commands.ReverseRobotCentricDriveCommand;
 import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
@@ -86,7 +87,7 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
-    private ScoringState scoringState = ScoringState.LOW;
+    private ScoringState scoringState = ScoringState.SHUTTLE;
 
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
@@ -162,6 +163,7 @@ public class RobotContainer {
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
 
+    private final Trigger driverDPadUpTrigger = new Trigger(() -> m_driverController.getPOV() == 0);
     private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
 
@@ -382,6 +384,8 @@ public class RobotContainer {
                 AutoConstants.pathFindingConstraints,
                 0.0));
 
+        driverDPadUpTrigger.whileTrue(
+                new ReverseRobotCentricDriveCommand(driveSubsystem));
         driverDDownPadTrigger.whileTrue(
                 new RobotCentricDriveCommand(driveSubsystem));
         driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
