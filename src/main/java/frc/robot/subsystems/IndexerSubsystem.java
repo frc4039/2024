@@ -8,8 +8,6 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.utils.HardwareMonitor;
@@ -30,13 +28,6 @@ public class IndexerSubsystem extends SubsystemBase {
         m_indexerNeo550.burnFlash();
 
         hw.registerDevice(this, m_indexerNeo550);
-
-        ShuffleboardTab indexerTab = Shuffleboard.getTab("Indexer");
-        indexerTab.addBoolean("Beam Breaker Activated", () -> hasNote());
-        indexerTab.add("Subsystem", this)
-                .withPosition(7, 0)
-                .withSize(2, 1);
-
     }
 
     @Override

@@ -4,6 +4,8 @@
 
 package frc.robot.utils;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.SensorConstants;
 
@@ -20,5 +22,10 @@ public class Sensors {
     // Lower beam breaker is not installed on the robot.
     public static boolean LowerBeamBreakerIsBroken() {
         return !m_kBeamBreakLowerDIO.get();
+    }
+
+    public static double GetLimeLightCounter(String tableName) {
+        return NetworkTableInstance.getDefault().getTable("photonvision").getSubTable(tableName)
+                .getEntry("hearbeat").getDouble(0);
     }
 }

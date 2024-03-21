@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -77,6 +78,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
+import frc.robot.utils.Sensors;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -166,6 +168,8 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autoChooser;
 
+    private Field2d fieldDisplay = new Field2d();
+
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
@@ -243,27 +247,28 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
-        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
-        // Add Pi counter to dashbord
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
+        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
+        mainTab.addBoolean("Has Note", () -> Sensors.BeamBreakerIsBroken()).withPosition(1, 2);
+        mainTab.addDouble("LL Left Count", () -> Sensors.GetLimeLightCounter("LimelightLeftBack")).withPosition(0, 3);
+        mainTab.addDouble("LL Right Count", () -> Sensors.GetLimeLightCounter("LimelightRightBack")).withPosition(1, 3);
         mainTab.addCamera("Note Cam", "NoteFeed",
                 "mjpg:http://wpilibpi.local:1182/?action=stream")
                 .withProperties(Map.of("showControls", false))
                 .withPosition(2, 0)
                 .withSize(3, 3);
-
-        // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
-        // ModuleType.kRev));
-
         ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
-                .withPosition(6, 0)
+                .withPosition(2, 3)
                 .withSize(3, 3)
                 .withProperties(Map.of("Label position", "HIDDEN"));
         for (int i = 0; i < 10; i++) {
             final Integer index = i;
             hardwareLayout.addString(index.toString(), () -> hardwareMonitor.getErrorLine(9 - index));
         }
+        mainTab.add("Field", fieldDisplay)
+                .withPosition(5, 0)
+                .withSize(7, 4);
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
