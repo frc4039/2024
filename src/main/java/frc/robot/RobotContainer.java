@@ -59,13 +59,14 @@ import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.PreSpinShooter;
+import frc.robot.commands.ReverseRobotCentricDriveCommand;
+import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.commands.WheelDiameterCalibrationCommand;
-import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.subsystems.ActivateTrapSubsystem;
 import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -86,7 +87,7 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
-    private ScoringState scoringState = ScoringState.LOW;
+    private ScoringState scoringState = ScoringState.SHUTTLE;
 
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
@@ -162,7 +163,9 @@ public class RobotContainer {
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
 
+    private final Trigger driverDPadUpTrigger = new Trigger(() -> m_driverController.getPOV() == 0);
     private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
+    private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -308,6 +311,7 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
+        operatorRightTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
@@ -364,27 +368,28 @@ public class RobotContainer {
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
-                // ScoringState.AMP,
-                // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.SubwooferShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200),
                 ScoringState.PodiumShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200),
+                ScoringState.SHUTTLE,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
                 new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
-        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
-                () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
-                        : ShooterConstants.kShuttleShootRPM));
 
         driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
                 AutoConstants.pathFindingAmpPath,
                 AutoConstants.pathFindingConstraints,
                 0.0));
 
+        driverDPadUpTrigger.whileTrue(
+                new ReverseRobotCentricDriveCommand(driveSubsystem));
         driverDDownPadTrigger.whileTrue(
                 new RobotCentricDriveCommand(driveSubsystem));
+        driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+                () -> ShooterConstants.kTrapShooterRPM));
     }
 
     public Command getAutonomousCommand() {

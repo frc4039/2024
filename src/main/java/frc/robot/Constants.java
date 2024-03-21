@@ -50,7 +50,8 @@ public final class Constants {
         INTAKE,
         CLIMB,
         SubwooferShoot,
-        PodiumShoot
+        PodiumShoot,
+        SHUTTLE
     }
 
     public static final class DriveConstants {
@@ -310,7 +311,7 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.7;
+        public static final double kClimberMotorSpeed = 0.9;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
     }
