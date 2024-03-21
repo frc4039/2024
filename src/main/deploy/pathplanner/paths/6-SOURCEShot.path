@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.481051598337148,
-        "y": 4.461828723942754
+        "x": 8.281967377058862,
+        "y": 4.11050362756931
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.228979670458174,
-        "y": 1.0807402476660988
+        "x": 6.029895449179889,
+        "y": 0.7294151512926543
       },
       "isLocked": false,
       "linkedName": "SOURCE6"
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
+      "name": "PreSpinShooter",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
