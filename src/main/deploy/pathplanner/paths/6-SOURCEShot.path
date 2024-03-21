@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.481051598337148,
+        "y": 4.461828723942754
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.228979670458174,
+        "y": 1.0807402476660988
+      },
+      "isLocked": false,
+      "linkedName": "SOURCE6"
+    },
+    {
+      "anchor": {
+        "x": 3.2085148785697895,
+        "y": 2.930482014808462
+      },
+      "prevControl": {
+        "x": 6.405239783924362,
+        "y": 0.6761025376715313
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "SOURCEShot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinShooter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -39.639999999999986,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SOURCE 876 Blue Paths ",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

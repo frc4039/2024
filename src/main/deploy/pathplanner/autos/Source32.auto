@@ -1,0 +1,81 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.2309311079429772,
+      "y": 4.094898451079563
+    },
+    "rotation": -55.491477012331515
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoShoot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Preload-N3"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 1.0
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeNoteCommand"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N3-N2 2056"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIndexShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N2-MidField"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

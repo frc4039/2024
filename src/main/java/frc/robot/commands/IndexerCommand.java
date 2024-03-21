@@ -7,11 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.PivotAngleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class IndexerCommand extends Command {
     private IndexerSubsystem indexer;
     private ShooterSubsystem shooter;
+    private PivotAngleSubsystem pivotAngleSubsystem;
     private double targetSpeed;
 
     /** Creates a new IndexerCommand. */
@@ -19,6 +21,7 @@ public class IndexerCommand extends Command {
         this.indexer = indexer;
         this.shooter = shooter;
         this.targetSpeed = targetSpeed;
+
         addRequirements(indexer);
     }
 

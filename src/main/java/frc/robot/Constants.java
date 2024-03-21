@@ -7,6 +7,8 @@ package frc.robot;
 import java.util.Set;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.Matrix;
@@ -21,7 +23,6 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.utils.Helpers;
 
 /**
@@ -43,6 +44,15 @@ public final class Constants {
         public static final boolean kPointToTurn = false;
     }
 
+    public enum ScoringState {
+        LOW,
+        HIGH,
+        INTAKE,
+        CLIMB,
+        SubwooferShoot,
+        PodiumShoot
+    }
+
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
@@ -62,6 +72,8 @@ public final class Constants {
         public static final double kTrackWidth = Units.inchesToMeters(22.5);
         // Distance between centers of right and left wheels on robot
         public static final double kWheelBase = Units.inchesToMeters(22.5);
+        public static final double kDriveBaseRadius = 15.9;// Math
+        // .sqrt(Math.pow(kTrackWidth / 2, 2) + Math.pow(kWheelBase / 2, 2));
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
@@ -94,9 +106,9 @@ public final class Constants {
         public static final double kDriveToNoteXSpeed = 0.3;
         public static final double kDriveToNoteYSpeed = 0.0;
 
-        public static final double kAutoDriveToNoteXSpeed = 0.3;
+        public static final double kAutoDriveToNoteXSpeed = 0.4;
         public static final double kAutoDriveToNoteDistance = 1.0;
-        public static final double kAutoDriveToNoteTime = 2.0;
+        public static final double kAutoDriveToNoteTime = 1.0;
     }
 
     public static final class ModuleConstants {
@@ -112,7 +124,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 2.91;
+        public static final double kWheelDiameterInches = 3.076;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -186,6 +198,13 @@ public final class Constants {
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+
+        // Create the constraints to use while pathfinding
+        public static final PathPlannerPath pathFindingAmpPath = PathPlannerPath
+                .fromPathFile("Amp Path");
+        public static final PathConstraints pathFindingConstraints = new PathConstraints(
+                3.0, 4.0,
+                Units.degreesToRadians(540), Units.degreesToRadians(720));
     }
 
     public static final class NeoMotorConstants {
@@ -212,20 +231,24 @@ public final class Constants {
         public static final double kShooterFF = 0.000145;
 
         public static final double kShooterRPM = 4000;
-        public static final double kTrapShooterRPM = 600;
+        public static final double kAmpRPM = 3000;
+        public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
-        public static final double kShuttleShootRPM = 1000;
+        public static final double kPodiumShooterRPM = 4000;
+        public static final double kShuttleShootRPM = 2000;
     }
 
     public static final class IndexerConstants {
         public static final double kIndexerShooterSpeed = 0.8;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
-        public static final DigitalInput kBeamBreakDIO = new DigitalInput(2);
-        public static final DigitalInput kBeamBreakLowerDIO = Helpers.isBabycakes() ? kBeamBreakDIO
-                : kBeamBreakDIO;// new DigitalInput(3); // Set this to channel 3 once this beam breaker is added
-                                // to rumble
         public static final int kIndexerCANID = 32;
+    }
+
+    public static final class SensorConstants {
+        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakLowerDIO = 3;
+
     }
 
     public static final class IntakeConstants {
@@ -257,35 +280,39 @@ public final class Constants {
         public static final boolean kPivotEncoderInverted = false;
 
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
-        public static final double kPivotAmpPosition = 159; // was 169
-        public static final double kPivotSubwooferPosition = 217;
+        public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
+                                                            // to vertical
+        public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
 
-        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 217.0;
+        public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
-        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 223.0;
+        public static final double kPivotAngleMedium = Helpers.isBabycakes() ? 226.0 : 224.0;
         public static final double kPivotDistanceMedium = Helpers.isBabycakes() ? 3.0 : 1.57;
-        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 226.0;
+        public static final double kPivotAngleFar = Helpers.isBabycakes() ? 233.0 : 227.0;
         public static final double kPivotDistanceFar = Helpers.isBabycakes() ? 4.12 : 2.1;
-        public static final double kPivotAngle4 = 232.0;
+        public static final double kPivotAngle4 = 233.0;
         public static final double kPivotDistance4 = 2.53;
-        public static final double kPivotAngle5 = 236.0;
+        public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240.5;
+        public static final double kPivotAngle6 = 240;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 242.0;
+        public static final double kPivotAngle7 = 243.0;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 244.0;
+        public static final double kPivotAngle8 = 245.0;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 246.0;
+        public static final double kPivotAngle9 = 247.0;
         public static final double kPivotDistance9 = 5.06;
     }
 
     public static final class ClimberConstants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
-        public static final int kClimberSmartCurrentLimit = 50;
-        public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
+        public static final int kClimberSmartCurrentLimit = 20;
+        public static final double kClimberMotorSpeed = 0.7;
+        public static final int TrapActuatorRightPort = 1;
+        public static final int TrapActuatorLeftPort = 2;
     }
 
     public static class VisionConstants {
@@ -321,8 +348,10 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final double kSeeNoteTime = 0.4;
+
     }
 
     public static final class BlinkinConstants {
@@ -332,5 +361,16 @@ public final class Constants {
         public static final double kColourValueGreen = 0.77;
         public static final double kColourValueGreenFlashing = -0.47;
         public static final double kColourValueRainbow = -0.89;
+        public static final double kColourValueBlack = 0.99;
+        public static final double BlinkTime = 0.5; // Time in seconds
+        public static final double kColourGreen = 0.77;
+        public static final double kColourOneSolid = 0.17; // set colour one to green
+        public static final double kColourOneFlash = 0.35; // set colour one to green
+        public static final double kColourYellowFlash = -0.07; // Strobe gold
+        public static final double kColourOrange = 0.63;
+        public static final double kColourWhiteFlash = 0.15;
+        public static final double kColourHotPink = 0.57; // podium
+        public static final double kColourAqua = 0.81; // Subwolfer
+
     }
 }

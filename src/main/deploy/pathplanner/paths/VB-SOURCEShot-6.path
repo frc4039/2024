@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.2085148785697895,
+        "y": 2.930482014808462
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.1271734526350645,
+        "y": 1.159372818032369
+      },
+      "isLocked": false,
+      "linkedName": "SOURCEShot"
+    },
+    {
+      "anchor": {
+        "x": 7.427076309216811,
+        "y": 3.6069376561007047
+      },
+      "prevControl": {
+        "x": 5.7524266831700555,
+        "y": 0.8197585582047061
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.75,
+      "rotationDegrees": 47.55332159931032,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 1.0,
+    "rotation": 46.53861430431677,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SOURCE 876 Blue Paths ",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

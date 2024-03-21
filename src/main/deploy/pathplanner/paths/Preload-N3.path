@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.790384904843884,
-        "y": 3.108297114742378
+        "x": 1.2309311079429772,
+        "y": 4.094898451079563
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.7856735481989485,
-        "y": 0.9984889321630502
+        "x": 2.230931107942978,
+        "y": 4.094898451079563
       },
       "isLocked": false,
-      "linkedName": "SOURCESideShot"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.109978104215468,
-        "y": 3.873583594389411
+        "x": 2.7323938733388164,
+        "y": 4.094898451079563
       },
       "prevControl": {
-        "x": 6.529477021626666,
-        "y": 0.7552029389132056
+        "x": 1.7323938733388164,
+        "y": 4.094898451079563
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CentreNote3 - SourceSide"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,11 +57,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 52.647004396196984,
-    "rotateFast": false
+    "rotation": 0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto2 Paths",
-  "previewStartingState": null,
+  "folder": "Source32 Paths",
+  "previewStartingState": {
+    "rotation": -53.130102354155994,
+    "velocity": 0
+  },
   "useDefaultConstraints": true
 }

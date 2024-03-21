@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.62197994481459,
+        "y": 5.678334227038825
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.0017695006899983,
+        "y": 6.084345219616365
+      },
+      "isLocked": false,
+      "linkedName": "R2"
+    },
+    {
+      "anchor": {
+        "x": 2.62197994481459,
+        "y": 7.178858691050715
+      },
+      "prevControl": {
+        "x": 1.9316959346169402,
+        "y": 6.6740320934345565
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 24.50821330392066,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SPEAKER 3216 Red Paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
