@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.079814551700862,
-        "y": 5.816706323010448
+        "x": 7.965774790322761,
+        "y": 5.8788399459823175
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.909511767808258,
-        "y": 7.4383623918072495
+        "x": 6.795472006430157,
+        "y": 7.500496014779119
       },
       "isLocked": false,
       "linkedName": "CenterNote2"
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "PreSpinShooter",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinShooter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.5,
     "maxAcceleration": 2.5,
@@ -48,5 +66,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
