@@ -75,7 +75,7 @@ public class DriveSubsystem extends SubsystemBase {
     private SlewRateLimiter m_rotLimiter = new SlewRateLimiter(DriveConstants.kRotationalSlewRate);
     private double m_prevTime = WPIUtilJNI.now() * 1e-6;
 
-    // Driver station position display
+    // Driver station position
     private Field2d fieldDisplay = new Field2d();
 
     // Odometry class for tracking robot pose
