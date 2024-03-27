@@ -90,6 +90,7 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     private ScoringState scoringState = ScoringState.SHUTTLE;
+    private Alliance currentAlliance = Alliance.Red;
 
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
@@ -361,10 +362,22 @@ public class RobotContainer {
                                 DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
 
-        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
-        driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
+        driverXButton.whileTrue(new SelectCommand<Alliance>(Map.of(
+                Alliance.Blue,
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 2 * Math.PI),
+                Alliance.Red,
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 1 * Math.PI)),
+                () -> currentAlliance));
+        driverBButton.whileTrue(new SelectCommand<Alliance>(Map.of(
+                Alliance.Blue,
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 1 * Math.PI),
+                Alliance.Red,
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 2 * Math.PI)),
+                () -> currentAlliance));
         driverAButton.whileTrue(
                 new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
                         new TeleopDriveCommand(driveSubsystem,
