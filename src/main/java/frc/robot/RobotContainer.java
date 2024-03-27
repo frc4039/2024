@@ -133,6 +133,8 @@ public class RobotContainer {
     private final DoubleSupplier driverRightStickX = () -> MathUtil.applyDeadband(
             m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
             OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorRightStickX = () -> MathUtil.applyDeadband(m_operatorController.getRawAxis(
+            XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband);
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
@@ -288,12 +290,14 @@ public class RobotContainer {
         // _______________OPERATOR BUTTONS_______________\\
         operatorDRightPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
+                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
                         new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorDLeftPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
+                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
                         new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
