@@ -4,9 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -18,6 +20,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
+    private final SparkPIDController m_leftMotorController;
+    private final SparkPIDController m_rightMotorController;
     private boolean debugging = true;
 
     // private Servo m_trapActuator;
@@ -25,9 +29,21 @@ public class ClimberSubsystem extends SubsystemBase {
     public ClimberSubsystem(HardwareMonitor hw) {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
-        m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
         m_climberFollowerMotor.burnFlash();
         m_climberLeaderMotor.burnFlash();
+
+        m_leftMotorController = m_climberLeaderMotor.getPIDController();
+        m_rightMotorController = m_climberFollowerMotor.getPIDController();
+
+        m_leftMotorController.setP(ClimberConstants.kClimberP);
+        m_leftMotorController.setI(ClimberConstants.kClimberI);
+        m_leftMotorController.setD(ClimberConstants.kClimberD);
+        m_leftMotorController.setFF(ClimberConstants.kClimberFF);
+
+        m_rightMotorController.setP(ClimberConstants.kClimberP);
+        m_rightMotorController.setI(ClimberConstants.kClimberI);
+        m_rightMotorController.setD(ClimberConstants.kClimberD);
+        m_rightMotorController.setFF(ClimberConstants.kClimberFF);
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
@@ -40,7 +56,8 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     public void setClimbSpeed(double motorSpeed) {
-        m_climberLeaderMotor.set(motorSpeed);
+        m_leftMotorController.setReference(motorSpeed, ControlType.kCurrent);
+        m_rightMotorController.setReference(motorSpeed, ControlType.kCurrent);
     }
 
     public void stop() {
