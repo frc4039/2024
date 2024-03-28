@@ -40,6 +40,8 @@ import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
+import frc.robot.commands.AdjustClimbAnalogLeftTriggerCommand;
+import frc.robot.commands.AdjustClimbAnalogRightTriggerCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoPreSpinShooter;
@@ -311,10 +313,14 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
-        operatorRightTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
+        operatorRightTrigger.onTrue(new ConditionalCommand(new AdjustClimbAnalogRightTriggerCommand(climberSubsystem),
+                new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
+                () -> this.scoringState == ScoringState.CLIMB));
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                        m_driverController, m_operatorController));
+                .whileTrue(new ConditionalCommand(new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem),
+                        new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
+                                m_driverController, m_operatorController),
+                        () -> this.scoringState == ScoringState.CLIMB));
         operatorXButton.whileTrue(
                 new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
@@ -390,6 +396,14 @@ public class RobotContainer {
                 new RobotCentricDriveCommand(driveSubsystem));
         driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> ShooterConstants.kTrapShooterRPM));
+    }
+
+    public double exportLeftTriggerOutput() {
+        return m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value);
+    }
+
+    public double exportRightTriggerOutput() {
+        return m_operatorController.getRawAxis(XboxController.Axis.kRightTrigger.value);
     }
 
     public Command getAutonomousCommand() {

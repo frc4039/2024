@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class AdjustClimbAnalogRightTriggerCommand extends Command {
@@ -23,7 +24,7 @@ public class AdjustClimbAnalogRightTriggerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climberSubsystem.setClimbCurrent(1);
+        climberSubsystem.setClimbPercentOutput(RobotContainer.exportRightTriggerOutput());
     }
 
     // Called once the command ends or is interrupted.

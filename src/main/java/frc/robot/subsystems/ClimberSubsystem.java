@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
+import frc.robot.RobotContainer;
 import frc.robot.utils.HardwareMonitor;
 
 public class ClimberSubsystem extends SubsystemBase {
@@ -60,9 +61,17 @@ public class ClimberSubsystem extends SubsystemBase {
         m_rightMotorController.setReference(motorSpeed, ControlType.kVelocity);
     }
 
-    public void setClimbCurrent(double motorCurrent) {
-        m_leftMotorController.setReference(motorCurrent, ControlType.kCurrent);
-        m_rightMotorController.setReference(motorCurrent, ControlType.kCurrent);
+    public void setClimbPercentOutput(double percentOutput) {
+        m_leftMotorController.setReference(percentOutput, ControlType.kVelocity);
+        m_rightMotorController.setReference(percentOutput, ControlType.kVelocity);
+    }
+
+    public double getLeftTriggerOutput() {
+        return RobotContainer.exportLeftTriggerOutput();
+    }
+
+    public double getRightTriggerOutput() {
+        return RobotContainer.exportRightTriggerOutput();
     }
 
     public void stop() {
