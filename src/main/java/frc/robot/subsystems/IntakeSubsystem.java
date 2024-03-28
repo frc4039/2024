@@ -36,4 +36,8 @@ public class IntakeSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
     }
+
+    public double getOutputCurrent() {
+        return m_intakeMotor.getOutputCurrent();
+    }
 }
