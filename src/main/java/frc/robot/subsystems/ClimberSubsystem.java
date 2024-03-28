@@ -47,6 +47,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     public void stop() {
         m_climberLeaderMotor.set(0);
+        m_climberFollowerMotor.set(0);
     }
 
     private CANSparkMax CreateClimberMotor(int motorCANId, boolean inverted) {
