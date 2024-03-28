@@ -11,6 +11,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,6 +25,12 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivotFollowerSparkMax;
     private final SparkPIDController m_pivotPIDController;
     private final AbsoluteEncoder m_pivotEncoder;
+
+    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(0.1,
+            0.1);
+    private final ProfiledPIDController m_profiledPIDController = new ProfiledPIDController(1, 0, 0, m_constraints,
+            0.02);
+    private final ArmFeedforward m_feedforward = new ArmFeedforward(1.1, 1.2, 1.3);
 
     /** Creates a new PivotAngle. */
     public PivotAngleSubsystem(HardwareMonitor hw) {
@@ -36,6 +45,7 @@ public class PivotAngleSubsystem extends SubsystemBase {
         m_pivotSparkMax.setInverted(false);
 
         m_pivotEncoder = m_pivotSparkMax.getAbsoluteEncoder(Type.kDutyCycle);
+
         m_pivotPIDController = m_pivotSparkMax.getPIDController();
         m_pivotPIDController.setFeedbackDevice(m_pivotEncoder);
 
@@ -69,16 +79,25 @@ public class PivotAngleSubsystem extends SubsystemBase {
     }
 
     public void setDesiredAngle(double desiredAngle) {
-        m_pivotPIDController.setReference(desiredAngle,
-                CANSparkMax.ControlType.kPosition);
+        m_pivotPIDController.setReference(desiredAngle, CANSparkMax.ControlType.kPosition);
     }
 
     public double getPitch() {
         return m_pivotEncoder.getPosition();
     }
 
+    public double getPitchAngularVelocity() {
+        return m_pivotEncoder.getVelocity();
+    }
+
     public void stop() {
         m_pivotPIDController.setReference(0.0, CANSparkBase.ControlType.kVelocity);
+    }
+
+    public void rotateToDesiredAngle(double goalAngle) {
+        m_profiledPIDController.setGoal(goalAngle);
+        m_pivotPIDController.setReference(m_profiledPIDController.calculate(getPitch()),
+                CANSparkBase.ControlType.kPosition, 1);
     }
 
     @Override
