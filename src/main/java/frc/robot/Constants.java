@@ -262,7 +262,7 @@ public final class Constants {
         public static final int kPivotFollowerCANId = 51;
 
         public static final double kPivotEncoderPositionFactor = 360.0;
-        public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
+        public static final double kPivotEncoderVelocityFactor = 360.0;
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;

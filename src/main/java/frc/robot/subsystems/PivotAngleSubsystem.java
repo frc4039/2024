@@ -12,7 +12,6 @@ import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -26,10 +25,11 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final SparkPIDController m_pivotPIDController;
     private final AbsoluteEncoder m_pivotEncoder;
 
-    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(0.1,
-            0.1);
-    private final ProfiledPIDController m_profiledPIDController = new ProfiledPIDController(1, 0, 0, m_constraints,
-            0.02);
+    // Motion Profile. Units are degrees per second and degrees per second per
+    // second.
+    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(5.0,
+            5.0);
+    private final TrapezoidProfile m_profile = new TrapezoidProfile(m_constraints);
     private final ArmFeedforward m_feedforward = new ArmFeedforward(1.1, 1.2, 1.3);
 
     /** Creates a new PivotAngle. */
@@ -95,9 +95,15 @@ public class PivotAngleSubsystem extends SubsystemBase {
     }
 
     public void rotateToDesiredAngle(double goalAngle) {
-        m_profiledPIDController.setGoal(goalAngle);
-        m_pivotPIDController.setReference(m_profiledPIDController.calculate(getPitch()),
-                CANSparkBase.ControlType.kPosition, 1);
+        TrapezoidProfile.State nextState = m_profile.calculate(0.02,
+                new TrapezoidProfile.State(getPitch(), getPitchAngularVelocity()),
+                new TrapezoidProfile.State(goalAngle, 0));
+
+        // Replace with a calculated feedforward value from sysid when available.
+        double feedforward = 0;
+
+        m_pivotPIDController.setReference(nextState.position,
+                CANSparkBase.ControlType.kPosition, 0, feedforward);
     }
 
     @Override
