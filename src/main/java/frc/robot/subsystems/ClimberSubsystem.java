@@ -56,12 +56,18 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     public void setClimbSpeed(double motorSpeed) {
-        m_leftMotorController.setReference(motorSpeed, ControlType.kCurrent);
-        m_rightMotorController.setReference(motorSpeed, ControlType.kCurrent);
+        m_leftMotorController.setReference(motorSpeed, ControlType.kVelocity);
+        m_rightMotorController.setReference(motorSpeed, ControlType.kVelocity);
+    }
+
+    public void setClimbCurrent(double motorCurrent) {
+        m_leftMotorController.setReference(motorCurrent, ControlType.kCurrent);
+        m_rightMotorController.setReference(motorCurrent, ControlType.kCurrent);
     }
 
     public void stop() {
         m_climberLeaderMotor.set(0);
+        m_climberFollowerMotor.set(0);
     }
 
     private CANSparkMax CreateClimberMotor(int motorCANId) {
