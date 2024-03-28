@@ -39,6 +39,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.StageSide;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
@@ -362,22 +363,12 @@ public class RobotContainer {
                                 DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
 
-        driverXButton.whileTrue(new SelectCommand<Alliance>(Map.of(
-                Alliance.Blue,
+        driverXButton.whileTrue(
                 new TeleopDriveCommand(
-                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 2 * Math.PI),
-                Alliance.Red,
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.LEFT));
+        driverBButton.whileTrue(
                 new TeleopDriveCommand(
-                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 1 * Math.PI)),
-                () -> currentAlliance));
-        driverBButton.whileTrue(new SelectCommand<Alliance>(Map.of(
-                Alliance.Blue,
-                new TeleopDriveCommand(
-                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 1 * Math.PI),
-                Alliance.Red,
-                new TeleopDriveCommand(
-                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, 2 * Math.PI)),
-                () -> currentAlliance));
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.RIGHT));
         driverAButton.whileTrue(
                 new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
                         new TeleopDriveCommand(driveSubsystem,
