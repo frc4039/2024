@@ -480,4 +480,9 @@ public class DriveSubsystem extends SubsystemBase {
     public Boolean getNoteDetected() {
         return this.m_piVision.getEntry("DetectedNote").getBoolean(false);
     }
+
+    /** Return x Pose Value */
+    public double getPoseXValue() {
+        return this.getPose().getX();
+    }
 }
