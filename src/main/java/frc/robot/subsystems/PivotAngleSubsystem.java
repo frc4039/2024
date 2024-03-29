@@ -13,9 +13,11 @@ import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.utils.HardwareMonitor;
 
@@ -109,5 +111,25 @@ public class PivotAngleSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+    }
+
+    /**
+     * Returns the SysIdRoutine factory for building commands required for
+     * system identification.
+     */
+    public SysIdRoutine getSysId() {
+        return new SysIdRoutine(
+                new SysIdRoutine.Config(),
+                new SysIdRoutine.Mechanism(
+                        (voltage) -> {
+                            m_pivotSparkMax.setVoltage(voltage.in(Units.Volts));
+                        },
+                        (log) -> {
+                            log.motor("pivotLeader")
+                                    .voltage(Units.Volts.of(m_pivotSparkMax.get() * m_pivotSparkMax.getBusVoltage()))
+                                    .angularPosition(Units.Degrees.of(getPitch()))
+                                    .angularVelocity(Units.DegreesPerSecond.of(getPitchAngularVelocity()))
+                                    .current(Units.Amps.of(m_pivotSparkMax.getOutputCurrent()));
+                        }, this));
     }
 }

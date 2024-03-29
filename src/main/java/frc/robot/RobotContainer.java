@@ -27,10 +27,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
@@ -104,6 +107,9 @@ public class RobotContainer {
     private final Joystick m_driverController = new Joystick(OperatorConstants.kDriverControllerPort);
     private final Joystick m_operatorController = new Joystick(OperatorConstants.kOperatorControllerPort);
 
+    private final JoystickButton driverStartButton = new JoystickButton(m_driverController,
+            XboxController.Button.kStart.value);
+
     private final JoystickButton driverYButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
@@ -168,6 +174,7 @@ public class RobotContainer {
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
 
     private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> testSelector = new SendableChooser<Command>();
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -282,6 +289,17 @@ public class RobotContainer {
                 .withProperties(Map.of("Label position", "TOP"));
         robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
         robotInfo.addBoolean("Is Babycakes", () -> Helpers.isBabycakes());
+
+        testSelector.setDefaultOption("None", new InstantCommand());
+        SysIdRoutine pivotId = pivotAngleSubsystem.getSysId();
+        testSelector.addOption("Pivot > QuasistaticForward", pivotId.quasistatic(Direction.kForward));
+        testSelector.addOption("Pivot > QuasistaticReverse", pivotId.quasistatic(Direction.kReverse));
+        testSelector.addOption("Pivot > DynamicForward", pivotId.dynamic(Direction.kForward));
+        testSelector.addOption("Pivot > DynamicReverse", pivotId.dynamic(Direction.kReverse));
+
+        aboutTab.add("Test Selector (driverStartButton)", testSelector)
+                .withPosition(0, 2)
+                .withSize(3, 1);
     }
 
     private void configureBindings() {
@@ -390,6 +408,10 @@ public class RobotContainer {
                 new RobotCentricDriveCommand(driveSubsystem));
         driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> ShooterConstants.kTrapShooterRPM));
+
+        driverStartButton
+                .and(() -> DriverStation.isTestEnabled())
+                .whileTrue(new ProxyCommand(() -> testSelector.getSelected()));
     }
 
     public Command getAutonomousCommand() {
