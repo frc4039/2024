@@ -240,7 +240,7 @@ public final class Constants {
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.8;
+        public static final double kIndexerShooterSpeed = 1.0;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final int kIndexerCANID = 32;
@@ -264,9 +264,9 @@ public final class Constants {
         public static final double kPivotEncoderPositionFactor = 360.0;
         public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
 
-        public static final double kPivotP = 0.01;
+        public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
-        public static final double kPivotD = 0;
+        public static final double kPivotD = 0.1;
         public static final double kPivotFF = 0;
         public static final double kPivotMinOutput = -0.5;
         public static final double kPivotMaxOutput = 0.5;
@@ -311,7 +311,7 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.9;
+        public static final double kClimberMotorSpeed = 0.6;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
     }
