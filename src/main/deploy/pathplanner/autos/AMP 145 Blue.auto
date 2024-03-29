@@ -2,19 +2,38 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3005404928188775,
-      "y": 7.145128364330803
+      "x": 1.429338570844387,
+      "y": 6.493174186507518
     },
-    "rotation": 47.20259816176587
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "StartPivot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPreSpinShooter"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AMP-1"
+                }
+              }
+            ]
           }
         },
         {
@@ -24,9 +43,15 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeIndexShootCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "StageLeftSubWoofer-C1"
+            "pathName": "1-4"
           }
         },
         {
@@ -38,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C1-FarSpeakerShot"
+            "pathName": "4-FarSpeakerShot"
           }
         },
         {
@@ -50,7 +75,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "FarSpeakerShot-C2"
+            "pathName": "FarSpeakerShot-5"
           }
         },
         {
@@ -62,7 +87,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "C2-FarSpeakerShot"
+            "pathName": "5-FarSpeakerShot"
           }
         },
         {

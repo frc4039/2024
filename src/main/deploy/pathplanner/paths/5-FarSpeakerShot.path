@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3005404928188775,
-        "y": 7.145128364330803
+        "x": 7.965774790322761,
+        "y": 5.8788399459823175
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.3041722186876534,
-        "y": 8.096558424489821
+        "x": 6.795472006430157,
+        "y": 7.500496014779119
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "5"
     },
     {
       "anchor": {
-        "x": 8.041956082821393,
-        "y": 7.477437776485861
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": {
-        "x": 2.0635131712488803,
-        "y": 7.822838812582047
+        "x": 4.577548482787938,
+        "y": 7.0201817771980455
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote1"
+      "linkedName": "FarSpeakerShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "name": "PreSpinShooter",
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNoteCommand"
+                "name": "AutoPreSpinShooter"
               }
             }
           ]
@@ -50,7 +50,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
+    "maxVelocity": 2.5,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -61,9 +61,9 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Auto3 Paths",
+  "folder": "AMP 145 Blue",
   "previewStartingState": {
-    "rotation": 51.581944655178106,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.429338570844387,
+        "y": 6.493174186507518
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6955992293244802,
+        "y": 6.493174186507518
+      },
+      "isLocked": false,
+      "linkedName": "AMP"
+    },
+    {
+      "anchor": {
+        "x": 2.661421521273423,
+        "y": 6.836353259547895
+      },
+      "prevControl": {
+        "x": 2.436921516044673,
+        "y": 6.673244458211783
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "AMP 1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 36.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "AMP 145 Blue",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
