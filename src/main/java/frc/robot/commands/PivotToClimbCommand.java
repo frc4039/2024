@@ -4,41 +4,63 @@
 
 package frc.robot.commands;
 
+import java.lang.Math;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PivotAngleSubsystem;
+import frc.robot.Constants.PivotConstants;
 
 public class PivotToClimbCommand extends Command {
     private PivotAngleSubsystem pivotAngle;
+    private DriveSubsystem Drive;
     private double m_angle;
+    private double StartPosX;
+    private double StartPosY;
+    private double Distance = 0.0;
 
     /** Creates a new PivotToClimbCommand. */
-    public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, double angle) {
+    public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, DriveSubsystem Drive, double angle) {
         this.pivotAngle = pivotAngle;
+        this.Drive = Drive;
         m_angle = angle;
         addRequirements(pivotAngle);
+        addRequirements(Drive);
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        StartPosX = Drive.getPose().getX();
+        StartPosY = Drive.getPose().getY();
+        Drive.drive(.05, 0.0, 0.0, false, true);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivotAngle.setDesiredAngle(m_angle);
+        double x = Drive.getPose().getX() - StartPosX;
+        double y = Drive.getPose().getY() - StartPosY;
+        double newAngle;
+        Distance = Math.sqrt(x * x + y * y);
+        newAngle = m_angle + (PivotConstants.kPivotTravelPosition - m_angle) * (1 - Distance / 0.5);
+        if (newAngle > PivotConstants.kPivotTravelPosition)
+            newAngle = PivotConstants.kPivotTravelPosition;
+        if (newAngle < m_angle)
+            newAngle = m_angle;
+        pivotAngle.setDesiredAngle(newAngle);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Drive.drive(0.0, 0.0, 0.0, false, true);
 
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return Distance >= 0.5 ? true : false;
     }
 }
