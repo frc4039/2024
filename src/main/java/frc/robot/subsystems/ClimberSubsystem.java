@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -23,9 +24,9 @@ public class ClimberSubsystem extends SubsystemBase {
     // private Servo m_trapActuator;
 
     public ClimberSubsystem(HardwareMonitor hw) {
-        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
-        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
-        m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
+        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId, true);
+        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId, false);
+        // m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
         m_climberFollowerMotor.burnFlash();
         m_climberLeaderMotor.burnFlash();
 
@@ -39,20 +40,23 @@ public class ClimberSubsystem extends SubsystemBase {
         }
     }
 
-    public void setClimbSpeed(double motorSpeed) {
-        m_climberLeaderMotor.set(motorSpeed);
+    public void setClimbSpeed(double motorSpeed, double bias) {
+        m_climberLeaderMotor.set(motorSpeed + bias * ClimberConstants.kClimberBiasLimit);
+        m_climberFollowerMotor.set(motorSpeed - bias * ClimberConstants.kClimberBiasLimit);
     }
 
     public void stop() {
         m_climberLeaderMotor.set(0);
+        m_climberFollowerMotor.set(0);
     }
 
-    private CANSparkMax CreateClimberMotor(int motorCANId) {
+    private CANSparkMax CreateClimberMotor(int motorCANId, boolean inverted) {
         CANSparkMax motor = new CANSparkMax(motorCANId, MotorType.kBrushless);
         motor.restoreFactoryDefaults();
-        motor.setInverted(true);
+        motor.setInverted(inverted);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
+        motor.burnFlash();
         return motor;
     }
 

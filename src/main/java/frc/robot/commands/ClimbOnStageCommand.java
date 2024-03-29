@@ -4,17 +4,21 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class ClimbOnStageCommand extends Command {
 
     private ClimberSubsystem m_Climber;
-	private double climbSpeed;
+    private double climbSpeed;
+    private DoubleSupplier bias;
 
-    public ClimbOnStageCommand(ClimberSubsystem climber, double climbSpeed) {
+    public ClimbOnStageCommand(ClimberSubsystem climber, double climbSpeed, DoubleSupplier bias) {
         m_Climber = climber;
-		this.climbSpeed = climbSpeed;
+        this.climbSpeed = climbSpeed;
+        this.bias = bias;
     }
 
     // Called when the command is initially scheduled.
@@ -25,7 +29,7 @@ public class ClimbOnStageCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        m_Climber.setClimbSpeed(climbSpeed);
+        m_Climber.setClimbSpeed(climbSpeed, bias.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.

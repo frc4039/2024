@@ -314,6 +314,7 @@ public final class Constants {
         public static final double kClimberMotorSpeed = 0.6;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
+        public static final double kClimberBiasLimit = 0.1;
     }
 
     public static class VisionConstants {
