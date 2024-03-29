@@ -6,13 +6,15 @@
     "AMP 1456 Blue - incomplete",
     "Auto3 Paths",
     "Disrupt Centre Auto ",
-    "Teleop Paths",
     "Odometry Test",
+    "SOURCE 76 Blue Paths",
+    "SOURCE 76 Red Paths",
     "SOURCE 876 Blue Paths ",
     "SOURCE 876 Red Paths ",
     "SPEAKER 3216 Blue Paths",
     "SPEAKER 3216 Red Paths",
-    "Source32 Paths"
+    "Source32 Paths",
+    "Teleop Paths"
   ],
   "autoFolders": [
     "Source867 Blue Conditional w Vision"
