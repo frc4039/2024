@@ -33,7 +33,7 @@ public class PivotToClimbCommand extends Command {
     public void initialize() {
         StartPosX = Drive.getPose().getX();
         StartPosY = Drive.getPose().getY();
-        Drive.drive(.05, 0.0, 0.0, false, true);
+        Drive.drive(-.05, 0.0, 0.0, false, true);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
