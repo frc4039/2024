@@ -18,7 +18,6 @@ public class PivotToClimbCommand extends Command {
     private double StartPosY;
     private double Distance = 0.0;
     private boolean Driving = false;
-    private double driveDistance = 0.4;
 
     /** Creates a new PivotToClimbCommand. */
     public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, DriveSubsystem Drive, double angle) {
@@ -35,7 +34,7 @@ public class PivotToClimbCommand extends Command {
     public void initialize() {
         StartPosX = Drive.getPose().getX();
         StartPosY = Drive.getPose().getY();
-        pivotAngle.setDesiredAngle(211);
+        pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapFirstPosition);
         Driving = false;
 
     }
@@ -43,16 +42,17 @@ public class PivotToClimbCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (pivotAngle.getPitch() <= 215) {
+        if (pivotAngle.getPitch() <= PivotConstants.kPivotTrapFirstPosition + 4.0) {
             if (Driving == false) {
-                Drive.drive(-.1, 0.0, 0.0, false, true);
+                Drive.drive(PivotConstants.kPivotTrapDriveSPeed, 0.0, 0.0, false, true);
                 Driving = true;
             }
             double x = Drive.getPose().getX() - StartPosX;
             double y = Drive.getPose().getY() - StartPosY;
             double newAngle;
             Distance = Math.sqrt(x * x + y * y);
-            newAngle = m_angle + (211 - m_angle) * (1 - Distance / driveDistance);
+            newAngle = m_angle + (PivotConstants.kPivotTrapFirstPosition - m_angle)
+                    * (1 - Distance / PivotConstants.kPivotTrapDriveDistance);
             if (newAngle > PivotConstants.kPivotTravelPosition)
                 newAngle = PivotConstants.kPivotTravelPosition;
             if (newAngle < m_angle)
@@ -72,6 +72,6 @@ public class PivotToClimbCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Distance >= driveDistance ? true : false;
+        return Distance >= PivotConstants.kPivotTrapDriveDistance ? true : false;
     }
 }

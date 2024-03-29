@@ -286,6 +286,9 @@ public final class Constants {
         public static final double kPivotSubwooferPosition = 212;
         public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
+        public static final double kPivotTrapFirstPosition = 211;
+        public static final double kPivotTrapDriveDistance = 0.4;
+        public static final double kPivotTrapDriveSPeed = -0.15;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;

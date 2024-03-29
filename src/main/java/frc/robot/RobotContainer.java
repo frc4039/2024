@@ -344,7 +344,10 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
                                 .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.SHUTTLE,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
+                                .alongWith(new SubwooferShootCommand(shooterSubsystem))),
                         // ScoringState.CLIMB,
                         // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
                         // indexerSubsystem)),
