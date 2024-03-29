@@ -398,14 +398,6 @@ public class RobotContainer {
                 () -> ShooterConstants.kTrapShooterRPM));
     }
 
-    public double exportLeftTriggerOutput() {
-        return m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value);
-    }
-
-    public double exportRightTriggerOutput() {
-        return m_operatorController.getRawAxis(XboxController.Axis.kRightTrigger.value);
-    }
-
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
     }
