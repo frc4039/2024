@@ -97,6 +97,24 @@
           "data": {
             "name": "IntakeNoteCommand"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R6-RFarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
         }
       ]
     }
