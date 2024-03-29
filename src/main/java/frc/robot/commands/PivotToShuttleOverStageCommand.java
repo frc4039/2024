@@ -20,23 +20,23 @@ public class PivotToShuttleOverStageCommand extends Command {
         this.pivot = pivot;
         this.drive = drive;
         addRequirements(pivot);
-        angleEstimator.put(PivotConstants.kPivotDistanceFar, PivotConstants.kPivotAngleFar);
-        angleEstimator.put(PivotConstants.kPivotDistanceClose, PivotConstants.kPivotAngleClose);
-        angleEstimator.put(PivotConstants.kPivotDistanceMedium, PivotConstants.kPivotAngleMedium);
-        /*
-         * angleEstimator.put(PivotConstants.kPivotDistance4,
-         * PivotConstants.kPivotAngle4);
-         * angleEstimator.put(PivotConstants.kPivotDistance5,
-         * PivotConstants.kPivotAngle5);
-         * angleEstimator.put(PivotConstants.kPivotDistance6,
-         * PivotConstants.kPivotAngle6);
-         * angleEstimator.put(PivotConstants.kPivotDistance7,
-         * PivotConstants.kPivotAngle7);
-         * angleEstimator.put(PivotConstants.kPivotDistance8,
-         * PivotConstants.kPivotAngle8);
-         * angleEstimator.put(PivotConstants.kPivotDistance9,
-         * PivotConstants.kPivotAngle9);
-         */
+        angleEstimator.put(PivotConstants.kPivotDistanceFar, PivotConstants.kPivotAngleFar + 3);
+        angleEstimator.put(PivotConstants.kPivotDistanceClose, PivotConstants.kPivotAngleClose + 1);
+        angleEstimator.put(PivotConstants.kPivotDistanceMedium, PivotConstants.kPivotAngleMedium + 2);
+
+        angleEstimator.put(PivotConstants.kPivotDistance4,
+                PivotConstants.kPivotAngle4 + 3);
+        angleEstimator.put(PivotConstants.kPivotDistance5,
+                PivotConstants.kPivotAngle5 + 2);
+        angleEstimator.put(PivotConstants.kPivotDistance6,
+                PivotConstants.kPivotAngle6 + 1.5);
+        angleEstimator.put(PivotConstants.kPivotDistance7,
+                PivotConstants.kPivotAngle7 + 1.25);
+        angleEstimator.put(PivotConstants.kPivotDistance8,
+                PivotConstants.kPivotAngle8 + 1);
+        angleEstimator.put(PivotConstants.kPivotDistance9,
+                PivotConstants.kPivotAngle9 + 1);
+
     }
 
     // Called when the command is initially scheduled.
