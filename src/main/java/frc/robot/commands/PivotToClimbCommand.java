@@ -17,6 +17,8 @@ public class PivotToClimbCommand extends Command {
     private double StartPosX;
     private double StartPosY;
     private double Distance = 0.0;
+    private boolean Driving = false;
+    private double driveDistance = 0.4;
 
     /** Creates a new PivotToClimbCommand. */
     public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, DriveSubsystem Drive, double angle) {
@@ -33,34 +35,43 @@ public class PivotToClimbCommand extends Command {
     public void initialize() {
         StartPosX = Drive.getPose().getX();
         StartPosY = Drive.getPose().getY();
-        Drive.drive(-.05, 0.0, 0.0, false, true);
+        pivotAngle.setDesiredAngle(211);
+        Driving = false;
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double x = Drive.getPose().getX() - StartPosX;
-        double y = Drive.getPose().getY() - StartPosY;
-        double newAngle;
-        Distance = Math.sqrt(x * x + y * y);
-        newAngle = m_angle + (PivotConstants.kPivotTravelPosition - m_angle) * (1 - Distance / 0.5);
-        if (newAngle > PivotConstants.kPivotTravelPosition)
-            newAngle = PivotConstants.kPivotTravelPosition;
-        if (newAngle < m_angle)
-            newAngle = m_angle;
-        pivotAngle.setDesiredAngle(newAngle);
+        if (pivotAngle.getPitch() <= 215) {
+            if (Driving == false) {
+                Drive.drive(-.05, 0.0, 0.0, false, true);
+                Driving = true;
+            }
+            double x = Drive.getPose().getX() - StartPosX;
+            double y = Drive.getPose().getY() - StartPosY;
+            double newAngle;
+            Distance = Math.sqrt(x * x + y * y);
+            newAngle = m_angle + (211 - m_angle) * (1 - Distance / driveDistance);
+            if (newAngle > PivotConstants.kPivotTravelPosition)
+                newAngle = PivotConstants.kPivotTravelPosition;
+            if (newAngle < m_angle)
+                newAngle = m_angle;
+            pivotAngle.setDesiredAngle(newAngle);
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         Drive.drive(0.0, 0.0, 0.0, false, true);
+        pivotAngle.setDesiredAngle(m_angle);
 
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Distance >= 0.5 ? true : false;
+        return Distance >= driveDistance ? true : false;
     }
 }
