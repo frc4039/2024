@@ -27,8 +27,8 @@ public class ClimberSubsystem extends SubsystemBase {
     // private Servo m_trapActuator;
 
     public ClimberSubsystem(HardwareMonitor hw) {
-        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
-        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
+        m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId); // RIGHT Motor
+        m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId); // LEFT Motor
         m_climberFollowerMotor.burnFlash();
         m_climberLeaderMotor.burnFlash();
 
@@ -50,8 +50,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
         if (debugging) {
             ShuffleboardTab climberTab = Shuffleboard.getTab("Climber");
-            climberTab.addDouble("Leader Motor Current", () -> m_climberLeaderMotor.getOutputCurrent());
-            climberTab.addDouble("Follower Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
+            climberTab.addDouble("Right Motor Current", () -> m_climberLeaderMotor.getOutputCurrent());
+            climberTab.addDouble("Left Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
         }
     }
 
@@ -60,20 +60,12 @@ public class ClimberSubsystem extends SubsystemBase {
         m_rightMotorController.setReference(motorSpeed, ControlType.kVelocity);
     }
 
-    public void setClimbPercentOutput(double percentOutput) {
-        m_leftMotorController.setReference(percentOutput, ControlType.kVelocity);
-        m_rightMotorController.setReference(percentOutput, ControlType.kVelocity);
+    public void setClimbPercentOutput(double percentOutput, double bias) {
+        m_climberLeaderMotor.set(percentOutput - bias * ClimberConstants.kClimberBiasLimit);
+        m_climberFollowerMotor.set(percentOutput + bias * ClimberConstants.kClimberBiasLimit);
+        // m_leftMotorController.setReference(percentOutput, ControlType.kVelocity);
+        // m_rightMotorController.setReference(percentOutput, ControlType.kVelocity);
     }
-
-    /*
-     * public double getLeftTriggerOutput() {
-     * return
-     * }
-     * 
-     * public double getRightTriggerOutput() {
-     * return
-     * }
-     */
 
     public void stop() {
         m_climberLeaderMotor.set(0);

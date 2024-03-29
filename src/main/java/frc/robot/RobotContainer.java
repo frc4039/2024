@@ -135,6 +135,10 @@ public class RobotContainer {
     private final DoubleSupplier driverRightStickX = () -> MathUtil.applyDeadband(
             m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
             OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorLeftTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value), OIConstants.kTriggerThreshold);
+    private final DoubleSupplier operatorRightTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kRightTrigger.value), OIConstants.kTriggerThreshold);
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
@@ -313,11 +317,13 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
-        operatorRightTrigger.onTrue(new ConditionalCommand(new AdjustClimbAnalogRightTriggerCommand(climberSubsystem),
+        operatorRightTrigger.onTrue(new ConditionalCommand(
+                new AdjustClimbAnalogRightTriggerCommand(climberSubsystem, operatorRightTriggerSupplier),
                 new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
                 () -> this.scoringState == ScoringState.CLIMB));
         operatorLeftTrigger
-                .whileTrue(new ConditionalCommand(new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem),
+                .whileTrue(new ConditionalCommand(
+                        new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem, operatorLeftTriggerSupplier),
                         new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                                 m_driverController, m_operatorController),
                         () -> this.scoringState == ScoringState.CLIMB));

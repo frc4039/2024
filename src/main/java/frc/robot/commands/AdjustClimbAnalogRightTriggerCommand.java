@@ -4,15 +4,19 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 public class AdjustClimbAnalogRightTriggerCommand extends Command {
     private final ClimberSubsystem climberSubsystem;
+    private double percentOutput;
+    private DoubleSupplier bias;
 
-    public AdjustClimbAnalogRightTriggerCommand(ClimberSubsystem climberSubsystem) {
+    public AdjustClimbAnalogRightTriggerCommand(ClimberSubsystem climberSubsystem, DoubleSupplier bias) {
         this.climberSubsystem = climberSubsystem;
+        this.bias = bias;
         addRequirements(climberSubsystem);
     }
 
@@ -24,7 +28,7 @@ public class AdjustClimbAnalogRightTriggerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climberSubsystem.setClimbPercentOutput(RobotContainer.exportRightTriggerOutput());
+        climberSubsystem.setClimbPercentOutput(percentOutput, bias.getAsDouble());
     }
 
     // Called once the command ends or is interrupted.
