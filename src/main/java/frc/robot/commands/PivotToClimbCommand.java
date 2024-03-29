@@ -45,7 +45,7 @@ public class PivotToClimbCommand extends Command {
     public void execute() {
         if (pivotAngle.getPitch() <= 215) {
             if (Driving == false) {
-                Drive.drive(-.05, 0.0, 0.0, false, true);
+                Drive.drive(-.1, 0.0, 0.0, false, true);
                 Driving = true;
             }
             double x = Drive.getPose().getX() - StartPosX;

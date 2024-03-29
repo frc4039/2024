@@ -311,10 +311,10 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.6;
+        public static final double kClimberMotorSpeed = 0.65;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
-        public static final double kClimberBiasLimit = 0.1;
+        public static final double kClimberBiasLimit = 0.3;
     }
 
     public static class VisionConstants {

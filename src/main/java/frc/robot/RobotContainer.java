@@ -363,15 +363,9 @@ public class RobotContainer {
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
         driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
-        driverAButton.onTrue(
-                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition));
-        // driverAButton.whileTrue(
-        // new ConditionalCommand(
-        // new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem,
-        // PivotConstants.kPivotTrapPosition),
-        // new TeleopDriveCommand(driveSubsystem,
-        // driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI),
-        // () -> this.scoringState == ScoringState.CLIMB));
+        driverAButton.onTrue(new ConditionalCommand(
+                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition),
+                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
