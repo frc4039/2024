@@ -92,7 +92,6 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     private ScoringState scoringState = ScoringState.SHUTTLE;
-    private Alliance currentAlliance = Alliance.Red;
 
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
