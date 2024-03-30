@@ -81,6 +81,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
+import frc.robot.utils.Sensors;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -254,21 +255,17 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
-        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
-        // Add Pi counter to dashbord
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
+        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
+        mainTab.addBoolean("Has Note", () -> Sensors.BeamBreakerIsBroken()).withPosition(1, 2);
         mainTab.addCamera("Note Cam", "NoteFeed",
                 "mjpg:http://wpilibpi.local:1182/?action=stream")
                 .withProperties(Map.of("showControls", false))
                 .withPosition(2, 0)
                 .withSize(3, 3);
-
-        // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
-        // ModuleType.kRev));
-
         ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
-                .withPosition(6, 0)
+                .withPosition(2, 3)
                 .withSize(3, 3)
                 .withProperties(Map.of("Label position", "HIDDEN"));
         for (int i = 0; i < 10; i++) {
