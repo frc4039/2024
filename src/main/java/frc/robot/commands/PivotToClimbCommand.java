@@ -36,6 +36,7 @@ public class PivotToClimbCommand extends Command {
         StartPosY = Drive.getPose().getY();
         pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapFirstPosition);
         Driving = false;
+        Distance = 0;
 
     }
 

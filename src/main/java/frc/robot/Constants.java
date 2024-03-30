@@ -246,11 +246,11 @@ public final class Constants {
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
-        public static final double kShuttleOverStageRPM = 2500;
+        public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
 
-        public static final double kShuttleOverStageYaw = Units.degreesToRadians(325);
+        public static final double kShuttleOverStageYaw = Units.degreesToRadians(323.5);
     }
 
     public static final class IndexerConstants {
@@ -298,7 +298,7 @@ public final class Constants {
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
         public static final double kPivotSubwooferPosition = 212;
-        public static final double kPivotShuttleOverStage = 225; // 218;
+        public static final double kPivotShuttleOverStage = 227; // 218;
         public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
         public static final double kPivotTrapFirstPosition = 211;
