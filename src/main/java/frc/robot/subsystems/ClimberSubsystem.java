@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -32,8 +31,8 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberFollowerMotor.burnFlash();
         m_climberLeaderMotor.burnFlash();
 
-        m_leftMotorController = m_climberLeaderMotor.getPIDController();
-        m_rightMotorController = m_climberFollowerMotor.getPIDController();
+        m_leftMotorController = m_climberFollowerMotor.getPIDController();
+        m_rightMotorController = m_climberLeaderMotor.getPIDController();
 
         m_leftMotorController.setP(ClimberConstants.kClimberP);
         m_leftMotorController.setI(ClimberConstants.kClimberI);
@@ -56,8 +55,8 @@ public class ClimberSubsystem extends SubsystemBase {
     }
 
     public void setClimbSpeed(double motorSpeed) {
-        m_leftMotorController.setReference(motorSpeed, ControlType.kVelocity);
-        m_rightMotorController.setReference(motorSpeed, ControlType.kVelocity);
+        m_climberFollowerMotor.set(-motorSpeed);
+        m_climberLeaderMotor.set(motorSpeed);
     }
 
     public void setClimbPercentOutput(double percentOutput, double bias) {
@@ -65,6 +64,14 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberFollowerMotor.set(percentOutput + bias * ClimberConstants.kClimberBiasLimit);
         // m_leftMotorController.setReference(percentOutput, ControlType.kVelocity);
         // m_rightMotorController.setReference(percentOutput, ControlType.kVelocity);
+    }
+
+    public void setLeftClimbSpeed(double motorSpeed) {
+        m_climberFollowerMotor.set(motorSpeed);
+    }
+
+    public void setRightClimbSpeed(double motorSpeed) {
+        m_climberLeaderMotor.set(motorSpeed);
     }
 
     public void stop() {

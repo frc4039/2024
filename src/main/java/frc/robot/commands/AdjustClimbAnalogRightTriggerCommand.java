@@ -29,7 +29,7 @@ public class AdjustClimbAnalogRightTriggerCommand extends Command {
     @Override
     public void execute() {
         // climberSubsystem.setClimbPercentOutput(percentOutput, bias.getAsDouble());
-        climberSubsystem.setClimbSpeed(-0.1);
+        climberSubsystem.setRightClimbSpeed(0.1);
     }
 
     // Called once the command ends or is interrupted.

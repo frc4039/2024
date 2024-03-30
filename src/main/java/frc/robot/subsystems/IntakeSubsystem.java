@@ -20,13 +20,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
         hw.registerDevice(this, m_intakeMotor);
 
-        ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
-        intakeTab.add("Subsystem", this)
-                .withPosition(7, 0)
-                .withSize(2, 1);
-        intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
-                .withPosition(7, 1)
-                .withSize(1, 1);
+        /*
+         * ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+         * intakeTab.add("Subsystem", this)
+         * .withPosition(7, 0)
+         * .withSize(2, 1);
+         * intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
+         * .withPosition(7, 1)
+         * .withSize(1, 1);
+         */
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
