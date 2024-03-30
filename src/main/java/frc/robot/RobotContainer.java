@@ -317,10 +317,15 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
-        operatorRightTrigger.onTrue(new ConditionalCommand(
+        operatorRightTrigger.whileTrue(new ConditionalCommand(
                 new AdjustClimbAnalogRightTriggerCommand(climberSubsystem, operatorRightTriggerSupplier),
-                new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
+                new InstantCommand(),
                 () -> this.scoringState == ScoringState.CLIMB));
+
+        operatorRightTrigger.onTrue(new ConditionalCommand(
+                new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
+                new InstantCommand(),
+                () -> this.scoringState != ScoringState.CLIMB));
         operatorLeftTrigger
                 .whileTrue(new ConditionalCommand(
                         new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem, operatorLeftTriggerSupplier),
