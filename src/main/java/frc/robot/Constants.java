@@ -117,10 +117,10 @@ public final class Constants {
         public static final double kAutoDriveToNoteDistance = 1.0;
         public static final double kAutoDriveToNoteTime = 1.0;
 
-        public static final double kStageRedRightAngle = 1 * Math.PI;
-        public static final double kStageRedLeftAngle = 2 * Math.PI;
-        public static final double kStageBlueRightAngle = 2 * Math.PI;
-        public static final double kStageBlueLeftAngle = 1 * Math.PI;
+        public static final double kStageRedRightAngle = Math.toRadians(240); // 240 degrees
+        public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
+        public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
+        public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
     }
 
     public static final class ModuleConstants {
