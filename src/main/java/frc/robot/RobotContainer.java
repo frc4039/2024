@@ -62,6 +62,7 @@ import frc.robot.commands.PreSpinShooter;
 import frc.robot.commands.ReverseRobotCentricDriveCommand;
 import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShuttleOverStageCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
@@ -346,8 +347,10 @@ public class RobotContainer {
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
                                                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
                         ScoringState.SHUTTLE,
-                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
-                                .alongWith(new SubwooferShootCommand(shooterSubsystem))),
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
+                                .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
+                                .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
+                                        driverRightStickX, ShooterConstants.kShuttleOverStageYaw))),
                         // ScoringState.CLIMB,
                         // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
                         // indexerSubsystem)),
