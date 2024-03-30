@@ -32,6 +32,7 @@ public class AutoDriveToNoteCommand extends Command {
             IntakeSubsystem intakeSubsystem, double xSpeed) {
         this.driveSubsystem = driveSubsystem;
         this.indexerSubsystem = indexerSubsystem;
+        this.intakeSubsystem = intakeSubsystem;
         this.xSpeed = xSpeed;
         addRequirements(driveSubsystem);
         rotationController.setTolerance(Math.PI / 360);
@@ -43,8 +44,8 @@ public class AutoDriveToNoteCommand extends Command {
     @Override
     public void initialize() {
         rotationController.reset(Math.toRadians(driveSubsystem.getHeading()), 0);
-        this.stopDriving = false;
-        this.allianceColour = DriverStation.getAlliance();
+        stopDriving = false;
+        allianceColour = DriverStation.getAlliance();
 
     }
 
@@ -54,15 +55,15 @@ public class AutoDriveToNoteCommand extends Command {
 
         // If Stop Driving is enabled, do nothing
 
-        if (!this.stopDriving) {
+        if (!stopDriving) {
             // stop driving if Crossing Centerline or motor Current indicates note in intake
             if (intakeSubsystem.getOutputCurrent() > IntakeConstants.IntakeNoteCurrentThreshold
-                    || (this.allianceColour.get() == Alliance.Blue
+                    || (this.allianceColour.isPresent() && this.allianceColour.get() == Alliance.Blue
                             && driveSubsystem.getPoseXValue() > 4.25 + AutoConstants.CenterLineCrossThreshold)
-                    || (this.allianceColour.get() == Alliance.Red
+                    || (this.allianceColour.isPresent() && this.allianceColour.get() == Alliance.Red
                             && driveSubsystem.getPoseXValue() < 4.25 - AutoConstants.CenterLineCrossThreshold)) {
                 driveSubsystem.drive(0, 0, 0, false, false);
-                this.stopDriving = true;
+                stopDriving = true;
             } else {
                 // Drive toward note
                 rotationController.setGoal(Math.toRadians(driveSubsystem.getHeading() - driveSubsystem.getNoteAngle()));
