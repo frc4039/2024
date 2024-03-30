@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "C5-C1Dirsrupt"

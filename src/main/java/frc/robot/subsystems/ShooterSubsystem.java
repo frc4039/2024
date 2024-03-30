@@ -49,7 +49,7 @@ public class ShooterSubsystem extends SubsystemBase {
         m_upperShooterController.setD(ShooterConstants.kShooterD);
         m_upperShooterController.setFF(ShooterConstants.kShooterFF);
 
-        m_upperShooterVortex.setInverted(true);
+        m_upperShooterVortex.setInverted(false);
         m_lowerShooterVortex.setInverted(true);
 
         m_lowerShooterVortex.burnFlash();

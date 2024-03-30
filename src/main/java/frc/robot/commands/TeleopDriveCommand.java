@@ -7,11 +7,8 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.StageSide;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -27,63 +24,8 @@ public class TeleopDriveCommand extends Command {
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
-    /**
-     * Creates a new TeleopDriveCommand Command.
-     * 
-     * @param driveSubsystem   The drive subsystem.
-     * @param xSpeedSupplier   The x speed.
-     * @param ySpeedSupplier   The y speed.
-     * @param rotSpeedSupplier The angular speed.
-     * @param rotationAngle    The rotation angle.
-     */
+    /** Creates a new TeleopDrive. */
     public TeleopDriveCommand(DriveSubsystem driveSubsystem,
-            DoubleSupplier xSpeedSupplier,
-            DoubleSupplier ySpeedSupplier,
-            DoubleSupplier rotSpeedSupplier,
-            Double rotationAngle) {
-        InitializeTeleopDriveCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, rotationAngle);
-    }
-
-    /**
-     * Creates a new TeleopDriveCommand Command.
-     * 
-     * @param driveSubsystem   The drive subsystem.
-     * @param xSpeedSupplier   The x speed.
-     * @param ySpeedSupplier   The y speed.
-     * @param rotSpeedSupplier The angular speed.
-     * @param stageSide        LEFT or RIGHT
-     */
-    public TeleopDriveCommand(DriveSubsystem driveSubsystem,
-            DoubleSupplier xSpeedSupplier,
-            DoubleSupplier ySpeedSupplier,
-            DoubleSupplier rotSpeedSupplier,
-            StageSide stageSide) {
-
-        Double rotationAngle = 0.0;
-        Alliance currentAlliance = DriverStation.getAlliance().get();
-
-        switch (stageSide) {
-            case LEFT:
-                if (currentAlliance == Alliance.Red) {
-                    rotationAngle = DriveConstants.kStageRedLeftAngle;
-                } else {
-                    rotationAngle = DriveConstants.kStageBlueLeftAngle;
-                }
-                break;
-            case RIGHT:
-                if (currentAlliance == Alliance.Red) {
-                    rotationAngle = DriveConstants.kStageRedRightAngle;
-                } else {
-                    rotationAngle = DriveConstants.kStageBlueRightAngle;
-                }
-                break;
-            case CENTRE:
-                break;
-        }
-        InitializeTeleopDriveCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, rotationAngle);
-    }
-
-    private void InitializeTeleopDriveCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier,
             DoubleSupplier rotSpeedSupplier,

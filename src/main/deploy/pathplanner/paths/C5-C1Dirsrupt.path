@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.492762434882929,
-        "y": 0.9485777602083012
+        "x": 8.483980917035908,
+        "y": 1.079132917525095
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.75040083889012,
-        "y": 1.40530038549378
+        "x": 8.847632502123147,
+        "y": 1.3690503415803061
       },
       "isLocked": false,
       "linkedName": "CentreNote5"
     },
     {
       "anchor": {
-        "x": 8.492762434882929,
-        "y": 7.530067898937509
+        "x": 8.473724996790466,
+        "y": 7.142744689644726
       },
       "prevControl": {
-        "x": 8.539605781066054,
-        "y": 5.012238041594484
+        "x": 8.413987113526566,
+        "y": 4.617746284105777
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,21 +32,21 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
+    "maxVelocity": 2.5,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -30.579226872488828,
+    "rotation": -45.18904950699042,
     "rotateFast": true
   },
   "reversed": false,
   "folder": "Disrupt Centre Auto ",
   "previewStartingState": {
-    "rotation": -44.99999999999992,
+    "rotation": -53.65344322272919,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

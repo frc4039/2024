@@ -3,9 +3,12 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.utils.HardwareMonitor;
+import frc.robot.utils.Sensors;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -19,6 +22,11 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeMotor.burnFlash();
 
         hw.registerDevice(this, m_intakeMotor);
+
+        ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+        intakeTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
