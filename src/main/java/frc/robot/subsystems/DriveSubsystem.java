@@ -121,6 +121,11 @@ public class DriveSubsystem extends SubsystemBase {
                 .withPosition(4, 0)
                 .withSize(1, 1);
 
+        ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
+        mainTab.add("Field", fieldDisplay)
+                .withPosition(1, 0)
+                .withSize(3, 2);
+
         m_frontLeft.registerWithHardwareTracker(this, hw);
         m_frontRight.registerWithHardwareTracker(this, hw);
         m_rearLeft.registerWithHardwareTracker(this, hw);

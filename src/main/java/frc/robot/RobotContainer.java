@@ -23,7 +23,6 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
@@ -171,8 +170,6 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autoChooser;
 
-    private Field2d fieldDisplay = new Field2d();
-
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
@@ -269,9 +266,6 @@ public class RobotContainer {
             final Integer index = i;
             hardwareLayout.addString(index.toString(), () -> hardwareMonitor.getErrorLine(9 - index));
         }
-        mainTab.add("Field", fieldDisplay)
-                .withPosition(5, 0)
-                .withSize(7, 4);
 
         ShuffleboardLayout buildInfo = aboutTab.getLayout("Build Info", BuiltInLayouts.kList)
                 .withPosition(0, 0)
