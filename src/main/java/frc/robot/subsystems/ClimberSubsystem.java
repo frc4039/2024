@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,15 +35,17 @@ public class ClimberSubsystem extends SubsystemBase {
         m_leftMotorController = m_climberFollowerMotor.getPIDController();
         m_rightMotorController = m_climberLeaderMotor.getPIDController();
 
-        m_leftMotorController.setP(ClimberConstants.kClimberP);
-        m_leftMotorController.setI(ClimberConstants.kClimberI);
-        m_leftMotorController.setD(ClimberConstants.kClimberD);
-        m_leftMotorController.setFF(ClimberConstants.kClimberFF);
-
-        m_rightMotorController.setP(ClimberConstants.kClimberP);
-        m_rightMotorController.setI(ClimberConstants.kClimberI);
-        m_rightMotorController.setD(ClimberConstants.kClimberD);
-        m_rightMotorController.setFF(ClimberConstants.kClimberFF);
+        /*
+         * m_leftMotorController.setP(ClimberConstants.kClimberP);
+         * m_leftMotorController.setI(ClimberConstants.kClimberI);
+         * m_leftMotorController.setD(ClimberConstants.kClimberD);
+         * m_leftMotorController.setFF(ClimberConstants.kClimberFF);
+         * 
+         * m_rightMotorController.setP(ClimberConstants.kClimberP);
+         * m_rightMotorController.setI(ClimberConstants.kClimberI);
+         * m_rightMotorController.setD(ClimberConstants.kClimberD);
+         * m_rightMotorController.setFF(ClimberConstants.kClimberFF);
+         */
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);

@@ -11,12 +11,12 @@ import frc.robot.subsystems.ClimberSubsystem;
 
 public class AdjustClimbAnalogRightTriggerCommand extends Command {
     private final ClimberSubsystem climberSubsystem;
-    private double percentOutput;
-    private DoubleSupplier bias;
+    // private double percentOutput;
+    // private DoubleSupplier bias;
 
     public AdjustClimbAnalogRightTriggerCommand(ClimberSubsystem climberSubsystem, DoubleSupplier bias) {
         this.climberSubsystem = climberSubsystem;
-        this.bias = bias;
+        // this.bias = bias;
         addRequirements(climberSubsystem);
     }
 
@@ -29,12 +29,13 @@ public class AdjustClimbAnalogRightTriggerCommand extends Command {
     @Override
     public void execute() {
         // climberSubsystem.setClimbPercentOutput(percentOutput, bias.getAsDouble());
-        climberSubsystem.setRightClimbSpeed(0.1);
+        climberSubsystem.setClimbSpeed(0.25, 0);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        climberSubsystem.stop();
     }
 
     // Returns true when the command should end.
