@@ -123,8 +123,8 @@ public class DriveSubsystem extends SubsystemBase {
 
         ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
         mainTab.add("Field", fieldDisplay)
-                .withPosition(1, 0)
-                .withSize(3, 2);
+                .withPosition(5, 0)
+                .withSize(7, 4);
 
         m_frontLeft.registerWithHardwareTracker(this, hw);
         m_frontRight.registerWithHardwareTracker(this, hw);
