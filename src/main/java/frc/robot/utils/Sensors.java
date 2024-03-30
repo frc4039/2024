@@ -4,6 +4,7 @@
 
 package frc.robot.utils;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.SensorConstants;
@@ -24,7 +25,8 @@ public class Sensors {
     }
 
     public static double GetLimeLightCounter(String tableName) {
-        return NetworkTableInstance.getDefault().getTable("photonvision").getSubTable(tableName)
+        NetworkTable photonVisionTable = NetworkTableInstance.getDefault().getTable("photonvision");
+        return photonVisionTable.getSubTable(tableName)
                 .getEntry("hearbeat").getDouble(0);
     }
 }
