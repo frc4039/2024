@@ -30,7 +30,7 @@ public class ClimbOnStageCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (climbSpeed > 0.0) {
+        if (climbSpeed < 0.0) {
             m_Climber.setClimbSpeed(climbSpeed + bias.getAsDouble() * ClimberConstants.kClimberBiasLimit,
                     climbSpeed - bias.getAsDouble() * ClimberConstants.kClimberBiasLimit);
         } else {
