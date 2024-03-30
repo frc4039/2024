@@ -30,7 +30,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "AMP-1"
+                  "pathName": "RAMP-R1"
                 }
               }
             ]
@@ -43,62 +43,32 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "IntakeIndexShootCommand"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "1-4"
+            "pathName": "VR 1-4"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "4-FarSpeakerShot"
+            "name": "AutoDriveToNotePRG"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "VB FarSpeakerShot-5"
+            "name": "zAmp145RedStep2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "IntakeNoteCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "5-FarSpeakerShot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
+            "name": "zAmp145RedStep3"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Amp 145 Red Smart",
   "choreoAuto": false
 }

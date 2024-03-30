@@ -8,7 +8,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VB-7-6"
+            "pathName": "R8-RSOURCEShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "VR RSOURCEShot-R7"
           }
         },
         {
@@ -20,6 +32,6 @@
       ]
     }
   },
-  "folder": "Source 867 Blue Smart",
+  "folder": "Source 876 Red Smart",
   "choreoAuto": false
 }

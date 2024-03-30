@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.343425149813263,
-        "y": 4.19586261394745
+        "x": 2.661421521273423,
+        "y": 6.836353259547895
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.113284226568453,
-        "y": 1.7631329808114171
+        "x": 3.779455510023318,
+        "y": 6.836353259547895
       },
       "isLocked": false,
-      "linkedName": "SOURCE"
+      "linkedName": "AMP 1"
     },
     {
       "anchor": {
-        "x": 7.122820791096127,
-        "y": 1.2313944627889262
+        "x": 7.206779504468099,
+        "y": 6.968573209873693
       },
       "prevControl": {
-        "x": 2.3606224175228814,
-        "y": 2.6961805748277587
+        "x": 5.994042533539612,
+        "y": 6.530122151153393
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,21 +32,18 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 4.5,
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 3.5,
-    "rotation": -13.283803096568736,
+    "rotation": 24.943905263424615,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths ",
-  "previewStartingState": {
-    "rotation": -48.51485463231109,
-    "velocity": 0
-  },
+  "folder": "AMP 145 Red",
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

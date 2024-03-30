@@ -18,7 +18,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "VB-6-SOURCEShot"
+                  "pathName": "R6-RSOURCEShot"
                 }
               }
             ]
@@ -39,6 +39,6 @@
       ]
     }
   },
-  "folder": "Source 867 Blue Smart",
+  "folder": "Source 876 Red Smart",
   "choreoAuto": false
 }

@@ -8,7 +8,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VB-7-6"
+            "pathName": "VB-8-7"
           }
         },
         {
@@ -20,6 +20,6 @@
       ]
     }
   },
-  "folder": "Source 867 Blue Smart",
+  "folder": "Source 876 Red Smart",
   "choreoAuto": false
 }

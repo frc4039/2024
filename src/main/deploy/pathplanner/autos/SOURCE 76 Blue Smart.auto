@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VB-SOURCE-8"
+            "pathName": "VB SOURCE-7"
           }
         },
         {
@@ -48,14 +48,14 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "zSource876BlueStep4"
+            "pathName": "VB-SOURCEShot-6"
           }
         }
       ]
     }
   },
-  "folder": "Source867 Blue Conditional w Vision",
+  "folder": null,
   "choreoAuto": false
 }

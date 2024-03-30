@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.265497071865093,
-      "y": 5.5750258226500256
+      "x": 1.2979418195887897,
+      "y": 5.529233972024078
     },
     "rotation": 0
   },
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SPEAKER-R3"
+                  "pathName": "MiddleSubwoofer-N3"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R3-R2"
+                  "pathName": "N3-N2"
                 }
               }
             ]
@@ -74,7 +74,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R2-R1"
+                  "pathName": "N2-N1"
                 }
               }
             ]
@@ -89,7 +89,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VR R1-R6"
+            "pathName": "VB-N1-C3"
           }
         },
         {
@@ -97,10 +97,16 @@
           "data": {
             "name": "AutoDriveToNotePRG"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zSpeaker3216BlueStep2"
+          }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Speaker 3216 Blue Smart",
   "choreoAuto": false
 }

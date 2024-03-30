@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2140762463343107,
-        "y": 3.1997598540651633
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.777955767694545,
-        "y": 1.0809488958331268
+        "x": 4.994481097577647,
+        "y": 7.060636456848724
       },
       "isLocked": false,
-      "linkedName": "RSOURCEShot"
+      "linkedName": "FarSpeakerShot"
     },
     {
       "anchor": {
-        "x": 8.223336372267983,
-        "y": 2.4107628321283427
+        "x": 7.542614357955989,
+        "y": 6.231602281386381
       },
       "prevControl": {
-        "x": 4.909262972357791,
-        "y": 1.3536168283274068
+        "x": 5.112100841836365,
+        "y": 7.768823507376866
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "R7"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
         "data": {
@@ -50,18 +50,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 4.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 22.23615247708038,
+    "velocity": 3.5,
+    "rotation": -27.597295868643698,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Red Paths ",
+  "folder": "AMP 145 Blue",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

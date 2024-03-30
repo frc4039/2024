@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "MiddleSubwoofer-N3"
+                  "pathName": "SPEAKER-R3"
                 }
               }
             ]
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N3-N2"
+                  "pathName": "R3-R2"
                 }
               }
             ]
@@ -74,7 +74,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N2-N1"
+                  "pathName": "R2-R1"
                 }
               }
             ]
@@ -89,7 +89,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VB-N1-C3"
+            "pathName": "VR R1-R6"
           }
         },
         {
@@ -97,10 +97,16 @@
           "data": {
             "name": "AutoDriveToNotePRG"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zSpeaker3216RedStep2"
+          }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Speaker 3216 Red Smart",
   "choreoAuto": false
 }

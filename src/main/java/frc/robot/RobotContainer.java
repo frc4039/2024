@@ -212,21 +212,52 @@ public class RobotContainer {
                 new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
                         AutoBuilder.buildAuto("zSource876Blue4B"),
                         () -> indexerSubsystem.hasNote()));
-        /*
-         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
-         * NamedCommands.registerCommand("zSource876RedStep2",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
-         * AutoBuilder.buildAuto("zSource876Red2B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep3",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
-         * AutoBuilder.buildAuto("zSource876Red3B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep4",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
-         * AutoBuilder.buildAuto("zSource876Red4B"),
-         * () -> indexerSubsystem.hasNote()));
-         */
+
+        // Register Source876Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSource876RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+                        AutoBuilder.buildAuto("zSource876Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+                        AutoBuilder.buildAuto("zSource876Red3B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep4",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+                        AutoBuilder.buildAuto("zSource876Red4B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Blue Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Blue2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Red2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue2A"),
+                        AutoBuilder.buildAuto("zAmp145Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145BlueStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue3A"),
+                        AutoBuilder.buildAuto("zAmp145Blue3B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red2A"),
+                        AutoBuilder.buildAuto("zAmp145Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red3A"),
+                        AutoBuilder.buildAuto("zAmp145Red3B"),
+                        () -> indexerSubsystem.hasNote()));
 
         configureBindings();
 
