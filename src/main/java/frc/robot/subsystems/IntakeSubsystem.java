@@ -19,6 +19,14 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeMotor.burnFlash();
 
         hw.registerDevice(this, m_intakeMotor);
+
+        ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+        intakeTab.add("Subsystem", this)
+                .withPosition(7, 0)
+                .withSize(2, 1);
+        intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
+                .withPosition(7, 1)
+                .withSize(1, 1);
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
@@ -27,5 +35,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+    }
+
+    public double getOutputCurrent() {
+        return m_intakeMotor.getOutputCurrent();
     }
 }

@@ -25,7 +25,8 @@ public class AutoDriveToNoteParallelRaceGroup extends ParallelRaceGroup {
         addCommands(
                 new SeeNoteCommand(driveSubsystem),
                 new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
-                new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kAutoDriveToNoteXSpeed)
+                new AutoDriveToNoteCommand(driveSubsystem, indexerSubsystem, intakeSubsystem,
+                        DriveConstants.kAutoDriveToNoteXSpeed)
                         .withTimeout(DriveConstants.kAutoDriveToNoteTime));
 
     }
