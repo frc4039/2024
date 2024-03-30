@@ -50,7 +50,8 @@ public final class Constants {
         INTAKE,
         CLIMB,
         SubwooferShoot,
-        PodiumShoot
+        PodiumShoot,
+        SHUTTLE
     }
 
     public static final class DriveConstants {
@@ -235,19 +236,18 @@ public final class Constants {
         public static double kTrapShooterRPM = 800;
         public static double kSubwooferShooterRPM = 2750;
         public static final double kPodiumShooterRPM = 4000;
-        public static double kShuttleShootRPM = 1000;
-
+        public static final double kShuttleShootRPM = 2000;
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.8;
+        public static final double kIndexerShooterSpeed = 1.0;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final int kIndexerCANID = 32;
     }
 
     public static final class SensorConstants {
-        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakDIO = 4;
         public static final int kBeamBreakLowerDIO = 3;
 
     }
@@ -266,7 +266,7 @@ public final class Constants {
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
-        public static final double kPivotD = 0.20;
+        public static final double kPivotD = 0.1;
         public static final double kPivotFF = 0;
         public static final double kPivotMinOutput = -0.5;
         public static final double kPivotMaxOutput = 0.5;
@@ -311,8 +311,9 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.5; // setting to .1 to test direction of motors. 0.4;
-        public static final int TrapActuatorPort = 1;
+        public static final double kClimberMotorSpeed = 0.6;
+        public static final int TrapActuatorRightPort = 1;
+        public static final int TrapActuatorLeftPort = 2;
     }
 
     public static class VisionConstants {

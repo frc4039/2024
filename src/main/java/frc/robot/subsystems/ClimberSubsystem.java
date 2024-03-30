@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 
-import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,7 +18,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
-    private boolean debugging = false;
+    private boolean debugging = true;
 
     // private Servo m_trapActuator;
 
@@ -27,6 +26,8 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberLeaderMotor = CreateClimberMotor(ClimberConstants.kClimberLeaderMotorCANId);
         m_climberFollowerMotor = CreateClimberMotor(ClimberConstants.kClimberFollowerMotorCANId);
         m_climberFollowerMotor.follow(m_climberLeaderMotor, true);
+        m_climberFollowerMotor.burnFlash();
+        m_climberLeaderMotor.burnFlash();
 
         hw.registerDevice(this, m_climberLeaderMotor);
         hw.registerDevice(this, m_climberFollowerMotor);
@@ -52,7 +53,6 @@ public class ClimberSubsystem extends SubsystemBase {
         motor.setInverted(true);
         motor.setIdleMode(IdleMode.kBrake);
         motor.setSmartCurrentLimit(ClimberConstants.kClimberSmartCurrentLimit);
-        motor.burnFlash();
         return motor;
     }
 

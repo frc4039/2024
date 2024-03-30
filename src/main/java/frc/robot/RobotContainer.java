@@ -42,6 +42,7 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
+import frc.robot.commands.AutoPreSpinShooter;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
@@ -57,6 +58,9 @@ import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.PodiumShooterCommand;
+import frc.robot.commands.PreSpinShooter;
+import frc.robot.commands.ReverseRobotCentricDriveCommand;
+import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
@@ -83,7 +87,7 @@ public class RobotContainer {
     private HardwareMonitor hardwareMonitor = new HardwareMonitor();
 
     // The robot's subsystems and commands are defined here...
-    private ScoringState scoringState = ScoringState.LOW;
+    private ScoringState scoringState = ScoringState.SHUTTLE;
 
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
@@ -159,11 +163,16 @@ public class RobotContainer {
     private final JoystickButton driverLeftBumper = new JoystickButton(m_driverController,
             XboxController.Button.kLeftBumper.value);
 
+    private final Trigger driverDPadUpTrigger = new Trigger(() -> m_driverController.getPOV() == 0);
+    private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
+    private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
+
     private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
                 driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0));
+        shooterSubsystem.setDefaultCommand(new PreSpinShooter(shooterSubsystem, indexerSubsystem, () -> scoringState));
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
@@ -188,6 +197,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("AutoDriveToNotePRG",
                 new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
                         driveSubsystem));
+        NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
 
         // Register Source876Blue Auto Conditional Commands for pathplanner Autos
         NamedCommands.registerCommand("zSource876BlueStep2",
@@ -236,6 +246,8 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
+        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
+        // Add Pi counter to dashbord
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
         mainTab.addCamera("Note Cam", "NoteFeed",
@@ -299,6 +311,7 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
+        operatorRightTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
         operatorLeftTrigger
                 .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
                         m_driverController, m_operatorController));
@@ -355,24 +368,28 @@ public class RobotContainer {
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200),
-                // ScoringState.AMP,
-                // new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem),
                 ScoringState.SubwooferShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, 0),
                 ScoringState.PodiumShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, 0)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200),
+                ScoringState.SHUTTLE,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
         driverRightBumper.whileTrue(
                 new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
-        operatorRightTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
-                () -> this.scoringState == ScoringState.CLIMB ? ShooterConstants.kTrapShooterRPM
-                        : ShooterConstants.kShuttleShootRPM));
 
         driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
                 AutoConstants.pathFindingAmpPath,
                 AutoConstants.pathFindingConstraints,
                 0.0));
+
+        driverDPadUpTrigger.whileTrue(
+                new ReverseRobotCentricDriveCommand(driveSubsystem));
+        driverDDownPadTrigger.whileTrue(
+                new RobotCentricDriveCommand(driveSubsystem));
+        driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+                () -> ShooterConstants.kTrapShooterRPM));
     }
 
     public Command getAutonomousCommand() {
