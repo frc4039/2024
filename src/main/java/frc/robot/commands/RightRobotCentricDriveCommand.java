@@ -3,10 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class ReverseRobotCentricDriveCommand extends Command {
+public class RightRobotCentricDriveCommand extends Command {
     private DriveSubsystem driveSubsystem;
 
-    public ReverseRobotCentricDriveCommand(DriveSubsystem driveSubsystem) {
+    public RightRobotCentricDriveCommand(DriveSubsystem driveSubsystem) {
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
     }
@@ -18,7 +18,7 @@ public class ReverseRobotCentricDriveCommand extends Command {
 
     @Override
     public void execute() {
-        driveSubsystem.drive(0.2, 0, 0, false, true);
+        driveSubsystem.drive(0, -0.07, 0, false, true);
     }
 
     @Override

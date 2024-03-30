@@ -20,8 +20,8 @@
         "y": 1.2313944627889262
       },
       "prevControl": {
-        "x": 2.3606224175228814,
-        "y": 2.6961805748277587
+        "x": 2.067292611129146,
+        "y": 2.0063681713986625
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,25 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.5,
     "maxAcceleration": 4.5,
@@ -39,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 3.5,
-    "rotation": -13.283803096568736,
+    "rotation": -3.2704879231835644,
     "rotateFast": false
   },
   "reversed": false,
