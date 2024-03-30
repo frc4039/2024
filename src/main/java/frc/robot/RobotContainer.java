@@ -41,8 +41,11 @@ import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.StageSide;
 import frc.robot.commands.ActivateTrapCommand;
+import frc.robot.commands.AdjustClimbAnalogLeftTriggerCommand;
+import frc.robot.commands.AdjustClimbAnalogRightTriggerCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
+import frc.robot.commands.AutoPreSpinIntake;
 import frc.robot.commands.AutoPreSpinShooter;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
@@ -143,6 +146,10 @@ public class RobotContainer {
             OIConstants.kDriveDeadband);
     private final DoubleSupplier operatorRightStickX = () -> MathUtil.applyDeadband(m_operatorController.getRawAxis(
             XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorLeftTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value), OIConstants.kTriggerThreshold);
+    private final DoubleSupplier operatorRightTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kRightTrigger.value), OIConstants.kTriggerThreshold);
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
@@ -209,6 +216,7 @@ public class RobotContainer {
                 new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
                         driveSubsystem));
         NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
+        NamedCommands.registerCommand("AutoPreSpinIntake", new AutoPreSpinIntake(intakeSubsystem));
 
         // Register Source876Blue Auto Conditional Commands for pathplanner Autos
         NamedCommands.registerCommand("zSource876BlueStep2",
@@ -320,10 +328,21 @@ public class RobotContainer {
         // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
         // ScoringState.INTAKE)
         );
-        operatorRightTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
+        operatorRightTrigger.whileTrue(new ConditionalCommand(
+                new AdjustClimbAnalogRightTriggerCommand(climberSubsystem, operatorRightTriggerSupplier),
+                new InstantCommand(),
+                () -> this.scoringState == ScoringState.CLIMB));
+
+        operatorRightTrigger.onTrue(new ConditionalCommand(
+                new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
+                new InstantCommand(),
+                () -> this.scoringState != ScoringState.CLIMB));
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                        m_driverController, m_operatorController));
+                .whileTrue(new ConditionalCommand(
+                        new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem, operatorLeftTriggerSupplier),
+                        new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
+                                m_driverController, m_operatorController),
+                        () -> this.scoringState == ScoringState.CLIMB));
         operatorXButton.whileTrue(
                 new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));

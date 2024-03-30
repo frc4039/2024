@@ -207,6 +207,8 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
+        public static final double CenterLineCrossThreshold = .2;
+
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
@@ -269,6 +271,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorCANID = 40;
         public static final double kIntakeSpeedMotor = 1;
+        public static final double IntakeNoteCurrentThreshold = 20;
+
     }
 
     public static final class PivotConstants {
