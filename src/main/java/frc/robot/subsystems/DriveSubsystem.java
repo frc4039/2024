@@ -111,9 +111,6 @@ public class DriveSubsystem extends SubsystemBase {
                 .withPosition(0, 1);
         driveTab.addDouble("Angle", () -> getPose().getRotation().getDegrees())
                 .withPosition(0, 2);
-        driveTab.add("Field", fieldDisplay)
-                .withPosition(1, 0)
-                .withSize(3, 2);
         driveTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
@@ -123,6 +120,11 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.addDouble("Note Angle", () -> getNoteAngle())
                 .withPosition(4, 0)
                 .withSize(1, 1);
+
+        ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
+        mainTab.add("Field", fieldDisplay)
+                .withPosition(5, 0)
+                .withSize(7, 4);
 
         m_frontLeft.registerWithHardwareTracker(this, hw);
         m_frontRight.registerWithHardwareTracker(this, hw);
