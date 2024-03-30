@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -23,7 +24,7 @@ public class TeleopDriveCommand extends Command {
     private DoubleSupplier xSpeedSupplier;
     private DoubleSupplier ySpeedSupplier;
     private DoubleSupplier rotSpeedSupplier;
-    private Double rotationAngle;
+    private DoubleSupplier rotationAngle;
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
@@ -41,7 +42,7 @@ public class TeleopDriveCommand extends Command {
             DoubleSupplier ySpeedSupplier,
             DoubleSupplier rotSpeedSupplier,
             Double rotationAngle) {
-        InitializeTeleopDriveCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, rotationAngle);
+        this(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, () -> rotationAngle);
     }
 
     /**
@@ -58,36 +59,46 @@ public class TeleopDriveCommand extends Command {
             DoubleSupplier ySpeedSupplier,
             DoubleSupplier rotSpeedSupplier,
             StageSide stageSide) {
+        this(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, () -> {
+            Optional<Alliance> currentAlliance = DriverStation.getAlliance();
 
-        Double rotationAngle = 0.0;
-        Alliance currentAlliance = DriverStation.getAlliance().get();
+            if (currentAlliance.isPresent()) {
+                switch (stageSide) {
+                    case LEFT:
+                        if (currentAlliance.get() == Alliance.Red) {
+                            return DriveConstants.kStageRedLeftAngle;
+                        } else {
+                            return DriveConstants.kStageBlueLeftAngle;
+                        }
+                    case RIGHT:
+                        if (currentAlliance.get() == Alliance.Red) {
+                            return DriveConstants.kStageRedRightAngle;
+                        } else {
+                            return DriveConstants.kStageBlueRightAngle;
+                        }
+                    case CENTRE:
+                        break;
+                }
+            }
 
-        switch (stageSide) {
-            case LEFT:
-                if (currentAlliance == Alliance.Red) {
-                    rotationAngle = DriveConstants.kStageRedLeftAngle;
-                } else {
-                    rotationAngle = DriveConstants.kStageBlueLeftAngle;
-                }
-                break;
-            case RIGHT:
-                if (currentAlliance == Alliance.Red) {
-                    rotationAngle = DriveConstants.kStageRedRightAngle;
-                } else {
-                    rotationAngle = DriveConstants.kStageBlueRightAngle;
-                }
-                break;
-            case CENTRE:
-                break;
-        }
-        InitializeTeleopDriveCommand(driveSubsystem, xSpeedSupplier, ySpeedSupplier, rotSpeedSupplier, rotationAngle);
+            return 0.0;
+        });
     }
 
-    private void InitializeTeleopDriveCommand(DriveSubsystem driveSubsystem,
+    /**
+     * Creates a new TeleopDriveCommand Command.
+     * 
+     * @param driveSubsystem   The drive subsystem.
+     * @param xSpeedSupplier   The x speed.
+     * @param ySpeedSupplier   The y speed.
+     * @param rotSpeedSupplier The angular speed.
+     * @param rotationAngle    The rotation angle.
+     */
+    public TeleopDriveCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier,
             DoubleSupplier rotSpeedSupplier,
-            Double rotationAngle) {
+            DoubleSupplier rotationAngle) {
         this.driveSubsystem = driveSubsystem;
         addRequirements(driveSubsystem);
         this.xSpeedSupplier = xSpeedSupplier;
@@ -107,8 +118,9 @@ public class TeleopDriveCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (rotationAngle != -1.0) {
-            rotationController.setGoal(rotationAngle);
+        double rotationGoal = rotationAngle.getAsDouble();
+        if (rotationGoal != -1.0) {
+            rotationController.setGoal(rotationGoal);
             driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
                     rotationController.calculate(Math.toRadians(driveSubsystem.getHeading())),
                     true, true);
