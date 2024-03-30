@@ -54,6 +54,12 @@ public final class Constants {
         SHUTTLE
     }
 
+    public enum StageSide {
+        LEFT,
+        RIGHT,
+        CENTRE
+    }
+
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
@@ -110,6 +116,11 @@ public final class Constants {
         public static final double kAutoDriveToNoteXSpeed = 0.4;
         public static final double kAutoDriveToNoteDistance = 1.0;
         public static final double kAutoDriveToNoteTime = 1.0;
+
+        public static final double kStageRedRightAngle = Math.toRadians(240); // 240 degrees
+        public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
+        public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
+        public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
     }
 
     public static final class ModuleConstants {
@@ -196,6 +207,8 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
+        public static final double CenterLineCrossThreshold = .2;
+
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
                 kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
@@ -235,19 +248,22 @@ public final class Constants {
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
+
+        public static final double kShuttleOverStageYaw = Units.degreesToRadians(323.5);
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.8;
+        public static final double kIndexerShooterSpeed = 1.0;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final int kIndexerCANID = 32;
     }
 
     public static final class SensorConstants {
-        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakDIO = 4;
         public static final int kBeamBreakLowerDIO = 3;
 
     }
@@ -255,6 +271,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorCANID = 40;
         public static final double kIntakeSpeedMotor = 1;
+        public static final double IntakeNoteCurrentThreshold = 20;
+
     }
 
     public static final class PivotConstants {
@@ -266,7 +284,7 @@ public final class Constants {
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
-        public static final double kPivotD = 0.20;
+        public static final double kPivotD = 0.1;
         public static final double kPivotFF = 0;
         public static final double kPivotMinOutput = -0.5;
         public static final double kPivotMaxOutput = 0.5;
@@ -284,8 +302,12 @@ public final class Constants {
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
         public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotShuttleOverStage = 227; // 218;
         public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
+        public static final double kPivotTrapFirstPosition = 211;
+        public static final double kPivotTrapDriveDistance = 0.4;
+        public static final double kPivotTrapDriveSPeed = -0.15;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
@@ -311,9 +333,10 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.9;
+        public static final double kClimberMotorSpeed = 0.65;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
+        public static final double kClimberBiasLimit = 0.3;
     }
 
     public static class VisionConstants {
