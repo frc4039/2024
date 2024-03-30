@@ -28,7 +28,8 @@ public class AdjustClimbAnalogLeftTriggerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        climberSubsystem.setClimbPercentOutput(percentOutput, bias.getAsDouble());
+        // climberSubsystem.setClimbPercentOutput(percentOutput, bias.getAsDouble());
+        climberSubsystem.setClimbSpeed(0.1);
     }
 
     // Called once the command ends or is interrupted.
