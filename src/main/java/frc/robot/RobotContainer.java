@@ -68,6 +68,7 @@ import frc.robot.commands.ReverseRobotCentricDriveCommand;
 import frc.robot.commands.RightRobotCentricDriveCommand;
 import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShuttleOverStageCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
@@ -143,6 +144,8 @@ public class RobotContainer {
     private final DoubleSupplier driverRightStickX = () -> MathUtil.applyDeadband(
             m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
             OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorRightStickX = () -> MathUtil.applyDeadband(m_operatorController.getRawAxis(
+            XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband);
     private final DoubleSupplier operatorLeftTriggerSupplier = () -> MathUtil.applyDeadband(
             m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value), OIConstants.kTriggerThreshold);
     private final DoubleSupplier operatorRightTriggerSupplier = () -> MathUtil.applyDeadband(
@@ -300,12 +303,14 @@ public class RobotContainer {
         // _______________OPERATOR BUTTONS_______________\\
         operatorDRightPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
+                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
                         new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorDLeftPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
+                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
                         new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
@@ -363,7 +368,12 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
                                 .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.SHUTTLE,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
+                                .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
+                                .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
+                                        driverRightStickX, ShooterConstants.kShuttleOverStageYaw))),
                         // ScoringState.CLIMB,
                         // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
                         // indexerSubsystem)),
@@ -384,11 +394,9 @@ public class RobotContainer {
         driverBButton.whileTrue(
                 new TeleopDriveCommand(
                         driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.RIGHT));
-        driverAButton.whileTrue(
-                new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
-                        new TeleopDriveCommand(driveSubsystem,
-                                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI),
-                        () -> this.scoringState == ScoringState.CLIMB));
+        driverAButton.onTrue(new ConditionalCommand(
+                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition),
+                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
