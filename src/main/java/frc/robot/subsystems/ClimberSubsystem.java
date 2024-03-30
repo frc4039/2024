@@ -40,9 +40,10 @@ public class ClimberSubsystem extends SubsystemBase {
         }
     }
 
-    public void setClimbSpeed(double motorSpeed, double bias) {
-        m_climberLeaderMotor.set(motorSpeed + bias * ClimberConstants.kClimberBiasLimit);
-        m_climberFollowerMotor.set(motorSpeed - bias * ClimberConstants.kClimberBiasLimit);
+    public void setClimbSpeed(double motorSpeedLeader, double motorSpeedFollower) {
+        m_climberLeaderMotor.set(motorSpeedLeader);
+        m_climberFollowerMotor.set(motorSpeedFollower);
+
     }
 
     public void stop() {
