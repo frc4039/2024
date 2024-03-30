@@ -39,6 +39,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.StageSide;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AmpScoreCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
@@ -53,6 +54,7 @@ import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
+import frc.robot.commands.LeftRobotCentricDriveCommand;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
@@ -60,6 +62,7 @@ import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.PreSpinShooter;
 import frc.robot.commands.ReverseRobotCentricDriveCommand;
+import frc.robot.commands.RightRobotCentricDriveCommand;
 import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShuttleShootCommand;
@@ -109,6 +112,9 @@ public class RobotContainer {
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+
+    private final JoystickButton driverStartButton = new JoystickButton(m_driverController,
+            XboxController.Button.kStart.value);
 
     private final JoystickButton operatorBackButton = new JoystickButton(m_operatorController,
             XboxController.Button.kBack.value);
@@ -167,6 +173,7 @@ public class RobotContainer {
     private final Trigger driverDPadUpTrigger = new Trigger(() -> m_driverController.getPOV() == 0);
     private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
+    private final Trigger driverDPadRightTrigger = new Trigger(() -> m_driverController.getPOV() == 90);
 
     private final SendableChooser<Command> autoChooser;
 
@@ -352,10 +359,12 @@ public class RobotContainer {
                                 DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
 
-        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
-        driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
+        driverXButton.whileTrue(
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.LEFT));
+        driverBButton.whileTrue(
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.RIGHT));
         driverAButton.whileTrue(
                 new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
                         new TeleopDriveCommand(driveSubsystem,
@@ -385,7 +394,12 @@ public class RobotContainer {
                 new ReverseRobotCentricDriveCommand(driveSubsystem));
         driverDDownPadTrigger.whileTrue(
                 new RobotCentricDriveCommand(driveSubsystem));
-        driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+        driverDPadLeftTrigger.whileTrue(
+                new LeftRobotCentricDriveCommand(driveSubsystem));
+        driverDPadRightTrigger.whileTrue(
+                new RightRobotCentricDriveCommand(driveSubsystem));
+
+        driverStartButton.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> ShooterConstants.kTrapShooterRPM));
     }
 
