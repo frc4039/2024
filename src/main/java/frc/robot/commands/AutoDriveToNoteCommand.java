@@ -59,9 +59,9 @@ public class AutoDriveToNoteCommand extends Command {
             // stop driving if Crossing Centerline or motor Current indicates note in intake
             if (intakeSubsystem.getOutputCurrent() > IntakeConstants.IntakeNoteCurrentThreshold
                     || (this.allianceColour.isPresent() && this.allianceColour.get() == Alliance.Blue
-                            && driveSubsystem.getPoseXValue() > 4.25 + AutoConstants.CenterLineCrossThreshold)
+                            && driveSubsystem.getPoseXValue() > 8.25 + AutoConstants.CenterLineCrossThreshold)
                     || (this.allianceColour.isPresent() && this.allianceColour.get() == Alliance.Red
-                            && driveSubsystem.getPoseXValue() < 4.25 - AutoConstants.CenterLineCrossThreshold)) {
+                            && driveSubsystem.getPoseXValue() < 8.25 - AutoConstants.CenterLineCrossThreshold)) {
                 driveSubsystem.drive(0, 0, 0, false, false);
                 stopDriving = true;
             } else {
