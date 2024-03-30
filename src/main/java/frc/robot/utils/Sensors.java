@@ -23,10 +23,4 @@ public class Sensors {
     public static boolean LowerBeamBreakerIsBroken() {
         return !m_kBeamBreakLowerDIO.get();
     }
-
-    public static double GetLimeLightCounter(String tableName) {
-        NetworkTable photonVisionTable = NetworkTableInstance.getDefault().getTable("photonvision");
-        return photonVisionTable.getSubTable(tableName)
-                .getEntry("hearbeat").getDouble(0);
-    }
 }

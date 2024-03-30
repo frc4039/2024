@@ -251,8 +251,6 @@ public class RobotContainer {
                 .withPosition(1, 1);
         mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
         mainTab.addBoolean("Has Note", () -> Sensors.BeamBreakerIsBroken()).withPosition(1, 2);
-        mainTab.addDouble("LL Left Count", () -> Sensors.GetLimeLightCounter("LimelightLeftBack")).withPosition(0, 3);
-        mainTab.addDouble("LL Right Count", () -> Sensors.GetLimeLightCounter("LimelightRightBack")).withPosition(1, 3);
         mainTab.addCamera("Note Cam", "NoteFeed",
                 "mjpg:http://wpilibpi.local:1182/?action=stream")
                 .withProperties(Map.of("showControls", false))
