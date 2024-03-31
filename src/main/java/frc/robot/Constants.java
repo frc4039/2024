@@ -252,7 +252,8 @@ public final class Constants {
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
 
-        public static final double kShuttleOverStageYaw = Units.degreesToRadians(323.5);
+        public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
+        public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
     }
 
     public static final class IndexerConstants {

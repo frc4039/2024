@@ -391,7 +391,22 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
                                 .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
                                 .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
-                                        driverRightStickX, ShooterConstants.kShuttleOverStageYaw))),
+                                        driverRightStickX,
+
+                                        () -> {
+                                            Optional<Alliance> currentAlliance = DriverStation.getAlliance();
+                                            if (currentAlliance.isPresent()) {
+                                                switch (currentAlliance.get()) {
+                                                    case Red:
+                                                        return ShooterConstants.kShuttleOverStageYawRed;
+                                                    case Blue:
+                                                        return ShooterConstants.kShuttleOverStageYawBlue;
+                                                    default:
+                                                        return -1.0;
+                                                }
+                                            }
+                                            return -1.0;
+                                        }))),
                         // ScoringState.CLIMB,
                         // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
                         // indexerSubsystem)),
