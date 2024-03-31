@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -191,7 +192,7 @@ public class RobotContainer {
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
     private final Trigger driverDPadRightTrigger = new Trigger(() -> m_driverController.getPOV() == 90);
 
-    private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
     private final SendableChooser<Command> testSelector = new SendableChooser<Command>();
 
     public RobotContainer() {
@@ -256,7 +257,10 @@ public class RobotContainer {
 
         configureBindings();
 
-        autoChooser = AutoBuilder.buildAutoChooser();
+        // autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.addOption("SPEAKER 3216 Blue", AutoBuilder.buildAuto("SPEAKER 3216 Blue"));
+        autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));
+
         mainTab.add("Auto Chooser", autoChooser)
                 .withPosition(0, 0)
                 .withSize(2, 1);
