@@ -30,12 +30,12 @@ public class PivotAngleSubsystem extends SubsystemBase {
 
     // Motion Profile. Units are degrees per second and degrees per second per
     // second.
-    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(5.0,
-            5.0);
+    private final TrapezoidProfile.Constraints m_constraints = new TrapezoidProfile.Constraints(200.0,
+            900.0);
     private final TrapezoidProfile m_profile = new TrapezoidProfile(m_constraints);
 
     // Feedforward is used to match the profile's desired velocity.
-    private final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(0, 0, 0);
+    private final SimpleMotorFeedforward m_feedforward = new SimpleMotorFeedforward(0.204, 0.0447, 0.00279);
 
     // Goal and current setpoint for following the motion profile.
     private TrapezoidProfile.State m_setpoint = null;
@@ -80,7 +80,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
         hw.registerDevice(this, m_pivotFollowerSparkMax);
 
         ShuffleboardTab pivotAngleTab = Shuffleboard.getTab("PivotAngle");
-        pivotAngleTab.addDouble("encoder", () -> m_pivotEncoder.getPosition());
+        pivotAngleTab.addDouble("encoder", this::getPitch);
+        pivotAngleTab.addDouble("velocity", this::getPitchAngularVelocity);
+        pivotAngleTab.addDouble("voltage", () -> m_pivotSparkMax.getAppliedOutput() * m_pivotSparkMax.getBusVoltage());
         pivotAngleTab.addDouble("built-in encoder", () -> m_pivotSparkMax.getEncoder().getPosition());
         pivotAngleTab.add("Subsystem", this)
                 .withPosition(7, 0)
@@ -135,17 +137,17 @@ public class PivotAngleSubsystem extends SubsystemBase {
      */
     public SysIdRoutine getSysId() {
         return new SysIdRoutine(
-                new SysIdRoutine.Config(),
+                new SysIdRoutine.Config(Units.Volts.per(Units.Second).of(0.5), Units.Volts.of(3.0), null),
                 new SysIdRoutine.Mechanism(
                         (voltage) -> {
                             m_pivotSparkMax.setVoltage(voltage.in(Units.Volts));
                         },
                         (log) -> {
                             log.motor("pivotLeader")
-                                    .voltage(Units.Volts.of(m_pivotSparkMax.get() * m_pivotSparkMax.getBusVoltage()))
-                                    .angularPosition(Units.Degrees.of(getPitch()))
-                                    .angularVelocity(Units.DegreesPerSecond.of(getPitchAngularVelocity()))
-                                    .current(Units.Amps.of(m_pivotSparkMax.getOutputCurrent()));
+                                    .voltage(Units.Volts
+                                            .of(m_pivotSparkMax.getAppliedOutput() * m_pivotSparkMax.getBusVoltage()))
+                                    .angularPosition(Units.Rotations.of(getPitch()))
+                                    .angularVelocity(Units.RotationsPerSecond.of(getPitchAngularVelocity()));
                         }, this));
     }
 }
