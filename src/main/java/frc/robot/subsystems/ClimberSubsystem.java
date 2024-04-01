@@ -7,7 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -19,8 +18,8 @@ public class ClimberSubsystem extends SubsystemBase {
 
     private CANSparkMax m_climberLeaderMotor;
     private CANSparkMax m_climberFollowerMotor;
-    private final SparkPIDController m_leftMotorController;
-    private final SparkPIDController m_rightMotorController;
+    // private final SparkPIDController m_leftMotorController;
+    // private final SparkPIDController m_rightMotorController;
     private boolean debugging = true;
 
     // private Servo m_trapActuator;
@@ -32,8 +31,8 @@ public class ClimberSubsystem extends SubsystemBase {
         m_climberFollowerMotor.burnFlash();
         m_climberLeaderMotor.burnFlash();
 
-        m_leftMotorController = m_climberFollowerMotor.getPIDController();
-        m_rightMotorController = m_climberLeaderMotor.getPIDController();
+        // m_leftMotorController = m_climberFollowerMotor.getPIDController();
+        // m_rightMotorController = m_climberLeaderMotor.getPIDController();
 
         /*
          * m_leftMotorController.setP(ClimberConstants.kClimberP);

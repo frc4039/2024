@@ -136,7 +136,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.076;
+        public static final double kWheelDiameterInches = 3.0;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -207,7 +207,7 @@ public final class Constants {
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
 
-        public static final double CenterLineCrossThreshold = .2;
+        public static final double CenterLineCrossThreshold = .25;
 
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
@@ -252,7 +252,8 @@ public final class Constants {
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
 
-        public static final double kShuttleOverStageYaw = Units.degreesToRadians(323.5);
+        public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
+        public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
     }
 
     public static final class IndexerConstants {
