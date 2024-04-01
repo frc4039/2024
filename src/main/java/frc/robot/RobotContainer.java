@@ -479,9 +479,9 @@ public class RobotContainer {
                                             return -1.0;
                                         })),
                         ScoringState.HPLoad,
-                        new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem).asProxy()
-                                .alongWith(new PivotAngleHPCommand(pivotAngleSubsystem,
-                                        PivotConstants.kPivotHPLoadPosition))),
+                        new PivotAngleHPCommand(pivotAngleSubsystem,
+                                PivotConstants.kPivotHPLoadPosition)
+                                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem).asProxy())),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
