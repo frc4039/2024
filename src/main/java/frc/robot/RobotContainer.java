@@ -47,7 +47,7 @@ import frc.robot.Constants.StageSide;
 import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AdjustClimbAnalogLeftTriggerCommand;
 import frc.robot.commands.AdjustClimbAnalogRightTriggerCommand;
-import frc.robot.commands.AmpScoreCommand;
+import frc.robot.commands.AmpScoreSmartCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoPreSpinIntake;
 import frc.robot.commands.AutoPreSpinShooter;
@@ -510,8 +510,8 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
-        driverRightBumper.whileTrue(
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+        driverRightBumper.onTrue(
+                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem).withTimeout(10));
 
         driverLeftBumper.whileTrue(new PivotAngleHPCommand(pivotAngleSubsystem,
                 PivotConstants.kPivotHPLoadPosition)
