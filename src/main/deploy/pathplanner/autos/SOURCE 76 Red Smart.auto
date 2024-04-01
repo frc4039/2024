@@ -38,19 +38,13 @@
         {
           "type": "named",
           "data": {
-            "name": "zSource876BlueStep3"
+            "name": "zSource876RedStep3"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "zSource876BlueStep4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "VB-SOURCEShot-6"
           }
         }
       ]

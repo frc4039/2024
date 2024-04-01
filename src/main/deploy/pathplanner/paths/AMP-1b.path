@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.087860467632523,
-        "y": 6.862550215827963
+        "x": 2.192332373252477,
+        "y": 6.991369417831561
       },
       "isLocked": false,
       "linkedName": "AMP 1"
     },
     {
       "anchor": {
-        "x": 8.041956082821393,
-        "y": 7.477437776485861
+        "x": 2.62197994481459,
+        "y": 7.2503757543127625
       },
       "prevControl": {
-        "x": 6.521265450246839,
-        "y": 7.477437776485861
+        "x": 2.356284084893418,
+        "y": 7.096766946743594
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4"
+      "linkedName": "Note1"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 40.661510310775384,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "AMP 145 Blue",
-  "previewStartingState": null,
+  "previewStartingState": {
+    "rotation": 42.273689006093704,
+    "velocity": 0
+  },
   "useDefaultConstraints": false
 }

@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "AMP-1"
+                  "pathName": "AMP-1a"
                 }
               }
             ]
@@ -37,9 +37,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "deadline",
           "data": {
-            "name": "IntakeIndexShootCommand"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeIndexShootCommand"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "AMP-1b"
+                }
+              }
+            ]
           }
         },
         {
@@ -69,6 +82,6 @@
       ]
     }
   },
-  "folder": "Amp145 Blue Smart",
+  "folder": "Amp 145 Blue Smart",
   "choreoAuto": false
 }
