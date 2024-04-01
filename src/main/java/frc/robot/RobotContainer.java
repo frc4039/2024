@@ -508,8 +508,8 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
-        driverRightBumper.whileTrue(
-                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+        driverRightBumper.onTrue(
+                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem).withTimeout(6));
 
         driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
                 AutoConstants.pathFindingAmpPath,
