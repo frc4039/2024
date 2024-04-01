@@ -509,7 +509,7 @@ public class RobotContainer {
                 () -> scoringState));
 
         driverRightBumper.onTrue(
-                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem).withTimeout(6));
+                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem).withTimeout(10));
 
         driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
                 AutoConstants.pathFindingAmpPath,
