@@ -75,6 +75,8 @@ public class DriveSubsystem extends SubsystemBase {
     private SlewRateLimiter m_rotLimiter = new SlewRateLimiter(DriveConstants.kRotationalSlewRate);
     private double m_prevTime = WPIUtilJNI.now() * 1e-6;
 
+    public static boolean hasTwoTags = false;
+    public static boolean hasTwoTags2 = false;
     // Driver station position
     private Field2d fieldDisplay = new Field2d();
 
@@ -189,6 +191,7 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Left number of tags", numberOfTags1);
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
+                hasTwoTags = true;
                 if (ambiguity < 0.2) {
                     fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                     // check rotation compared to current heading. Accept if within threshold
@@ -205,6 +208,8 @@ public class DriveSubsystem extends SubsystemBase {
                 m_poseEstimator.addVisionMeasurement(
                         camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                         m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+
+                hasTwoTags = false;
             }
 
         }
@@ -219,7 +224,7 @@ public class DriveSubsystem extends SubsystemBase {
                 SmartDashboard.putNumber("Right number of tags", numberOfTags2);
                 if (numberOfTags2 < 2.0) {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
-
+                    hasTwoTags2 = true;
                     if (ambiguity < 0.2) {
                         fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
                         // check rotation compared to current heading. Accept if within threshold
@@ -233,7 +238,7 @@ public class DriveSubsystem extends SubsystemBase {
                     }
                 } else {
                     fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
-
+                    hasTwoTags2 = false;
                     m_poseEstimator.addVisionMeasurement(
                             camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                             m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
@@ -486,5 +491,13 @@ public class DriveSubsystem extends SubsystemBase {
     /** Return x Pose Value */
     public double getPoseXValue() {
         return this.getPose().getX();
+    }
+
+    public static boolean hasTwoTags() {
+        if (numberOfTags1 == 2 || hasTwoTags2) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
