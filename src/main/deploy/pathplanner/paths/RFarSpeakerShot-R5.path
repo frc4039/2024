@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.994481097577647,
+        "y": 7.060636456848724
+      },
+      "isLocked": false,
+      "linkedName": "RFarSpeakerShot"
+    },
+    {
+      "anchor": {
+        "x": 7.965774790322761,
+        "y": 5.8788399459823175
+      },
+      "prevControl": {
+        "x": 5.535261274203137,
+        "y": 7.416061171972802
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeNoteCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -15.123406556997303,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "AMP 145 Red",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

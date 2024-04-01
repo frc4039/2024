@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
@@ -198,7 +200,7 @@ public class RobotContainer {
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
     private final Trigger driverDPadRightTrigger = new Trigger(() -> m_driverController.getPOV() == 90);
 
-    private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
     private final SendableChooser<Command> testSelector = new SendableChooser<Command>();
 
     public RobotContainer() {
@@ -245,25 +247,81 @@ public class RobotContainer {
                 new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
                         AutoBuilder.buildAuto("zSource876Blue4B"),
                         () -> indexerSubsystem.hasNote()));
-        /*
-         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
-         * NamedCommands.registerCommand("zSource876RedStep2",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
-         * AutoBuilder.buildAuto("zSource876Red2B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep3",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
-         * AutoBuilder.buildAuto("zSource876Red3B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep4",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
-         * AutoBuilder.buildAuto("zSource876Red4B"),
-         * () -> indexerSubsystem.hasNote()));
-         */
+
+        // Register Source876Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSource876RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+                        AutoBuilder.buildAuto("zSource876Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+                        AutoBuilder.buildAuto("zSource876Red3B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep4",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+                        AutoBuilder.buildAuto("zSource876Red4B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Blue Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Blue2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Red2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue2A"),
+                        AutoBuilder.buildAuto("zAmp145Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145BlueStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue3A"),
+                        AutoBuilder.buildAuto("zAmp145Blue3B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red2A"),
+                        AutoBuilder.buildAuto("zAmp145Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red3A"),
+                        AutoBuilder.buildAuto("zAmp145Red3B"),
+                        () -> indexerSubsystem.hasNote()));
 
         configureBindings();
 
-        autoChooser = AutoBuilder.buildAutoChooser();
+        // autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        autoChooser.addOption("SPEAKER 3216 Blue Smart", new PathPlannerAuto("SPEAKER 3216 Blue Smart"));
+        autoChooser.addOption("SPEAKER 3216 Red Smart", new PathPlannerAuto("SPEAKER 3216 Red Smart"));
+
+        autoChooser.addOption("SOURCE 876 Blue Smart", new PathPlannerAuto("SOURCE 876 Blue Smart"));
+        autoChooser.addOption("SOURCE 876 Red Smart", new PathPlannerAuto("SOURCE 876 Red Smart"));
+
+        autoChooser.addOption("SOURCE 76 Blue Smart", new PathPlannerAuto("SOURCE 76 Blue Smart"));
+        autoChooser.addOption("SOURCE 76 Red Smart", new PathPlannerAuto("SOURCE 76 Red Smart"));
+
+        autoChooser.addOption("AMP 145 Blue Smart", new PathPlannerAuto("AMP 145 Blue Smart"));
+        autoChooser.addOption("AMP 145 Red Smart", new PathPlannerAuto("AMP 145 Red Smart"));
+
+        autoChooser.addOption("Disrupt Centre Auto", new PathPlannerAuto("Disrupt Centre Auto"));
+        autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
+
+        autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));
+        autoChooser.addOption("SPEAKER 3216 Red", new PathPlannerAuto("SPEAKER 3216 Red"));
+        autoChooser.addOption("SOURCE 876 Blue", new PathPlannerAuto("SOURCE 876 Blue"));
+        autoChooser.addOption("SOURCE 876 Red", new PathPlannerAuto("SOURCE 876 Red"));
+        autoChooser.addOption("SOURCE 76 Blue", new PathPlannerAuto("SOURCE 76 Blue"));
+        autoChooser.addOption("SOURCE 76 Red", new PathPlannerAuto("SOURCE 76 Red"));
+        autoChooser.addOption("AMP 145 Blue", new PathPlannerAuto("AMP 145 Blue"));
+        autoChooser.addOption("AMP 145 Red", new PathPlannerAuto("AMP 145 Red"));
+
         mainTab.add("Auto Chooser", autoChooser)
                 .withPosition(0, 0)
                 .withSize(2, 1);

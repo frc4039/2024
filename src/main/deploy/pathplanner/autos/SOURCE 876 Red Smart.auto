@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.343425149813263,
+      "y": 4.19586261394745
+    },
+    "rotation": -58.29857033049428
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "VR RSOURCE-R8"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zSource876RedStep2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zSource876RedStep3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zSource876RedStep4"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Source 876 Red Smart",
+  "choreoAuto": false
+}

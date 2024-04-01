@@ -97,6 +97,24 @@
           "data": {
             "name": "IntakeNoteCommand"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
         }
       ]
     }
