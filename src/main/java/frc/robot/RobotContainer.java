@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
@@ -258,8 +259,30 @@ public class RobotContainer {
         configureBindings();
 
         // autoChooser = AutoBuilder.buildAutoChooser();
-        autoChooser.addOption("SPEAKER 3216 Blue", AutoBuilder.buildAuto("SPEAKER 3216 Blue"));
+        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        autoChooser.addOption("SPEAKER 3216 Blue Smart", new PathPlannerAuto("SPEAKER 3216 Blue Smart"));
+        autoChooser.addOption("SPEAKER 3216 Red Smart", new PathPlannerAuto("SPEAKER 3216 Red Smart"));
+
+        autoChooser.addOption("SOURCE 876 Blue Smart", new PathPlannerAuto("SOURCE 876 Blue Smart"));
+        autoChooser.addOption("SOURCE 876 Red Smart", new PathPlannerAuto("SOURCE 876 Red Smart"));
+
+        autoChooser.addOption("SOURCE 76 Blue Smart", new PathPlannerAuto("SOURCE 76 Blue Smart"));
+        autoChooser.addOption("SOURCE 76 Red Smart", new PathPlannerAuto("SOURCE 76 Red Smart"));
+
+        autoChooser.addOption("AMP 145 Blue Smart", new PathPlannerAuto("AMP 145 Blue Smart"));
+        autoChooser.addOption("AMP 145 Red Smart", new PathPlannerAuto("AMP 145 Red Smart"));
+
+        autoChooser.addOption("Disrupt Centre Auto", new PathPlannerAuto("Disrupt Centre Auto"));
+        autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
+
         autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));
+        autoChooser.addOption("SPEAKER 3216 Red", new PathPlannerAuto("SPEAKER 3216 Red"));
+        autoChooser.addOption("SOURCE 876 Blue", new PathPlannerAuto("SOURCE 876 Blue"));
+        autoChooser.addOption("SOURCE 876 Red", new PathPlannerAuto("SOURCE 876 Red"));
+        autoChooser.addOption("SOURCE 76 Blue", new PathPlannerAuto("SOURCE 76 Blue"));
+        autoChooser.addOption("SOURCE 76 Red", new PathPlannerAuto("SOURCE 76 Red"));
+        autoChooser.addOption("AMP 145 Blue", new PathPlannerAuto("AMP 145 Blue"));
+        autoChooser.addOption("AMP 145 Red", new PathPlannerAuto("AMP 145 Red"));
 
         mainTab.add("Auto Chooser", autoChooser)
                 .withPosition(0, 0)
