@@ -428,7 +428,8 @@ public class RobotContainer {
                 new TeleopDriveCommand(
                         driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.RIGHT));
         driverAButton.onTrue(new ConditionalCommand(
-                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition),
+                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition)
+                        .withTimeout(5.0),
                 new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
