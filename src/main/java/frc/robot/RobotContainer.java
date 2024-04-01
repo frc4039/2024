@@ -36,7 +36,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -477,11 +476,7 @@ public class RobotContainer {
                                                 }
                                             }
                                             return -1.0;
-                                        })),
-                        ScoringState.HPLoad,
-                        new PivotAngleHPCommand(pivotAngleSubsystem,
-                                PivotConstants.kPivotHPLoadPosition)
-                                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem).asProxy())),
+                                        }))),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
@@ -518,10 +513,9 @@ public class RobotContainer {
         driverRightBumper.whileTrue(
                 new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
 
-        driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
-                AutoConstants.pathFindingAmpPath,
-                AutoConstants.pathFindingConstraints,
-                0.0));
+        driverLeftBumper.whileTrue(new PivotAngleHPCommand(pivotAngleSubsystem,
+                PivotConstants.kPivotHPLoadPosition)
+                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem)));
 
         driverDPadUpTrigger.whileTrue(
                 new ReverseRobotCentricDriveCommand(driveSubsystem));
