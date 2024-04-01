@@ -5,41 +5,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.IndexerConstants;
-import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class IndexerCommand extends Command {
-    private IndexerSubsystem indexer;
+public class ShuttleOverStageCommand extends Command {
     private ShooterSubsystem shooter;
-    private double targetSpeed;
 
-    /** Creates a new IndexerCommand. */
-    public IndexerCommand(IndexerSubsystem indexer, ShooterSubsystem shooter, double targetSpeed) {
-        this.indexer = indexer;
+    /** Creates a new SubwooferShootCommand. */
+    public ShuttleOverStageCommand(ShooterSubsystem shooter) {
         this.shooter = shooter;
-        this.targetSpeed = targetSpeed;
-
-        addRequirements(indexer);
-    }
-
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
+        addRequirements(shooter);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (Math.abs(shooter.getShooterSpeed()) >= targetSpeed) {
-            indexer.start(IndexerConstants.kIndexerShooterSpeed);
-        }
+        shooter.shooterPID(ShooterConstants.kShuttleOverStageRPM);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        indexer.stop();
+        shooter.shooterSpeedControl(0, 0, 0);
     }
 
     // Returns true when the command should end.

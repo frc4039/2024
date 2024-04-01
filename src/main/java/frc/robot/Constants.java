@@ -248,8 +248,11 @@ public final class Constants {
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 800;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
+
+        public static final double kShuttleOverStageYaw = Units.degreesToRadians(323.5);
     }
 
     public static final class IndexerConstants {
@@ -277,7 +280,7 @@ public final class Constants {
         public static final int kPivotFollowerCANId = 51;
 
         public static final double kPivotEncoderPositionFactor = 360.0;
-        public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
+        public static final double kPivotEncoderVelocityFactor = 360.0;
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
@@ -299,8 +302,12 @@ public final class Constants {
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
         public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotShuttleOverStage = 227; // 218;
         public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
+        public static final double kPivotTrapFirstPosition = 211;
+        public static final double kPivotTrapDriveDistance = 0.4;
+        public static final double kPivotTrapDriveSPeed = -0.15;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
@@ -326,9 +333,10 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.6;
+        public static final double kClimberMotorSpeed = 0.65;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
+        public static final double kClimberBiasLimit = 0.3;
     }
 
     public static class VisionConstants {

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -28,6 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
                 .withPosition(7, 1)
                 .withSize(1, 1);
+
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
