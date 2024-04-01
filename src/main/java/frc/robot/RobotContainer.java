@@ -442,27 +442,22 @@ public class RobotContainer {
                         ScoringState.HIGH,
                         new SpeakerShootParallelCommandGroup(
                                 driveSubsystem, shooterSubsystem, indexerSubsystem, pivotAngleSubsystem,
-                                driverLeftStickY, driverLeftStickX)
-                                .asProxy(),
+                                driverLeftStickY, driverLeftStickX),
                         ScoringState.LOW,
                         new TeleopDriveCommand(driveSubsystem,
-                                driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI)
-                                .asProxy(),
+                                driverLeftStickY, driverLeftStickX, driverRightStickX, 0.5 * Math.PI),
                         ScoringState.INTAKE,
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed)
-                                .asProxy(),
+                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kDriveToNoteXSpeed),
                         ScoringState.SubwooferShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotSubwooferPosition)
                                 .alongWith(new SubwooferShootCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))
-                                .asProxy(),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
                         ScoringState.PodiumShoot,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
                                 .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))
-                                .asProxy(),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
                         ScoringState.SHUTTLE,
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
                                 .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
@@ -482,13 +477,11 @@ public class RobotContainer {
                                                 }
                                             }
                                             return -1.0;
-                                        }))
-                                .asProxy(),
+                                        })),
                         ScoringState.HPLoad,
                         new PivotAngleHPCommand(pivotAngleSubsystem,
                                 PivotConstants.kPivotHPLoadPosition)
-                                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem))
-                                .asProxy()),
+                                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem).asProxy())),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
