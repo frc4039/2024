@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
@@ -64,6 +63,7 @@ import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.LeftRobotCentricDriveCommand;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.PivotAngleHPCommand;
 import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
@@ -399,8 +399,8 @@ public class RobotContainer {
                                 .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
                                         driverRightStickX, ShooterConstants.kShuttleOverStageYaw)),
                         ScoringState.HPLoad,
-                        Commands.deadline(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem),
-                                new PivotAngleCommand(pivotAngleSubsystem,
+                        new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem).asProxy()
+                                .alongWith(new PivotAngleHPCommand(pivotAngleSubsystem,
                                         PivotConstants.kPivotHPLoadPosition))),
                         () -> scoringState));
 
