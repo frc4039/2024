@@ -80,10 +80,11 @@ public class PivotAngleSubsystem extends SubsystemBase {
         hw.registerDevice(this, m_pivotFollowerSparkMax);
 
         ShuffleboardTab pivotAngleTab = Shuffleboard.getTab("PivotAngle");
-        pivotAngleTab.addDouble("encoder", this::getPitch);
+        pivotAngleTab.addDouble("encoder angle", this::getPitch);
         pivotAngleTab.addDouble("velocity", this::getPitchAngularVelocity);
         pivotAngleTab.addDouble("voltage", () -> m_pivotSparkMax.getAppliedOutput() * m_pivotSparkMax.getBusVoltage());
         pivotAngleTab.addDouble("built-in encoder", () -> m_pivotSparkMax.getEncoder().getPosition());
+        pivotAngleTab.addDouble("Desired Angle", this::getDesiredAngle);
         pivotAngleTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
@@ -92,6 +93,14 @@ public class PivotAngleSubsystem extends SubsystemBase {
     /** Rotate to the desired angle using a motion profile. */
     public void setDesiredAngle(double goalAngle) {
         m_goal = new TrapezoidProfile.State(goalAngle, 0);
+    }
+
+    public double getDesiredAngle() {
+        if (m_goal != null) {
+            return m_goal.position;
+        } else {
+            return -1;
+        }
     }
 
     public double getPitch() {

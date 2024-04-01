@@ -29,6 +29,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -119,6 +120,9 @@ public class DriveSubsystem extends SubsystemBase {
                 .withSize(1, 1);
         driveTab.addDouble("Note Angle", () -> getNoteAngle())
                 .withPosition(4, 0)
+                .withSize(1, 1);
+        driveTab.addDouble("Battery Voltage", () -> RobotController.getBatteryVoltage())
+                .withPosition(5, 0)
                 .withSize(1, 1);
 
         ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
