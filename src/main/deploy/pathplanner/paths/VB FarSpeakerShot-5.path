@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.9265152267645393,
+        "y": 5.559302880686202
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.994481097577647,
+        "y": 7.060636456848724
+      },
+      "isLocked": false,
+      "linkedName": "FarSpeakerShot"
+    },
+    {
+      "anchor": {
+        "x": 7.542614357955989,
+        "y": 6.231602281386381
+      },
+      "prevControl": {
+        "x": 5.112100841836365,
+        "y": 7.768823507376866
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 3.5,
+    "rotation": -27.597295868643698,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "AMP 145 Blue",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

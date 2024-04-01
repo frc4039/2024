@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.1271734526350645,
-        "y": 1.159372818032369
+        "x": 5.807467614935229,
+        "y": 0.7369709284873124
       },
       "isLocked": false,
       "linkedName": "SOURCEShot"
     },
     {
       "anchor": {
-        "x": 7.427076309216811,
-        "y": 3.6069376561007047
+        "x": 7.602738857403534,
+        "y": 3.4195642713682
       },
       "prevControl": {
-        "x": 5.7524266831700555,
-        "y": 0.8197585582047061
+        "x": 6.4495674596329104,
+        "y": 0.3257076414295478
       },
       "nextControl": null,
       "isLocked": false,
@@ -36,7 +36,25 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.65,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.5,
     "maxAcceleration": 3.5,
@@ -44,7 +62,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
+    "velocity": 3.5,
     "rotation": 46.53861430431677,
     "rotateFast": false
   },

@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.429338570844387,
+      "y": 6.493174186507518
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPreSpinShooter"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RAMP-R1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "VR 1-4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zAmp145RedStep2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zAmp145RedStep3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Amp 145 Red Smart",
+  "choreoAuto": false
+}
