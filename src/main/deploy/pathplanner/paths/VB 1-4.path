@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.969826478882628,
-        "y": 6.862550215827963
+        "x": 2.8715608929078047,
+        "y": 7.249007821838753
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.087860467632523,
-        "y": 6.862550215827963
+        "x": 4.124620403306426,
+        "y": 7.249007821838753
       },
       "isLocked": false,
-      "linkedName": "AMP 1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.206779504468099,
-        "y": 6.968573209873693
+        "x": 7.438787145762593,
+        "y": 7.541778735483292
       },
       "prevControl": {
-        "x": 5.994042533539612,
-        "y": 6.530122151153393
+        "x": 6.314546837367567,
+        "y": 7.36611618729657
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoPreSpinShooter"
+                "name": "AutoPreSpinIntake"
               }
             }
           ]
@@ -50,14 +50,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 3.5,
-    "rotation": 24.943905263424615,
+    "rotation": 14.743562836470703,
     "rotateFast": false
   },
   "reversed": false,

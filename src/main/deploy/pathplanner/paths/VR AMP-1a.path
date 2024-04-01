@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 7.249007821838753
+        "x": 1.429338570844387,
+        "y": 6.493174186507518
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.032082573256056,
-        "y": 7.090419141025028
+        "x": 1.6955992293244802,
+        "y": 6.493174186507518
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.64958220358666,
-        "y": 6.640044321458116
+        "x": 2.0752240077946618,
+        "y": 6.8391285427364
       },
       "prevControl": {
-        "x": 7.5096510146333735,
-        "y": 6.80796174820206
+        "x": 1.850724002565912,
+        "y": 6.676019741400288
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp1Mid"
     }
   ],
   "rotationTargets": [],
@@ -37,14 +37,7 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoPreSpinIntake"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     }
@@ -56,15 +49,15 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
-    "rotation": -56.72511201516518,
+    "velocity": 0,
+    "rotation": 28.072486935853117,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AMP 145 Blue",
+  "folder": "AMP 145 Red",
   "previewStartingState": {
-    "rotation": 5.355825042855207,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
