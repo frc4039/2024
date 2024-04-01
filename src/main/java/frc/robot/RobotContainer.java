@@ -100,8 +100,15 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private ScoringState scoringState = ScoringState.SHUTTLE;
 
+    // We need to keep the BlinkinSubsystem reference here- even though it's not
+    // used in RobotContainer so that the subsystem gets loaded into memory for its
+    // periodic() to run and operate the LED's.
+    // The suppress warnings line applies only the the ony line after, and removes
+    // the visual clue of having a potential error that's actually not an error, to
+    // improve code readability.
     @SuppressWarnings("unused")
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
+
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
