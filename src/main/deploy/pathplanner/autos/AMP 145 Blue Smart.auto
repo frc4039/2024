@@ -12,22 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "StartPivot"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "AMP-1a"
-                }
-              }
-            ]
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AMP-1a"
           }
         },
         {

@@ -3,45 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.429338570844387,
-        "y": 6.493174186507518
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 1.6955992293244802,
-        "y": 6.493174186507518
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 2.0752240077946618,
         "y": 6.8391285427364
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.2977299021645106,
+        "y": 6.967947744739998
+      },
+      "isLocked": false,
+      "linkedName": "Amp1Mid"
+    },
+    {
+      "anchor": {
+        "x": 2.62197994481459,
+        "y": 7.2503757543127625
+      },
       "prevControl": {
-        "x": 1.850724002565912,
-        "y": 6.676019741400288
+        "x": 2.356284084893418,
+        "y": 7.096766946743594
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Amp1Mid"
+      "linkedName": "Note1"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": []
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.5,
     "maxAcceleration": 2.5,
@@ -50,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 28.072486935853117,
+    "rotation": 35.079957562648644,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AMP 145 Blue",
+  "folder": "AMP 145 Red",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 42.273689006093704,
     "velocity": 0
   },
   "useDefaultConstraints": false
