@@ -55,6 +55,10 @@ public class ClimberSubsystem extends SubsystemBase {
             climberTab.addDouble("Right Motor Current", () -> m_climberLeaderMotor.getOutputCurrent());
             climberTab.addDouble("Left Motor Current", () -> m_climberFollowerMotor.getOutputCurrent());
         }
+
+        ShuffleboardTab climberTab = Shuffleboard.getTab("Climber");
+        climberTab.addDouble("Climber Left Motor RPM", () -> m_climberFollowerMotor.getEncoder().getVelocity());
+        climberTab.addDouble("Climber Right Motor RPM", () -> m_climberLeaderMotor.getEncoder().getVelocity());
     }
 
     public void setClimbSpeed(double motorSpeedLeader, double motorSpeedFollower) {

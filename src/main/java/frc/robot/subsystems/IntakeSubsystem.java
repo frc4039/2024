@@ -29,6 +29,9 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
                 .withPosition(7, 1)
                 .withSize(1, 1);
+        intakeTab.addDouble("RPM", this::getIntakeRPM)
+                .withPosition(7, 2)
+                .withSize(1, 1);
 
     }
 
@@ -42,5 +45,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public double getOutputCurrent() {
         return m_intakeMotor.getOutputCurrent();
+    }
+
+    public double getIntakeRPM() {
+        return m_intakeMotor.getEncoder().getVelocity();
     }
 }
