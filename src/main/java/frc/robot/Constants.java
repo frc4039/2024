@@ -306,7 +306,7 @@ public final class Constants {
         public static final double kPivotShuttleOverStage = 227; // 218;
         public static final double kPivotPodiumPosition = 235;
         public static final double kPivotTrapPosition = 170; // 162;
-        public static final double kPivotHPLoadPosition = 170;
+        public static final double kPivotHPLoadPosition = 173;
         public static final double kPivotTrapFirstPosition = 211;
         public static final double kPivotTrapDriveDistance = 0.4;
         public static final double kPivotTrapDriveSPeed = -0.15;
