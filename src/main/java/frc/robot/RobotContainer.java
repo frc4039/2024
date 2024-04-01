@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ProxyCommand;
@@ -55,6 +56,7 @@ import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.HumanPlayerIntakeCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeIndexShootCommandGroup;
@@ -323,16 +325,24 @@ public class RobotContainer {
                 new ConditionalCommand(
                         new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed,
                                 operatorRightStickX),
-                        new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
+                        new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
+        operatorDRightPadTrigger.onTrue(
+                new ConditionalCommand(
+                        new InstantCommand(() -> this.scoringState = ScoringState.HPLoad),
+                        new InstantCommand(),
+                        () -> this.scoringState != ScoringState.CLIMB));
         operatorDLeftPadTrigger.whileTrue(
                 new ConditionalCommand(
                         new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed,
                                 operatorRightStickX),
-                        new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
+                        new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
-        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
-        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
+        operatorDLeftPadTrigger.onTrue(
+                new ConditionalCommand(
+                        new InstantCommand(() -> this.scoringState = ScoringState.INTAKE),
+                        new InstantCommand(),
+                        () -> this.scoringState != ScoringState.CLIMB));
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
@@ -341,11 +351,7 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SubwooferShoot));
         operatorDDownPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.PodiumShoot));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
-                PivotConstants.kPivotAmpPosition)
-        // .alongWith(new AmpShootCommand(shooterSubsystem)));
-        // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
-        // ScoringState.INTAKE)
-        );
+                PivotConstants.kPivotAmpPosition));
         operatorRightTrigger.whileTrue(new ConditionalCommand(
                 new AdjustClimbAnalogRightTriggerCommand(climberSubsystem, operatorRightTriggerSupplier),
                 new InstantCommand(),
@@ -391,10 +397,11 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
                                 .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
                                 .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
-                                        driverRightStickX, ShooterConstants.kShuttleOverStageYaw))),
-                        // ScoringState.CLIMB,
-                        // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
-                        // indexerSubsystem)),
+                                        driverRightStickX, ShooterConstants.kShuttleOverStageYaw)),
+                        ScoringState.HPLoad,
+                        Commands.deadline(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem),
+                                new PivotAngleCommand(pivotAngleSubsystem,
+                                        PivotConstants.kPivotHPLoadPosition))),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
