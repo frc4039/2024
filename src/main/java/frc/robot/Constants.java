@@ -118,7 +118,7 @@ public final class Constants {
         public static final double kAutoDriveToNoteDistance = 1.0;
         public static final double kAutoDriveToNoteTime = 1.0;
 
-        public static final double kStageRedRightAngle = Math.toRadians(240); // 240 degrees
+        public static final double kStageRedRightAngle = Math.toRadians(241); // 241 degrees
         public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
         public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
         public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
