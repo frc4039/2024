@@ -182,11 +182,11 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Insert vision logic here
         Optional<EstimatedRobotPose> result1 = m_camLeftBack.getEstimatedGlobalPose();
-
+        double numberOfTags1;
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
-            double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
-            SmartDashboard.putNumber("Left number of tags", numberOfTags1);
+            numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
+
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
                 if (ambiguity < 0.5) {
@@ -207,16 +207,19 @@ public class DriveSubsystem extends SubsystemBase {
                         m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
             }
 
+        } else {
+            numberOfTags1 = 0.0;
         }
+        SmartDashboard.putNumber("Left number of tags", numberOfTags1);
 
         if (!Helpers.isBabycakes()) {
             Optional<EstimatedRobotPose> result2 = m_camRightBack
                     .getEstimatedGlobalPose();
-
+            double numberOfTags2;
             if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
-                double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
-                SmartDashboard.putNumber("Right number of tags", numberOfTags2);
+                numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
+
                 if (numberOfTags2 < 2.0) {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
@@ -239,7 +242,10 @@ public class DriveSubsystem extends SubsystemBase {
                             m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
                 }
 
+            } else {
+                numberOfTags2 = 0.0;
             }
+            SmartDashboard.putNumber("Right number of tags", numberOfTags2);
         }
         fieldDisplay.setRobotPose(getPose());
     }
