@@ -190,11 +190,11 @@ public class DriveSubsystem extends SubsystemBase {
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
                 if (ambiguity < 0.2) {
-                    fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                     // check rotation compared to current heading. Accept if within threshold
                     Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
                     if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
-                            .getDegrees()) < 1) {
+                            .getDegrees()) < 15) {
+                        fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                         m_poseEstimator.addVisionMeasurement(
                                 camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
                                 m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
@@ -221,11 +221,11 @@ public class DriveSubsystem extends SubsystemBase {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
                     if (ambiguity < 0.2) {
-                        fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
                         if (Math.abs(currentRotation.minus(camPose2.estimatedPose.getRotation().toRotation2d())
-                                .getDegrees()) < 1) {
+                                .getDegrees()) < 15) {
+                            fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
                             m_poseEstimator.addVisionMeasurement(
                                     camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
                                     m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
