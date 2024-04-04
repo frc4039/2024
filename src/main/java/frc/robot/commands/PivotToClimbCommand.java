@@ -18,7 +18,6 @@ public class PivotToClimbCommand extends Command {
     private double StartPosY;
     private double Distance = 0.0;
     private boolean Driving = false;
-    private boolean OkToClimb = true;
 
     /** Creates a new PivotToClimbCommand. */
     public PivotToClimbCommand(PivotAngleSubsystem pivotAngle, DriveSubsystem Drive, double angle) {
@@ -35,38 +34,31 @@ public class PivotToClimbCommand extends Command {
     public void initialize() {
         StartPosX = Drive.getPose().getX();
         StartPosY = Drive.getPose().getY();
+        pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapFirstPosition);
         Driving = false;
         Distance = 0;
-        if (pivotAngle.getPitch() < PivotConstants.kPivotTrapFirstPosition) {
-            OkToClimb = false;
-        } else {
-            OkToClimb = true;
-            pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapFirstPosition);
-        }
 
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (OkToClimb) {
-            if (pivotAngle.getPitch() <= PivotConstants.kPivotTrapFirstPosition + 4.0) {
-                if (Driving == false) {
-                    Drive.drive(PivotConstants.kPivotTrapDriveSPeed, 0.0, 0.0, false, true);
-                    Driving = true;
-                }
-                double x = Drive.getPose().getX() - StartPosX;
-                double y = Drive.getPose().getY() - StartPosY;
-                double newAngle;
-                Distance = Math.sqrt(x * x + y * y);
-                newAngle = m_angle + (PivotConstants.kPivotTrapFirstPosition - m_angle)
-                        * (1 - Distance / PivotConstants.kPivotTrapDriveDistance);
-                if (newAngle > PivotConstants.kPivotTravelPosition)
-                    newAngle = PivotConstants.kPivotTravelPosition;
-                if (newAngle < m_angle)
-                    newAngle = m_angle;
-                pivotAngle.setDesiredAngle(newAngle);
+        if (pivotAngle.getPitch() <= PivotConstants.kPivotTrapFirstPosition + 4.0) {
+            if (Driving == false) {
+                Drive.drive(PivotConstants.kPivotTrapDriveSPeed, 0.0, 0.0, false, true);
+                Driving = true;
             }
+            double x = Drive.getPose().getX() - StartPosX;
+            double y = Drive.getPose().getY() - StartPosY;
+            double newAngle;
+            Distance = Math.sqrt(x * x + y * y);
+            newAngle = m_angle + (PivotConstants.kPivotTrapFirstPosition - m_angle)
+                    * (1 - Distance / PivotConstants.kPivotTrapDriveDistance);
+            if (newAngle > PivotConstants.kPivotTravelPosition)
+                newAngle = PivotConstants.kPivotTravelPosition;
+            if (newAngle < m_angle)
+                newAngle = m_angle;
+            pivotAngle.setDesiredAngle(newAngle);
         }
     }
 
@@ -81,6 +73,6 @@ public class PivotToClimbCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Distance >= PivotConstants.kPivotTrapDriveDistance || OkToClimb == false ? true : false;
+        return Distance >= PivotConstants.kPivotTrapDriveDistance ? true : false;
     }
 }
