@@ -192,7 +192,7 @@ public class DriveSubsystem extends SubsystemBase {
                 if (ambiguity < 0.2) {
                     fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
                     // check rotation compared to current heading. Accept if within threshold
-                    Rotation2d currentRotation = getPose().getRotation();
+                    Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
                     if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
                             .getDegrees()) < 1) {
                         m_poseEstimator.addVisionMeasurement(
