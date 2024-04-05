@@ -189,7 +189,7 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Left number of tags", numberOfTags1);
             if (numberOfTags1 < 2.0) {
                 Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
-                if (ambiguity < 0.2) {
+                if (ambiguity < 0.5) {
                     // check rotation compared to current heading. Accept if within threshold
                     Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
                     if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
@@ -220,7 +220,7 @@ public class DriveSubsystem extends SubsystemBase {
                 if (numberOfTags2 < 2.0) {
                     Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
 
-                    if (ambiguity < 0.2) {
+                    if (ambiguity < 0.5) {
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
                         if (Math.abs(currentRotation.minus(camPose2.estimatedPose.getRotation().toRotation2d())
