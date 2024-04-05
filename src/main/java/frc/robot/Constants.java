@@ -375,7 +375,7 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.5, 0.5, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
         public static final double kSeeNoteTime = 0.4;
 
