@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.62197994481459,
+        "y": 7.2503757543127625
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.789347118223219,
+        "y": 7.2503757543127625
+      },
+      "isLocked": false,
+      "linkedName": "Note1"
+    },
+    {
+      "anchor": {
+        "x": 6.2,
+        "y": 7.2503757543127625
+      },
+      "prevControl": {
+        "x": 4.0670426496113015,
+        "y": 7.2503757543127625
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 2.5,
+    "rotation": 8.686748062628872,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SPEAKER 321X Blue paths",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
