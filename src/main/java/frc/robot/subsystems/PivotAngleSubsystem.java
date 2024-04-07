@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.Units;
@@ -27,6 +28,7 @@ public class PivotAngleSubsystem extends SubsystemBase {
     private final CANSparkMax m_pivotFollowerSparkMax;
     private final SparkPIDController m_pivotPIDController;
     private final AbsoluteEncoder m_pivotEncoder;
+    private boolean EncoderSignalGood = true;
 
     // Motion Profile. Units are degrees per second and degrees per second per
     // second.
@@ -87,6 +89,15 @@ public class PivotAngleSubsystem extends SubsystemBase {
         pivotAngleTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
+        pivotAngleTab.addBoolean("Encoder Signal Good", () -> {
+            return EncoderSignalGood;
+        });
+        m_pivotSparkMax.getEncoder().setPositionConversionFactor(.5); // Need to make this a constant and maybe negative
+                                                                      // and this is just a number we need to determin
+                                                                      // the correct value
+        m_pivotSparkMax.getEncoder().setPosition(this.getPitch()); // set the motor encoder to read the same as the
+                                                                   // external encoder
+
     }
 
     /** Rotate to the desired angle using a motion profile. */
@@ -95,11 +106,19 @@ public class PivotAngleSubsystem extends SubsystemBase {
     }
 
     public double getPitch() {
-        return m_pivotEncoder.getPosition();
+        if (EncoderSignalGood) {
+            return m_pivotEncoder.getPosition();
+        } else {
+            return m_pivotSparkMax.getEncoder().getPosition();
+        }
     }
 
     public double getPitchAngularVelocity() {
-        return m_pivotEncoder.getVelocity();
+        if (EncoderSignalGood) {
+            return m_pivotEncoder.getVelocity();
+        } else {
+            return m_pivotSparkMax.getEncoder().getVelocity();
+        }
     }
 
     /** Stop outputting to the motor. */
@@ -112,6 +131,14 @@ public class PivotAngleSubsystem extends SubsystemBase {
         // For safety, stop the pivot whenever the robot is disabled.
         if (DriverStation.isDisabled()) {
             stop();
+        }
+
+        // if there is a 4 deg difference between the two encoders don't trust the
+        // external encoder Maybe another constant
+        if (Math.abs(m_pivotEncoder.getPosition() - m_pivotSparkMax.getEncoder().getPosition()) > 4.0
+                && EncoderSignalGood) {
+            EncoderSignalGood = false;
+            m_pivotPIDController.setFeedbackDevice(m_pivotSparkMax.getEncoder());
         }
 
         if (m_goal != null) {
