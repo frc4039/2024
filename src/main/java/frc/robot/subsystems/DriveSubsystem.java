@@ -182,7 +182,7 @@ public class DriveSubsystem extends SubsystemBase {
 
         // Insert vision logic here
         Optional<EstimatedRobotPose> result1 = m_camLeftBack.getEstimatedGlobalPose();
-        double numberOfTags1;
+        double numberOfTags1 = 0.0;
         if (result1.isPresent()) {
             EstimatedRobotPose camPose1 = result1.get();
             numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
@@ -207,15 +207,13 @@ public class DriveSubsystem extends SubsystemBase {
                         m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
             }
 
-        } else {
-            numberOfTags1 = 0.0;
         }
         SmartDashboard.putNumber("Left number of tags", numberOfTags1);
 
         if (!Helpers.isBabycakes()) {
             Optional<EstimatedRobotPose> result2 = m_camRightBack
                     .getEstimatedGlobalPose();
-            double numberOfTags2;
+            double numberOfTags2 = 0.0;
             if (result2.isPresent()) {
                 EstimatedRobotPose camPose2 = result2.get();
                 numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
@@ -242,8 +240,6 @@ public class DriveSubsystem extends SubsystemBase {
                             m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
                 }
 
-            } else {
-                numberOfTags2 = 0.0;
             }
             SmartDashboard.putNumber("Right number of tags", numberOfTags2);
         }
