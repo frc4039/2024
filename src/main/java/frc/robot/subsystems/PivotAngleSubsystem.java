@@ -97,6 +97,9 @@ public class PivotAngleSubsystem extends SubsystemBase {
                                                                       // the correct value
         m_pivotSparkMax.getEncoder().setPosition(this.getPitch()); // set the motor encoder to read the same as the
                                                                    // external encoder
+                                                                   //
+        // Absolute / relative 250.67 / 16.24
+        // Absolute / relative 164.98 / -16.904
 
     }
 

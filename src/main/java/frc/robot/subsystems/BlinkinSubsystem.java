@@ -29,6 +29,7 @@ public class BlinkinSubsystem extends SubsystemBase {
     public BlinkinSubsystem(Supplier<ScoringState> State) {
 
         m_BlinkinStrip = new Spark(BlinkinConstants.kBlinkinPWMPort);
+        m_BlinkinStrip.setSafetyEnabled(HasNoteCurrent);
         HasNotePrevious = false;
         this.State = State;
         BlinkTimer = new Timer();
