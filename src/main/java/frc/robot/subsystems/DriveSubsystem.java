@@ -181,65 +181,68 @@ public class DriveSubsystem extends SubsystemBase {
                 });
 
         // Insert vision logic here
-        Optional<EstimatedRobotPose> result1 = m_camLeftBack.getEstimatedGlobalPose();
+        Optional<EstimatedRobotPose> estimatedGlobalPoseLeftBack = m_camLeftBack.getEstimatedGlobalPose();
+        double numberOfTagsLeftBack = 0.0;
+        if (estimatedGlobalPoseLeftBack.isPresent()) {
+            EstimatedRobotPose camPoseLeftBack = estimatedGlobalPoseLeftBack.get();
+            numberOfTagsLeftBack = m_camLeftBack.getNumberOfTags(camPoseLeftBack.estimatedPose.toPose2d());
 
-        if (result1.isPresent()) {
-            EstimatedRobotPose camPose1 = result1.get();
-            double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
-            SmartDashboard.putNumber("Left number of tags", numberOfTags1);
-            if (numberOfTags1 < 2.0) {
-                Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
-                if (ambiguity < 0.2) {
-                    fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+            if (numberOfTagsLeftBack < 2.0) {
+                Double ambiguityLeftBack = m_camLeftBack.getAmbiguity(camPoseLeftBack.estimatedPose.toPose2d());
+                if (ambiguityLeftBack < 0.5) {
                     // check rotation compared to current heading. Accept if within threshold
-                    Rotation2d currentRotation = getPose().getRotation();
-                    if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
-                            .getDegrees()) < 1) {
+                    Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
+                    if (Math.abs(currentRotation.minus(camPoseLeftBack.estimatedPose.getRotation().toRotation2d())
+                            .getDegrees()) < 15) {
+                        fieldDisplay.getObject("Camera Left Pose").setPose(camPoseLeftBack.estimatedPose.toPose2d());
                         m_poseEstimator.addVisionMeasurement(
-                                camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                                m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                                camPoseLeftBack.estimatedPose.toPose2d(), camPoseLeftBack.timestampSeconds,
+                                m_camRightBack.getEstimationStdDevs(camPoseLeftBack.estimatedPose.toPose2d()));
                     }
                 }
             } else {
-                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+                fieldDisplay.getObject("Camera Left Pose").setPose(camPoseLeftBack.estimatedPose.toPose2d());
                 m_poseEstimator.addVisionMeasurement(
-                        camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                        m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                        camPoseLeftBack.estimatedPose.toPose2d(), camPoseLeftBack.timestampSeconds,
+                        m_camRightBack.getEstimationStdDevs(camPoseLeftBack.estimatedPose.toPose2d()));
             }
 
         }
+        SmartDashboard.putNumber("Left number of tags", numberOfTagsLeftBack);
 
         if (!Helpers.isBabycakes()) {
-            Optional<EstimatedRobotPose> result2 = m_camRightBack
+            Optional<EstimatedRobotPose> estimatedGlobalPoseRightBack = m_camRightBack
                     .getEstimatedGlobalPose();
+            double numberOfTagsRightBack = 0.0;
+            if (estimatedGlobalPoseRightBack.isPresent()) {
+                EstimatedRobotPose camPoseRightBack = estimatedGlobalPoseRightBack.get();
+                numberOfTagsRightBack = m_camRightBack.getNumberOfTags(camPoseRightBack.estimatedPose.toPose2d());
 
-            if (result2.isPresent()) {
-                EstimatedRobotPose camPose2 = result2.get();
-                double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
-                SmartDashboard.putNumber("Right number of tags", numberOfTags2);
-                if (numberOfTags2 < 2.0) {
-                    Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
+                if (numberOfTagsRightBack < 2.0) {
+                    Double ambiguityRightBack = m_camRightBack.getAmbiguity(camPoseRightBack.estimatedPose.toPose2d());
 
-                    if (ambiguity < 0.2) {
-                        fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                    if (ambiguityRightBack < 0.5) {
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
-                        if (Math.abs(currentRotation.minus(camPose2.estimatedPose.getRotation().toRotation2d())
-                                .getDegrees()) < 1) {
+                        if (Math.abs(currentRotation.minus(camPoseRightBack.estimatedPose.getRotation().toRotation2d())
+                                .getDegrees()) < 15) {
+                            fieldDisplay.getObject("Camera Right Pose")
+                                    .setPose(camPoseRightBack.estimatedPose.toPose2d());
                             m_poseEstimator.addVisionMeasurement(
-                                    camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                                    m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                                    camPoseRightBack.estimatedPose.toPose2d(), camPoseRightBack.timestampSeconds,
+                                    m_camRightBack.getEstimationStdDevs(camPoseRightBack.estimatedPose.toPose2d()));
                         }
                     }
                 } else {
-                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                    fieldDisplay.getObject("Camera Right Pose").setPose(camPoseRightBack.estimatedPose.toPose2d());
 
                     m_poseEstimator.addVisionMeasurement(
-                            camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                            m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                            camPoseRightBack.estimatedPose.toPose2d(), camPoseRightBack.timestampSeconds,
+                            m_camRightBack.getEstimationStdDevs(camPoseRightBack.estimatedPose.toPose2d()));
                 }
 
             }
+            SmartDashboard.putNumber("Right number of tags", numberOfTagsRightBack);
         }
         fieldDisplay.setRobotPose(getPose());
     }

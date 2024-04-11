@@ -18,7 +18,7 @@ public class ReverseRobotCentricDriveCommand extends Command {
 
     @Override
     public void execute() {
-        driveSubsystem.drive(0.2, 0, 0, false, true);
+        driveSubsystem.drive(0.14, 0, 0, false, true);
     }
 
     @Override

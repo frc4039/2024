@@ -116,9 +116,9 @@ public final class Constants {
 
         public static final double kAutoDriveToNoteXSpeed = 0.4;
         public static final double kAutoDriveToNoteDistance = 1.0;
-        public static final double kAutoDriveToNoteTime = 1.0;
+        public static final double kAutoDriveToNoteTime = 3.0;
 
-        public static final double kStageRedRightAngle = Math.toRadians(240); // 240 degrees
+        public static final double kStageRedRightAngle = Math.toRadians(241); // 241 degrees
         public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
         public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
         public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
@@ -137,7 +137,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.0;
+        public static final double kWheelDiameterInches = 3.04;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -247,7 +247,7 @@ public final class Constants {
 
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
-        public static final double kTrapShooterRPM = 600;
+        public static final double kTrapShooterRPM = 650;
         public static final double kSubwooferShooterRPM = 2750;
         public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
@@ -375,14 +375,14 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.5, 0.5, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
         public static final double kSeeNoteTime = 0.4;
 
     }
 
     public static final class BlinkinConstants {
-        public static final int kBlinkinPWMPort = 0;
+        public static final int kBlinkinPWMPort = 4;
 
         // Colours
         public static final double kColourValueGreen = 0.77;

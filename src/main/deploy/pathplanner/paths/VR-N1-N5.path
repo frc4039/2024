@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.272080725979634,
-        "y": 1.455284365114185
+        "x": 2.62197994481459,
+        "y": 6.75
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.337381947491167,
-        "y": 1.7071605052301024
+        "x": 4.762010207781099,
+        "y": 6.77338830888488
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "R1"
     },
     {
       "anchor": {
-        "x": 7.272080725979634,
-        "y": 1.455284365114185
+        "x": 6.2,
+        "y": 6.642279723305886
       },
       "prevControl": {
-        "x": 7.2067795044680985,
-        "y": 1.2687094465098023
+        "x": 5.159220254622846,
+        "y": 7.320540680967402
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -50,21 +50,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.5,
+    "maxVelocity": 2.5,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 2.5,
-    "rotation": 39.084573911253806,
+    "rotation": -26.56505117707799,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SOURCE 876 Blue Paths ",
+  "folder": "SPEAKER 321X Red paths",
   "previewStartingState": {
-    "rotation": -11.821488340607267,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
