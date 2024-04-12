@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.343425149813263,
+        "y": 4.19586261394745
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6810531753297304,
+        "y": 2.6187573550639005
+      },
+      "isLocked": false,
+      "linkedName": "SOURCE"
+    },
+    {
+      "anchor": {
+        "x": 8.223336372267983,
+        "y": 2.4107628321283427
+      },
+      "prevControl": {
+        "x": 3.4625630040400095,
+        "y": 0.1907777517832714
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "7"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 25.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 25.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SOURCE 76 Blue Paths",
+  "previewStartingState": {
+    "rotation": -40.09220657752621,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

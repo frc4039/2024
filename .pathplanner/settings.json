@@ -3,19 +3,26 @@
   "robotLength": 0.812,
   "holonomicMode": true,
   "pathFolders": [
-    "AMP 1456 Blue - incomplete",
-    "Auto3 Paths",
+    "AMP 145 Blue",
+    "AMP 145 Red",
     "Disrupt Centre Auto ",
-    "Teleop Paths",
-    "Odometry Test",
+    "SPEAKER 321X Red paths",
+    "SOURCE 76 Blue Paths",
+    "SOURCE 76 Red Paths",
     "SOURCE 876 Blue Paths ",
     "SOURCE 876 Red Paths ",
     "SPEAKER 3216 Blue Paths",
     "SPEAKER 3216 Red Paths",
-    "Source32 Paths"
+    "SPEAKER 321X Blue paths",
+    "Teleop Paths"
   ],
   "autoFolders": [
-    "Source867 Blue Conditional w Vision"
+    "Amp 145 Red Smart",
+    "Amp 145 Blue Smart",
+    "Source 867 Blue Smart",
+    "Source 876 Red Smart",
+    "Speaker 3216 Blue Smart",
+    "Speaker 3216 Red Smart"
   ],
   "defaultMaxVel": 2.5,
   "defaultMaxAccel": 2.5,

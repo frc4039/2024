@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.8715608929078047,
+        "y": 7.249007821838753
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.124620403306426,
+        "y": 7.249007821838753
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.0,
+        "y": 7.412959533479694
+      },
+      "prevControl": {
+        "x": 4.99286805706279,
+        "y": 7.0967669467435925
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 3.5,
+    "rotation": 7.815148476418894,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "AMP 145 Red",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

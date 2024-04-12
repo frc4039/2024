@@ -10,6 +10,7 @@ import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -25,13 +26,16 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ProxyCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.AutoConstants;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -39,29 +43,38 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ScoringState;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Constants.StageSide;
 import frc.robot.commands.ActivateTrapCommand;
-import frc.robot.commands.AmpScoreCommand;
+import frc.robot.commands.AdjustClimbAnalogLeftTriggerCommand;
+import frc.robot.commands.AdjustClimbAnalogRightTriggerCommand;
+import frc.robot.commands.AmpScoreSmartCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
+import frc.robot.commands.AutoPreSpinIntake;
 import frc.robot.commands.AutoPreSpinShooter;
 import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.AutoSubwooferShotSequentialCommandGroup;
 import frc.robot.commands.ClimbOnStageCommand;
 import frc.robot.commands.DriveToNoteCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.HumanPlayerIntakeCommand;
 import frc.robot.commands.IndexerCommand;
 import frc.robot.commands.IntakeBeamBreakOverrideCommand;
 import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
+import frc.robot.commands.LeftRobotCentricDriveCommand;
 import frc.robot.commands.PivotAngleCommand;
+import frc.robot.commands.PivotAngleHPCommand;
 import frc.robot.commands.PivotToClimbCommand;
 import frc.robot.commands.PivotToShootCommand;
 import frc.robot.commands.PivotToTravelCommand;
 import frc.robot.commands.PodiumShooterCommand;
 import frc.robot.commands.PreSpinShooter;
 import frc.robot.commands.ReverseRobotCentricDriveCommand;
+import frc.robot.commands.RightRobotCentricDriveCommand;
 import frc.robot.commands.RobotCentricDriveCommand;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShuttleOverStageCommand;
 import frc.robot.commands.ShuttleShootCommand;
 import frc.robot.commands.SpeakerShootParallelCommandGroup;
 import frc.robot.commands.SubwooferShootCommand;
@@ -78,6 +91,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.MultiButtonTrigger;
+import frc.robot.utils.Sensors;
 
 public class RobotContainer {
     // Create the "Main" tab first so it will be first in the list.
@@ -89,7 +103,15 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private ScoringState scoringState = ScoringState.SHUTTLE;
 
+    // We need to keep the BlinkinSubsystem reference here- even though it's not
+    // used in RobotContainer so that the subsystem gets loaded into memory for its
+    // periodic() to run and operate the LED's.
+    // The suppress warnings line applies only the the ony line after, and removes
+    // the visual clue of having a potential error that's actually not an error, to
+    // improve code readability.
+    @SuppressWarnings("unused")
     private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem(() -> scoringState);
+
     private final DriveSubsystem driveSubsystem = new DriveSubsystem(hardwareMonitor);
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem(hardwareMonitor);
     private final IndexerSubsystem indexerSubsystem = new IndexerSubsystem(hardwareMonitor);
@@ -108,6 +130,11 @@ public class RobotContainer {
     private final JoystickButton driverAButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
     private final JoystickButton driverXButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
     private final JoystickButton driverBButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+
+    private final JoystickButton driverStartButton = new JoystickButton(m_driverController,
+            XboxController.Button.kStart.value);
+    private final JoystickButton driverBackButton = new JoystickButton(m_driverController,
+            XboxController.Button.kBack.value);
 
     private final JoystickButton operatorBackButton = new JoystickButton(m_operatorController,
             XboxController.Button.kBack.value);
@@ -133,6 +160,12 @@ public class RobotContainer {
     private final DoubleSupplier driverRightStickX = () -> MathUtil.applyDeadband(
             m_driverController.getRawAxis(XboxController.Axis.kRightX.value),
             OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorRightStickX = () -> MathUtil.applyDeadband(m_operatorController.getRawAxis(
+            XboxController.Axis.kRightX.value), OIConstants.kDriveDeadband);
+    private final DoubleSupplier operatorLeftTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kLeftTrigger.value), OIConstants.kTriggerThreshold);
+    private final DoubleSupplier operatorRightTriggerSupplier = () -> MathUtil.applyDeadband(
+            m_operatorController.getRawAxis(XboxController.Axis.kRightTrigger.value), OIConstants.kTriggerThreshold);
 
     private final JoystickButton operatorRightBumper = new JoystickButton(m_operatorController,
             XboxController.Button.kRightBumper.value);
@@ -166,8 +199,10 @@ public class RobotContainer {
     private final Trigger driverDPadUpTrigger = new Trigger(() -> m_driverController.getPOV() == 0);
     private final Trigger driverDDownPadTrigger = new Trigger(() -> m_driverController.getPOV() == 180);
     private final Trigger driverDPadLeftTrigger = new Trigger(() -> m_driverController.getPOV() == 270);
+    private final Trigger driverDPadRightTrigger = new Trigger(() -> m_driverController.getPOV() == 90);
 
-    private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private final SendableChooser<Command> testSelector = new SendableChooser<Command>();
 
     public RobotContainer() {
         driveSubsystem.setDefaultCommand(new TeleopDriveCommand(driveSubsystem,
@@ -198,6 +233,7 @@ public class RobotContainer {
                 new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
                         driveSubsystem));
         NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
+        NamedCommands.registerCommand("AutoPreSpinIntake", new AutoPreSpinIntake(intakeSubsystem));
 
         // Register Source876Blue Auto Conditional Commands for pathplanner Autos
         NamedCommands.registerCommand("zSource876BlueStep2",
@@ -212,25 +248,81 @@ public class RobotContainer {
                 new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
                         AutoBuilder.buildAuto("zSource876Blue4B"),
                         () -> indexerSubsystem.hasNote()));
-        /*
-         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
-         * NamedCommands.registerCommand("zSource876RedStep2",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
-         * AutoBuilder.buildAuto("zSource876Red2B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep3",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
-         * AutoBuilder.buildAuto("zSource876Red3B"),
-         * () -> indexerSubsystem.hasNote()));
-         * NamedCommands.registerCommand("zSource876RedStep4",
-         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
-         * AutoBuilder.buildAuto("zSource876Red4B"),
-         * () -> indexerSubsystem.hasNote()));
-         */
+
+        // Register Source876Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSource876RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+                        AutoBuilder.buildAuto("zSource876Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+                        AutoBuilder.buildAuto("zSource876Red3B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zSource876RedStep4",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+                        AutoBuilder.buildAuto("zSource876Red4B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Blue Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Blue2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Speaker3216 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zSpeaker3216RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Red2A"),
+                        AutoBuilder.buildAuto("zSpeaker3216Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145BlueStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue2A"),
+                        AutoBuilder.buildAuto("zAmp145Blue2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145BlueStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue3A"),
+                        AutoBuilder.buildAuto("zAmp145Blue3B"),
+                        () -> indexerSubsystem.hasNote()));
+
+        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+        NamedCommands.registerCommand("zAmp145RedStep2",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red2A"),
+                        AutoBuilder.buildAuto("zAmp145Red2B"),
+                        () -> indexerSubsystem.hasNote()));
+        NamedCommands.registerCommand("zAmp145RedStep3",
+                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red3A"),
+                        AutoBuilder.buildAuto("zAmp145Red3B"),
+                        () -> indexerSubsystem.hasNote()));
 
         configureBindings();
 
-        autoChooser = AutoBuilder.buildAutoChooser();
+        // autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        autoChooser.addOption("SPEAKER 3216 Blue Smart", new PathPlannerAuto("SPEAKER 3216 Blue Smart"));
+        autoChooser.addOption("SPEAKER 3216 Red Smart", new PathPlannerAuto("SPEAKER 3216 Red Smart"));
+
+        autoChooser.addOption("SOURCE 876 Blue Smart", new PathPlannerAuto("SOURCE 876 Blue Smart"));
+        autoChooser.addOption("SOURCE 876 Red Smart", new PathPlannerAuto("SOURCE 876 Red Smart"));
+
+        autoChooser.addOption("SOURCE 76 Blue Smart", new PathPlannerAuto("SOURCE 76 Blue Smart"));
+        autoChooser.addOption("SOURCE 76 Red Smart", new PathPlannerAuto("SOURCE 76 Red Smart"));
+
+        autoChooser.addOption("AMP 145 Blue Smart", new PathPlannerAuto("AMP 145 Blue Smart"));
+        autoChooser.addOption("AMP 145 Red Smart", new PathPlannerAuto("AMP 145 Red Smart"));
+
+        autoChooser.addOption("Disrupt Centre Auto", new PathPlannerAuto("Disrupt Centre Auto"));
+        autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
+
+        autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));
+        autoChooser.addOption("SPEAKER 3216 Red", new PathPlannerAuto("SPEAKER 3216 Red"));
+        autoChooser.addOption("SOURCE 876 Blue", new PathPlannerAuto("SOURCE 876 Blue"));
+        autoChooser.addOption("SOURCE 876 Red", new PathPlannerAuto("SOURCE 876 Red"));
+        autoChooser.addOption("SOURCE 76 Blue", new PathPlannerAuto("SOURCE 76 Blue"));
+        autoChooser.addOption("SOURCE 76 Red", new PathPlannerAuto("SOURCE 76 Red"));
+        autoChooser.addOption("AMP 145 Blue", new PathPlannerAuto("AMP 145 Blue"));
+        autoChooser.addOption("AMP 145 Red", new PathPlannerAuto("AMP 145 Red"));
+
         mainTab.add("Auto Chooser", autoChooser)
                 .withPosition(0, 0)
                 .withSize(2, 1);
@@ -246,21 +338,17 @@ public class RobotContainer {
                 }).withName("Reset Angle")
                         .ignoringDisable(true))
                 .withPosition(0, 1);
-        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
-        // Add Pi counter to dashbord
         mainTab.addString("RobotState", () -> scoringState.toString())
                 .withPosition(1, 1);
+        mainTab.addDouble("Pi Counter", () -> driveSubsystem.getPiCounter()).withPosition(0, 2);
+        mainTab.addBoolean("Has Note", () -> Sensors.BeamBreakerIsBroken()).withPosition(1, 2);
         mainTab.addCamera("Note Cam", "NoteFeed",
                 "mjpg:http://wpilibpi.local:1182/?action=stream")
                 .withProperties(Map.of("showControls", false))
                 .withPosition(2, 0)
                 .withSize(3, 3);
-
-        // hardwareMonitor.registerDevice(null, new PowerDistribution(5,
-        // ModuleType.kRev));
-
         ShuffleboardLayout hardwareLayout = mainTab.getLayout("Hardware Errors", BuiltInLayouts.kList)
-                .withPosition(6, 0)
+                .withPosition(2, 3)
                 .withSize(3, 3)
                 .withProperties(Map.of("Label position", "HIDDEN"));
         for (int i = 0; i < 10; i++) {
@@ -282,22 +370,43 @@ public class RobotContainer {
                 .withProperties(Map.of("Label position", "TOP"));
         robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
         robotInfo.addBoolean("Is Babycakes", () -> Helpers.isBabycakes());
+
+        testSelector.setDefaultOption("None", new InstantCommand());
+        SysIdRoutine pivotId = pivotAngleSubsystem.getSysId();
+        testSelector.addOption("Pivot > QuasistaticForward", pivotId.quasistatic(Direction.kForward));
+        testSelector.addOption("Pivot > QuasistaticReverse", pivotId.quasistatic(Direction.kReverse));
+        testSelector.addOption("Pivot > DynamicForward", pivotId.dynamic(Direction.kForward));
+        testSelector.addOption("Pivot > DynamicReverse", pivotId.dynamic(Direction.kReverse));
+
+        aboutTab.add("Test Selector (driverStartButton)", testSelector)
+                .withPosition(0, 2)
+                .withSize(3, 1);
     }
 
     private void configureBindings() {
         // _______________OPERATOR BUTTONS_______________\\
         operatorDRightPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed),
-                        new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem),
+                        new ClimbOnStageCommand(climberSubsystem, ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
+                        new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
+        operatorDRightPadTrigger.onTrue(
+                new ConditionalCommand(
+                        new InstantCommand(() -> this.scoringState = ScoringState.HPLoad),
+                        new InstantCommand(),
+                        () -> this.scoringState != ScoringState.CLIMB));
         operatorDLeftPadTrigger.whileTrue(
                 new ConditionalCommand(
-                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed),
-                        new EjectNoteCommand(intakeSubsystem, indexerSubsystem),
+                        new ClimbOnStageCommand(climberSubsystem, -ClimberConstants.kClimberMotorSpeed,
+                                operatorRightStickX),
+                        new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
-        operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
-        operatorYButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.HIGH));
+        operatorDLeftPadTrigger.onTrue(
+                new ConditionalCommand(
+                        new InstantCommand(() -> this.scoringState = ScoringState.INTAKE),
+                        new InstantCommand(),
+                        () -> this.scoringState != ScoringState.CLIMB));
         operatorRightBumper.whileTrue(new IntakeBeamBreakOverrideCommand(intakeSubsystem, indexerSubsystem));
         operatorLeftBumper.whileTrue(new EjectNoteCommand(intakeSubsystem, indexerSubsystem));
         operatorBButton.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.LOW));
@@ -306,15 +415,22 @@ public class RobotContainer {
         operatorDUpPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SubwooferShoot));
         operatorDDownPadTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.PodiumShoot));
         operatorAButton.whileTrue(new PivotAngleCommand(pivotAngleSubsystem,
-                PivotConstants.kPivotAmpPosition)
-        // .alongWith(new AmpShootCommand(shooterSubsystem)));
-        // operatorXButton.onTrue(new InstantCommand(() -> this.scoringState =
-        // ScoringState.INTAKE)
-        );
-        operatorRightTrigger.onTrue(new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE));
+                PivotConstants.kPivotAmpPosition));
+        operatorRightTrigger.whileTrue(new ConditionalCommand(
+                new AdjustClimbAnalogRightTriggerCommand(climberSubsystem, operatorRightTriggerSupplier),
+                new InstantCommand(),
+                () -> this.scoringState == ScoringState.CLIMB));
+
+        operatorRightTrigger.onTrue(new ConditionalCommand(
+                new InstantCommand(() -> this.scoringState = ScoringState.SHUTTLE),
+                new InstantCommand(),
+                () -> this.scoringState != ScoringState.CLIMB));
         operatorLeftTrigger
-                .whileTrue(new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
-                        m_driverController, m_operatorController));
+                .whileTrue(new ConditionalCommand(
+                        new AdjustClimbAnalogLeftTriggerCommand(climberSubsystem, operatorLeftTriggerSupplier),
+                        new IntakeNoteRumbleCommandGroup(intakeSubsystem, indexerSubsystem,
+                                m_driverController, m_operatorController),
+                        () -> this.scoringState == ScoringState.CLIMB));
         operatorXButton.whileTrue(
                 new ConditionalCommand(new ActivateTrapCommand(TrapSubsystem), new InstantCommand(),
                         () -> this.scoringState == ScoringState.CLIMB));
@@ -340,10 +456,27 @@ public class RobotContainer {
                         new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotPodiumPosition)
                                 .alongWith(new PodiumShooterCommand(shooterSubsystem)
                                         .alongWith(new TeleopDriveCommand(driveSubsystem,
-                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0)))),
-                        // ScoringState.CLIMB,
-                        // new TrapScoreCommand(pivotAngleSubsystem, shooterSubsystem,
-                        // indexerSubsystem)),
+                                                driverLeftStickY, driverLeftStickX, driverRightStickX, -1.0))),
+                        ScoringState.SHUTTLE,
+                        new PivotAngleCommand(pivotAngleSubsystem, PivotConstants.kPivotShuttleOverStage)
+                                .alongWith(new ShuttleOverStageCommand(shooterSubsystem))
+                                .alongWith(new TeleopDriveCommand(driveSubsystem, driverLeftStickY, driverLeftStickX,
+                                        driverRightStickX,
+
+                                        () -> {
+                                            Optional<Alliance> currentAlliance = DriverStation.getAlliance();
+                                            if (currentAlliance.isPresent()) {
+                                                switch (currentAlliance.get()) {
+                                                    case Red:
+                                                        return ShooterConstants.kShuttleOverStageYawRed;
+                                                    case Blue:
+                                                        return ShooterConstants.kShuttleOverStageYawBlue;
+                                                    default:
+                                                        return -1.0;
+                                                }
+                                            }
+                                            return -1.0;
+                                        }))),
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
@@ -355,15 +488,16 @@ public class RobotContainer {
                                 DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
 
-        driverXButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 2.0 * Math.PI));
-        driverBButton.whileTrue(new TeleopDriveCommand(driveSubsystem,
-                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.5 * Math.PI));
-        driverAButton.whileTrue(
-                new ConditionalCommand(new PivotToClimbCommand(pivotAngleSubsystem, PivotConstants.kPivotTrapPosition),
-                        new TeleopDriveCommand(driveSubsystem,
-                                driverLeftStickY, driverLeftStickX, driverRightStickX, 1.0 * Math.PI),
-                        () -> this.scoringState == ScoringState.CLIMB));
+        driverXButton.whileTrue(
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.LEFT));
+        driverBButton.whileTrue(
+                new TeleopDriveCommand(
+                        driveSubsystem, driverLeftStickY, driverLeftStickX, driverRightStickX, StageSide.RIGHT));
+        driverAButton.onTrue(new ConditionalCommand(
+                new PivotToClimbCommand(pivotAngleSubsystem, driveSubsystem, PivotConstants.kPivotTrapPosition)
+                        .withTimeout(5.0),
+                new InstantCommand(), () -> this.scoringState == ScoringState.CLIMB));
 
         driverRightTrigger.whileTrue(new SelectCommand<ScoringState>(Map.of(
                 ScoringState.HIGH,
@@ -376,20 +510,28 @@ public class RobotContainer {
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));
 
-        driverRightBumper.whileTrue(
-                new AmpScoreCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem));
+        driverRightBumper.onTrue(
+                new AmpScoreSmartCommand(pivotAngleSubsystem, shooterSubsystem, indexerSubsystem).withTimeout(10));
 
-        driverLeftBumper.whileTrue(AutoBuilder.pathfindThenFollowPath(
-                AutoConstants.pathFindingAmpPath,
-                AutoConstants.pathFindingConstraints,
-                0.0));
+        driverLeftBumper.whileTrue(new PivotAngleHPCommand(pivotAngleSubsystem,
+                PivotConstants.kPivotHPLoadPosition)
+                .alongWith(new HumanPlayerIntakeCommand(shooterSubsystem, indexerSubsystem)));
 
         driverDPadUpTrigger.whileTrue(
                 new ReverseRobotCentricDriveCommand(driveSubsystem));
         driverDDownPadTrigger.whileTrue(
                 new RobotCentricDriveCommand(driveSubsystem));
-        driverDPadLeftTrigger.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
+        driverDPadLeftTrigger.whileTrue(
+                new LeftRobotCentricDriveCommand(driveSubsystem));
+        driverDPadRightTrigger.whileTrue(
+                new RightRobotCentricDriveCommand(driveSubsystem));
+
+        driverStartButton.whileTrue(new ShuttleShootCommand(shooterSubsystem, indexerSubsystem,
                 () -> ShooterConstants.kTrapShooterRPM));
+
+        driverBackButton
+                .and(() -> DriverStation.isTestEnabled())
+                .whileTrue(new ProxyCommand(() -> testSelector.getSelected()));
     }
 
     public Command getAutonomousCommand() {
