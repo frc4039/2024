@@ -248,7 +248,7 @@ public final class Constants {
         public static double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 650;
-        public static final double kSubwooferShooterRPM = 2750;
+        public static double kSubwooferShooterRPM = 2750;
         public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
