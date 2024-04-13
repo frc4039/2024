@@ -113,6 +113,10 @@ public class PivotAngleSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        double manAngle = SmartDashboard.getNumber("Angle Setpoint", 500);
+        if ((manAngle != PivotConstants.kPivotSubwooferPosition)) {
+            PivotConstants.kPivotSubwooferPosition = manAngle;
+        }
         // For safety, stop the pivot whenever the robot is disabled.
         if (DriverStation.isDisabled()) {
             stop();
