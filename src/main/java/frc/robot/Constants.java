@@ -328,7 +328,7 @@ public final class Constants {
         public static final double kPivotDistance7 = 4.11;
         public static final double kPivotAngle8 = 245.0;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 247.0;
+        public static final double kPivotAngle9 = 246.7;
         public static final double kPivotDistance9 = 5.06;
     }
 
@@ -375,7 +375,7 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.5, 0.5, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.75, 0.75, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
         public static final double kSeeNoteTime = 0.4;
 
