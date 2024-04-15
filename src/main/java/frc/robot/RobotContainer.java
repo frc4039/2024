@@ -63,6 +63,7 @@ import frc.robot.commands.IntakeIndexShootCommandGroup;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.IntakeNoteRumbleCommandGroup;
 import frc.robot.commands.LeftRobotCentricDriveCommand;
+import frc.robot.commands.MovingShotParallelCommandGroup;
 import frc.robot.commands.PivotAngleCommand;
 import frc.robot.commands.PivotAngleHPCommand;
 import frc.robot.commands.PivotToClimbCommand;
@@ -393,7 +394,7 @@ public class RobotContainer {
                         () -> this.scoringState == ScoringState.CLIMB));
         operatorDRightPadTrigger.onTrue(
                 new ConditionalCommand(
-                        new InstantCommand(() -> this.scoringState = ScoringState.HPLoad),
+                        new InstantCommand(() -> this.scoringState = ScoringState.MovingShot),
                         new InstantCommand(),
                         () -> this.scoringState != ScoringState.CLIMB));
         operatorDLeftPadTrigger.whileTrue(
@@ -476,7 +477,12 @@ public class RobotContainer {
                                                 }
                                             }
                                             return -1.0;
-                                        }))),
+                                        })),
+                        ScoringState.MovingShot,
+                        new MovingShotParallelCommandGroup(driveSubsystem, shooterSubsystem, indexerSubsystem,
+                                pivotAngleSubsystem, driverLeftStickY, driverLeftStickX)),
+                        // scoringState.MovingShot,
+                        // new MovingShotParallelCommandGroup
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
@@ -507,7 +513,9 @@ public class RobotContainer {
                 ScoringState.PodiumShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200),
                 ScoringState.SHUTTLE,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200),
+                ScoringState.MovingShot,
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 100)),
                 () -> scoringState));
 
         driverRightBumper.onTrue(
