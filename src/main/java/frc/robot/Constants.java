@@ -52,7 +52,8 @@ public final class Constants {
         SubwooferShoot,
         PodiumShoot,
         SHUTTLE,
-        HPLoad
+        HPLoad,
+        MovingShot
     }
 
     public enum StageSide {
@@ -122,6 +123,10 @@ public final class Constants {
         public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
         public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
         public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
+
+        public static final double kMotionShotMaxSpeed = 0.5; // Maximum field relative speed in a given direction while
+                                                              // aiming expressed as a percent of the robots maximum
+                                                              // speed
     }
 
     public static final class ModuleConstants {

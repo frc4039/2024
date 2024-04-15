@@ -481,8 +481,6 @@ public class RobotContainer {
                         ScoringState.MovingShot,
                         new MovingShotParallelCommandGroup(driveSubsystem, shooterSubsystem, indexerSubsystem,
                                 pivotAngleSubsystem, driverLeftStickY, driverLeftStickX)),
-                        // scoringState.MovingShot,
-                        // new MovingShotParallelCommandGroup
                         () -> scoringState));
 
         // driverYButton.whileTrue(new AimAtNoteCommand(driveSubsystem,
