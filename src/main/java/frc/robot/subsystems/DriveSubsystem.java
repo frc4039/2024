@@ -24,6 +24,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -35,6 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
@@ -470,6 +473,40 @@ public class DriveSubsystem extends SubsystemBase {
             cornerposition = new Translation2d(16.46, 8);
         }
         return getPose().getTranslation().minus(cornerposition);
+    }
+
+    public double getRobotFieldSpeedX() {
+        double chassisSpeedsVectorAngle = Math.atan2(getRobotRelativeSpeeds().vyMetersPerSecond,
+                getRobotRelativeSpeeds().vxMetersPerSecond);
+        return Math.cos(getPose().getRotation().getRadians() + chassisSpeedsVectorAngle)
+                * Math.sqrt((Math.pow(getRobotRelativeSpeeds().vxMetersPerSecond, 2.0)
+                        + Math.pow(getRobotRelativeSpeeds().vyMetersPerSecond, 2.0)));
+    }
+
+    public double getRobotFieldSpeedY() {
+        double chassisSpeedsVectorAngle = Math.atan2(getRobotRelativeSpeeds().vyMetersPerSecond,
+                getRobotRelativeSpeeds().vxMetersPerSecond);
+        return Math.sin(getPose().getRotation().getRadians() + chassisSpeedsVectorAngle)
+                * Math.sqrt((Math.pow(getRobotRelativeSpeeds().vxMetersPerSecond, 2.0)
+                        + Math.pow(getRobotRelativeSpeeds().vyMetersPerSecond, 2.0)));
+    }
+
+    public double getShotTimeToGoal() {
+        double shotTime = getTranslationToGoal().getX() / (getRobotFieldSpeedX()
+                + Math.cos(getPose().getRotation().getRadians()) * (ShooterConstants.kShotSpeedMPS
+                        * Math.cos(Units.degreesToRadians(PivotConstants.kPivotPodiumPosition))));
+        return shotTime;
+    }
+
+    public Translation2d getVectorToGoal() {
+        var goalposition = new Translation2d(0 - (getRobotFieldSpeedX() * getShotTimeToGoal()),
+                5.55 - (getRobotFieldSpeedY() * getShotTimeToGoal()));
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            goalposition = new Translation2d(16.46 - (getRobotFieldSpeedX() * getShotTimeToGoal()),
+                    5.55 - (getRobotFieldSpeedY() * getShotTimeToGoal()));
+        }
+        return getPose().getTranslation().minus(goalposition);
     }
 
     /** Get the angle from the robot to the note */

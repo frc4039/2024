@@ -245,6 +245,8 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
+        public static final double kShooterWheelDiameter = Units.inchesToMeters(4.0);
+
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 650;
@@ -255,6 +257,8 @@ public final class Constants {
 
         public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
         public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
+
+        public static final double kShotSpeedMPS = kShooterRPM * kShooterWheelDiameter * Math.PI;
     }
 
     public static final class IndexerConstants {
