@@ -494,7 +494,7 @@ public class DriveSubsystem extends SubsystemBase {
     public double getShotTimeToGoal() {
         double shotTime = getTranslationToGoal().getX() / (getRobotFieldSpeedX()
                 + Math.cos(getPose().getRotation().getRadians()) * (ShooterConstants.kShotSpeedMPS
-                        * Math.cos(Units.degreesToRadians(PivotConstants.kPivotPodiumPosition))));
+                        * Math.cos(Units.degreesToRadians(270 - PivotConstants.kPivotPodiumPosition))));
         return shotTime;
     }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.PivotConstants;
@@ -41,7 +42,8 @@ public class PivotMotionShotCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        pivot.setDesiredAngle(angleEstimator.get(drive.getVectorToGoal().getNorm()));
+        pivot.setDesiredAngle(MathUtil.clamp(angleEstimator.get(drive.getVectorToGoal().getNorm()), 180,
+                PivotConstants.kPivotTravelPosition));
     }
 
     // Called once the command ends or is interrupted.
