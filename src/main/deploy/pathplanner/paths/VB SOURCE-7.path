@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 6.525341895191637,
+        "x": 7.0,
         "y": 1.6043846067720653
       },
       "prevControl": {
-        "x": 2.97695842181984,
+        "x": 3.451616526628203,
         "y": -0.12881920200359742
       },
       "nextControl": null,
@@ -62,9 +62,9 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 3.5,
-    "rotation": 25.769327624338903,
-    "rotateFast": false
+    "velocity": 1.5,
+    "rotation": 39.35288400800775,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "SOURCE 76 Blue Paths",

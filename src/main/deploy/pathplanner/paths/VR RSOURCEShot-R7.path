@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.634524635546324,
-        "y": 0.9142957071253737
+        "x": 4.520100676564989,
+        "y": 0.6623409610455591
       },
       "isLocked": false,
       "linkedName": "RSOURCEShot"
     },
     {
       "anchor": {
-        "x": 6.5,
+        "x": 7.0,
         "y": 1.81
       },
       "prevControl": {
-        "x": 4.637976989220742,
-        "y": 0.3929887779604363
+        "x": 5.462304015517122,
+        "y": -0.1399311889532868
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,8 +56,8 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 3.5,
-    "rotation": 24.98040456635157,
+    "velocity": 1.5,
+    "rotation": 36.4522883055519,
     "rotateFast": true
   },
   "reversed": false,

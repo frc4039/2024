@@ -22,6 +22,24 @@
           "data": {
             "name": "AutoShoot"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TravelPivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RFarSpeakerShot-R7"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
         }
       ]
     }

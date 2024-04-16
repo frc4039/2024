@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.598586833537303,
-        "y": 6.931258226152816
+        "x": 7.0855058073752515,
+        "y": 6.809984529059967
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.7665042602812475,
-        "y": 6.735354561618215
+        "x": 7.458655644584016,
+        "y": 6.530122151153393
       },
       "prevControl": {
-        "x": 7.626573071327961,
-        "y": 6.903271988362159
+        "x": 7.057519569584594,
+        "y": 7.024545685455007
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,14 +56,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
-    "rotation": -63.9045758426117,
-    "rotateFast": false
+    "velocity": 1.5,
+    "rotation": -53.88065915052017,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "AMP 145 Red",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 12.094757077012112,
     "velocity": 0
   },
   "useDefaultConstraints": true

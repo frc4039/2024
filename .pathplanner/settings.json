@@ -6,7 +6,7 @@
     "AMP 145 Blue",
     "AMP 145 Red",
     "Disrupt Centre Auto ",
-    "SPEAKER 321X Red paths",
+    "SPEAKER 3267 Blue Paths",
     "SOURCE 76 Blue Paths",
     "SOURCE 76 Red Paths",
     "SOURCE 876 Blue Paths ",
@@ -14,11 +14,13 @@
     "SPEAKER 3216 Blue Paths",
     "SPEAKER 3216 Red Paths",
     "SPEAKER 321X Blue paths",
+    "SPEAKER 321X Red paths",
+    "SPEAKER 3267 Red Paths",
     "Teleop Paths"
   ],
   "autoFolders": [
-    "Amp 145 Red Smart",
     "Amp 145 Blue Smart",
+    "Amp 145 Red Smart",
     "Source 867 Blue Smart",
     "Source 876 Red Smart",
     "Speaker 3216 Blue Smart",

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9230609370309653,
-        "y": 5.336042672085345
+        "x": 2.62197994481459,
+        "y": 5.68335905902581
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.105142028664648,
-        "y": 3.9925353321973347
+        "x": 6.105987484702242,
+        "y": 4.449811808714527
       },
       "isLocked": false,
-      "linkedName": "FarSpeakerShot"
+      "linkedName": "Note2"
     },
     {
       "anchor": {
-        "x": 7.971811249684744,
-        "y": 2.597270200440465
+        "x": 7.0,
+        "y": 4.030018241854666
       },
       "prevControl": {
-        "x": 5.210813163855971,
-        "y": 4.332983663685775
+        "x": 3.512596116101323,
+        "y": 4.011360749994228
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "name": "PreSpin Intake",
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNoteCommand"
+                "name": "AutoPreSpinIntake"
               }
             }
           ]
@@ -57,11 +57,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.498383479137864,
-    "rotateFast": true
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "SPEAKER 3267 Blue Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
