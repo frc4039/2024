@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.343425149813263,
-        "y": 4.19586261394745
+        "x": 0.7596211342279459,
+        "y": 4.470373886614365
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.269729335464377,
-        "y": 0.7612043754757987
+        "x": 2.68592531987906,
+        "y": 1.0357156481427139
       },
       "isLocked": false,
       "linkedName": "SOURCE"
@@ -69,7 +69,7 @@
   "reversed": false,
   "folder": "SOURCE 76 Red Paths",
   "previewStartingState": {
-    "rotation": -40.09220657752621,
+    "rotation": -59.19560926880183,
     "velocity": 0
   },
   "useDefaultConstraints": false

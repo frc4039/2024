@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.343425149813263,
-      "y": 4.19586261394745
+      "x": 0.7596211342279459,
+      "y": 4.470373886614365
     },
     "rotation": -58.29857033049428
   },
@@ -14,13 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "StartPivot"
+            "name": "SubwooferShot"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "AutoShoot"
+            "name": "StartPivot"
           }
         },
         {
