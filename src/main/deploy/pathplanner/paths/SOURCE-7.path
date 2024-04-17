@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.343425149813263,
-        "y": 4.19586261394745
+        "x": 0.7596211342279459,
+        "y": 4.470373886614365
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6810531753297304,
-        "y": 2.6187573550639005
+        "x": 1.0972491597444134,
+        "y": 2.8932686277308157
       },
       "isLocked": false,
       "linkedName": "SOURCE"
@@ -51,7 +51,7 @@
   "reversed": false,
   "folder": "SOURCE 76 Blue Paths",
   "previewStartingState": {
-    "rotation": -40.09220657752621,
+    "rotation": -61.99799494819992,
     "velocity": 0
   },
   "useDefaultConstraints": false
