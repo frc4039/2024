@@ -193,7 +193,7 @@ public class DriveSubsystem extends SubsystemBase {
                     // check rotation compared to current heading. Accept if within threshold
                     Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
                     if (Math.abs(currentRotation.minus(camPoseLeftBack.estimatedPose.getRotation().toRotation2d())
-                            .getDegrees()) < 15) {
+                            .getDegrees()) < VisionConstants.kMaxGyroCameraAngleDelta) {
                         fieldDisplay.getObject("Camera Left Pose").setPose(camPoseLeftBack.estimatedPose.toPose2d());
                         m_poseEstimator.addVisionMeasurement(
                                 camPoseLeftBack.estimatedPose.toPose2d(), camPoseLeftBack.timestampSeconds,
@@ -225,7 +225,7 @@ public class DriveSubsystem extends SubsystemBase {
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
                         if (Math.abs(currentRotation.minus(camPoseRightBack.estimatedPose.getRotation().toRotation2d())
-                                .getDegrees()) < 15) {
+                                .getDegrees()) < VisionConstants.kMaxGyroCameraAngleDelta) {
                             fieldDisplay.getObject("Camera Right Pose")
                                     .setPose(camPoseRightBack.estimatedPose.toPose2d());
                             m_poseEstimator.addVisionMeasurement(
