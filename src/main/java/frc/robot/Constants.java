@@ -66,7 +66,7 @@ public final class Constants {
         // the robot, rather the allowed maximum speeds
         public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
                                                                     // higher
-        public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
+        public static final double kMaxAngularSpeed = 3 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
@@ -322,13 +322,13 @@ public final class Constants {
         public static final double kPivotDistance4 = 2.53;
         public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240;
+        public static final double kPivotAngle6 = 239.8;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 243.0;
+        public static final double kPivotAngle7 = 242.7;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 245.0;
+        public static final double kPivotAngle8 = 244.4;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 246.7;
+        public static final double kPivotAngle9 = 246.3;
         public static final double kPivotDistance9 = 5.06;
     }
 
