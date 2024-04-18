@@ -294,7 +294,7 @@ public final class Constants {
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
         // This value must be positive. Negative values do not work.
-        public static final double kPivotOffset = 346.08;
+        public static final double kPivotOffset = 353.48;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
