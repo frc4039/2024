@@ -66,7 +66,7 @@ public final class Constants {
         // the robot, rather the allowed maximum speeds
         public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
                                                                     // higher
-        public static final double kMaxAngularSpeed = 3 * Math.PI; // radians per second for turning
+        public static final double kMaxAngularSpeed = 2.5 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
