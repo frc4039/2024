@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7596211342279459,
+      "y": 4.470373886614365
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "SubwooferShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "VR RSOURCE-R8"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8-SOURCEShot-Part1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8-SOURCEShot-Part2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
