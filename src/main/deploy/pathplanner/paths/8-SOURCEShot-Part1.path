@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.013716027432057,
+        "y": 0.8189562532971225
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.400979465835423,
+        "y": 0.7950635036887063
+      },
+      "isLocked": false,
+      "linkedName": "8"
+    },
+    {
+      "anchor": {
+        "x": 5.814484107600694,
+        "y": 1.2161920620137547
+      },
+      "prevControl": {
+        "x": 6.57460414635929,
+        "y": 1.0173914364922754
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "BlueWait"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -39.639999999999986,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

@@ -316,6 +316,7 @@ public class RobotContainer {
         autoChooser.addOption("AMP 145 Red Smart", new PathPlannerAuto("AMP 145 Red Smart"));
 
         autoChooser.addOption("Disrupt Centre Auto", new PathPlannerAuto("Disrupt Centre Auto"));
+        autoChooser.addOption("SOURCE 8 Pause Blue", new PathPlannerAuto("SOURCE 8 Pause Blue"));
         autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
 
         autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));
