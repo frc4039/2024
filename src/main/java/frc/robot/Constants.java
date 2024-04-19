@@ -137,7 +137,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.04;
+        public static final double kWheelDiameterInches = 3.02;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -294,7 +294,7 @@ public final class Constants {
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
         // This value must be positive. Negative values do not work.
-        public static final double kPivotOffset = 352.16;
+        public static final double kPivotOffset = 351.15;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
