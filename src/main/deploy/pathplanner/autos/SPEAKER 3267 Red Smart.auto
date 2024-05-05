@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.265497071865093,
-      "y": 5.5750258226500256
+      "x": 1.2979418195887897,
+      "y": 5.529233972024078
     },
     "rotation": 0
   },
@@ -62,25 +62,6 @@
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeIndexShootCommand"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "R2-R1"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "TravelPivot"
@@ -89,7 +70,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VR R1-R6"
+            "pathName": "R2-R6"
           }
         },
         {
@@ -107,6 +88,6 @@
       ]
     }
   },
-  "folder": "Speaker 3216 Red Smart",
+  "folder": null,
   "choreoAuto": false
 }

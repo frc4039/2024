@@ -10,24 +10,12 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "TravelPivot"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "R6-RSOURCEShot"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StartPivot"
           }
         },
         {

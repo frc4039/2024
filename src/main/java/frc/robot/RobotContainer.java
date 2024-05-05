@@ -299,6 +299,10 @@ public class RobotContainer {
 
         // autoChooser = AutoBuilder.buildAutoChooser();
         autoChooser.setDefaultOption("Do Nothing", Commands.none());
+
+        autoChooser.addOption("SPEAKER 3267 Blue Smart", new PathPlannerAuto("SPEAKER 3267 Blue Smart"));
+        autoChooser.addOption("SPEAKER 3267 Red Smart", new PathPlannerAuto("SPEAKER 3267 Red Smart"));
+
         autoChooser.addOption("SPEAKER 3216 Blue Smart", new PathPlannerAuto("SPEAKER 3216 Blue Smart"));
         autoChooser.addOption("SPEAKER 3216 Red Smart", new PathPlannerAuto("SPEAKER 3216 Red Smart"));
 
@@ -312,6 +316,8 @@ public class RobotContainer {
         autoChooser.addOption("AMP 145 Red Smart", new PathPlannerAuto("AMP 145 Red Smart"));
 
         autoChooser.addOption("Disrupt Centre Auto", new PathPlannerAuto("Disrupt Centre Auto"));
+        autoChooser.addOption("SOURCE 8 Pause Blue", new PathPlannerAuto("SOURCE 8 Pause Blue"));
+        autoChooser.addOption("SOURCE 8 Pause Red", new PathPlannerAuto("SOURCE 8 Pause Red"));
         autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
 
         autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216 Blue"));

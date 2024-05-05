@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7378464742664135,
-      "y": 4.447775720087816
+      "x": 0.7596211342279459,
+      "y": 4.470373886614365
     },
     "rotation": -60.0
   },
@@ -36,26 +36,32 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "zSource876RedStep2"
+            "pathName": "8-SOURCEShot-Part1"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "8-SOURCEShot-Part2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "zSource876RedStep3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "zSource876RedStep4"
+            "name": "AutoShoot"
           }
         }
       ]
     }
   },
-  "folder": "Source 876 Red Smart",
+  "folder": null,
   "choreoAuto": false
 }

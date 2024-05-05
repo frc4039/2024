@@ -66,7 +66,7 @@ public final class Constants {
         // the robot, rather the allowed maximum speeds
         public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
                                                                     // higher
-        public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
+        public static final double kMaxAngularSpeed = 2.5 * Math.PI; // radians per second for turning
 
         public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
@@ -137,7 +137,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.04;
+        public static final double kWheelDiameterInches = 3.02;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -294,7 +294,7 @@ public final class Constants {
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
         // This value must be positive. Negative values do not work.
-        public static final double kPivotOffset = 346.08;
+        public static final double kPivotOffset = 351.15;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
@@ -322,13 +322,13 @@ public final class Constants {
         public static final double kPivotDistance4 = 2.53;
         public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240;
+        public static final double kPivotAngle6 = 239.8;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 243.0;
+        public static final double kPivotAngle7 = 242.7;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 245.0;
+        public static final double kPivotAngle8 = 244.4;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 246.7;
+        public static final double kPivotAngle9 = 246.3;
         public static final double kPivotDistance9 = 5.06;
     }
 
@@ -377,6 +377,7 @@ public final class Constants {
 
         public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.75, 0.75, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final double kMaxGyroCameraAngleDelta = 89.0;
         public static final double kSeeNoteTime = 0.4;
 
     }

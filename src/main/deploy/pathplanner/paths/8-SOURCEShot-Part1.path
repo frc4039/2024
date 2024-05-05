@@ -3,50 +3,47 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0752240077946618,
-        "y": 6.8391285427364
+        "x": 8.013716027432057,
+        "y": 0.8189562532971225
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2977299021645106,
-        "y": 6.967947744739998
+        "x": 6.400979465835423,
+        "y": 0.7950635036887063
       },
       "isLocked": false,
-      "linkedName": "Amp1Mid"
+      "linkedName": "8"
     },
     {
       "anchor": {
-        "x": 2.62,
-        "y": 6.7
+        "x": 5.814484107600694,
+        "y": 1.2161920620137547
       },
       "prevControl": {
-        "x": 2.354304140078828,
-        "y": 6.546391192430832
+        "x": 6.57460414635929,
+        "y": 1.0173914364922754
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note1"
+      "linkedName": "BlueWait"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 35.079957562648644,
-    "rotateFast": false
+    "rotation": -39.639999999999986,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "AMP 145 Blue",
-  "previewStartingState": {
-    "rotation": 42.273689006093704,
-    "velocity": 0
-  },
+  "folder": null,
+  "previewStartingState": null,
   "useDefaultConstraints": false
 }

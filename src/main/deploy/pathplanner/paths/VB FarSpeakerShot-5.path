@@ -3,24 +3,24 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9265152267645393,
-        "y": 5.559302880686202
+        "x": 3.9230609370309653,
+        "y": 5.336042672085345
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.8155597595075355,
-        "y": 7.202164475655628
+        "x": 4.812105469773961,
+        "y": 6.97890426705477
       },
       "isLocked": false,
       "linkedName": "FarSpeakerShot"
     },
     {
       "anchor": {
-        "x": 6.2,
+        "x": 7.0,
         "y": 6.28
       },
       "prevControl": {
-        "x": 3.8912223076942585,
+        "x": 4.691222307694258,
         "y": 7.638457039310655
       },
       "nextControl": null,
@@ -56,8 +56,8 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 3.5,
-    "rotation": -11.33515720998446,
+    "velocity": 1.5,
+    "rotation": -18.1949846880059,
     "rotateFast": true
   },
   "reversed": false,
