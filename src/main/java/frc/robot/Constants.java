@@ -64,13 +64,13 @@ public final class Constants {
     public static final class DriveConstants {
         // Driving Parameters - Note that these are not the maximum capable speeds of
         // the robot, rather the allowed maximum speeds
-        public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
-                                                                    // higher
+        public static final double kMaxSpeedMetersPerSecond = 2.5; // was 5.45// dont let ben know that i can make this
+                                                                   // higher
         public static final double kMaxAngularSpeed = 2.5 * Math.PI; // radians per second for turning
 
-        public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
+        public static final double kDirectionSlewRate = 7; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
-        public static final double kRotationalSlewRate = 15; // percent per second (1 = 100%) Higher is faster
+        public static final double kRotationalSlewRate = 14; // percent per second (1 = 100%) Higher is faster
         public static final double kAimP = 1.7;
         public static final double kAimI = 0;
         public static final double kAimD = 0;
@@ -185,11 +185,11 @@ public final class Constants {
         public static final IdleMode kTurningMotorIdleMode = IdleMode.kBrake;
         public static final double kDrivingMotorNeutralDeadband = 0.005; // Jagon Baker did this
 
-        public static final int kDrivingMotorCurrentLimit = 60; // amps
+        public static final int kDrivingMotorCurrentLimit = 15; // amps
         public static final int kTurningMotorCurrentLimit = 20; // amps
 
-        public static final int kDrivingMotorCurrentThreshhold = 50; // amps
-        public static final double kTriggerThresholdTime = 1.5; // seconds
+        public static final int kDrivingMotorCurrentThreshhold = 5; // amps
+        public static final double kTriggerThresholdTime = 0.5; // seconds
     }
 
     public static final class OIConstants {
@@ -248,10 +248,10 @@ public final class Constants {
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 650;
-        public static final double kSubwooferShooterRPM = 2750;
+        public static final double kSubwooferShooterRPM = 2500;
         public static final double kShuttleOverStageRPM = 2700;
-        public static final double kPodiumShooterRPM = 4000;
-        public static final double kShuttleShootRPM = 2000;
+        public static final double kPodiumShooterRPM = 5050;
+        public static final double kShuttleShootRPM = 1500;
 
         public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
         public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
@@ -303,11 +303,11 @@ public final class Constants {
         public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
-        public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotSubwooferPosition = 225;
         public static final double kPivotShuttleOverStage = 227; // 218;
-        public static final double kPivotPodiumPosition = 235;
+        public static final double kPivotPodiumPosition = 237.5;
         public static final double kPivotTrapPosition = 165; // 162;
-        public static final double kPivotHPLoadPosition = 173;
+        public static final double kPivotHPLoadPosition = 240;
         public static final double kPivotTrapFirstPosition = 211;
         public static final double kPivotTrapDriveDistance = 0.4;
         public static final double kPivotTrapDriveSPeed = -0.15;

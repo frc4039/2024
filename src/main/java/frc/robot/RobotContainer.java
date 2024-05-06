@@ -511,7 +511,7 @@ public class RobotContainer {
                 ScoringState.SubwooferShoot,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kSubwooferShooterRPM - 200),
                 ScoringState.PodiumShoot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 200),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kPodiumShooterRPM - 100),
                 ScoringState.SHUTTLE,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200)),
                 () -> scoringState));

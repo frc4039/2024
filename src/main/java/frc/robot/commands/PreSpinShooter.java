@@ -37,11 +37,11 @@ public class PreSpinShooter extends Command {
         if (indexer.hasNote()
                 && (scoringState.get() == ScoringState.HIGH || scoringState.get() == ScoringState.PodiumShoot
                         || scoringState.get() == ScoringState.SubwooferShoot)) {
-            shooter.shooterPID(ShooterConstants.kShooterRPM * 0.7);
+            shooter.shooterPID(ShooterConstants.kShooterRPM * 0.2);
         } else if (indexer.hasNote()
                 && scoringState.get() == ScoringState.SHUTTLE) {
-                     shooter.shooterPID(ShooterConstants.kShuttleShootRPM);
-        }else {
+            shooter.shooterPID(ShooterConstants.kShuttleShootRPM);
+        } else {
             shooter.shooterSpeedControl(0, 0, 0);
         }
     }
