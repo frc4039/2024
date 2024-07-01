@@ -10,24 +10,12 @@
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "TravelPivot"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
                   "pathName": "VB-6-SOURCEShot"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StartPivot"
           }
         },
         {

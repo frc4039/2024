@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.63590181725818,
-        "y": 3.8247858313898453
+        "x": 7.859791719583439,
+        "y": 4.1886069226683915
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.67552128928486,
-        "y": 3.8414047374413043
+        "x": 7.244094488188976,
+        "y": 4.002032004064009
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.63590181725818,
-        "y": 3.8247858313898453
+        "x": 7.747846768420809,
+        "y": 3.3676772808091076
       },
       "prevControl": {
-        "x": 7.665771531068005,
-        "y": 3.8121554627907357
+        "x": 7.542614357955987,
+        "y": 3.964717020343132
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,14 +56,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
-    "rotation": -66.10903663508147,
-    "rotateFast": false
+    "velocity": 1.5,
+    "rotation": -72.29957221133286,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "SPEAKER 3216 Blue Paths",
   "previewStartingState": {
-    "rotation": -24.34108993669251,
+    "rotation": -9.865806943084378,
     "velocity": 0
   },
   "useDefaultConstraints": true

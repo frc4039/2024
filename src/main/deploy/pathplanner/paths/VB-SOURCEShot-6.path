@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.23,
-        "y": 2.43
+        "x": 7.673216800979056,
+        "y": 2.930482014808462
       },
       "prevControl": {
-        "x": 6.271556106053613,
-        "y": 0.38024057045600307
+        "x": 6.385849862608816,
+        "y": -0.2891911238367923
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,9 +62,9 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 3.5,
+    "velocity": 1.5,
     "rotation": 64.40255886076837,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "SOURCE 876 Blue Paths ",

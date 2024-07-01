@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.105142028664648,
-        "y": 3.9925353321973347
+        "x": 4.230909552728196,
+        "y": 3.358348534878888
       },
       "isLocked": false,
       "linkedName": "FarSpeakerShot"
     },
     {
       "anchor": {
-        "x": 7.971811249684744,
-        "y": 2.597270200440465
+        "x": 7.374696931212044,
+        "y": 3.460964740111299
       },
       "prevControl": {
-        "x": 5.210813163855971,
-        "y": 4.332983663685775
+        "x": 7.001547094003278,
+        "y": 4.571085505807373
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,8 +32,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "name": "PreSpinIntake",
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNoteCommand"
+                "name": "AutoPreSpinIntake"
               }
             }
           ]
@@ -50,21 +50,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
+    "maxVelocity": 3.5,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -29.498383479137864,
+    "velocity": 1.5,
+    "rotation": -49.7318514343873,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
+  "folder": "SPEAKER 3267 Blue Paths",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

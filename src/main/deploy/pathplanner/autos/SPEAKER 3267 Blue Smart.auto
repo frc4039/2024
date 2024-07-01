@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.265497071865093,
-      "y": 5.5750258226500256
+      "x": 1.2979418195887897,
+      "y": 5.529233972024078
     },
     "rotation": 0
   },
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "SPEAKER-R3"
+                  "pathName": "MiddleSubwoofer-N3"
                 }
               }
             ]
@@ -55,26 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "R3-R2"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakeIndexShootCommand"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "R2-R1"
+                  "pathName": "N3-N2"
                 }
               }
             ]
@@ -89,7 +70,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "VR R1-R6"
+            "pathName": "B2-B6"
           }
         },
         {
@@ -101,12 +82,12 @@
         {
           "type": "named",
           "data": {
-            "name": "zSpeaker3216RedStep2"
+            "name": "zSpeaker3216BlueStep2"
           }
         }
       ]
     }
   },
-  "folder": "Speaker 3216 Red Smart",
+  "folder": null,
   "choreoAuto": false
 }

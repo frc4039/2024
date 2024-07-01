@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.9230609370309653,
-        "y": 5.336042672085345
+        "x": 5.814484107600694,
+        "y": 1.2161920620137547
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.105142028664648,
-        "y": 3.9925353321973347
+        "x": 4.797092671108419,
+        "y": 1.4383809964201122
       },
       "isLocked": false,
-      "linkedName": "FarSpeakerShot"
+      "linkedName": "BlueWait"
     },
     {
       "anchor": {
-        "x": 7.971811249684744,
-        "y": 2.597270200440465
+        "x": 3.2085148785697895,
+        "y": 2.930482014808462
       },
       "prevControl": {
-        "x": 5.210813163855971,
-        "y": 4.332983663685775
+        "x": 4.56320958225962,
+        "y": 1.7073465485962325
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SOURCEShot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "name": "PreSpinShooter",
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "IntakeNoteCommand"
+                "name": "AutoPreSpinShooter"
               }
             }
           ]
@@ -50,21 +50,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 2.5,
-    "maxAcceleration": 2.5,
+    "maxVelocity": 4.5,
+    "maxAcceleration": 3.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.498383479137864,
+    "rotation": -39.639999999999986,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "SPEAKER 3216 Blue Paths",
-  "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
-  },
-  "useDefaultConstraints": true
+  "folder": null,
+  "previewStartingState": null,
+  "useDefaultConstraints": false
 }

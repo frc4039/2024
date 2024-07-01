@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.2,
-        "y": 7.249007821838753
+        "x": 7.598586833537303,
+        "y": 7.332394301152239
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.178283620225199,
-        "y": 7.22457083869037
+        "x": 6.814972175398896,
+        "y": 7.1924631121989515
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.2,
-        "y": 7.249007821838753
+        "x": 7.402683169002701,
+        "y": 6.418177199990764
       },
       "prevControl": {
-        "x": 7.178283620225199,
-        "y": 7.312318662642077
+        "x": 6.7030272242362665,
+        "y": 6.6887108319671205
       },
       "nextControl": null,
       "isLocked": false,
@@ -56,9 +56,9 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
-    "rotation": -56.72511201516518,
-    "rotateFast": false
+    "velocity": 1.5,
+    "rotation": -46.041626676009955,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "AMP 145 Blue",
