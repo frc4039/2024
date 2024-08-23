@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
@@ -42,7 +43,8 @@ public class AimMotionShotCommand extends Command {
     public void execute() {
         double targetangle = driveSubsystem.getVectorToGoal().getAngle().getRadians();
         rotationController.setGoal(targetangle);
-        driveSubsystem.drive(-xSpeedSupplier.getAsDouble(), -ySpeedSupplier.getAsDouble(),
+        driveSubsystem.drive(MathUtil.clamp(-xSpeedSupplier.getAsDouble(), -0.3, 0.3),
+                MathUtil.clamp(-ySpeedSupplier.getAsDouble(), -0.3, 0.3),
                 rotationController.calculate(driveSubsystem.getPose().getRotation().getRadians()),
                 true, true);
     }

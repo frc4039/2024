@@ -519,7 +519,7 @@ public class RobotContainer {
                 ScoringState.SHUTTLE,
                 new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShuttleShootRPM - 200),
                 ScoringState.MovingShot,
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 100)),
+                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 150)),
                 () -> scoringState));
 
         driverRightBumper.onTrue(
