@@ -52,7 +52,8 @@ public final class Constants {
         SubwooferShoot,
         PodiumShoot,
         SHUTTLE,
-        HPLoad
+        HPLoad,
+        MovingShot
     }
 
     public enum StageSide {
@@ -68,9 +69,9 @@ public final class Constants {
                                                                     // higher
         public static final double kMaxAngularSpeed = 2.5 * Math.PI; // radians per second for turning
 
-        public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
+        public static final double kDirectionSlewRate = 7; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
-        public static final double kRotationalSlewRate = 15; // percent per second (1 = 100%) Higher is faster
+        public static final double kRotationalSlewRate = 14; // percent per second (1 = 100%) Higher is faster
         public static final double kAimP = 1.7;
         public static final double kAimI = 0;
         public static final double kAimD = 0;
@@ -122,6 +123,10 @@ public final class Constants {
         public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
         public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
         public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
+
+        public static final double kMotionShotMaxSpeed = 0.5; // Maximum field relative speed in a given direction while
+                                                              // aiming expressed as a percent of the robots maximum
+                                                              // speed
     }
 
     public static final class ModuleConstants {
@@ -137,7 +142,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.02;
+        public static final double kWheelDiameterInches = 3.05;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -189,7 +194,7 @@ public final class Constants {
         public static final int kTurningMotorCurrentLimit = 20; // amps
 
         public static final int kDrivingMotorCurrentThreshhold = 50; // amps
-        public static final double kTriggerThresholdTime = 1.5; // seconds
+        public static final double kTriggerThresholdTime = 1.0; // seconds
     }
 
     public static final class OIConstants {
@@ -245,6 +250,8 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
+        public static final double kShooterWheelDiameter = Units.inchesToMeters(4.0);
+
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 650;
@@ -255,6 +262,8 @@ public final class Constants {
 
         public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
         public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
+
+        public static final double kShotSpeedMPS = (kShooterRPM - 350) * kShooterWheelDiameter * Math.PI;
     }
 
     public static final class IndexerConstants {

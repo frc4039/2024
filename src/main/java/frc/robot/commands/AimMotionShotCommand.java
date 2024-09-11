@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class AimAtSpeakerCommand extends Command {
+public class AimMotionShotCommand extends Command {
     /** Creates a new AimAtSpeaker. */
     private DriveSubsystem driveSubsystem;
     private DoubleSupplier xSpeedSupplier;
@@ -20,7 +20,7 @@ public class AimAtSpeakerCommand extends Command {
     private ProfiledPIDController rotationController = new ProfiledPIDController(DriveConstants.kAimP,
             DriveConstants.kAimI, DriveConstants.kAimD, DriveConstants.kAimProfile);
 
-    public AimAtSpeakerCommand(DriveSubsystem driveSubsystem,
+    public AimMotionShotCommand(DriveSubsystem driveSubsystem,
             DoubleSupplier xSpeedSupplier,
             DoubleSupplier ySpeedSupplier) {
         this.driveSubsystem = driveSubsystem;
@@ -41,13 +41,10 @@ public class AimAtSpeakerCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        double targetangle = driveSubsystem.getTranslationToGoal().getAngle().getRadians();
+        double targetangle = driveSubsystem.getVectorToGoal().getAngle().getRadians();
         rotationController.setGoal(targetangle);
-        driveSubsystem.drive(
-                MathUtil.clamp(-xSpeedSupplier.getAsDouble(), -DriveConstants.kMotionShotMaxSpeed,
-                        DriveConstants.kMotionShotMaxSpeed),
-                MathUtil.clamp(-ySpeedSupplier.getAsDouble(), -DriveConstants.kMotionShotMaxSpeed,
-                        DriveConstants.kMotionShotMaxSpeed),
+        driveSubsystem.drive(MathUtil.clamp(-xSpeedSupplier.getAsDouble(), -0.3, 0.3),
+                MathUtil.clamp(-ySpeedSupplier.getAsDouble(), -0.3, 0.3),
                 rotationController.calculate(driveSubsystem.getPose().getRotation().getRadians()),
                 true, true);
     }

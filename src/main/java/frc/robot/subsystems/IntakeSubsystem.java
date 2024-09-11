@@ -16,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(HardwareMonitor hw) {
         m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorCANID, MotorType.kBrushless);
         m_intakeMotor.restoreFactoryDefaults();
-        m_intakeMotor.setSmartCurrentLimit(100);
+        m_intakeMotor.setSmartCurrentLimit(50);
         m_intakeMotor.setInverted(false);
         m_intakeMotor.burnFlash();
 

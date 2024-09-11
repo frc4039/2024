@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2977299021645106,
-        "y": 6.967947744739998
+        "x": 2.308240762788229,
+        "y": 6.947786040068328
       },
       "isLocked": false,
       "linkedName": "Amp1Mid"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.62,
-        "y": 6.7
+        "y": 6.817692039942485
       },
       "prevControl": {
         "x": 2.354304140078828,
-        "y": 6.546391192430832
+        "y": 6.664083232373317
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 35.079957562648644,
-    "rotateFast": false
+    "rotation": 25.0,
+    "rotateFast": true
   },
   "reversed": false,
   "folder": "AMP 145 Blue",
   "previewStartingState": {
-    "rotation": 42.273689006093704,
+    "rotation": 33.147987800922294,
     "velocity": 0
   },
   "useDefaultConstraints": false
