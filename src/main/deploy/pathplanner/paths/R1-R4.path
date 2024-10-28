@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.661421521273423,
+        "y": 6.836353259547895
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.779455510023318,
+        "y": 6.836353259547895
+      },
+      "isLocked": false,
+      "linkedName": "R AMP1"
+    },
+    {
+      "anchor": {
+        "x": 8.041956082821393,
+        "y": 7.477437776485861
+      },
+      "prevControl": {
+        "x": 6.521265450246839,
+        "y": 7.477437776485861
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.5,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "AMP 145 Red",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}

@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "6-FarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StartPivot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TravelPivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BFarSpeakerShot-B7"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoDriveToNotePRG"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Speaker 3216 Blue Smart",
+  "choreoAuto": false
+}

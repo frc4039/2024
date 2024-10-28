@@ -4,14 +4,11 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -25,7 +22,8 @@ public class AutoDriveToNoteParallelRaceGroup extends ParallelRaceGroup {
         addCommands(
                 new SeeNoteCommand(driveSubsystem),
                 new IntakeNoteCommand(intakeSubsystem, indexerSubsystem),
-                new DriveToNoteCommand(driveSubsystem, indexerSubsystem, DriveConstants.kAutoDriveToNoteXSpeed)
+                new AutoDriveToNoteCommand(driveSubsystem, indexerSubsystem, intakeSubsystem,
+                        DriveConstants.kAutoDriveToNoteXSpeed)
                         .withTimeout(DriveConstants.kAutoDriveToNoteTime));
 
     }

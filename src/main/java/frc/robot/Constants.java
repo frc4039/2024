@@ -51,7 +51,15 @@ public final class Constants {
         CLIMB,
         SubwooferShoot,
         PodiumShoot,
-        SHUTTLE
+        SHUTTLE,
+        HPLoad,
+        MovingShot
+    }
+
+    public enum StageSide {
+        LEFT,
+        RIGHT,
+        CENTRE
     }
 
     public static final class DriveConstants {
@@ -59,11 +67,11 @@ public final class Constants {
         // the robot, rather the allowed maximum speeds
         public static final double kMaxSpeedMetersPerSecond = 5.45; // was 5.45// dont let ben know that i can make this
                                                                     // higher
-        public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second for turning
+        public static final double kMaxAngularSpeed = 2.5 * Math.PI; // radians per second for turning
 
-        public static final double kDirectionSlewRate = 8; // radians per second Higher is faster
+        public static final double kDirectionSlewRate = 7; // radians per second Higher is faster
         public static final double kMagnitudeSlewRate = 3; // percent per second (1 = 100%) Higher is faster
-        public static final double kRotationalSlewRate = 15; // percent per second (1 = 100%) Higher is faster
+        public static final double kRotationalSlewRate = 14; // percent per second (1 = 100%) Higher is faster
         public static final double kAimP = 1.7;
         public static final double kAimI = 0;
         public static final double kAimD = 0;
@@ -109,7 +117,16 @@ public final class Constants {
 
         public static final double kAutoDriveToNoteXSpeed = 0.4;
         public static final double kAutoDriveToNoteDistance = 1.0;
-        public static final double kAutoDriveToNoteTime = 1.0;
+        public static final double kAutoDriveToNoteTime = 3.0;
+
+        public static final double kStageRedRightAngle = Math.toRadians(241); // 241 degrees
+        public static final double kStageRedLeftAngle = Math.toRadians(120); // 120 degrees
+        public static final double kStageBlueRightAngle = Math.toRadians(60); // 60 degrees
+        public static final double kStageBlueLeftAngle = Math.toRadians(300); // 300 degrees
+
+        public static final double kMotionShotMaxSpeed = 0.5; // Maximum field relative speed in a given direction while
+                                                              // aiming expressed as a percent of the robots maximum
+                                                              // speed
     }
 
     public static final class ModuleConstants {
@@ -125,7 +142,7 @@ public final class Constants {
         // Calculations required for driving motor conversion factors and feed forward
         public static final double kDrivingMotorFreeSpeedRPM = 6380;
         public static final double kDrivingMotorFreeSpeedRps = kDrivingMotorFreeSpeedRPM / 60;
-        public static final double kWheelDiameterInches = 3.076;
+        public static final double kWheelDiameterInches = 3.05;
         public static final double kWheelDiameterMeters = kWheelDiameterInches * 0.0254;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
         // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
@@ -177,7 +194,7 @@ public final class Constants {
         public static final int kTurningMotorCurrentLimit = 20; // amps
 
         public static final int kDrivingMotorCurrentThreshhold = 50; // amps
-        public static final double kTriggerThresholdTime = 1.5; // seconds
+        public static final double kTriggerThresholdTime = 1.0; // seconds
     }
 
     public static final class OIConstants {
@@ -195,6 +212,8 @@ public final class Constants {
         public static final double kPXController = 1;
         public static final double kPYController = 1;
         public static final double kPThetaController = 1;
+
+        public static final double CenterLineCrossThreshold = .25;
 
         // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
@@ -231,23 +250,31 @@ public final class Constants {
         public static final double kShooterD = 0.001;
         public static final double kShooterFF = 0.000145;
 
+        public static final double kShooterWheelDiameter = Units.inchesToMeters(4.0);
+
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
-        public static final double kTrapShooterRPM = 800;
+        public static final double kTrapShooterRPM = 650;
         public static final double kSubwooferShooterRPM = 2750;
+        public static final double kShuttleOverStageRPM = 2700;
         public static final double kPodiumShooterRPM = 4000;
         public static final double kShuttleShootRPM = 2000;
+
+        public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
+        public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
+
+        public static final double kShotSpeedMPS = (kShooterRPM - 350) * kShooterWheelDiameter * Math.PI;
     }
 
     public static final class IndexerConstants {
-        public static final double kIndexerShooterSpeed = 0.8;
+        public static final double kIndexerShooterSpeed = 1.0;
         public static final double kIndexerIntakeSpeed = 0.80;
         public static final double kIndexerHumanPlayerSpeed = -0.15;
         public static final int kIndexerCANID = 32;
     }
 
     public static final class SensorConstants {
-        public static final int kBeamBreakDIO = 2;
+        public static final int kBeamBreakDIO = 4;
         public static final int kBeamBreakLowerDIO = 3;
 
     }
@@ -255,6 +282,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kIntakeMotorCANID = 40;
         public static final double kIntakeSpeedMotor = 1;
+        public static final double IntakeNoteCurrentThreshold = 20;
+
     }
 
     public static final class PivotConstants {
@@ -262,11 +291,11 @@ public final class Constants {
         public static final int kPivotFollowerCANId = 51;
 
         public static final double kPivotEncoderPositionFactor = 360.0;
-        public static final double kPivotEncoderVelocityFactor = 360.0 / 60.0;
+        public static final double kPivotEncoderVelocityFactor = 360.0;
 
         public static final double kPivotP = 0.03;
         public static final double kPivotI = 0;
-        public static final double kPivotD = 0.20;
+        public static final double kPivotD = 0.1;
         public static final double kPivotFF = 0;
         public static final double kPivotMinOutput = -0.5;
         public static final double kPivotMaxOutput = 0.5;
@@ -274,7 +303,7 @@ public final class Constants {
         // Offset should put 0 degrees straight down.
         // To calibrate, straight up should read 180 on the dashboard.
         // This value must be positive. Negative values do not work.
-        public static final double kPivotOffset = Helpers.isBabycakes() ? 56 : 351.4;
+        public static final double kPivotOffset = 351.15;
         // Values on the encoder should move towards the shooter side.
         // Values >180 should be towards bellypan.
         // Values <180 should be to the amp / open side of the robot.
@@ -284,8 +313,13 @@ public final class Constants {
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
         public static final double kPivotSubwooferPosition = 212;
+        public static final double kPivotShuttleOverStage = 227; // 218;
         public static final double kPivotPodiumPosition = 235;
-        public static final double kPivotTrapPosition = 170; // 162;
+        public static final double kPivotTrapPosition = 165; // 162;
+        public static final double kPivotHPLoadPosition = 173;
+        public static final double kPivotTrapFirstPosition = 211;
+        public static final double kPivotTrapDriveDistance = 0.4;
+        public static final double kPivotTrapDriveSPeed = -0.15;
 
         public static final double kPivotAngleClose = Helpers.isBabycakes() ? 211.0 : 218.0;
         public static final double kPivotDistanceClose = Helpers.isBabycakes() ? 1.37 : 1.32;
@@ -297,13 +331,13 @@ public final class Constants {
         public static final double kPivotDistance4 = 2.53;
         public static final double kPivotAngle5 = 237.0;
         public static final double kPivotDistance5 = 3.04;
-        public static final double kPivotAngle6 = 240;
+        public static final double kPivotAngle6 = 239.8;
         public static final double kPivotDistance6 = 3.51;
-        public static final double kPivotAngle7 = 243.0;
+        public static final double kPivotAngle7 = 242.7;
         public static final double kPivotDistance7 = 4.11;
-        public static final double kPivotAngle8 = 245.0;
+        public static final double kPivotAngle8 = 244.4;
         public static final double kPivotDistance8 = 4.49;
-        public static final double kPivotAngle9 = 247.0;
+        public static final double kPivotAngle9 = 246.3;
         public static final double kPivotDistance9 = 5.06;
     }
 
@@ -311,9 +345,10 @@ public final class Constants {
         public static final int kClimberLeaderMotorCANId = 55;
         public static final int kClimberFollowerMotorCANId = 56;
         public static final int kClimberSmartCurrentLimit = 20;
-        public static final double kClimberMotorSpeed = 0.9;
+        public static final double kClimberMotorSpeed = 0.65;
         public static final int TrapActuatorRightPort = 1;
         public static final int TrapActuatorLeftPort = 2;
+        public static final double kClimberBiasLimit = 0.3;
     }
 
     public static class VisionConstants {
@@ -322,9 +357,9 @@ public final class Constants {
         // Cam mounted facing forward, half a meter forward of center, half a meter up
         // from center.
         public static final Transform3d kRobotToCamRightBack = new Transform3d(
-                new Translation3d(0.23, 0.5, 0.201512),
-                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
-                        Units.degreesToRadians(166)));
+                new Translation3d(-0.23625, -0.274603, 0.201512),
+                new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26.6),
+                        Units.degreesToRadians(190.25)));
 
         // Back camera mounted 11.0 inches behind centre, 8.5 left of centre, 8.625
         // inches up from centre, 24 degrees for horizontal
@@ -336,12 +371,12 @@ public final class Constants {
                 ? new Transform3d( // babycakes camera mounting transform
                         new Translation3d(Units.inchesToMeters(-11.0), Units.inchesToMeters(8.5),
                                 Units.inchesToMeters(8.625)),
-                        new Rotation3d(0, Units.degreesToRadians(-24),
+                        new Rotation3d(0, Units.degreesToRadians(-24.5),
                                 Units.degreesToRadians(180.00)))
                 : new Transform3d( // compBot camera mounting
-                        new Translation3d(-0.45, -0.1, 0.201512),
-                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26),
-                                Units.degreesToRadians(183.5)));
+                        new Translation3d(-0.23625, 0.274603, 0.201512),
+                        new Rotation3d(Units.degreesToRadians(180), Units.degreesToRadians(-26.2),
+                                Units.degreesToRadians(169.75)));
         /*
          * public static final Transform3d kRobotToCamLeftBack = new Transform3d(
          * new Translation3d(0.236250, 0.274603, 0.201512),
@@ -349,14 +384,15 @@ public final class Constants {
          * Units.degreesToRadians(190.00)));// was 170
          */
 
-        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 1000);
+        public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.75, 0.75, 1000);
         public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+        public static final double kMaxGyroCameraAngleDelta = 89.0;
         public static final double kSeeNoteTime = 0.4;
 
     }
 
     public static final class BlinkinConstants {
-        public static final int kBlinkinPWMPort = 0;
+        public static final int kBlinkinPWMPort = 4;
 
         // Colours
         public static final double kColourValueGreen = 0.77;

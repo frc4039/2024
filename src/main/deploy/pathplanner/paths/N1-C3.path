@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.62197994481459,
-        "y": 7.180210827658122
+        "x": 2.62,
+        "y": 6.817692039942485
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9618102818826717,
-        "y": 4.6943213790273735
+        "x": 3.9598303370680816,
+        "y": 4.331802591311736
       },
       "isLocked": false,
       "linkedName": "Note1"
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "CenterNote3"
+      "linkedName": "6"
     }
   ],
   "rotationTargets": [],

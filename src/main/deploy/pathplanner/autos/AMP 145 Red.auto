@@ -1,0 +1,104 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.429338570844387,
+      "y": 6.493174186507518
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartPivot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoPreSpinShooter"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "RAMP-R1"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIndexShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R1-R4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R4-RFarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RFarSpeakerShot-R5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeNoteCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R5-RFarSpeakerShot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

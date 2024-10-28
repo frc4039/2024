@@ -13,6 +13,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class HumanPlayerIntakeCommand extends Command {
     private ShooterSubsystem shooter;
     private IndexerSubsystem indexer;
+    private Boolean hadNote;
 
     /** Creates a new HumanPlayerIntakeCommand. */
     public HumanPlayerIntakeCommand(ShooterSubsystem shooter, IndexerSubsystem indexer) {
@@ -25,6 +26,7 @@ public class HumanPlayerIntakeCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        hadNote = false;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +36,11 @@ public class HumanPlayerIntakeCommand extends Command {
                 ShooterConstants.kHumanPlayerUpperMotorSpeed,
                 ShooterConstants.kShooterHumanPlayerSpeedLimit);
         indexer.start(IndexerConstants.kIndexerHumanPlayerSpeed);
+
+        if (indexer.hasNote() == true) {
+            hadNote = true;
+        }
+
     }
 
     // Called once the command ends or is interrupted.
@@ -46,6 +53,7 @@ public class HumanPlayerIntakeCommand extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return hadNote == true && indexer.hasNote() == false;
+
     }
 }

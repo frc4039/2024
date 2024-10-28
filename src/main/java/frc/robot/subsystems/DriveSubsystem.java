@@ -24,6 +24,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.util.WPIUtilJNI;
@@ -35,6 +36,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PivotConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.VisionConstants;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
@@ -75,7 +78,7 @@ public class DriveSubsystem extends SubsystemBase {
     private SlewRateLimiter m_rotLimiter = new SlewRateLimiter(DriveConstants.kRotationalSlewRate);
     private double m_prevTime = WPIUtilJNI.now() * 1e-6;
 
-    // Driver station position display
+    // Driver station position
     private Field2d fieldDisplay = new Field2d();
 
     // Odometry class for tracking robot pose
@@ -111,9 +114,6 @@ public class DriveSubsystem extends SubsystemBase {
                 .withPosition(0, 1);
         driveTab.addDouble("Angle", () -> getPose().getRotation().getDegrees())
                 .withPosition(0, 2);
-        driveTab.add("Field", fieldDisplay)
-                .withPosition(1, 0)
-                .withSize(3, 2);
         driveTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
@@ -123,6 +123,11 @@ public class DriveSubsystem extends SubsystemBase {
         driveTab.addDouble("Note Angle", () -> getNoteAngle())
                 .withPosition(4, 0)
                 .withSize(1, 1);
+
+        ShuffleboardTab mainTab = Shuffleboard.getTab("Main");
+        mainTab.add("Field", fieldDisplay)
+                .withPosition(5, 0)
+                .withSize(7, 4);
 
         m_frontLeft.registerWithHardwareTracker(this, hw);
         m_frontRight.registerWithHardwareTracker(this, hw);
@@ -179,65 +184,68 @@ public class DriveSubsystem extends SubsystemBase {
                 });
 
         // Insert vision logic here
-        Optional<EstimatedRobotPose> result1 = m_camLeftBack.getEstimatedGlobalPose();
+        Optional<EstimatedRobotPose> estimatedGlobalPoseLeftBack = m_camLeftBack.getEstimatedGlobalPose();
+        double numberOfTagsLeftBack = 0.0;
+        if (estimatedGlobalPoseLeftBack.isPresent()) {
+            EstimatedRobotPose camPoseLeftBack = estimatedGlobalPoseLeftBack.get();
+            numberOfTagsLeftBack = m_camLeftBack.getNumberOfTags(camPoseLeftBack.estimatedPose.toPose2d());
 
-        if (result1.isPresent()) {
-            EstimatedRobotPose camPose1 = result1.get();
-            double numberOfTags1 = m_camLeftBack.getNumberOfTags(camPose1.estimatedPose.toPose2d());
-            SmartDashboard.putNumber("Left number of tags", numberOfTags1);
-            if (numberOfTags1 < 2.0) {
-                Double ambiguity = m_camLeftBack.getAmbiguity(camPose1.estimatedPose.toPose2d());
-                if (ambiguity < 0.2) {
-                    fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+            if (numberOfTagsLeftBack < 2.0) {
+                Double ambiguityLeftBack = m_camLeftBack.getAmbiguity(camPoseLeftBack.estimatedPose.toPose2d());
+                if (ambiguityLeftBack < 0.5) {
                     // check rotation compared to current heading. Accept if within threshold
-                    Rotation2d currentRotation = getPose().getRotation();
-                    if (Math.abs(currentRotation.minus(camPose1.estimatedPose.getRotation().toRotation2d())
-                            .getDegrees()) < 1) {
+                    Rotation2d currentRotation = getPose().getRotation(); // should be gyro directly?
+                    if (Math.abs(currentRotation.minus(camPoseLeftBack.estimatedPose.getRotation().toRotation2d())
+                            .getDegrees()) < VisionConstants.kMaxGyroCameraAngleDelta) {
+                        fieldDisplay.getObject("Camera Left Pose").setPose(camPoseLeftBack.estimatedPose.toPose2d());
                         m_poseEstimator.addVisionMeasurement(
-                                camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                                m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                                camPoseLeftBack.estimatedPose.toPose2d(), camPoseLeftBack.timestampSeconds,
+                                m_camRightBack.getEstimationStdDevs(camPoseLeftBack.estimatedPose.toPose2d()));
                     }
                 }
             } else {
-                fieldDisplay.getObject("Camera Left Pose").setPose(camPose1.estimatedPose.toPose2d());
+                fieldDisplay.getObject("Camera Left Pose").setPose(camPoseLeftBack.estimatedPose.toPose2d());
                 m_poseEstimator.addVisionMeasurement(
-                        camPose1.estimatedPose.toPose2d(), camPose1.timestampSeconds,
-                        m_camRightBack.getEstimationStdDevs(camPose1.estimatedPose.toPose2d()));
+                        camPoseLeftBack.estimatedPose.toPose2d(), camPoseLeftBack.timestampSeconds,
+                        m_camRightBack.getEstimationStdDevs(camPoseLeftBack.estimatedPose.toPose2d()));
             }
 
         }
+        SmartDashboard.putNumber("Left number of tags", numberOfTagsLeftBack);
 
         if (!Helpers.isBabycakes()) {
-            Optional<EstimatedRobotPose> result2 = m_camRightBack
+            Optional<EstimatedRobotPose> estimatedGlobalPoseRightBack = m_camRightBack
                     .getEstimatedGlobalPose();
+            double numberOfTagsRightBack = 0.0;
+            if (estimatedGlobalPoseRightBack.isPresent()) {
+                EstimatedRobotPose camPoseRightBack = estimatedGlobalPoseRightBack.get();
+                numberOfTagsRightBack = m_camRightBack.getNumberOfTags(camPoseRightBack.estimatedPose.toPose2d());
 
-            if (result2.isPresent()) {
-                EstimatedRobotPose camPose2 = result2.get();
-                double numberOfTags2 = m_camRightBack.getNumberOfTags(camPose2.estimatedPose.toPose2d());
-                SmartDashboard.putNumber("Right number of tags", numberOfTags2);
-                if (numberOfTags2 < 2.0) {
-                    Double ambiguity = m_camRightBack.getAmbiguity(camPose2.estimatedPose.toPose2d());
+                if (numberOfTagsRightBack < 2.0) {
+                    Double ambiguityRightBack = m_camRightBack.getAmbiguity(camPoseRightBack.estimatedPose.toPose2d());
 
-                    if (ambiguity < 0.2) {
-                        fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                    if (ambiguityRightBack < 0.5) {
                         // check rotation compared to current heading. Accept if within threshold
                         Rotation2d currentRotation = getPose().getRotation();
-                        if (Math.abs(currentRotation.minus(camPose2.estimatedPose.getRotation().toRotation2d())
-                                .getDegrees()) < 1) {
+                        if (Math.abs(currentRotation.minus(camPoseRightBack.estimatedPose.getRotation().toRotation2d())
+                                .getDegrees()) < VisionConstants.kMaxGyroCameraAngleDelta) {
+                            fieldDisplay.getObject("Camera Right Pose")
+                                    .setPose(camPoseRightBack.estimatedPose.toPose2d());
                             m_poseEstimator.addVisionMeasurement(
-                                    camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                                    m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                                    camPoseRightBack.estimatedPose.toPose2d(), camPoseRightBack.timestampSeconds,
+                                    m_camRightBack.getEstimationStdDevs(camPoseRightBack.estimatedPose.toPose2d()));
                         }
                     }
                 } else {
-                    fieldDisplay.getObject("Camera Right Pose").setPose(camPose2.estimatedPose.toPose2d());
+                    fieldDisplay.getObject("Camera Right Pose").setPose(camPoseRightBack.estimatedPose.toPose2d());
 
                     m_poseEstimator.addVisionMeasurement(
-                            camPose2.estimatedPose.toPose2d(), camPose2.timestampSeconds,
-                            m_camRightBack.getEstimationStdDevs(camPose2.estimatedPose.toPose2d()));
+                            camPoseRightBack.estimatedPose.toPose2d(), camPoseRightBack.timestampSeconds,
+                            m_camRightBack.getEstimationStdDevs(camPoseRightBack.estimatedPose.toPose2d()));
                 }
 
             }
+            SmartDashboard.putNumber("Right number of tags", numberOfTagsRightBack);
         }
         fieldDisplay.setRobotPose(getPose());
     }
@@ -467,6 +475,40 @@ public class DriveSubsystem extends SubsystemBase {
         return getPose().getTranslation().minus(cornerposition);
     }
 
+    public double getRobotFieldSpeedX() {
+        double chassisSpeedsVectorAngle = Math.atan2(getRobotRelativeSpeeds().vyMetersPerSecond,
+                getRobotRelativeSpeeds().vxMetersPerSecond);
+        return Math.cos(getPose().getRotation().getRadians() + chassisSpeedsVectorAngle)
+                * Math.sqrt((Math.pow(getRobotRelativeSpeeds().vxMetersPerSecond, 2.0)
+                        + Math.pow(getRobotRelativeSpeeds().vyMetersPerSecond, 2.0)));
+    }
+
+    public double getRobotFieldSpeedY() {
+        double chassisSpeedsVectorAngle = Math.atan2(getRobotRelativeSpeeds().vyMetersPerSecond,
+                getRobotRelativeSpeeds().vxMetersPerSecond);
+        return Math.sin(getPose().getRotation().getRadians() + chassisSpeedsVectorAngle)
+                * Math.sqrt((Math.pow(getRobotRelativeSpeeds().vxMetersPerSecond, 2.0)
+                        + Math.pow(getRobotRelativeSpeeds().vyMetersPerSecond, 2.0)));
+    }
+
+    public double getShotTimeToGoal() {
+        double shotTime = getTranslationToGoal().getX() / (getRobotFieldSpeedX()
+                + Math.cos(getPose().getRotation().getRadians()) * (ShooterConstants.kShotSpeedMPS
+                        * Math.cos(Units.degreesToRadians(270 - 210))));
+        return shotTime;
+    }
+
+    public Translation2d getVectorToGoal() {
+        var goalposition = new Translation2d(0 - (getRobotFieldSpeedX() * getShotTimeToGoal()),
+                5.55 - (getRobotFieldSpeedY() * getShotTimeToGoal()));
+        Optional<Alliance> alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() && alliance.get() == Alliance.Red) {
+            goalposition = new Translation2d(16.46 - (getRobotFieldSpeedX() * getShotTimeToGoal()),
+                    5.55 - (getRobotFieldSpeedY() * getShotTimeToGoal()));
+        }
+        return getPose().getTranslation().minus(goalposition);
+    }
+
     /** Get the angle from the robot to the note */
     public double getNoteAngle() {
         return this.m_piVision.getEntry("Angle").getDouble(0);
@@ -479,5 +521,10 @@ public class DriveSubsystem extends SubsystemBase {
     /** Return if Camera detects a note */
     public Boolean getNoteDetected() {
         return this.m_piVision.getEntry("DetectedNote").getBoolean(false);
+    }
+
+    /** Return x Pose Value */
+    public double getPoseXValue() {
+        return this.getPose().getX();
     }
 }

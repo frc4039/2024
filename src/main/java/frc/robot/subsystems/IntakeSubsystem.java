@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.utils.HardwareMonitor;
-import frc.robot.utils.Sensors;
 
 public class IntakeSubsystem extends SubsystemBase {
 
@@ -17,7 +16,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem(HardwareMonitor hw) {
         m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorCANID, MotorType.kBrushless);
         m_intakeMotor.restoreFactoryDefaults();
-        m_intakeMotor.setSmartCurrentLimit(100);
+        m_intakeMotor.setSmartCurrentLimit(50);
         m_intakeMotor.setInverted(false);
         m_intakeMotor.burnFlash();
 
@@ -27,6 +26,10 @@ public class IntakeSubsystem extends SubsystemBase {
         intakeTab.add("Subsystem", this)
                 .withPosition(7, 0)
                 .withSize(2, 1);
+        intakeTab.addDouble("Current", () -> m_intakeMotor.getOutputCurrent())
+                .withPosition(7, 1)
+                .withSize(1, 1);
+
     }
 
     public void spinIntakeMotor(double spinSpeedMotor) {
@@ -35,5 +38,9 @@ public class IntakeSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+    }
+
+    public double getOutputCurrent() {
+        return m_intakeMotor.getOutputCurrent();
     }
 }

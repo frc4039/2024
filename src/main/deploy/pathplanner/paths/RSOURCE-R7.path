@@ -1,0 +1,58 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7378464742664135,
+        "y": 4.447775720087816
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.0754744997828811,
+        "y": 2.8706704612042664
+      },
+      "isLocked": false,
+      "linkedName": "RSOURCE"
+    },
+    {
+      "anchor": {
+        "x": 8.223336372267983,
+        "y": 2.4107628321283427
+      },
+      "prevControl": {
+        "x": 3.4625630040400095,
+        "y": 0.1907777517832714
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "R7"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 25.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 25.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SOURCE 76 Red Paths",
+  "previewStartingState": {
+    "rotation": -60.40704965754567,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

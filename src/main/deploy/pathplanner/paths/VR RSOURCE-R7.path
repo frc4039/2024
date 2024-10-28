@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7378464742664135,
+        "y": 4.447775720087816
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.6641506599175275,
+        "y": 1.0131174816161646
+      },
+      "isLocked": false,
+      "linkedName": "RSOURCE"
+    },
+    {
+      "anchor": {
+        "x": 7.160135774817003,
+        "y": 1.7164892511603211
+      },
+      "prevControl": {
+        "x": 5.623795249144498,
+        "y": -0.1577913521017391
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 25.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoPreSpinIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 4.5,
+    "maxAcceleration": 4.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 1.5,
+    "rotation": 34.5085229876684,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "SOURCE 76 Red Paths",
+  "previewStartingState": {
+    "rotation": -58.20843714692105,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
