@@ -34,7 +34,6 @@ public class PivotToClimbCommand extends Command {
     public void initialize() {
         StartPosX = Drive.getPose().getX();
         StartPosY = Drive.getPose().getY();
-        pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapFirstPosition);
         Driving = false;
         Distance = 0;
 
@@ -43,23 +42,24 @@ public class PivotToClimbCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (pivotAngle.getPitch() <= PivotConstants.kPivotTrapFirstPosition + 4.0) {
-            if (Driving == false) {
-                Drive.drive(PivotConstants.kPivotTrapDriveSPeed, 0.0, 0.0, false, true);
-                Driving = true;
-            }
-            double x = Drive.getPose().getX() - StartPosX;
-            double y = Drive.getPose().getY() - StartPosY;
-            double newAngle;
-            Distance = Math.sqrt(x * x + y * y);
-            newAngle = m_angle + (PivotConstants.kPivotTrapFirstPosition - m_angle)
-                    * (1 - Distance / PivotConstants.kPivotTrapDriveDistance);
-            if (newAngle > PivotConstants.kPivotTravelPosition)
-                newAngle = PivotConstants.kPivotTravelPosition;
-            if (newAngle < m_angle)
-                newAngle = m_angle;
-            pivotAngle.setDesiredAngle(newAngle);
-        }
+        pivotAngle.setDesiredAngle(PivotConstants.kPivotTrapPosition);
+        // if (pivotAngle.getPitch() <= PivotConstants.kPivotTrapFirstPosition + 4.0) {
+        // if (Driving == false) {
+        // Drive.drive(PivotConstants.kPivotTrapDriveSPeed, 0.0, 0.0, false, true);
+        // Driving = true;
+        // }
+        // double x = Drive.getPose().getX() - StartPosX;
+        // double y = Drive.getPose().getY() - StartPosY;
+        // double newAngle;
+        // Distance = Math.sqrt(x * x + y * y);
+        // newAngle = m_angle + (PivotConstants.kPivotTrapFirstPosition - m_angle)
+        // * (1 - Distance / PivotConstants.kPivotTrapDriveDistance);
+        // if (newAngle > PivotConstants.kPivotTravelPosition)
+        // newAngle = PivotConstants.kPivotTravelPosition;
+        // if (newAngle < m_angle)
+        // newAngle = m_angle;
+        // pivotAngle.setDesiredAngle(newAngle);
+        // }
     }
 
     // Called once the command ends or is interrupted.

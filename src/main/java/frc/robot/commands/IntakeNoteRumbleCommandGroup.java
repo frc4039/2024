@@ -18,13 +18,12 @@ public class IntakeNoteRumbleCommandGroup extends SequentialCommandGroup {
     // public IntakeNoteCommand(IntakeSubsystem intake, IndexerSubsystem indexer) {
 
     public IntakeNoteRumbleCommandGroup(IntakeSubsystem intake, IndexerSubsystem indexer,
-            Joystick driverControler,
-            Joystick operatorControler) {
+            Joystick driverControler) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new ParallelCommandGroup(
                         new IntakeNoteCommand(intake, indexer),
-                        new RumbleCommand(driverControler, operatorControler)));
+                        new RumbleCommand(driverControler)));
     }
 }

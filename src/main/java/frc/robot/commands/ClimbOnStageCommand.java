@@ -13,12 +13,10 @@ public class ClimbOnStageCommand extends Command {
 
     private ClimberSubsystem m_Climber;
     private double climbSpeed;
-    private DoubleSupplier bias;
 
-    public ClimbOnStageCommand(ClimberSubsystem climber, double climbSpeed, DoubleSupplier bias) {
+    public ClimbOnStageCommand(ClimberSubsystem climber, double climbSpeed) {
         m_Climber = climber;
         this.climbSpeed = climbSpeed;
-        this.bias = bias;
     }
 
     // Called when the command is initially scheduled.

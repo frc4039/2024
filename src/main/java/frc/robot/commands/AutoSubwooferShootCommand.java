@@ -34,9 +34,9 @@ public class AutoSubwooferShootCommand extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooter.shooterPID(ShooterConstants.kSubwooferShooterRPM);
+        shooter.shooterPID(ShooterConstants.kCrowdShooterRPM);
 
-        if (shooter.getShooterSpeed() >= ShooterConstants.kSubwooferShooterRPM - 300) {
+        if (shooter.getShooterSpeed() >= ShooterConstants.kCrowdShooterRPM - 300) {
             indexer.start(IndexerConstants.kIndexerShooterSpeed);
         }
 

@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.Set;
 
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -45,13 +46,13 @@ public final class Constants {
     }
 
     public enum ScoringState {
-        LOW,
-        HIGH,
+        AMP,
+        SPEAKER,
         INTAKE,
         CLIMB,
-        SubwooferShoot,
-        PodiumShoot,
-        SHUTTLE,
+        CROWD_SHOT,
+        LONG_SHOT,
+        SHORT_TOSS,
         HPLoad
     }
 
@@ -248,10 +249,11 @@ public final class Constants {
         public static final double kShooterRPM = 4000;
         public static final double kAmpRPM = 3000;
         public static final double kTrapShooterRPM = 650;
-        public static final double kSubwooferShooterRPM = 2500;
+        public static final double kCrowdShooterRPM = 2500;
         public static final double kShuttleOverStageRPM = 2700;
-        public static final double kPodiumShooterRPM = 5050;
+        public static final double kLongShooterRPM = 5050;
         public static final double kShuttleShootRPM = 1500;
+        public static final double kPreSpinRPM = 1750;
 
         public static final double kShuttleOverStageYawBlue = Units.degreesToRadians(323.5);
         public static final double kShuttleOverStageYawRed = Units.degreesToRadians(216.5);
@@ -300,12 +302,12 @@ public final class Constants {
         // Values <180 should be to the amp / open side of the robot.
         public static final boolean kPivotEncoderInverted = false;
 
-        public static final double kPivotTravelPosition = Helpers.isBabycakes() ? 237 : 251;
+        public static final double kPivotTravelPosition = 237.5;
         public static final double kPivotAmpPosition = 162; // was 169 //before NM 159 163.5 162 = 20 degrees relative
                                                             // to vertical
-        public static final double kPivotSubwooferPosition = 225;
+        public static final double kPivotCrowdShotPosition = 225;
         public static final double kPivotShuttleOverStage = 227; // 218;
-        public static final double kPivotPodiumPosition = 237.5;
+        public static final double kPivotLongShotPosition = 237.5;
         public static final double kPivotTrapPosition = 165; // 162;
         public static final double kPivotHPLoadPosition = 240;
         public static final double kPivotTrapFirstPosition = 211;

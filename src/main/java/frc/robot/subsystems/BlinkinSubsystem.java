@@ -63,16 +63,16 @@ public class BlinkinSubsystem extends SubsystemBase {
             SetColour(BlinkinConstants.kColourWhiteFlash);
         } else {
             switch (State.get()) {
-                case HIGH: // Colour Green
+                case SPEAKER: // Colour Green
                     SetColour(BlinkinConstants.kColourGreen);
                     break;
-                case LOW: // Colour Orange
+                case AMP: // Colour Orange
                     SetColour(BlinkinConstants.kColourOrange);
                     break;
-                case PodiumShoot: // Hot pink
+                case LONG_SHOT: // Hot pink
                     SetColour(BlinkinConstants.kColourHotPink);
                     break;
-                case SubwooferShoot: // colour Aqua
+                case CROWD_SHOT: // colour Aqua
                     SetColour(BlinkinConstants.kColourAqua);
                     break;
                 case CLIMB: // Colour Rainbow

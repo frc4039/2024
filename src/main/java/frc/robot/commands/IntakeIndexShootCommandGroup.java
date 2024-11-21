@@ -16,8 +16,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class IntakeIndexShootCommandGroup extends ParallelDeadlineGroup {
     /** Creates a new IntakeIndexShootCommandGroup. */
     public IntakeIndexShootCommandGroup(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
-            IntakeSubsystem intakeSubsystem, Joystick driverController,
-            Joystick operatorController) {
+            IntakeSubsystem intakeSubsystem, Joystick driverController) {
         // Add the deadline command in the super() call. Add other commands using
         // addCommands().
         super(new AutoIndexerShootCommand(shooterSubsystem, indexerSubsystem).withTimeout(5));

@@ -35,12 +35,8 @@ public class PreSpinShooter extends Command {
     @Override
     public void execute() {
         if (indexer.hasNote()
-                && (scoringState.get() == ScoringState.HIGH || scoringState.get() == ScoringState.PodiumShoot
-                        || scoringState.get() == ScoringState.SubwooferShoot)) {
-            shooter.shooterPID(ShooterConstants.kShooterRPM * 0.2);
-        } else if (indexer.hasNote()
-                && scoringState.get() == ScoringState.SHUTTLE) {
-            shooter.shooterPID(ShooterConstants.kShuttleShootRPM);
+                && (scoringState.get() != ScoringState.AMP || scoringState.get() != ScoringState.CLIMB)) {
+            shooter.shooterPID(ShooterConstants.kShooterRPM * 0.6);
         } else {
             shooter.shooterSpeedControl(0, 0, 0);
         }
