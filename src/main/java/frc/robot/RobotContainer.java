@@ -48,6 +48,7 @@ import frc.robot.commands.ActivateTrapCommand;
 import frc.robot.commands.AdjustClimbAnalogLeftTriggerCommand;
 import frc.robot.commands.AdjustClimbAnalogRightTriggerCommand;
 import frc.robot.commands.AmpScoreSmartCommand;
+import frc.robot.commands.AprilTagPracticeCommand;
 import frc.robot.commands.AutoDriveToNoteParallelRaceGroup;
 import frc.robot.commands.AutoPreSpinIntake;
 import frc.robot.commands.AutoPreSpinShooter;
@@ -235,6 +236,8 @@ public class RobotContainer {
                         driveSubsystem));
         NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
         NamedCommands.registerCommand("AutoPreSpinIntake", new AutoPreSpinIntake(intakeSubsystem));
+        NamedCommands.registerCommand("AprilTagPracticeCommand",
+                new AprilTagPracticeCommand(driveSubsystem, 0));
 
         // Register Source876Blue Auto Conditional Commands for pathplanner Autos
         NamedCommands.registerCommand("zSource876BlueStep2",
@@ -377,6 +380,9 @@ public class RobotContainer {
                 .withProperties(Map.of("Label position", "TOP"));
         robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
         robotInfo.addBoolean("Is Babycakes", () -> Helpers.isBabycakes());
+        robotInfo.addDouble("TX", () -> Helpers.getTx());
+        robotInfo.addDouble("TY", () -> Helpers.getTy());
+        robotInfo.addBoolean("Has Target", () -> Helpers.getTv());
 
         testSelector.setDefaultOption("None", new InstantCommand());
         SysIdRoutine pivotId = pivotAngleSubsystem.getSysId();
@@ -494,7 +500,7 @@ public class RobotContainer {
 
         driverYButton.whileTrue(
                 new ConditionalCommand(new PivotToTravelCommand(pivotAngleSubsystem),
-                        new DriveToNoteCommand(driveSubsystem, indexerSubsystem,
+                        new AprilTagPracticeCommand(driveSubsystem,
                                 DriveConstants.kDriveToNoteXSpeed),
                         () -> this.scoringState == ScoringState.CLIMB));
 

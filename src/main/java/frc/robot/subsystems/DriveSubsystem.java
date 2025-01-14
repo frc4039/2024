@@ -35,14 +35,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.LimelightHelpers;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PivotConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.Constants.VisionConstants;
+import frc.robot.LimelightHelpers.LimelightResults;
 import frc.robot.utils.HardwareMonitor;
 import frc.robot.utils.Helpers;
 import frc.robot.utils.SwerveUtils;
 import frc.robot.utils.Vision;
+import frc.robot.LimelightHelpers;
 
 public class DriveSubsystem extends SubsystemBase {
     // Create MAXSwerveModules
@@ -163,6 +166,8 @@ public class DriveSubsystem extends SubsystemBase {
                 },
                 this // Reference to this subsystem to set requirements
         );
+
+        LimelightResults rsults = LimelightHelpers.getLatestResults("");
         var gyroConfig = new MountPoseConfigs();
         gyroConfig.MountPoseYaw = 0;
         gyroConfig.MountPosePitch = 0;
@@ -248,6 +253,14 @@ public class DriveSubsystem extends SubsystemBase {
             SmartDashboard.putNumber("Right number of tags", numberOfTagsRightBack);
         }
         fieldDisplay.setRobotPose(getPose());
+        LimelightHelpers.setPipelineIndex("", 0);
+        double tx = LimelightHelpers.getTX("");
+        double ty = LimelightHelpers.getTY("");
+        boolean hasTarget = LimelightHelpers.getTV("");
+
+        System.out.println(tx);
+        System.out.println(ty);
+        System.out.println(hasTarget);
     }
 
     /**
