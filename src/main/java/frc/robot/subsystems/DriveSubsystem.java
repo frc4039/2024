@@ -258,9 +258,6 @@ public class DriveSubsystem extends SubsystemBase {
         double ty = LimelightHelpers.getTY("");
         boolean hasTarget = LimelightHelpers.getTV("");
 
-        System.out.println(tx);
-        System.out.println(ty);
-        System.out.println(hasTarget);
     }
 
     /**

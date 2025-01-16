@@ -380,9 +380,6 @@ public class RobotContainer {
                 .withProperties(Map.of("Label position", "TOP"));
         robotInfo.addString("Robot Comments", () -> Helpers.getRobotName());
         robotInfo.addBoolean("Is Babycakes", () -> Helpers.isBabycakes());
-        robotInfo.addDouble("TX", () -> Helpers.getTx());
-        robotInfo.addDouble("TY", () -> Helpers.getTy());
-        robotInfo.addBoolean("Has Target", () -> Helpers.getTv());
 
         testSelector.setDefaultOption("None", new InstantCommand());
         SysIdRoutine pivotId = pivotAngleSubsystem.getSysId();
