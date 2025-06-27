@@ -8,10 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.DoubleSupplier;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -173,94 +169,106 @@ public class RobotContainer {
         // pivotAngleSubsystem.setDefaultCommand(new
         // PivotToShootCommand(pivotAngleSubsystem, driveSubsystem));
 
-        // Register Named Commands
-        NamedCommands.registerCommand("ShootCommand", new ShootCommand(shooterSubsystem));
-        NamedCommands.registerCommand("FeederCommand",
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
-        NamedCommands.registerCommand("IndexerCommand",
-                new IndexerCommand(indexerSubsystem, shooterSubsystem, ShooterConstants.kShooterRPM - 200));
-        NamedCommands.registerCommand("AutoShoot", new AutoShootCommand(shooterSubsystem, indexerSubsystem));
-        NamedCommands.registerCommand("IntakeNoteCommand", new IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
-        NamedCommands.registerCommand("StartPivot",
-                new ScheduleCommand(new PivotToShootCommand(pivotAngleSubsystem, driveSubsystem)));
-        NamedCommands.registerCommand("TravelPivot",
-                new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
-        NamedCommands.registerCommand("IntakeIndexShootCommand", new IntakeIndexShootCommandGroup(shooterSubsystem,
-                indexerSubsystem, intakeSubsystem, m_driverController));
-        NamedCommands.registerCommand("SubwooferShot", new AutoSubwooferShotSequentialCommandGroup(driveSubsystem,
-                shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
-        NamedCommands.registerCommand("CalibrateWheelDiameter", new WheelDiameterCalibrationCommand(driveSubsystem));
-
-        NamedCommands.registerCommand("AutoDriveToNotePRG",
-                new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
-                        driveSubsystem));
-        NamedCommands.registerCommand("AutoPreSpinShooter", new AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
-        NamedCommands.registerCommand("AutoPreSpinIntake", new AutoPreSpinIntake(intakeSubsystem));
-
-        // Register Source876Blue Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zSource876BlueStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
-                        AutoBuilder.buildAuto("zSource876Blue2B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zSource876BlueStep3",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
-                        AutoBuilder.buildAuto("zSource876Blue3B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zSource876BlueStep4",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
-                        AutoBuilder.buildAuto("zSource876Blue4B"),
-                        () -> indexerSubsystem.hasNote()));
-
-        // Register Source876Red Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zSource876RedStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
-                        AutoBuilder.buildAuto("zSource876Red2B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zSource876RedStep3",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
-                        AutoBuilder.buildAuto("zSource876Red3B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zSource876RedStep4",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
-                        AutoBuilder.buildAuto("zSource876Red4B"),
-                        () -> indexerSubsystem.hasNote()));
-
-        // Register Speaker3216 Blue Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zSpeaker3216BlueStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Blue2A"),
-                        AutoBuilder.buildAuto("zSpeaker3216Blue2B"),
-                        () -> indexerSubsystem.hasNote()));
-
-        // Register Speaker3216 Red Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zSpeaker3216RedStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Red2A"),
-                        AutoBuilder.buildAuto("zSpeaker3216Red2B"),
-                        () -> indexerSubsystem.hasNote()));
-
-        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zAmp145BlueStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue2A"),
-                        AutoBuilder.buildAuto("zAmp145Blue2B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zAmp145BlueStep3",
-                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue3A"),
-                        AutoBuilder.buildAuto("zAmp145Blue3B"),
-                        () -> indexerSubsystem.hasNote()));
-
-        // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
-        NamedCommands.registerCommand("zAmp145RedStep2",
-                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red2A"),
-                        AutoBuilder.buildAuto("zAmp145Red2B"),
-                        () -> indexerSubsystem.hasNote()));
-        NamedCommands.registerCommand("zAmp145RedStep3",
-                new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red3A"),
-                        AutoBuilder.buildAuto("zAmp145Red3B"),
-                        () -> indexerSubsystem.hasNote()));
-
+        /*
+         * // Register Named Commands
+         * NamedCommands.registerCommand("ShootCommand", new
+         * ShootCommand(shooterSubsystem));
+         * NamedCommands.registerCommand("FeederCommand",
+         * new IndexerCommand(indexerSubsystem, shooterSubsystem,
+         * ShooterConstants.kShooterRPM - 200));
+         * NamedCommands.registerCommand("IndexerCommand",
+         * new IndexerCommand(indexerSubsystem, shooterSubsystem,
+         * ShooterConstants.kShooterRPM - 200));
+         * NamedCommands.registerCommand("AutoShoot", new
+         * AutoShootCommand(shooterSubsystem, indexerSubsystem));
+         * NamedCommands.registerCommand("IntakeNoteCommand", new
+         * IntakeNoteCommand(intakeSubsystem, indexerSubsystem));
+         * NamedCommands.registerCommand("StartPivot",
+         * new ScheduleCommand(new PivotToShootCommand(pivotAngleSubsystem,
+         * driveSubsystem)));
+         * NamedCommands.registerCommand("TravelPivot",
+         * new ScheduleCommand(new PivotToTravelCommand(pivotAngleSubsystem)));
+         * NamedCommands.registerCommand("IntakeIndexShootCommand", new
+         * IntakeIndexShootCommandGroup(shooterSubsystem,
+         * indexerSubsystem, intakeSubsystem, m_driverController));
+         * NamedCommands.registerCommand("SubwooferShot", new
+         * AutoSubwooferShotSequentialCommandGroup(driveSubsystem,
+         * shooterSubsystem, indexerSubsystem, pivotAngleSubsystem));
+         * NamedCommands.registerCommand("CalibrateWheelDiameter", new
+         * WheelDiameterCalibrationCommand(driveSubsystem));
+         * 
+         * NamedCommands.registerCommand("AutoDriveToNotePRG",
+         * new AutoDriveToNoteParallelRaceGroup(intakeSubsystem, indexerSubsystem,
+         * driveSubsystem));
+         * NamedCommands.registerCommand("AutoPreSpinShooter", new
+         * AutoPreSpinShooter(shooterSubsystem, indexerSubsystem));
+         * NamedCommands.registerCommand("AutoPreSpinIntake", new
+         * AutoPreSpinIntake(intakeSubsystem));
+         * 
+         * // Register Source876Blue Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSource876BlueStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue2A"),
+         * AutoBuilder.buildAuto("zSource876Blue2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876BlueStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue3A"),
+         * AutoBuilder.buildAuto("zSource876Blue3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876BlueStep4",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Blue4A"),
+         * AutoBuilder.buildAuto("zSource876Blue4B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Source876Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSource876RedStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red2A"),
+         * AutoBuilder.buildAuto("zSource876Red2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red3A"),
+         * AutoBuilder.buildAuto("zSource876Red3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zSource876RedStep4",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSource876Red4A"),
+         * AutoBuilder.buildAuto("zSource876Red4B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Speaker3216 Blue Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSpeaker3216BlueStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Blue2A"),
+         * AutoBuilder.buildAuto("zSpeaker3216Blue2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Speaker3216 Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zSpeaker3216RedStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zSpeaker3216Red2A"),
+         * AutoBuilder.buildAuto("zSpeaker3216Red2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zAmp145BlueStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue2A"),
+         * AutoBuilder.buildAuto("zAmp145Blue2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zAmp145BlueStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Blue3A"),
+         * AutoBuilder.buildAuto("zAmp145Blue3B"),
+         * () -> indexerSubsystem.hasNote()));
+         * 
+         * // Register Amp 145 Red Auto Conditional Commands for pathplanner Autos
+         * NamedCommands.registerCommand("zAmp145RedStep2",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red2A"),
+         * AutoBuilder.buildAuto("zAmp145Red2B"),
+         * () -> indexerSubsystem.hasNote()));
+         * NamedCommands.registerCommand("zAmp145RedStep3",
+         * new ConditionalCommand(AutoBuilder.buildAuto("zAmp145Red3A"),
+         * AutoBuilder.buildAuto("zAmp145Red3B"),
+         * () -> indexerSubsystem.hasNote()));
+         */
         configureBindings();
 
         // autoChooser = AutoBuilder.buildAutoChooser();
-        autoChooser.setDefaultOption("Do Nothing", Commands.none());
+        // autoChooser.setDefaultOption("Do Nothing", Commands.none());
 
         // autoChooser.addOption("SPEAKER 3267 Blue Smart", new PathPlannerAuto("SPEAKER
         // 3267 Blue Smart"));
@@ -293,7 +301,8 @@ public class RobotContainer {
         // Pause Blue"));
         // autoChooser.addOption("SOURCE 8 Pause Red", new PathPlannerAuto("SOURCE 8
         // Pause Red"));
-        autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel calibration"));
+        // autoChooser.addOption("Wheel Calibration", new PathPlannerAuto("wheel
+        // calibration"));
 
         // autoChooser.addOption("SPEAKER 3216 Blue", new PathPlannerAuto("SPEAKER 3216
         // Blue"));
@@ -309,9 +318,9 @@ public class RobotContainer {
         // autoChooser.addOption("AMP 145 Blue", new PathPlannerAuto("AMP 145 Blue"));
         // autoChooser.addOption("AMP 145 Red", new PathPlannerAuto("AMP 145 Red"));
 
-        mainTab.add("Auto Chooser", autoChooser)
-                .withPosition(0, 0)
-                .withSize(2, 1);
+        // mainTab.add("Auto Chooser", autoChooser)
+        // .withPosition(0, 0)
+        // .withSize(2, 1);
         mainTab.add("Zero Angle",
                 new InstantCommand(() -> {
                     Rotation2d resetAngle = Rotation2d.fromDegrees(0);

@@ -234,8 +234,8 @@ public final class Constants {
         public static final double kAmpUpperMotorSpeed = -0.5;
         public static final double kAmpLowerMotorSpeed = 0.5;
 
-        public static final double kHumanPlayerUpperMotorSpeed = -0.2;
-        public static final double kHumanPlayerLowerMotorSpeed = -0.2;
+        public static final double kHumanPlayerUpperMotorSpeed = -0.15;
+        public static final double kHumanPlayerLowerMotorSpeed = -0.15;
 
         public static final double kShooterSpeedLimit = 0.7;
         public static final double kShooterAmpSpeedLimit = 0.7;
